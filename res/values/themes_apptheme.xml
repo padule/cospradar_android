@@ -7,6 +7,9 @@
 
   <style name="_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
+    <item name="android:actionBarStyle">@style/ActionBarAppTheme</item>
+    <item name="actionBarStyle">@style/ActionBarAppTheme</item>
+
     <item name="android:editTextStyle">@style/EditTextAppTheme</item>
 
     <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppTheme</item>
@@ -24,12 +27,6 @@
     <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppTheme</item>
 
     <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
-
-    <item name="android:listViewStyle">@style/ListViewAppTheme</item>
-
-    <item name="android:listViewWhiteStyle">@style/ListViewAppTheme.White</item>
-
-    <item name="android:spinnerItemStyle">@style/SpinnerItemAppTheme</item>
 
   </style>
 

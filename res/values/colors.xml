@@ -5,7 +5,7 @@
     <color name="bg_white">#FEFEFE</color>
     <color name="bg_black_alfa">#26000000</color>
 
-    <!-- Theme -->
-    <color name="main">#8fc31e</color>
+    <!-- Text -->
+    <color name="text_white">#FEFEFE</color>
 
 </resources>

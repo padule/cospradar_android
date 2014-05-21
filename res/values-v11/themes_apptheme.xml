@@ -7,6 +7,9 @@
 
   <style name="_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
+    <item name="android:actionBarStyle">@style/ActionBarAppTheme</item>
+    <item name="actionBarStyle">@style/ActionBarAppTheme</item>
+
     <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
 
     <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppTheme</item>

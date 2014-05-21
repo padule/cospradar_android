@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/bg_white"
         android:textSize="@dimen/text_medium"
-        app:pstsIndicatorColor="@color/main"
+        app:pstsIndicatorColor="@color/apptheme_color"
         app:pstsIndicatorHeight="@dimen/tab_indicator_height"
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="false"
