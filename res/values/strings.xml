@@ -6,4 +6,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <string name="search_radar_title">Radar</string>
+    <string name="search_list_title">List</string>
+
 </resources>

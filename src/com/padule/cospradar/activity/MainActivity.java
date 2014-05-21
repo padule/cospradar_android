@@ -12,13 +12,14 @@ import butterknife.InjectView;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.fragment.SearchFragment;
 
 public class MainActivity extends BaseActivity {
 
     @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @InjectView(R.id.drawer_list) ListView mDrawerList;
 
-    private ActionBarDrawerToggle mDrawerToggle;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,25 +29,31 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        initDrawer();
         initActionBar();
+        initDrawer();
+        replaceFragment();
+    }
+
+    private void replaceFragment() {
+        getSupportFragmentManager().beginTransaction()
+        .replace(R.id.content_frame, new SearchFragment(), "").commit();
     }
 
     @Override  
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+        drawerToggle.syncState();
     }
 
     @Override  
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override  
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -60,13 +67,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.open, R.string.close) {
             public void onDrawerClosed(View view) {
                 //
             }  
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerListener(drawerToggle);
     }
 
 }
