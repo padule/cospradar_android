@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- App -->
     <string name="app_name">Cospradar</string>
 
+    <!-- Drawer -->
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="drawer_comment_chat">Commented Chats</string>
+    <string name="drawer_my_chat">My Chat</string>
+    <string name="drawer_search">Search Cosplayer</string>
 
+    <!-- Search -->
     <string name="search_radar_title">Radar</string>
     <string name="search_list_title">List</string>
 

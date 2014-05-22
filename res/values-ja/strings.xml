@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- App -->
     <string name="app_name">コスプレーダー</string>
 
+    <!-- Drawer -->
     <string name="open">開く</string>
     <string name="close">閉じる</string>
+    <string name="drawer_comment_chat">コメントしたチャット</string>
+    <string name="drawer_my_chat">自分のチャット</string>
+    <string name="drawer_search">レイヤーを探す</string>
 
+    <!-- Search -->
     <string name="search_radar_title">レーダー</string>
     <string name="search_list_title">リスト</string>
 
