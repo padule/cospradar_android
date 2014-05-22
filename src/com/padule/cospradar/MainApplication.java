@@ -19,8 +19,8 @@ implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         initImageLoader();
+        super.onCreate();
     }
 
     private void initImageLoader() {
@@ -36,6 +36,7 @@ implements Thread.UncaughtExceptionHandler {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 getApplicationContext()).threadPoolSize(5)
+                .threadPriority(Thread.NORM_PRIORITY - 3)
                 .denyCacheImageMultipleSizesInMemory()
                 .discCacheExtraOptions(480, 800, CompressFormat.JPEG, 80, null)
                 .memoryCache(new LruMemoryCache(8 * 1024 * 1024))

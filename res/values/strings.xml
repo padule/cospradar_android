@@ -10,9 +10,15 @@
     <string name="drawer_comment_chat">Commented Chats</string>
     <string name="drawer_my_chat">My Chat</string>
     <string name="drawer_search">Search Cosplayer</string>
+    <string name="drawer_no_charactor">Charactor not set</string>
+    <string name="drawer_current_charactor">Current charactor:</string>
 
     <!-- Search -->
     <string name="search_radar_title">Radar</string>
     <string name="search_list_title">List</string>
+    <string name="search_list_nothing">Sorry. No Cosplayers are near.</string>
+    
+    <!-- CharactorEdit -->
+    <string name="charactor_edit_title">Edit charactor</string>
 
 </resources>

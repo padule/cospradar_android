@@ -17,7 +17,7 @@
         app:pstsIndicatorHeight="@dimen/tab_indicator_height"
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="false"
-        app:pstsUnderlineColor="@color/bg_black_alfa"
+        app:pstsUnderlineColor="@color/bg_black_alfa_light"
         app:pstsUnderlineHeight="@dimen/tab_underline_height" />
 
     <android.support.v4.view.ViewPager

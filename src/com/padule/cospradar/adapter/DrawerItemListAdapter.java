@@ -15,12 +15,12 @@ import butterknife.InjectView;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.DrawerItem;
 
-public class DrawerItemAdapter extends ArrayAdapter<DrawerItem> {
+public class DrawerItemListAdapter extends ArrayAdapter<DrawerItem> {
 
     private Context context;
 
-    public DrawerItemAdapter(Context context, List<DrawerItem> drawerItems) {
-        super(context, R.layout.item_drawer_item, drawerItems);
+    public DrawerItemListAdapter(Context context, List<DrawerItem> drawerItems) {
+        super(context, R.layout.item_drawer, drawerItems);
         this.context = context;
     }
 
@@ -29,8 +29,7 @@ public class DrawerItemAdapter extends ArrayAdapter<DrawerItem> {
         final ViewHolder holder;
 
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_drawer_item, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_drawer, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {

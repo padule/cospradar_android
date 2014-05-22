@@ -18,20 +18,23 @@ import android.widget.ListView;
 import butterknife.InjectView;
 
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.DrawerItemAdapter;
+import com.padule.cospradar.adapter.DrawerItemListAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.DrawerItem;
+import com.padule.cospradar.fragment.CharactorEditFragment;
 import com.padule.cospradar.fragment.ChatFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.SearchFragment;
+import com.padule.cospradar.mock.MockFactory;
+import com.padule.cospradar.ui.DrawerHeader;
 
 public class MainActivity extends BaseActivity {
 
     @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @InjectView(R.id.drawer_list) ListView mDrawerList;
+    @InjectView(R.id.drawer_list) ListView mDrawerListView;
 
     private ActionBarDrawerToggle drawerToggle;
-    private DrawerItemAdapter adapter;
+    private DrawerItemListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,21 +93,16 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                DrawerItem drawerItem = adapter.getItem(mDrawerList.getCheckedItemPosition());
-                showFragment(drawerItem);
-                setActionBarTitle(drawerItem.getTitle());
             }
         };
         mDrawerLayout.setDrawerListener(drawerToggle);
         createDrawerList();
     }
 
-    private void showFragment(DrawerItem drawerItem) {
-        Fragment fragment = Fragment.instantiate(this,
-                drawerItem.getFragmentPackage());
-        FragmentTransaction ft = getSupportFragmentManager()
-                .beginTransaction();
-        ft.replace(R.id.content_frame, fragment, drawerItem.getFragmentPackage()).commit();
+    private void showFragment(String fragmentPackage) {
+        Fragment fragment = Fragment.instantiate(this, fragmentPackage);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment, fragmentPackage).commit();
     }
 
     private void setActionBarTitle(String title) {
@@ -113,18 +111,30 @@ public class MainActivity extends BaseActivity {
     }
 
     private void createDrawerList() {
+        DrawerHeader header = new DrawerHeader(this, MockFactory.getCharactor1(MockFactory.getUser1()));
+        mDrawerListView.addHeaderView(header);
+
         List<DrawerItem> list = new ArrayList<DrawerItem>();
         list.add(new DrawerItem(getString(R.string.drawer_search), R.drawable.ic_drawer_search, SearchFragment.class.getName()));
         list.add(new DrawerItem(getString(R.string.drawer_my_chat), R.drawable.ic_drawer_my_chat, ChatFragment.class.getName()));
         list.add(new DrawerItem(getString(R.string.drawer_comment_chat), R.drawable.ic_drawer_comment_chat, ChatListFragment.class.getName()));
 
-        adapter = new DrawerItemAdapter(this, list);
-        mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+        adapter = new DrawerItemListAdapter(this, list);
+        mDrawerListView.setAdapter(adapter);
+        mDrawerListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, final int pos, long id) {
-                mDrawerList.setItemChecked(pos, true);
-                mDrawerLayout.closeDrawer(mDrawerList);
+                mDrawerListView.setItemChecked(pos, true);
+                mDrawerLayout.closeDrawer(mDrawerListView);
+
+                if (pos <= 0) {
+                    showFragment(CharactorEditFragment.class.getName());
+                    setActionBarTitle(getString(R.string.charactor_edit_title));;
+                } else {
+                    DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
+                    showFragment(drawerItem.getFragmentPackage());
+                    setActionBarTitle(drawerItem.getTitle());
+                }
             }
         });
     }

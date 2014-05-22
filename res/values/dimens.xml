@@ -23,5 +23,11 @@
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_large">20sp</dimen>
+    
+    <!-- Line -->
+    <dimen name="line_small">1sp</dimen>
+    
+    <!-- Image -->
+    <dimen name="icon_medium">80dp</dimen>
 
 </resources>
