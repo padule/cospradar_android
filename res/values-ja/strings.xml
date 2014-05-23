@@ -10,7 +10,7 @@
     <string name="drawer_comment_chat">コメントしたチャット</string>
     <string name="drawer_my_chat">自分のチャット</string>
     <string name="drawer_search">レイヤーを探す</string>
-    <string name="drawer_no_charactor">キャラクターを設定しよう</string>
+    <string name="drawer_no_charactor">キャラクターを設定しよう！</string>
     <string name="drawer_current_charactor">いまのキャラクター:</string>
 
     <!-- Search -->

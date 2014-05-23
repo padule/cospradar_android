@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_white" >
+    android:background="@color/bg_black_alfa_dark" >
 
     <ImageView
         android:id="@+id/img_cover"
@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@id/img_charactor" >
 
         <TextView
@@ -72,9 +73,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@id/img_charactor"
+        android:ellipsize="end"
         android:text="@string/drawer_no_charactor"
-        android:textSize="@dimen/text_medium"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
         android:visibility="gone" />
 
 </RelativeLayout>

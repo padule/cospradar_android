@@ -112,6 +112,7 @@ public class MainActivity extends BaseActivity {
 
     private void createDrawerList() {
         DrawerHeader header = new DrawerHeader(this, MockFactory.getCharactor1(MockFactory.getUser1()));
+//        DrawerHeader header = new DrawerHeader(this, null);
         mDrawerListView.addHeaderView(header);
 
         List<DrawerItem> list = new ArrayList<DrawerItem>();

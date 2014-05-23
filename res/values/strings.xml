@@ -10,7 +10,7 @@
     <string name="drawer_comment_chat">Commented Chats</string>
     <string name="drawer_my_chat">My Chat</string>
     <string name="drawer_search">Search Cosplayer</string>
-    <string name="drawer_no_charactor">Charactor not set</string>
+    <string name="drawer_no_charactor">Set your charactor!</string>
     <string name="drawer_current_charactor">Current charactor:</string>
 
     <!-- Search -->
