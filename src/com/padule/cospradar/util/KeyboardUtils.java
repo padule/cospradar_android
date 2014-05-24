@@ -12,6 +12,7 @@ public class KeyboardUtils {
         InputMethodManager imm = (InputMethodManager)activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        activity.getCurrentFocus().clearFocus();
     }
 
     public static void show(Context context, EditText edit) {

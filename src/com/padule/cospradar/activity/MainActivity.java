@@ -27,6 +27,7 @@ import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.SearchFragment;
 import com.padule.cospradar.ui.DrawerHeader;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.KeyboardUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -70,6 +71,7 @@ public class MainActivity extends BaseActivity {
 
     @Override  
     public boolean onOptionsItemSelected(MenuItem item) {
+        KeyboardUtils.hide(this);
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
