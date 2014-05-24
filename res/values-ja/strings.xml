@@ -26,6 +26,8 @@
     <string name="search_radar_title">レーダー</string>
     <string name="search_list_title">リスト</string>
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
+    <string name="search_hint">作品名で検索</string>
+    <string name="search">検索</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_edit_actionbar">コスキャラ編集</string>
