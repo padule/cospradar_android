@@ -36,10 +36,10 @@ public class DrawerHeader extends RelativeLayout {
 
     private void bindData(Charactor charactor) {
         if (charactor != null) {
-            ImageUtils.displayRoundedImage(charactor.getImage(), mImgCharactor);
+            ImageUtils.displayRoundedImage(charactor.getImageUrl(), mImgCharactor);
             mTxtCharactorName.setText(charactor.getName());
             mTxtCharactorTitle.setText(charactor.getTitle());
-            MainApplication.imageLoader.displayImage(charactor.getImage(), mImgCover);
+            MainApplication.imageLoader.displayImage(charactor.getImageUrl(), mImgCover);
         } else {
             mContainerCharactorTxt.setVisibility(View.GONE);
             mTxtNoCharactor.setVisibility(View.VISIBLE);

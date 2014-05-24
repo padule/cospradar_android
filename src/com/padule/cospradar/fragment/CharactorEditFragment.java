@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +32,7 @@ import com.google.gson.GsonBuilder;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
+import com.padule.cospradar.activity.MainActivity;
 import com.padule.cospradar.base.BaseFragment;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.mock.MockFactory;
@@ -69,7 +71,10 @@ public class CharactorEditFragment extends BaseFragment {
     }
 
     private void initView() {
-        initCharactorImage(charactor.getImage());
+        Log.d("Cospradar", charactor.getImageUrl());
+        mEditName.setText(charactor.getName());
+        mEditTitle.setText(charactor.getTitle());
+        initCharactorImage(charactor.getImageUrl());
     }
 
     private void initCharactorImage(String url) {
@@ -124,7 +129,7 @@ public class CharactorEditFragment extends BaseFragment {
     private void setCharactorImage(Uri uri) {
         String path = ImageUtils.getPath(getActivity(), uri);
         this.charactor.setImage(path);
-        initCharactorImage(ImageUtils.PREFIX_FILE_PATH + path);
+        initCharactorImage(ImageUtils.convertToValidUrl(path));
     }
 
     @Override
@@ -137,6 +142,7 @@ public class CharactorEditFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (R.id.item_ok == item.getItemId()) {
             if (validate()) {
+                KeyboardUtils.hide(getActivity());
                 saveCharactor();
             }
         }
@@ -161,13 +167,15 @@ public class CharactorEditFragment extends BaseFragment {
             this.charactor = charactor;
             AppUtils.setCharactor(charactor);
             showToast(R.string.charactor_edit_succeeded);
+            ((MainActivity)getActivity()).initDrawer();
         } else {
             // showToast(R.string.charactor_edit_failed);
             // FIXME Remove me. Just implement for test.
-            this.charactor = MockFactory.createCharactor(
-                    charactor.getName(), charactor.getTitle(), charactor.getImage());
+            this.charactor = MockFactory.createCharactor(mEditName.getText().toString(), 
+                    mEditTitle.getText().toString(), charactor.getImageUrl());
             AppUtils.setCharactor(charactor);
             showToast(R.string.charactor_edit_succeeded);
+            ((MainActivity)getActivity()).initDrawer();
         }
     }
 
@@ -176,8 +184,8 @@ public class CharactorEditFragment extends BaseFragment {
         params.put(AppUrls.PARAM_NAME, mEditName.getText().toString());
         params.put(AppUrls.PARAM_TITLE, mEditTitle.getText().toString());
 
-        if (charactor.getImage() != null) {
-            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImage()));
+        if (charactor.getImageUrl() != null) {
+            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImageUrl()));
         }
 
         return params;
@@ -195,7 +203,8 @@ public class CharactorEditFragment extends BaseFragment {
             return false;
         }
         if (charactor.getName().equals(mEditName.getText().toString())
-                || charactor.getTitle().equals(mEditTitle.getText().toString())) {
+                && charactor.getTitle().equals(mEditTitle.getText().toString())
+                && (AppUtils.getCharactor() != null && AppUtils.getCharactor().getImageUrl().equals(charactor.getImageUrl()))) {
             showToast(R.string.not_changed_input);
             return false;
         }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
 import com.padule.cospradar.base.Data;
+import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TimeUtils;
 
 public class Charactor extends Data {
@@ -38,7 +39,7 @@ public class Charactor extends Data {
 
     public boolean isEnabled() {
         int diff = TimeUtils.getDiffDays(new Date(), updatedAt);
-        return diff >= LIMIT_DAY;
+        return diff < LIMIT_DAY;
     }
 
     public int getId() {
@@ -57,10 +58,10 @@ public class Charactor extends Data {
         return title;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return ImageUtils.convertToValidUrl(image);
     }
-
+    
     public void setImage(String url) {
         this.image = url;
     }

@@ -36,18 +36,30 @@ public class ImageUtils {
     private static final String DIR_COSPRADER = "/cosprader";
     private static final String SUFFIX_JPG = ".jpg";
     private static final String SUFFIX_OCFL311 = ".OCFL311";
+    private static final String PREFIX_HTTP = "http";
     private static final String PREFIX_JPG = "JPEG_";
     private static final String PREFIX_GALLERY = "content://com.android.gallery3d.provider";
     private static final String PREFIX_CONTENT = "content";
     private static final String PREFIX_FILE = "file";
     private static final String PREFIX_GALLERY_PKG_BEFORE = "com.android.gallery3d";
     private static final String PREFIX_GALLERY_PKG_AFTER = "com.google.android.gallery3d";
-    
-    public static final String PREFIX_FILE_PATH = "file://";
+    private static final String PREFIX_FILE_PATH = "file://";
 
     private static final String[] AVIARY_TOOLS_LIST = {
         "EFFECTS", "CROP", "BRIGHTNESS", "CONTRAST", "DRAWING", "TEXT", "RED_EYE", "WHITEN"
     };
+
+    public static String convertToValidUrl(String url) {
+        if (url == null) {
+            return url;
+        } else if (url.startsWith(PREFIX_HTTP)
+                || url.startsWith(PREFIX_CONTENT)
+                || url.startsWith(PREFIX_FILE)) {
+            return url;
+        } else {
+            return PREFIX_FILE_PATH + url;
+        }
+    }
 
     private static DisplayImageOptions roundedImageOptions = 
             new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.ic_no_user)
@@ -132,7 +144,7 @@ public class ImageUtils {
             return null;
         }
 
-        if (PREFIX_GALLERY.startsWith(uri.toString())) {
+        if (uri.toString().startsWith(PREFIX_GALLERY)) {
             uri = Uri.parse(uri.toString().replace(PREFIX_GALLERY_PKG_BEFORE, PREFIX_GALLERY_PKG_AFTER));
         }
 

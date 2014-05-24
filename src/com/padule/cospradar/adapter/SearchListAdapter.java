@@ -60,7 +60,7 @@ public class SearchListAdapter extends ArrayAdapter<Charactor> {
 
         void bindData(Charactor charactor) {
             if (charactor != null) {
-                ImageUtils.displayRoundedImage(charactor.getImage(), mImgIcon);
+                ImageUtils.displayRoundedImage(charactor.getImageUrl(), mImgIcon);
                 mTxtName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());
                 // TODO implment binding distance.

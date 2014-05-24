@@ -32,6 +32,7 @@ public class MainActivity extends BaseActivity {
 
     @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @InjectView(R.id.drawer_list) ListView mDrawerListView;
+    private DrawerHeader mHeader;
 
     private ActionBarDrawerToggle drawerToggle;
     private DrawerItemListAdapter adapter;
@@ -82,13 +83,12 @@ public class MainActivity extends BaseActivity {
         bar.setHomeButtonEnabled(true);
     }
 
-    private void initDrawer() {
+    public void initDrawer() {
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.open, R.string.close) {
             @Override
             public void onDrawerOpened(View view) {
                 super.onDrawerOpened(view);
-                setActionBarTitle(getString(R.string.app_name));
             }
             @Override
             public void onDrawerClosed(View view) {
@@ -115,8 +115,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void createDrawerList() {
-        DrawerHeader header = new DrawerHeader(this, AppUtils.getCharactor());
-        mDrawerListView.addHeaderView(header);
+        if (mDrawerListView.getHeaderViewsCount() > 0) {
+            mDrawerListView.removeHeaderView(mHeader);
+        }
+        mHeader = new DrawerHeader(this, AppUtils.getCharactor());
+        mDrawerListView.addHeaderView(mHeader);
 
         List<DrawerItem> list = new ArrayList<DrawerItem>();
         list.add(new DrawerItem(getString(R.string.drawer_search), R.drawable.ic_drawer_search, SearchFragment.class.getName()));

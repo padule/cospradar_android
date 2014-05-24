@@ -62,8 +62,7 @@ public class MockFactory {
     }
 
     public static Charactor createCharactor(String name, String title, String localImage) {
-        String image = localImage != null ? ImageUtils.PREFIX_FILE_PATH + localImage : null;
-        return new Charactor(1, getUser1().getId(), name, title, image);
+        return new Charactor(1, getUser1().getId(), name, title, ImageUtils.convertToValidUrl(localImage));
     }
 
 }
