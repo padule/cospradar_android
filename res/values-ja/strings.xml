@@ -3,6 +3,10 @@
 
     <!-- App -->
     <string name="app_name">コスプレーダー</string>
+    
+    <!-- Photo -->
+    <string name="choose_from_gallery">ギャラリーから選ぶ</string>
+    <string name="choose_from_camera">カメラで撮る</string>
 
     <!-- Drawer -->
     <string name="open">開く</string>
@@ -10,15 +14,19 @@
     <string name="drawer_comment_chat">コメントしたチャット</string>
     <string name="drawer_my_chat">自分のチャット</string>
     <string name="drawer_search">レイヤーを探す</string>
-    <string name="drawer_no_charactor">キャラクターを設定しよう！</string>
-    <string name="drawer_current_charactor">いまのキャラクター:</string>
+    <string name="drawer_no_charactor">今のコスキャラを設定しよう！</string>
+    <string name="drawer_current_charactor">いまのコスキャラ:</string>
 
     <!-- Search -->
     <string name="search_radar_title">レーダー</string>
     <string name="search_list_title">リスト</string>
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
-    
+
     <!-- CharactorEdit -->
-    <string name="charactor_edit_title">キャラクター編集</string>
+    <string name="charactor_edit_title">コスキャラ編集</string>
+    <string name="charactor_edit_description1">今のコスキャラを設定しよう！\nレーダーに表示されるよ！</string>
+    <string name="charactor_edit_description2">※ コスキャラは1日でリセットされます</string>
+    <string name="charactor_edit_name">キャラクター名</string>
+    <string name="charactor_edit_title">作品名</string>
 
 </resources>

@@ -25,8 +25,8 @@ import com.padule.cospradar.fragment.CharactorEditFragment;
 import com.padule.cospradar.fragment.ChatFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.SearchFragment;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.ui.DrawerHeader;
+import com.padule.cospradar.util.AppUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -111,8 +111,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void createDrawerList() {
-        DrawerHeader header = new DrawerHeader(this, MockFactory.getCharactor1(MockFactory.getUser1()));
-//        DrawerHeader header = new DrawerHeader(this, null);
+        DrawerHeader header = new DrawerHeader(this, AppUtils.getCharactor());
         mDrawerListView.addHeaderView(header);
 
         List<DrawerItem> list = new ArrayList<DrawerItem>();
