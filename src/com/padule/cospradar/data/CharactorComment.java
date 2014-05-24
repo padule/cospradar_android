@@ -1,7 +1,10 @@
 package com.padule.cospradar.data;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.padule.cospradar.base.Data;
+import com.padule.cospradar.util.AppUtils;
 
 public class CharactorComment extends Data {
 
@@ -11,25 +14,25 @@ public class CharactorComment extends Data {
     @SerializedName("charactor_id") int charactorId;
     @SerializedName("comment_charactor_id") int commentCharactorId;
     @SerializedName("text") String text;
+    @SerializedName("created_at") Date createdAt;
 
     @SerializedName("charactor") Charactor charactor;
     @SerializedName("comment_charactor") Charactor commentCharactor;
 
-    public CharactorComment(int id, int charactorId, int commentCharactorId,
-            String text, Charactor charactor, Charactor commentCharactor) {
+    public CharactorComment(int id, String text, 
+            Charactor charactor, Charactor commentCharactor) {
         super();
         this.id = id;
-        this.charactorId = charactorId;
-        this.commentCharactorId = commentCharactorId;
+        this.charactorId = charactor.id;
+        this.commentCharactorId = commentCharactor.id;
+        this.charactor = charactor;
+        this.commentCharactor = commentCharactor;
         this.text = text;
+        this.createdAt = new Date();
     }
 
     public int getId() {
         return id;
-    }
-
-    public int getCharactorId() {
-        return charactorId;
     }
 
     public int getCommentCharactorId() {
@@ -46,6 +49,15 @@ public class CharactorComment extends Data {
 
     public Charactor getCommentCharactor() {
         return commentCharactor;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public boolean isCurrentCharactor() {
+        Charactor charactor = AppUtils.getCharactor();
+        return charactor != null && charactor.getId() == id;
     }
 
 }

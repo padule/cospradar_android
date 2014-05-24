@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.data.User;
 import com.padule.cospradar.util.ImageUtils;
 
@@ -59,6 +60,44 @@ public class MockFactory {
         charactors.add(getCharactor8(user));
 
         return charactors;
+    }
+
+    public static List<CharactorComment> getComments(Charactor charactor) {
+        List<CharactorComment> comments = new ArrayList<CharactorComment>();
+        comments.add(getComment(1, "こんにちは！初めまして！", charactor));
+        comments.add(getComment(2, "こんにちは！", charactor));
+        comments.add(getComment(3, "こんにちは！初めまして！ありがとう！さようなら！", charactor));
+        comments.add(getComment(4, "こんにちは！初めまして！", charactor));
+        comments.add(getComment(5, "こんにちは！", charactor));
+        comments.add(getComment(6, "こんにちは！初めまして！ありがとう！さようなら！", charactor));
+        comments.add(getComment(7, "こんにちは！初めまして！", charactor));
+        comments.add(getComment(8, "こんにちは！", charactor));
+        comments.add(getComment(9, "こんにちは！初めまして！ありがとう！さようなら！", charactor));
+
+        return comments;
+    }
+
+    private static CharactorComment getComment(int id, String text, Charactor charactor) {
+        User user = getUser1();
+        Charactor commentCharactor = null;
+        switch(id) {
+        case 1:
+        case 4:
+        case 7:
+            commentCharactor = getCharactor1(user);
+            break;
+        case 2:
+        case 5:
+        case 8:
+            commentCharactor = getCharactor2(user);
+            break;
+        case 3:
+        case 6:
+        case 9:
+            commentCharactor = getCharactor3(user);
+            break;
+        }
+        return new CharactorComment(id, text, charactor, commentCharactor);
     }
 
     public static Charactor createCharactor(String name, String title, String localImage) {

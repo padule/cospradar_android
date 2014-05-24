@@ -8,6 +8,15 @@
     <string name="loading">Loading...</string>
     <string name="invalidate_input">There is an error in the input</string>
     <string name="not_changed_input">Input is not changed</string>
+    
+    <!-- Time -->
+    <string name="time_just_now">Just now</string>
+    <string name="time_1second_ago">1 second ago</string>
+    <string name="time_seconds_ago">%1$d seconds ago</string>
+    <string name="time_1minute_ago">1 minute ago</string>
+    <string name="time_minutes_ago">%1$d minutes ago</string>
+    <string name="time_1hour_ago">1 hour ago</string>
+    <string name="time_hours_ago">%1$d hours ago</string>
 
     <!-- Photo -->
     <string name="choose_from_gallery">Choose from galary</string>

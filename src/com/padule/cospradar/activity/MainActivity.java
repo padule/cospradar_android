@@ -49,12 +49,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initDrawer();
-        replaceFragment();
-    }
-
-    private void replaceFragment() {
-        getSupportFragmentManager().beginTransaction()
-        .replace(R.id.content_frame, new SearchFragment(), "").commit();
+        showFragment(new SearchFragment());
     }
 
     @Override  
@@ -107,8 +102,12 @@ public class MainActivity extends BaseActivity {
 
     private void showFragment(String fragmentPackage) {
         Fragment fragment = Fragment.instantiate(this, fragmentPackage);
+        showFragment(fragment);
+    }
+
+    public void showFragment(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment, fragmentPackage).commit();
+        ft.replace(R.id.content_frame, fragment, fragment.getTag()).commit();
     }
 
     private void setActionBarTitle(String title) {

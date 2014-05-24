@@ -5,6 +5,7 @@ public class AppUrls {
     private static final String API_URL = Constants.APP_URL;
 
     private static final String PATH_CHARACTORS = "/charactors";
+    private static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
 
     private static final String PARAM_PAGE = "page";
     public static final String PARAM_NAME = "name";
@@ -15,6 +16,7 @@ public class AppUrls {
     private static final String Q = "?";
     private static final String AND = "&";
     private static final String EQ = "=";
+    private static final String SLASH = "/";
 
     public static String getCharactorsIndex(int page) {
         StringBuffer sb = new StringBuffer();
@@ -31,6 +33,19 @@ public class AppUrls {
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
         sb.append(EXT_JSON);
+        return sb.toString();
+    }
+
+    public static String getCharactorCommentsIndex(int charactorId, int page) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(API_URL);
+        sb.append(PATH_CHARACTORS);
+        sb.append(SLASH);
+        sb.append(charactorId);
+        sb.append(PATH_CHARACTOR_COMMENTS);
+        sb.append(EXT_JSON);
+        sb.append(Q);
+        sb.append(createParam(PARAM_PAGE, page));
         return sb.toString();
     }
 

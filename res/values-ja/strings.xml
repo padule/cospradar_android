@@ -9,6 +9,15 @@
     <string name="invalidate_input">入力に誤りがあります</string>
     <string name="not_changed_input">変更がありません</string>
 
+    <!-- Time -->
+    <string name="time_just_now">たった今</string>
+    <string name="time_1second_ago">1秒前</string>
+    <string name="time_seconds_ago">%1$d秒前</string>
+    <string name="time_1minute_ago">1分前</string>
+    <string name="time_minutes_ago">%1$d分前</string>
+    <string name="time_1hour_ago">1時間前</string>
+    <string name="time_hours_ago">%1$d時間前</string>
+
     <!-- Photo -->
     <string name="choose_from_gallery">ギャラリーから選ぶ</string>
     <string name="choose_from_camera">カメラで撮る</string>

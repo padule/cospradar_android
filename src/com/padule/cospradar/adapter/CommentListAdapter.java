@@ -1,0 +1,78 @@
+package com.padule.cospradar.adapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+import com.padule.cospradar.R;
+import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.util.ImageUtils;
+import com.padule.cospradar.util.TimeUtils;
+
+public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
+
+    private Context context;
+    
+    public CommentListAdapter(Context context) {
+        this(context, new ArrayList<CharactorComment>());
+    }
+
+    public CommentListAdapter(Context context, List<CharactorComment> comments) {
+        super(context, 0, comments);
+        this.context = context;
+    }
+
+    @Override
+    public View getView(int pos, View view, ViewGroup parent) {
+        final ViewHolder holder;
+
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_comment_left, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder)view.getTag();
+        }
+
+        final CharactorComment comment = (CharactorComment)getItem(pos);
+
+        bindData(comment, holder);
+
+        return view;
+    }
+
+    private void bindData(CharactorComment comment, ViewHolder holder) {
+        if (comment != null) {
+            Charactor charactor = comment.getCommentCharactor();
+            ImageUtils.displayRoundedImage(charactor.getImageUrl(), holder.mImgCharactor);
+            holder.mTxtComment.setText(comment.getText());
+            holder.mTxtCharactorName.setText(charactor.getName());
+            holder.mTxtDate.setText(TimeUtils.getDisplayDate(comment.getCreatedAt(), context));
+        } else {
+            holder.mRoot.setVisibility(View.GONE);
+        }
+    }
+
+    static class ViewHolder {
+        @InjectView(R.id.container_root) View mRoot;
+        @InjectView(R.id.img_charactor) ImageView mImgCharactor;
+        @InjectView(R.id.txt_comment) TextView mTxtComment;
+        @InjectView(R.id.txt_charactor_name) TextView mTxtCharactorName;
+        @InjectView(R.id.txt_date) TextView mTxtDate;
+
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
+    }
+
+}

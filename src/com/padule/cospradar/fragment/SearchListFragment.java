@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
+import com.padule.cospradar.activity.MainActivity;
 import com.padule.cospradar.adapter.SearchListAdapter;
 import com.padule.cospradar.base.BaseFragment;
 import com.padule.cospradar.base.EndlessScrollListener;
@@ -67,7 +69,8 @@ public class SearchListFragment extends BaseFragment {
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                //
+                Fragment fragment = ChatFragment.newInstance(adapter.getItem(pos));
+                ((MainActivity)SearchListFragment.this.getActivity()).showFragment(fragment);
             }
         });
     }
@@ -95,7 +98,7 @@ public class SearchListFragment extends BaseFragment {
             charactors = MockFactory.getCharactors();
         }
 
-        if (!charactors.isEmpty()) {
+        if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
         }
     }
