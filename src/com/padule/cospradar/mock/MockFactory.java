@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.util.ImageUtils;
 
 public class MockFactory {
 
@@ -58,6 +59,11 @@ public class MockFactory {
         charactors.add(getCharactor8(user));
 
         return charactors;
+    }
+
+    public static Charactor createCharactor(String name, String title, String localImage) {
+        String image = localImage != null ? ImageUtils.PREFIX_FILE_PATH + localImage : null;
+        return new Charactor(1, getUser1().getId(), name, title, image);
     }
 
 }

@@ -1,10 +1,20 @@
 package com.padule.cospradar.fragment;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -13,12 +23,21 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseFragment;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
+import com.padule.cospradar.util.KeyboardUtils;
+import com.padule.cospradar.util.TextUtils;
 
 public class CharactorEditFragment extends BaseFragment {
 
@@ -33,9 +52,11 @@ public class CharactorEditFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_charactor_edit, container, false);
         ButterKnife.inject(this, view);
+        aq = new AQuery(getActivity());
 
         initCharactor();
         initView();
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -61,11 +82,21 @@ public class CharactorEditFragment extends BaseFragment {
 
     @OnClick(R.id.clicker_img_charactor)
     void onClickClickerImgCharactor() {
+        KeyboardUtils.hide(getActivity());
         ImageUtils.showChooserDialog(this);
+    }
+
+    @OnClick(R.id.root)
+    void onClickRoot() {
+        KeyboardUtils.hide(getActivity());
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (intent == null) {
+            return;
+        }
+
         Uri uri = intent.getData();
 
         switch (requestCode) {
@@ -82,18 +113,93 @@ public class CharactorEditFragment extends BaseFragment {
             }
             break;
         case Constants.REQ_ACTIVITY_AVIARY_CAMERA:
-            if (resultCode == Activity.RESULT_OK) {
-                String path = ImageUtils.getPath(getActivity(), uri);
-                initCharactorImage(path);
-            }
-            break;
         case Constants.REQ_ACTIVITY_AVIARY_GALLERY:
             if (resultCode == Activity.RESULT_OK) {
-                String path = ImageUtils.getPath(getActivity(), uri);
-                initCharactorImage(path);
+                setCharactorImage(uri);
             }
             break;
         }
+    }
+
+    private void setCharactorImage(Uri uri) {
+        String path = ImageUtils.getPath(getActivity(), uri);
+        this.charactor.setImage(path);
+        initCharactorImage(ImageUtils.PREFIX_FILE_PATH + path);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.only_ok, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (R.id.item_ok == item.getItemId()) {
+            if (validate()) {
+                saveCharactor();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveCharactor() {
+        String url = AppUrls.getCharactorsCreate();
+        Dialog dialog = AppUtils.makeSendingDialog(getActivity());
+        aq.progress(dialog).ajax(url, createParams(), JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                saveCharactorCallBack(json);
+            }
+        });
+    }
+
+    private void saveCharactorCallBack(JSONObject json) {
+        if (json != null) {
+            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
+            Charactor charactor = gson.fromJson(json.toString(), Charactor.class);
+            this.charactor = charactor;
+            AppUtils.setCharactor(charactor);
+            showToast(R.string.charactor_edit_succeeded);
+        } else {
+            // showToast(R.string.charactor_edit_failed);
+            // FIXME Remove me. Just implement for test.
+            this.charactor = MockFactory.createCharactor(
+                    charactor.getName(), charactor.getTitle(), charactor.getImage());
+            AppUtils.setCharactor(charactor);
+            showToast(R.string.charactor_edit_succeeded);
+        }
+    }
+
+    private Map<String, Object> createParams() {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(AppUrls.PARAM_NAME, mEditName.getText().toString());
+        params.put(AppUrls.PARAM_TITLE, mEditTitle.getText().toString());
+
+        if (charactor.getImage() != null) {
+            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImage()));
+        }
+
+        return params;
+    }
+
+    private boolean validate() {
+        if (TextUtils.isEmpty(mEditName)) {
+            mEditName.setError(getString(R.string.charactor_validate_name));
+            showToast(R.string.invalidate_input);
+            return false;
+        }
+        if (TextUtils.isEmpty(mEditTitle)) {
+            mEditTitle.setError(getString(R.string.charactor_validate_title));
+            showToast(R.string.invalidate_input);
+            return false;
+        }
+        if (charactor.getName().equals(mEditName.getText().toString())
+                || charactor.getTitle().equals(mEditTitle.getText().toString())) {
+            showToast(R.string.not_changed_input);
+            return false;
+        }
+        return true;
     }
 
 }

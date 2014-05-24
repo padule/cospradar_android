@@ -7,6 +7,9 @@ public class AppUrls {
     private static final String PATH_CHARACTORS = "/charactors";
 
     private static final String PARAM_PAGE = "page";
+    public static final String PARAM_NAME = "name";
+    public static final String PARAM_TITLE = "title";
+    public static final String PARAM_IMAGE = "image";
 
     private static final String EXT_JSON = ".json";
     private static final String Q = "?";
@@ -20,6 +23,14 @@ public class AppUrls {
         sb.append(EXT_JSON);
         sb.append(Q);
         sb.append(createParam(PARAM_PAGE, page));
+        return sb.toString();
+    }
+
+    public static String getCharactorsCreate() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(API_URL);
+        sb.append(PATH_CHARACTORS);
+        sb.append(EXT_JSON);
         return sb.toString();
     }
 

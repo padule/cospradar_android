@@ -12,7 +12,9 @@
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_large" />
+        android:layout_marginRight="@dimen/margin_large"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/txt_name"
@@ -20,9 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/img_icon"
         android:ellipsize="end"
-        android:textStyle="bold"
         android:lines="1"
-        android:textSize="@dimen/text_large" />
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txt_distance"

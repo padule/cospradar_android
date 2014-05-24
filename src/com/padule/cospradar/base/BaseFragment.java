@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 
 import com.androidquery.AQuery;
+import com.padule.cospradar.util.AppUtils;
 
 public abstract class BaseFragment extends Fragment {
     protected AQuery aq;
@@ -25,6 +26,10 @@ public abstract class BaseFragment extends Fragment {
         if (aq != null) {
             aq.clear();
         }
+    }
+
+    protected void showToast(int resId) {
+        AppUtils.showToast(getString(resId), getActivity());
     }
 
 }

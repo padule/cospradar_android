@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- App -->
+    <!-- Common -->
     <string name="app_name">Cospradar</string>
+    <string name="ok">OK</string>
+    <string name="sending">Sending...</string>
+    <string name="loading">Loading...</string>
+    <string name="invalidate_input">There is an error in the input</string>
+    <string name="not_changed_input">Input is not changed</string>
 
     <!-- Photo -->
     <string name="choose_from_gallery">Choose from galary</string>
@@ -28,5 +33,9 @@
     <string name="charactor_edit_description2">Notes: Charactor data is reset in a day.</string>
     <string name="charactor_edit_name">Charactor name</string>
     <string name="charactor_edit_title">Title</string>
+    <string name="charactor_validate_name">Not set charactor name</string>
+    <string name="charactor_validate_title">Not set title</string>
+    <string name="charactor_edit_succeeded">Charactor saved!</string>
+    <string name="charactor_edit_failed">Sorry! Charactor save failed...\nPlease try again.</string>
 
 </resources>

@@ -94,6 +94,10 @@ public class MainActivity extends BaseActivity {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
             }
+            @Override
+            public void onDrawerSlide(View view, float offset) {
+                super.onDrawerSlide(view, offset);
+            }
         };
         mDrawerLayout.setDrawerListener(drawerToggle);
         createDrawerList();
@@ -129,7 +133,7 @@ public class MainActivity extends BaseActivity {
 
                 if (pos <= 0) {
                     showFragment(CharactorEditFragment.class.getName());
-                    setActionBarTitle(getString(R.string.charactor_edit_title));;
+                    setActionBarTitle(getString(R.string.charactor_edit_actionbar));;
                 } else {
                     DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
                     showFragment(drawerItem.getFragmentPackage());

@@ -7,7 +7,7 @@ public class Constants {
     public static final String APP_URL = "http://api.cospradar.com";
     
     public static final String AVIARY_SECRET = "858b4e4f29e15266";
-
+    
     public static final int REQ_ACTIVITY_GALLERY = 10001;
     public static final int REQ_ACTIVITY_CAMERA = 10002;
     public static final int REQ_ACTIVITY_AVIARY_GALLERY = 10003;

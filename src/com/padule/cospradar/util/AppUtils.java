@@ -1,5 +1,13 @@
 package com.padule.cospradar.util;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.view.Gravity;
+import android.widget.Toast;
+
+import com.androidquery.util.AQUtility;
+import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 
 public class AppUtils {
@@ -16,6 +24,41 @@ public class AppUtils {
             charactor = null;
         }
         return charactor;
+    }
+
+    public static void showToast(String message, Context context) {
+        if (message == null || message.length() == 0) {
+            return;
+        }
+
+        try {
+            Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } catch (Exception e) {
+            AQUtility.report(e);
+        }
+    }
+
+    private static Dialog makeProgressDialog(String message, Context context) {
+        ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(true);
+        dialog.setInverseBackgroundForced(false);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setMessage(message);
+
+        return dialog;
+    }
+
+    public static Dialog makeLoadingDialog(Context context) {
+        String message = context.getString(R.string.loading);
+        return makeProgressDialog(message, context);
+    }
+
+    public static Dialog makeSendingDialog(Context context) {
+        String message = context.getString(R.string.sending);
+        return makeProgressDialog(message, context);
     }
 
 }

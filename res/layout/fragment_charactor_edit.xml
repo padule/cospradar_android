@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
@@ -31,7 +32,9 @@
         android:layout_below="@id/txt_description2"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/margin" />
+        android:layout_marginTop="@dimen/margin_large"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
     <View
         android:id="@+id/clicker_img_charactor"
@@ -50,7 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/img_charactor"
         android:layout_marginTop="@dimen/margin_large"
-        android:hint="@string/charactor_edit_name" />
+        android:hint="@string/charactor_edit_name"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/edit_title"
@@ -58,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_name"
         android:layout_marginTop="@dimen/margin"
-        android:hint="@string/charactor_edit_title" />
+        android:hint="@string/charactor_edit_title"
+        android:inputType="text" />
 
 </RelativeLayout>

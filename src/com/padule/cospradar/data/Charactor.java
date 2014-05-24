@@ -22,6 +22,8 @@ public class Charactor extends Data {
 
     public Charactor() {
         super();
+        this.name = "";
+        this.title = "";
     }
 
     public Charactor(int id, int userId, String name, String title, String image) {
@@ -57,6 +59,10 @@ public class Charactor extends Data {
 
     public String getImage() {
         return image;
+    }
+
+    public void setImage(String url) {
+        this.image = url;
     }
 
     public Date getUpdatedAt() {

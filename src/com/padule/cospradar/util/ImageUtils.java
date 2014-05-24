@@ -42,6 +42,8 @@ public class ImageUtils {
     private static final String PREFIX_FILE = "file";
     private static final String PREFIX_GALLERY_PKG_BEFORE = "com.android.gallery3d";
     private static final String PREFIX_GALLERY_PKG_AFTER = "com.google.android.gallery3d";
+    
+    public static final String PREFIX_FILE_PATH = "file://";
 
     private static final String[] AVIARY_TOOLS_LIST = {
         "EFFECTS", "CROP", "BRIGHTNESS", "CONTRAST", "DRAWING", "TEXT", "RED_EYE", "WHITEN"
