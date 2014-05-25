@@ -6,6 +6,7 @@ public class AppUrls {
 
     private static final String PATH_CHARACTORS = "/charactors";
     private static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
+    private static final String PATH_USERS = "/users";
 
     private static final String PARAM_PAGE = "page";
     public static final String PARAM_NAME = "name";
@@ -36,6 +37,14 @@ public class AppUrls {
         StringBuffer sb = new StringBuffer();
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
+        sb.append(EXT_JSON);
+        return sb.toString();
+    }
+
+    public static String getUsersCreate() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(API_URL);
+        sb.append(PATH_USERS);
         sb.append(EXT_JSON);
         return sb.toString();
     }

@@ -41,6 +41,10 @@ public class AppUtils {
         return (User)User.deSerializeFromString(PrefUtils.get(User.class.getName(), null));
     }
 
+    public static boolean isLoggedIn() {
+        return getUser() != null;
+    }
+
     public static void showToast(String message, Context context) {
         if (message == null || message.length() == 0) {
             return;
