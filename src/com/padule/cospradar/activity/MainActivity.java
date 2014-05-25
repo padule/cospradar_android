@@ -5,14 +5,17 @@ import java.util.List;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 import butterknife.InjectView;
 
 import com.padule.cospradar.R;
@@ -35,6 +38,8 @@ public class MainActivity extends BaseActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private DrawerItemListAdapter adapter;
+    private CountDownTimer keyEventTimer;
+    private boolean backKeyPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,21 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initDrawer();
+        initBackButton();
         showFragment(new SearchFragment(), R.id.content_frame);
+    }
+
+    private void initBackButton() {
+        keyEventTimer = new CountDownTimer(1000, 100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //
+            }
+            @Override
+            public void onFinish() {
+                backKeyPressed = false;
+            }
+        };
     }
 
     @Override  
@@ -142,6 +161,21 @@ public class MainActivity extends BaseActivity {
                 mDrawerLayout.closeDrawer(mDrawerListView);
             }
         });
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (!backKeyPressed) {
+                keyEventTimer.cancel();
+                keyEventTimer.start();
+                AppUtils.showToast(getString(R.string.back_btn_msg), this, Toast.LENGTH_SHORT);
+                backKeyPressed = true;
+                return false;
+            }
+            return super.dispatchKeyEvent(event);
+        }
+        return super.dispatchKeyEvent(event);
     }
 
 }

@@ -9,6 +9,7 @@
     <string name="invalidate_input">入力に誤りがあります</string>
     <string name="not_changed_input">変更がありません</string>
     <string name="send">送信</string>
+    <string name="back_btn_msg">もう一度バックボタンを押すと終了します</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>

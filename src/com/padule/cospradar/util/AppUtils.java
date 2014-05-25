@@ -45,18 +45,22 @@ public class AppUtils {
         return getUser() != null;
     }
 
-    public static void showToast(String message, Context context) {
+    public static void showToast(String message, Context context, int duration) {
         if (message == null || message.length() == 0) {
             return;
         }
 
         try {
-            Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(context, message, duration);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } catch (Exception e) {
             AQUtility.report(e);
         }
+    }
+    
+    public static void showToast(String message, Context context) {
+        showToast(message, context, Toast.LENGTH_LONG);
     }
 
     private static Dialog makeProgressDialog(String message, Context context) {
