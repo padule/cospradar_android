@@ -12,14 +12,16 @@ import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
-import com.padule.cospradar.fragment.ChatFragment;
+import com.padule.cospradar.fragment.CommentFragment;
+import com.padule.cospradar.util.KeyboardUtils;
 
-public class ChatActivity extends BaseActivity {
+public class CommentActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        KeyboardUtils.initHidden(this);
+        setContentView(R.layout.activity_comment);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class ChatActivity extends BaseActivity {
         Charactor charactor = (Charactor)getIntent()
                 .getSerializableExtra(Charactor.class.getName());
         initActionBar(charactor);
-        showFragment(ChatFragment.newInstance(charactor), R.id.content_frame);
+        showFragment(CommentFragment.newInstance(charactor), R.id.content_frame);
     }
 
     private void initActionBar(Charactor charactor) {

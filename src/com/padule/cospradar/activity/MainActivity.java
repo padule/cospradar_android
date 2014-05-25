@@ -20,7 +20,7 @@ import com.padule.cospradar.adapter.DrawerItemListAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.DrawerItem;
 import com.padule.cospradar.fragment.CharactorEditFragment;
-import com.padule.cospradar.fragment.ChatFragment;
+import com.padule.cospradar.fragment.CommentFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.SearchFragment;
 import com.padule.cospradar.ui.DrawerHeader;
@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity {
 
         List<DrawerItem> list = new ArrayList<DrawerItem>();
         list.add(new DrawerItem(getString(R.string.drawer_search), R.drawable.ic_drawer_search, SearchFragment.class.getName()));
-        list.add(new DrawerItem(getString(R.string.drawer_my_chat), R.drawable.ic_drawer_my_chat, ChatFragment.class.getName()));
+        list.add(new DrawerItem(getString(R.string.drawer_my_chat), R.drawable.ic_drawer_my_chat, CommentFragment.class.getName()));
         list.add(new DrawerItem(getString(R.string.drawer_comment_chat), R.drawable.ic_drawer_comment_chat, ChatListFragment.class.getName()));
 
         adapter = new DrawerItemListAdapter(this, list);

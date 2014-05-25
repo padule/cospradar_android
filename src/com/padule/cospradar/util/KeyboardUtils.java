@@ -3,16 +3,28 @@ package com.padule.cospradar.util;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class KeyboardUtils {
 
+    public static void hide(Context context, View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)context.getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            view.clearFocus();
+        }
+    }
+
     public static void hide(Activity activity) {
-        InputMethodManager imm = (InputMethodManager)activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-        activity.getCurrentFocus().clearFocus();
+        hide(activity, activity.getCurrentFocus());
+    }
+
+    public static void initHidden(Activity activity) {
+        activity.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public static void show(Context context, EditText edit) {

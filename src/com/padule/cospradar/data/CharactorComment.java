@@ -31,8 +31,25 @@ public class CharactorComment extends Data {
         this.createdAt = new Date();
     }
 
+    public CharactorComment(int charactorId, String text) {
+        super();
+        this.charactorId = charactorId;
+        this.text = text;
+        this.commentCharactor = AppUtils.getCharactor();
+        this.text = text;
+        this.createdAt = new Date();
+    }
+
+    public static CharactorComment createTmp(int charactorId, String text) {
+        return new CharactorComment(charactorId, text);
+    }
+
     public int getId() {
         return id;
+    }
+
+    public int getCharactorId() {
+        return charactorId;
     }
 
     public int getCommentCharactorId() {

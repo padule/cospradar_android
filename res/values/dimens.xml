@@ -36,5 +36,6 @@
 
     <!-- Radius -->
     <dimen name="radius_medium">8dp</dimen>
+    <dimen name="radius_btn">2dp</dimen>
 
 </resources>

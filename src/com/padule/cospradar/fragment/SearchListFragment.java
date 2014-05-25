@@ -25,7 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.activity.ChatActivity;
+import com.padule.cospradar.activity.CommentActivity;
 import com.padule.cospradar.adapter.SearchListAdapter;
 import com.padule.cospradar.base.BaseFragment;
 import com.padule.cospradar.base.EndlessScrollListener;
@@ -69,7 +69,7 @@ public class SearchListFragment extends BaseFragment {
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                final Intent intent = new Intent(getActivity(), ChatActivity.class);
+                final Intent intent = new Intent(getActivity(), CommentActivity.class);
                 intent.putExtra(Charactor.class.getName(), adapter.getItem(pos));
                 startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT);
             }

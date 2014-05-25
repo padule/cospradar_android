@@ -8,6 +8,7 @@
     <string name="loading">ロード中...</string>
     <string name="invalidate_input">入力に誤りがあります</string>
     <string name="not_changed_input">変更がありません</string>
+    <string name="send">送信</string>
 
     <!-- Time -->
     <string name="time_just_now">たった今</string>
@@ -48,5 +49,8 @@
     <string name="charactor_validate_title">作品名が入力されていません</string>
     <string name="charactor_edit_succeeded">コスキャラを登録しました！</string>
     <string name="charactor_edit_failed">登録に失敗してしまいました...\nもう一度試してみてもらえますか？</string>
+    
+    <!-- Comment -->
+    <string name="comment_hint">コメントを書く</string>
 
 </resources>

@@ -11,6 +11,9 @@ public class AppUrls {
     public static final String PARAM_NAME = "name";
     public static final String PARAM_TITLE = "title";
     public static final String PARAM_IMAGE = "image";
+    public static final String PARAM_TEXT = "text";
+    public static final String PARAM_COMMENT_CHARACTOR_ID = "comment_charactor_id";
+    public static final String PARAM_CHARACTOR_ID = "charactor_id";
 
     private static final String EXT_JSON = ".json";
     private static final String Q = "?";
@@ -46,6 +49,17 @@ public class AppUrls {
         sb.append(EXT_JSON);
         sb.append(Q);
         sb.append(createParam(PARAM_PAGE, page));
+        return sb.toString();
+    }
+
+    public static String getCharactorCommentsCreate(int charactorId) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(API_URL);
+        sb.append(PATH_CHARACTORS);
+        sb.append(SLASH);
+        sb.append(charactorId);
+        sb.append(PATH_CHARACTOR_COMMENTS);
+        sb.append(EXT_JSON);
         return sb.toString();
     }
 
