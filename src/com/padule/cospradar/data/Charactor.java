@@ -61,13 +61,17 @@ public class Charactor extends Data {
     public String getImageUrl() {
         return ImageUtils.convertToValidUrl(image);
     }
-    
+
     public void setImage(String url) {
         this.image = url;
     }
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public String getNameAndTitle() {
+        return name + " (" + title + ")";
     }
 
 }

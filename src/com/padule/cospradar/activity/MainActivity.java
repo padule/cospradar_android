@@ -6,8 +6,6 @@ import java.util.List;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
@@ -27,7 +25,6 @@ import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.SearchFragment;
 import com.padule.cospradar.ui.DrawerHeader;
 import com.padule.cospradar.util.AppUtils;
-import com.padule.cospradar.util.KeyboardUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -41,7 +38,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
     }
 
@@ -49,7 +45,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initDrawer();
-        showFragment(new SearchFragment());
+        showFragment(new SearchFragment(), R.id.content_frame);
     }
 
     @Override  
@@ -64,9 +60,8 @@ public class MainActivity extends BaseActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    @Override  
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        KeyboardUtils.hide(this);
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -89,6 +84,7 @@ public class MainActivity extends BaseActivity {
             }
             @Override
             public void onDrawerClosed(View view) {
+                replaceFragment(mDrawerListView.getCheckedItemPosition());
                 super.onDrawerClosed(view);
             }
             @Override
@@ -100,14 +96,15 @@ public class MainActivity extends BaseActivity {
         createDrawerList();
     }
 
-    private void showFragment(String fragmentPackage) {
-        Fragment fragment = Fragment.instantiate(this, fragmentPackage);
-        showFragment(fragment);
-    }
-
-    public void showFragment(Fragment fragment) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment, fragment.getTag()).commit();
+    private void replaceFragment(int pos) {
+        if (pos <= 0) {
+            showFragment(CharactorEditFragment.class.getName(), R.id.content_frame);
+            setActionBarTitle(getString(R.string.charactor_edit_actionbar));;
+        } else {
+            DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
+            showFragment(drawerItem.getFragmentPackage(), R.id.content_frame);
+            setActionBarTitle(drawerItem.getTitle());
+        }
     }
 
     private void setActionBarTitle(String title) {
@@ -134,15 +131,6 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapter, View view, final int pos, long id) {
                 mDrawerListView.setItemChecked(pos, true);
                 mDrawerLayout.closeDrawer(mDrawerListView);
-
-                if (pos <= 0) {
-                    showFragment(CharactorEditFragment.class.getName());
-                    setActionBarTitle(getString(R.string.charactor_edit_actionbar));;
-                } else {
-                    DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
-                    showFragment(drawerItem.getFragmentPackage());
-                    setActionBarTitle(drawerItem.getTitle());
-                }
             }
         });
     }

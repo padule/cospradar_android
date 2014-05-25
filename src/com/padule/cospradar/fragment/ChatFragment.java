@@ -29,6 +29,7 @@ import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.mock.MockFactory;
+import com.padule.cospradar.util.AppUtils;
 
 public class ChatFragment extends BaseFragment {
 
@@ -54,10 +55,18 @@ public class ChatFragment extends BaseFragment {
         ButterKnife.inject(this, view);
         aq = new AQuery(getActivity());
 
-        charactor = (Charactor)getArguments().getSerializable(Charactor.class.getName());
+        setCharactor();
         initListView();
 
         return view;
+    }
+
+    private void setCharactor() {
+        if (getArguments() != null) {
+            charactor = (Charactor)getArguments().getSerializable(Charactor.class.getName());
+        } else {
+            charactor = AppUtils.getCharactor();
+        }
     }
 
     private void initListView() {
