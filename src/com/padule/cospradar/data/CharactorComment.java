@@ -14,7 +14,8 @@ public class CharactorComment extends Data {
     @SerializedName("charactor_id") int charactorId;
     @SerializedName("comment_charactor_id") int commentCharactorId;
     @SerializedName("text") String text;
-    @SerializedName("created_at") Date createdAt;
+    @SerializedName("created") Date createdAt;
+    @SerializedName("modified") Date updatedAt;
 
     @SerializedName("charactor") Charactor charactor;
     @SerializedName("comment_charactor") Charactor commentCharactor;

@@ -50,6 +50,10 @@ public class TimeUtils {
     }
 
     public static String getDisplayDate(Date date, Context context) {
+        if (date == null) {
+            return "";
+        }
+
         date = convertUTCToLocal(date);
 
         long dayDiff = getDayDiff(date);

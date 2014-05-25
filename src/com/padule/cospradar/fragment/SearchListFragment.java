@@ -1,12 +1,14 @@
 package com.padule.cospradar.fragment;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ import com.padule.cospradar.base.BaseFragment;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.mock.MockFactory;
+import com.padule.cospradar.util.AppUtils;
 
 public class SearchListFragment extends BaseFragment {
 
@@ -77,6 +80,7 @@ public class SearchListFragment extends BaseFragment {
     }
 
     private void loadData(final int page) {
+        Log.d("Cospradar", AppUrls.getCharactorsIndex(page) + "");
         aq.ajax(AppUrls.getCharactorsIndex(page), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
@@ -89,14 +93,16 @@ public class SearchListFragment extends BaseFragment {
     }
 
     private void loadCallback(JSONArray json) {
-        List<Charactor> charactors;
+        List<Charactor> charactors = new ArrayList<Charactor>();
         if (json != null) {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
             charactors = gson.fromJson(json.toString(), collectionType);
         } else {
-            // FIXME implement using mock.
-            charactors = MockFactory.getCharactors();
+            if (AppUtils.isMockMode()) {
+                // FIXME implement using mock.
+                charactors = MockFactory.getCharactors();
+            }
         }
 
         if (charactors != null && !charactors.isEmpty() && adapter != null) {

@@ -22,7 +22,7 @@ import com.padule.cospradar.util.TimeUtils;
 public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
 
     private Context context;
-    
+
     public CommentListAdapter(Context context) {
         this(context, new ArrayList<CharactorComment>());
     }
@@ -35,13 +35,13 @@ public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
     @Override
     public View getView(int pos, View view, ViewGroup parent) {
         final ViewHolder holder;
-        
+
         final CharactorComment comment = (CharactorComment)getItem(pos);
 
         if (view == null) {
             int layout = comment.isCurrentCharactor() ? R.layout.item_comment_right : R.layout.item_comment_left;
             view = LayoutInflater.from(context).inflate(layout, parent, false);
-            
+
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
@@ -58,7 +58,7 @@ public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
             Charactor charactor = comment.getCommentCharactor();
             ImageUtils.displayRoundedImage(charactor.getImageUrl(), holder.mImgCharactor);
             holder.mTxtComment.setText(comment.getText());
-            holder.mTxtCharactorName.setText(charactor.getName());
+            holder.mTxtCharactorName.setText(charactor.getNameAndTitle());
             holder.mTxtDate.setText(TimeUtils.getDisplayDate(comment.getCreatedAt(), context));
         } else {
             holder.mRoot.setVisibility(View.GONE);

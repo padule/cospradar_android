@@ -17,7 +17,7 @@ public class Charactor extends Data {
     @SerializedName("name") String name;
     @SerializedName("title") String title;
     @SerializedName("image") String image;
-    @SerializedName("updated_at") Date updatedAt;
+    @SerializedName("modified") Date updatedAt;
 
     @SerializedName("user") User user;
 

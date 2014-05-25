@@ -7,14 +7,25 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import com.androidquery.util.AQUtility;
+import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.User;
 
 public class AppUtils {
 
     public static void setCharactor(Charactor charactor) {
         String str = charactor != null ? charactor.serializeToString() : null;
         PrefUtils.put(Charactor.class.getName(), str);
+    }
+
+    public static void setUser(User user) {
+        String str = user != null ? user.serializeToString() : null;
+        PrefUtils.put(User.class.getName(), str);
+    }
+
+    public static boolean isMockMode() {
+        return Constants.MOCK_MODE;
     }
 
     public static Charactor getCharactor() {
@@ -24,6 +35,10 @@ public class AppUtils {
             charactor = null;
         }
         return charactor;
+    }
+
+    public static User getUser() {
+        return (User)User.deSerializeFromString(PrefUtils.get(User.class.getName(), null));
     }
 
     public static void showToast(String message, Context context) {

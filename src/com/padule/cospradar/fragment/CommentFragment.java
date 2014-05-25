@@ -1,6 +1,7 @@
 package com.padule.cospradar.fragment;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -10,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,8 @@ import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
 public class CommentFragment extends BaseFragment implements FooterCommentListener {
+
+    private static final String TAG = CommentFragment.class.getName();
 
     @InjectView(R.id.listview_chat) ListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
@@ -116,23 +120,26 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
                 if (page == 1) {
                     mLoading.setVisibility(View.GONE);
                 }
-                loadCallback(json);
+                loadCallback(json, status, page);
             }
         });
     }
 
-    private void loadCallback(JSONArray json) {
-        List<CharactorComment> comments;
+    private void loadCallback(JSONArray json, AjaxStatus status, int page) {
+        List<CharactorComment> comments = new ArrayList<CharactorComment>();
         if (json != null) {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             Type collectionType = new TypeToken<List<CharactorComment>>() {}.getType();
             comments = gson.fromJson(json.toString(), collectionType);
         } else {
-            // FIXME implement using mock.
-            comments = MockFactory.getComments(charactor);
+            if (AppUtils.isMockMode()) {
+                comments = MockFactory.getComments(charactor);
+            } else {
+                Log.e(TAG, "load_error_message: " + status.getMessage());
+            }
         }
 
-        if (comments != null && !comments.isEmpty() && adapter != null) {
+        if (comments != null && !comments.isEmpty()) {
             if (adapter.isEmpty()) {
                 adapter.addAll(comments);
                 mListView.setSelection(adapter.getCount());
@@ -143,7 +150,9 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
                 }
                 mListView.setSelection(comments.size() + 1);
             }
-
+        } else {
+            int visibility = page == 1 ? View.VISIBLE : View.GONE;
+            mContainerEmpty.setVisibility(visibility);
         }
     }
 
@@ -163,15 +172,16 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
     }
 
     private void uploadComment(final CharactorComment comment) {
-        final String url = AppUrls.getCharactorCommentsCreate(charactor.getId());
+        final String url = AppUrls.getCharactorCommentsCreate();
         aq.ajax(url, createParams(comment), JSONObject.class, new AjaxCallback<JSONObject>() {
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                showComment(json, comment);
+                Log.d(TAG, "create_url: " + url);
+                showComment(json, comment, status);
             }
         });
     }
 
-    private void showComment(JSONObject json, final CharactorComment oldComment) {
+    private void showComment(JSONObject json, final CharactorComment oldComment, AjaxStatus status) {
         if (json != null) {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             CharactorComment comment = gson.fromJson(json.toString(), CharactorComment.class);
@@ -179,13 +189,19 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
                 adapter.remove(oldComment);
                 adapter.add(comment);
             }
+        } else {
+            Log.e(TAG, "create_error_message: " + status.getMessage());
+            if (!AppUtils.isMockMode()) {
+                adapter.remove(oldComment);
+            }
+            AppUtils.showToast(getString(R.string.comment_send_failed), getActivity());
         }
     }
 
     private Map<String, Object> createParams(CharactorComment comment) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(AppUrls.PARAM_TEXT, comment.getText());
-        params.put(AppUrls.PARAM_COMMENT_CHARACTOR_ID, comment.getText());
+        params.put(AppUrls.PARAM_COMMENT_CHARACTOR_ID, comment.getCommentCharactorId());
         params.put(AppUrls.PARAM_CHARACTOR_ID, comment.getCharactorId());
         return params;
     }

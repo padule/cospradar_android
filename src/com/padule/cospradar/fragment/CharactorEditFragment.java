@@ -1,6 +1,5 @@
 package com.padule.cospradar.fragment;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +41,8 @@ import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
 public class CharactorEditFragment extends BaseFragment {
+
+    private static final String TAG = CharactorEditFragment.class.getName();
 
     @InjectView(R.id.img_charactor) ImageView mImgCharactor;
     @InjectView(R.id.edit_name) EditText mEditName;
@@ -152,15 +153,19 @@ public class CharactorEditFragment extends BaseFragment {
     private void saveCharactor() {
         String url = AppUrls.getCharactorsCreate();
         Dialog dialog = AppUtils.makeSendingDialog(getActivity());
-        aq.progress(dialog).ajax(url, createParams(), JSONObject.class, new AjaxCallback<JSONObject>() {
+        final Map<String, Object> params = createParams();
+        Log.d(TAG, "create_params: " + params.toString());
+
+        aq.progress(dialog).ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                saveCharactorCallBack(json);
+                Log.d(TAG, "create_url: " + url);
+                saveCharactorCallBack(json, status);
             }
         });
     }
 
-    private void saveCharactorCallBack(JSONObject json) {
+    private void saveCharactorCallBack(JSONObject json, AjaxStatus status) {
         if (json != null) {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             Charactor charactor = gson.fromJson(json.toString(), Charactor.class);
@@ -169,13 +174,17 @@ public class CharactorEditFragment extends BaseFragment {
             showToast(R.string.charactor_edit_succeeded);
             ((MainActivity)getActivity()).initDrawer();
         } else {
-            // showToast(R.string.charactor_edit_failed);
-            // FIXME Remove me. Just implement for test.
-            this.charactor = MockFactory.createCharactor(mEditName.getText().toString(), 
-                    mEditTitle.getText().toString(), charactor.getImageUrl());
-            AppUtils.setCharactor(charactor);
-            showToast(R.string.charactor_edit_succeeded);
-            ((MainActivity)getActivity()).initDrawer();
+            if (AppUtils.isMockMode()) {
+                // FIXME Remove me. Just implement for test.
+                this.charactor = MockFactory.createCharactor(mEditName.getText().toString(), 
+                        mEditTitle.getText().toString(), charactor.getImageUrl());
+                AppUtils.setCharactor(charactor);
+                showToast(R.string.charactor_edit_succeeded);
+                ((MainActivity)getActivity()).initDrawer();
+            } else {
+                Log.e(TAG, "create_error_message: " + status.getMessage());
+                showToast(R.string.charactor_edit_failed);
+            }
         }
     }
 
@@ -183,10 +192,14 @@ public class CharactorEditFragment extends BaseFragment {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(AppUrls.PARAM_NAME, mEditName.getText().toString());
         params.put(AppUrls.PARAM_TITLE, mEditTitle.getText().toString());
+        // FIXME after login page implement.
+        //        params.put(AppUrls.PARAM_USER_ID, AppUtils.getUser().getId());
+        params.put(AppUrls.PARAM_USER_ID, 1);
 
-        if (charactor.getImageUrl() != null) {
-            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImageUrl()));
-        }
+        // FIXME remove commentout after server made
+        //        if (charactor.getImageUrl() != null) {
+        //            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImageUrl()));
+        //        }
 
         return params;
     }
