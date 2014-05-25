@@ -35,16 +35,18 @@ public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
     @Override
     public View getView(int pos, View view, ViewGroup parent) {
         final ViewHolder holder;
+        
+        final CharactorComment comment = (CharactorComment)getItem(pos);
 
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_comment_left, parent, false);
+            int layout = comment.isCurrentCharactor() ? R.layout.item_comment_right : R.layout.item_comment_left;
+            view = LayoutInflater.from(context).inflate(layout, parent, false);
+            
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
             holder = (ViewHolder)view.getTag();
         }
-
-        final CharactorComment comment = (CharactorComment)getItem(pos);
 
         bindData(comment, holder);
 

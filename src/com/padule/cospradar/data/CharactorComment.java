@@ -57,7 +57,7 @@ public class CharactorComment extends Data {
 
     public boolean isCurrentCharactor() {
         Charactor charactor = AppUtils.getCharactor();
-        return charactor != null && charactor.getId() == id;
+        return charactor != null && charactor.getId() == commentCharactorId;
     }
 
 }
