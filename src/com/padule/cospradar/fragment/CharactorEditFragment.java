@@ -192,9 +192,7 @@ public class CharactorEditFragment extends BaseFragment {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(AppUrls.PARAM_NAME, mEditName.getText().toString());
         params.put(AppUrls.PARAM_TITLE, mEditTitle.getText().toString());
-        // FIXME after login page implement.
-        //        params.put(AppUrls.PARAM_USER_ID, AppUtils.getUser().getId());
-        params.put(AppUrls.PARAM_USER_ID, 1);
+        params.put(AppUrls.PARAM_USER_ID, AppUtils.getUser().getId());
 
         // FIXME remove commentout after server made
         //        if (charactor.getImageUrl() != null) {

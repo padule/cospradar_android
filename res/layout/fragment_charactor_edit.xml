@@ -3,66 +3,76 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:padding="@dimen/padding_large" >
+    android:background="@color/bg_white" >
 
-    <TextView
-        android:id="@+id/txt_description1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/charactor_edit_description1"
-        android:textSize="@dimen/text_medium" />
+        android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/txt_description2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_description1"
-        android:layout_marginTop="@dimen/margin"
-        android:gravity="center"
-        android:text="@string/charactor_edit_description2"
-        android:textColor="@color/text_red"
-        android:textSize="@dimen/text_medium" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_large" >
 
-    <ImageView
-        android:id="@+id/img_charactor"
-        android:layout_width="@dimen/icon_large"
-        android:layout_height="@dimen/icon_large"
-        android:layout_below="@id/txt_description2"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/margin_large"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/txt_description1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/charactor_edit_description1"
+                android:textSize="@dimen/text_medium" />
 
-    <View
-        android:id="@+id/clicker_img_charactor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/img_charactor"
-        android:layout_alignLeft="@id/img_charactor"
-        android:layout_alignRight="@id/img_charactor"
-        android:layout_alignTop="@id/img_charactor"
-        android:background="@drawable/bg_clickable_oval"
-        android:clickable="true" />
+            <TextView
+                android:id="@+id/txt_description2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_description1"
+                android:layout_marginTop="@dimen/margin"
+                android:gravity="center"
+                android:text="@string/charactor_edit_description2"
+                android:textColor="@color/text_red"
+                android:textSize="@dimen/text_medium" />
 
-    <EditText
-        android:id="@+id/edit_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/img_charactor"
-        android:layout_marginTop="@dimen/margin_large"
-        android:hint="@string/charactor_edit_name"
-        android:inputType="text" />
+            <ImageView
+                android:id="@+id/img_charactor"
+                android:layout_width="@dimen/icon_large"
+                android:layout_height="@dimen/icon_large"
+                android:layout_below="@id/txt_description2"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/margin_large"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
 
-    <EditText
-        android:id="@+id/edit_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_name"
-        android:layout_marginTop="@dimen/margin"
-        android:hint="@string/charactor_edit_title"
-        android:inputType="text" />
+            <View
+                android:id="@+id/clicker_img_charactor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/img_charactor"
+                android:layout_alignLeft="@id/img_charactor"
+                android:layout_alignRight="@id/img_charactor"
+                android:layout_alignTop="@id/img_charactor"
+                android:background="@drawable/bg_clickable_oval"
+                android:clickable="true" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_charactor"
+                android:layout_marginTop="@dimen/margin_large"
+                android:hint="@string/charactor_edit_name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_name"
+                android:layout_marginTop="@dimen/margin"
+                android:hint="@string/charactor_edit_title"
+                android:inputType="text" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
