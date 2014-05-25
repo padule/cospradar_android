@@ -56,7 +56,11 @@ public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
     private void bindData(CharactorComment comment, ViewHolder holder) {
         if (comment != null) {
             Charactor charactor = comment.getCommentCharactor();
-            ImageUtils.displayRoundedImage(charactor.getImageUrl(), holder.mImgCharactor);
+            if (charactor.getImageUrl() != null) {
+                ImageUtils.displayRoundedImage(charactor.getImageUrl(), holder.mImgCharactor);
+            } else {
+                holder.mImgCharactor.setImageResource(R.drawable.ic_no_user_rounded);
+            }
             holder.mTxtComment.setText(comment.getText());
             holder.mTxtCharactorName.setText(charactor.getNameAndTitle());
             holder.mTxtDate.setText(TimeUtils.getDisplayDate(comment.getCreatedAt(), context));

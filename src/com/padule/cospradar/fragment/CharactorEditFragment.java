@@ -72,7 +72,6 @@ public class CharactorEditFragment extends BaseFragment {
     }
 
     private void initView() {
-        Log.d("Cospradar", charactor.getImageUrl());
         mEditName.setText(charactor.getName());
         mEditTitle.setText(charactor.getTitle());
         initCharactorImage(charactor.getImageUrl());
@@ -167,6 +166,7 @@ public class CharactorEditFragment extends BaseFragment {
 
     private void saveCharactorCallBack(JSONObject json, AjaxStatus status) {
         if (json != null) {
+            Log.d(TAG, json.toString());
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             Charactor charactor = gson.fromJson(json.toString(), Charactor.class);
             this.charactor = charactor;

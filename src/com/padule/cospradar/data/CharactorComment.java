@@ -37,7 +37,7 @@ public class CharactorComment extends Data {
         this.charactorId = charactorId;
         this.text = text;
         this.commentCharactor = AppUtils.getCharactor();
-        this.text = text;
+        this.commentCharactorId = commentCharactor.id;
         this.createdAt = new Date();
     }
 

@@ -173,7 +173,10 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
 
     private void uploadComment(final CharactorComment comment) {
         final String url = AppUrls.getCharactorCommentsCreate();
-        aq.ajax(url, createParams(comment), JSONObject.class, new AjaxCallback<JSONObject>() {
+        Map<String, Object> params = createParams(comment);
+        Log.d(TAG, "create_params: " + params.toString());
+
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 Log.d(TAG, "create_url: " + url);
                 showComment(json, comment, status);
@@ -183,9 +186,11 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
 
     private void showComment(JSONObject json, final CharactorComment oldComment, AjaxStatus status) {
         if (json != null) {
+            Log.d(TAG, "create_json: " + json.toString());
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             CharactorComment comment = gson.fromJson(json.toString(), CharactorComment.class);
             if (comment != null) {
+                mContainerEmpty.setVisibility(View.GONE);
                 adapter.remove(oldComment);
                 adapter.add(comment);
             }
