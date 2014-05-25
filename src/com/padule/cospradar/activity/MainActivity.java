@@ -20,8 +20,9 @@ import com.padule.cospradar.adapter.DrawerItemListAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.DrawerItem;
 import com.padule.cospradar.fragment.CharactorEditFragment;
-import com.padule.cospradar.fragment.CommentFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
+import com.padule.cospradar.fragment.CommentFragment;
+import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.fragment.SearchFragment;
 import com.padule.cospradar.ui.DrawerHeader;
 import com.padule.cospradar.util.AppUtils;
@@ -98,13 +99,21 @@ public class MainActivity extends BaseActivity {
 
     private void replaceFragment(int pos) {
         if (pos <= 0) {
-            showFragment(CharactorEditFragment.class.getName(), R.id.content_frame);
-            setActionBarTitle(getString(R.string.charactor_edit_actionbar));;
+            showEditFragment();
         } else {
-            DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
-            showFragment(drawerItem.getFragmentPackage(), R.id.content_frame);
-            setActionBarTitle(drawerItem.getTitle());
+            if (AppUtils.getCharactor() == null) {
+                EditSuggestDialogFragment.show(this);
+            } else {
+                DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
+                showFragment(drawerItem.getFragmentPackage(), R.id.content_frame);
+                setActionBarTitle(drawerItem.getTitle());
+            }
         }
+    }
+
+    public void showEditFragment() {
+        showFragment(CharactorEditFragment.class.getName(), R.id.content_frame);
+        setActionBarTitle(getString(R.string.charactor_edit_actionbar));
     }
 
     private void setActionBarTitle(String title) {

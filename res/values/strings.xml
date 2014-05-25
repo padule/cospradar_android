@@ -60,6 +60,10 @@
     <string name="charactor_validate_title">Not set title</string>
     <string name="charactor_edit_succeeded">Charactor saved!</string>
     <string name="charactor_edit_failed">Sorry! Charactor save failed...\nPlease try again.</string>
+    <string name="charactor_edit_suggest_title">Needs regist charactor</string>
+    <string name="charactor_edit_suggest_message">After regist, you can search by title, chat with others.</string>
+    <string name="charactor_edit_suggest_ok">Register now</string>
+    <string name="charactor_edit_suggest_cancel">After</string>
 
     <!-- Comment -->
     <string name="comment_hint">Write a comment</string>

@@ -72,9 +72,13 @@ public class SearchListFragment extends BaseFragment {
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                final Intent intent = new Intent(getActivity(), CommentActivity.class);
-                intent.putExtra(Charactor.class.getName(), adapter.getItem(pos));
-                startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT);
+                if (AppUtils.getCharactor() == null) {
+                    EditSuggestDialogFragment.show(getActivity());
+                } else {
+                    final Intent intent = new Intent(getActivity(), CommentActivity.class);
+                    intent.putExtra(Charactor.class.getName(), adapter.getItem(pos));
+                    startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT);
+                }
             }
         });
     }
