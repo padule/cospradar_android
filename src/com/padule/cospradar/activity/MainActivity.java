@@ -25,7 +25,6 @@ import com.padule.cospradar.data.DrawerItem;
 import com.padule.cospradar.fragment.CharactorEditFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.CommentFragment;
-import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.fragment.SearchFragment;
 import com.padule.cospradar.ui.DrawerHeader;
 import com.padule.cospradar.util.AppUtils;
@@ -120,13 +119,9 @@ public class MainActivity extends BaseActivity {
         if (pos <= 0) {
             showEditFragment();
         } else {
-            if (AppUtils.getCharactor() == null) {
-                EditSuggestDialogFragment.show(this);
-            } else {
-                DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
-                showFragment(drawerItem.getFragmentPackage(), R.id.content_frame);
-                setActionBarTitle(drawerItem.getTitle());
-            }
+            DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
+            showFragment(drawerItem.getFragmentPackage(), R.id.content_frame);
+            setActionBarTitle(drawerItem.getTitle());
         }
     }
 
