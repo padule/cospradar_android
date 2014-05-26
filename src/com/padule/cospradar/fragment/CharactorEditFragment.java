@@ -1,5 +1,6 @@
 package com.padule.cospradar.fragment;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -194,10 +195,9 @@ public class CharactorEditFragment extends BaseFragment {
         params.put(AppUrls.PARAM_TITLE, mEditTitle.getText().toString());
         params.put(AppUrls.PARAM_USER_ID, AppUtils.getUser().getId());
 
-        // FIXME remove commentout after server made
-        //        if (charactor.getImageUrl() != null) {
-        //            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImageUrl()));
-        //        }
+        if (charactor.getImageUrl() != null) {
+            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImage()));
+        }
 
         return params;
     }

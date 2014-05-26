@@ -57,6 +57,10 @@ public class Charactor extends Data {
     public String getTitle() {
         return title;
     }
+    
+    public String getImage() {
+        return image;
+    }
 
     public String getImageUrl() {
         return ImageUtils.convertToValidUrl(image);
