@@ -83,5 +83,5 @@ public class AppUtils {
         String message = context.getString(R.string.sending);
         return makeProgressDialog(message, context);
     }
-
+    
 }

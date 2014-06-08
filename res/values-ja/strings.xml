@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Auth -->
+    <string name="google_play_service_unavailable">Google Play Serviceに対応していないため、利用できません</string>
+
     <!-- Common -->
     <string name="app_name">コスプレーダー</string>
     <string name="ok">OK</string>

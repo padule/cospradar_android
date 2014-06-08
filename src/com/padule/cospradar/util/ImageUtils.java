@@ -61,7 +61,7 @@ public class ImageUtils {
         }
     }
 
-    private static DisplayImageOptions roundedImageOptions = 
+    public static DisplayImageOptions roundedImageOptions = 
             new DisplayImageOptions.Builder().showImageForEmptyUri(R.drawable.ic_no_user)
             .showImageOnFail(R.drawable.ic_no_user_rounded)
             .resetViewBeforeLoading(true)

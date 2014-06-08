@@ -32,6 +32,10 @@
             android:name="com.aviary.android.feather.v1.API_KEY"
             android:value="186a8b591261c9b0" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name="com.padule.cospradar.activity.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"

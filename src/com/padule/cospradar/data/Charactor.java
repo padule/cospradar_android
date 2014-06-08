@@ -20,6 +20,7 @@ public class Charactor extends Data {
     @SerializedName("modified") Date updatedAt;
 
     @SerializedName("user") User user;
+    @SerializedName("charactor_location") CharactorLocation charactorLocation;
 
     public Charactor() {
         super();
@@ -57,7 +58,7 @@ public class Charactor extends Data {
     public String getTitle() {
         return title;
     }
-    
+
     public String getImage() {
         return image;
     }
@@ -76,6 +77,14 @@ public class Charactor extends Data {
 
     public String getNameAndTitle() {
         return name + " (" + title + ")";
+    }
+
+    public void setCharactorLocation(CharactorLocation charactorLocation) {
+        this.charactorLocation = charactorLocation;
+    }
+    
+    public CharactorLocation getLocation() {
+        return charactorLocation;
     }
 
 }
