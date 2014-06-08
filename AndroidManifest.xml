@@ -31,6 +31,9 @@
         <meta-data
             android:name="com.aviary.android.feather.v1.API_KEY"
             android:value="186a8b591261c9b0" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name="com.padule.cospradar.activity.MainActivity"
@@ -42,6 +45,7 @@
             android:name="com.padule.cospradar.activity.CommentActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.padule.cospradar.activity.LoginActivity"
@@ -66,6 +70,8 @@
                     android:scheme="cospradar" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.padule.cospradar.service.LocationService" />
 
         <!-- Aviary -->
         <activity

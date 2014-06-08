@@ -3,6 +3,7 @@ package com.padule.cospradar.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,6 +27,7 @@ import com.padule.cospradar.fragment.CharactorEditFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
 import com.padule.cospradar.fragment.CommentFragment;
 import com.padule.cospradar.fragment.SearchFragment;
+import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.DrawerHeader;
 import com.padule.cospradar.util.AppUtils;
 
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, LocationService.class));
         setContentView(R.layout.activity_main);
     }
 

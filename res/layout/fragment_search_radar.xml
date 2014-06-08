@@ -4,11 +4,24 @@
     android:layout_height="match_parent"
     android:padding="@dimen/padding_large" >
 
-    <ImageView
-        android:layout_width="320dp"
-        android:layout_height="320dp"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_launcher" />
+    <com.padule.cospradar.ui.RadarView
+        android:id="@+id/radar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/radar_view"
+        android:layout_alignLeft="@id/radar_view"
+        android:layout_alignRight="@id/radar_view"
+        android:layout_alignTop="@id/radar_view" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical" />
+    </FrameLayout>
 
 </RelativeLayout>

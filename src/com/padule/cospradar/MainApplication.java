@@ -1,5 +1,6 @@
 package com.padule.cospradar;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ implements Thread.UncaughtExceptionHandler {
         AQUtility.setContext(this);
         AQUtility.setExceptionHandler(this);
         AQUtility.setCacheDir(null);
+
         super.onCreate();
     }
 

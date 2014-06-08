@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Auth -->
+    <string name="google_play_service_unavailable">Google Play Serviceに対応していないため、利用できません</string>
+
     <!-- Common -->
     <string name="app_name">コスプレーダー</string>
     <string name="ok">OK</string>
@@ -45,6 +48,7 @@
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
     <string name="search_hint">作品名で検索</string>
     <string name="search">検索</string>
+    <string name="radar_distance">%1$s km</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_edit_actionbar">コスキャラ編集</string>

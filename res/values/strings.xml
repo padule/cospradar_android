@@ -5,6 +5,7 @@
     <string name="twitter_consumer_key">fdH9TALRC3BGEYqv93CJQX8RZ</string>
     <string name="twitter_consumer_secret">cBwyPT1AarcxKswzFhDC0ZJ4SwUEcqgNJi6W2oy7SlaesjjyNF</string>
     <string name="twitter_callback_url">cospradar://twitter</string>
+    <string name="google_play_service_unavailable">Google Play service is not available.</string>
 
     <!-- Common -->
     <string name="app_name">Cospradar</string>
@@ -50,6 +51,7 @@
     <string name="search_list_nothing">Sorry. No Cosplayers are near.</string>
     <string name="search_hint">Search by title</string>
     <string name="search">Search</string>
+    <string name="radar_distance">%1$s km</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_edit_title">Edit charactor</string>
