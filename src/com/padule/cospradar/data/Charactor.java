@@ -79,7 +79,7 @@ public class Charactor extends Data {
         return name + " (" + title + ")";
     }
 
-    public void setCharactorLocation(CharactorLocation charactorLocation) {
+    public void setLocation(CharactorLocation charactorLocation) {
         this.charactorLocation = charactorLocation;
     }
     

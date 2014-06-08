@@ -71,6 +71,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name="com.padule.cospradar.service.LocationService" />
+
         <!-- Aviary -->
         <activity
             android:name="com.aviary.android.feather.FeatherActivity"

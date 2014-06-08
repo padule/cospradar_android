@@ -66,7 +66,7 @@ public class MockFactory {
 
     private static void createLocation(int id, Charactor charactor, float lat, float lon) {
         CharactorLocation location = new CharactorLocation(id, charactor.getId(), lat, lon);
-        charactor.setCharactorLocation(location);
+        charactor.setLocation(location);
     }
 
     public static List<Charactor> getCharactors() {

@@ -1,5 +1,7 @@
 package com.padule.cospradar.fragment;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -30,6 +32,8 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
     private float[] gravity = new float[3];
     private float[] geomagnetic = new float[3];
     private float[] attitude = new float[3];
+
+    private static final AtomicBoolean computingMag = new AtomicBoolean(false);
 
     private SensorManager sensorManager;
 
@@ -103,6 +107,7 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
         }
 
         if (geomagnetic != null && gravity != null) {
+            if (!computingMag.compareAndSet(false, true)) return;
             SensorManager.getRotationMatrix(rotationMatrix, null, gravity, geomagnetic);
             SensorManager.getOrientation(rotationMatrix, attitude);
 
@@ -113,6 +118,7 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
 
             radarView.setAzimuth(azimuth);
             radarView.postInvalidate();
+            computingMag.set(false);
         }
     }
 
