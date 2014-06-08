@@ -56,6 +56,7 @@ public class RadarView extends View implements OnTouchListener {
 
     public interface RadarListener {
         public void onClickCharactor(Charactor charactor);
+        public void onCharactorDrawed();
     }
 
     public RadarView(Context context, AttributeSet attrs) {
@@ -109,7 +110,7 @@ public class RadarView extends View implements OnTouchListener {
     private void drawArc(final Canvas canvas) {
         final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor((int)(color * 1.1));
+        paint.setColor(getResources().getColor(R.color.radar_light));
         RectF arc = new RectF(0, 0, width, width);
         canvas.drawArc(arc, 240, 60, true, paint);
     }
@@ -143,12 +144,22 @@ public class RadarView extends View implements OnTouchListener {
 
     private void drawCharactor(final Canvas canvas, final Paint paint, final Charactor charactor) {
         int radius = width/2;
+        CharactorLocation location = charactor.getLocation();
+        if (location == null) {
+            return;
+        }
+
         Bitmap bmp = bmpCache.get(Integer.valueOf(charactor.getId()));
         if (bmp != null) {
             float[] positions = convertLocationToPosition(
-                    charactor.getLocation().getLatitude(), charactor.getLocation().getLongitude());
-            canvas.drawBitmap(bmp, radius + positions[0] - ICON_SIZE/2, 
-                    radius + positions[1] - ICON_SIZE/2, paint);
+                    location.getLatitude(), location.getLongitude());
+            float x_limit = positions[0] > 0 ? positions[0] + ICON_SIZE/2 : positions[0] - ICON_SIZE/2;
+            float y_limit = positions[1] > 0 ? positions[1] + ICON_SIZE/2 : positions[1] - ICON_SIZE/2;
+
+            if (x_limit*x_limit + y_limit*y_limit < radius*radius) {
+                canvas.drawBitmap(bmp, radius + positions[0] - ICON_SIZE/2, 
+                        radius + positions[1] - ICON_SIZE/2, paint);
+            }
         } else {
             ImageSize targetSize = new ImageSize(ICON_SIZE, ICON_SIZE);
             MainApplication.imageLoader.loadImage(charactor.getImageUrl(), targetSize, 

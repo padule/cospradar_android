@@ -37,8 +37,8 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
 
     private SensorManager sensorManager;
 
-    @InjectView(R.id.radar_view)
-    RadarView radarView;
+    @InjectView(R.id.radar_view) RadarView radarView;
+    @InjectView(R.id.loading) View loading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
                 super.onLocationChanged(loc);
                 if (radarView != null) {
                     radarView.setCenterLocation((float)loc.getLatitude(), (float)loc.getLongitude());
+                    onCharactorDrawed();
                 }
             }
         };
@@ -125,5 +126,10 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
     @Override
     public void onClickCharactor(Charactor charactor) {
         CommentActivity.start(getActivity(), charactor);
+    }
+
+    @Override
+    public void onCharactorDrawed() {
+        loading.setVisibility(View.GONE);
     }
 }
