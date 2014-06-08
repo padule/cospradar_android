@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,13 +71,7 @@ public class SearchListFragment extends BaseFragment {
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                if (AppUtils.getCharactor() == null) {
-                    EditSuggestDialogFragment.show(getActivity());
-                } else {
-                    final Intent intent = new Intent(getActivity(), CommentActivity.class);
-                    intent.putExtra(Charactor.class.getName(), adapter.getItem(pos));
-                    startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT);
-                }
+                CommentActivity.start(getActivity(), adapter.getItem(pos));
             }
         });
     }

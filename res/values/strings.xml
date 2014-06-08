@@ -51,6 +51,7 @@
     <string name="search_list_nothing">Sorry. No Cosplayers are near.</string>
     <string name="search_hint">Search by title</string>
     <string name="search">Search</string>
+    <string name="radar_distance">%1$s km</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_edit_title">Edit charactor</string>

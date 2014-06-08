@@ -4,7 +4,8 @@ public class Constants {
 
     public static final String JSON_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    public static final String APP_URL = "http://api.cospradar.padule.me";
+//    public static final String APP_URL = "http://api.cospradar.padule.me";
+    public static final String APP_URL = "http://cospradar-api.cloudapp.net";
     
     public static final boolean MOCK_MODE = false;
 

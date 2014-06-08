@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/padding_large" >
 
-    <com.padule.cospradar.ui.AugmentedView
+    <com.padule.cospradar.ui.RadarView
         android:id="@+id/radar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

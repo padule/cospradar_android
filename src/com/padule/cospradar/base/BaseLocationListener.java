@@ -67,6 +67,6 @@ public class BaseLocationListener implements LocationListener, ConnectionCallbac
     @Override
     public void onLocationChanged(Location loc) {
         // 位置情報が続々とやってくるので、ここで位置情報を利用する処理を行う
-        Log.d(TAG, "location: " + loc);
+//        Log.d(TAG, "location: " + loc);
     }
 }

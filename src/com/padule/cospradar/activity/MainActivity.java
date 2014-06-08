@@ -21,7 +21,6 @@ import butterknife.InjectView;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.DrawerItemListAdapter;
 import com.padule.cospradar.base.BaseActivity;
-import com.padule.cospradar.base.BaseLocationListener;
 import com.padule.cospradar.data.DrawerItem;
 import com.padule.cospradar.fragment.CharactorEditFragment;
 import com.padule.cospradar.fragment.ChatListFragment;
@@ -45,9 +44,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        BaseLocationListener listener = new BaseLocationListener(this);
-        listener.start();
     }
 
     @Override
