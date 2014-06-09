@@ -22,6 +22,7 @@ import com.padule.cospradar.base.BaseLocationListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.ui.RadarView;
 import com.padule.cospradar.ui.RadarView.RadarListener;
+import com.padule.cospradar.util.LowPassFilter;
 
 public class SearchRadarFragment extends BaseFragment implements SensorEventListener, RadarListener {
 
@@ -100,22 +101,22 @@ public class SearchRadarFragment extends BaseFragment implements SensorEventList
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
         case Sensor.TYPE_MAGNETIC_FIELD:
-            geomagnetic = event.values.clone();
+            geomagnetic = LowPassFilter.filter(event.values.clone(), geomagnetic);
             break;
         case Sensor.TYPE_ACCELEROMETER:
-            gravity = event.values.clone();
+            gravity = LowPassFilter.filter(event.values.clone(), gravity);
             break;
         }
 
         if (geomagnetic != null && gravity != null) {
-            if (!computingMag.compareAndSet(false, true)) return;
+            if (!computingMag.compareAndSet(false, true)) {
+                return;
+            }
+
             SensorManager.getRotationMatrix(rotationMatrix, null, gravity, geomagnetic);
             SensorManager.getOrientation(rotationMatrix, attitude);
 
             float azimuth = (float)(attitude[0] * RAD2DEG);
-            int pitch = (int)(attitude[1] * RAD2DEG);
-            int roll = (int)(attitude[2] * RAD2DEG);
-            //            Log.d(TAG, "azimuth: " + azimuth + ", pitch: " + pitch + ", roll: " + roll);
 
             radarView.setAzimuth(azimuth);
             radarView.postInvalidate();
