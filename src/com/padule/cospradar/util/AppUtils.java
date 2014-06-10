@@ -28,6 +28,45 @@ public class AppUtils {
         return Constants.MOCK_MODE;
     }
 
+    public static void setLatLon(float lat, float lon) {
+        PrefUtils.put(PrefUtils.KEY_LAT_LON, lat + "," + lon);
+    }
+
+    public static float getLatitude() {
+        float[] array = getLatLon();
+        if (array != null) {
+            return array[0];
+        } else {
+            return 0;
+        }
+    }
+
+    public static float getLongitude() {
+        float[] array = getLatLon();
+        if (array != null) {
+            return array[1];
+        } else {
+            return 0;
+        }
+    }
+
+    private static float[] getLatLon() {
+        try {
+            String latLon = PrefUtils.get(PrefUtils.KEY_LAT_LON, null);
+            if (latLon != null) {
+                String[] array = latLon.split(",");
+                float[] result = new float[2];
+                result[0] = Float.parseFloat(array[0]);
+                result[1] = Float.parseFloat(array[1]);
+                return result;
+            } else {
+                return null;
+            }
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
     public static Charactor getCharactor() {
         Charactor charactor = (Charactor)Charactor.deSerializeFromString(PrefUtils.get(Charactor.class.getName(), null));
         if (charactor != null && !charactor.isEnabled()) {
@@ -58,7 +97,7 @@ public class AppUtils {
             AQUtility.report(e);
         }
     }
-    
+
     public static void showToast(String message, Context context) {
         showToast(message, context, Toast.LENGTH_LONG);
     }
@@ -83,5 +122,5 @@ public class AppUtils {
         String message = context.getString(R.string.sending);
         return makeProgressDialog(message, context);
     }
-    
+
 }

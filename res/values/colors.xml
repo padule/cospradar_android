@@ -5,15 +5,18 @@
     <color name="bg_white">#FEFEFE</color>
     <color name="bg_black_alfa_light">#26000000</color>
     <color name="bg_black_alfa_dark">#66000000</color>
-    <color name="bg_gray">#E5E5E5</color>
+    <color name="bg_gray">#ecf0f1</color>
+    <color name="bg_gray_dark">#bdc3c7</color>
     <color name="bg_twitter">#55acee</color>
 
     <!-- Text -->
     <color name="text_white">#FEFEFE</color>
-    <color name="text_gray">#535353</color>
+    <color name="text_gray">#95a5a6</color>
     <color name="text_red">#ff0000</color>
     
     <!-- Radar -->
-    <color name="radar_light">#9AC934</color>
+    <color name="stroke_radar">#FEFEFE</color>
+    <color name="center_radar">#f1c40f</color>
+    <color name="bg_radar">#e627ae60</color>
 
 </resources>

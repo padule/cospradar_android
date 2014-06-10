@@ -173,7 +173,7 @@ public class CharactorEditFragment extends BaseFragment {
             this.charactor = charactor;
             AppUtils.setCharactor(charactor);
             showToast(R.string.charactor_edit_succeeded);
-            ((MainActivity)getActivity()).initDrawer();
+//            ((MainActivity)getActivity()).initDrawer();
         } else {
             if (AppUtils.isMockMode()) {
                 // FIXME Remove me. Just implement for test.
@@ -181,7 +181,7 @@ public class CharactorEditFragment extends BaseFragment {
                         mEditTitle.getText().toString(), charactor.getImageUrl());
                 AppUtils.setCharactor(charactor);
                 showToast(R.string.charactor_edit_succeeded);
-                ((MainActivity)getActivity()).initDrawer();
+//                ((MainActivity)getActivity()).initDrawer();
             } else {
                 Log.e(TAG, "create_error_message: " + status.getMessage());
                 showToast(R.string.charactor_edit_failed);

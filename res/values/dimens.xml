@@ -1,14 +1,5 @@
 <resources>
 
-    <!-- Header -->
-    <dimen name="tab_height">48dp</dimen>
-    <dimen name="tab_indicator_height">4dp</dimen>
-    <dimen name="tab_underline_height">2dp</dimen>
-
-    <!-- Drawer -->
-    <dimen name="drawer_width">280dp</dimen>
-    <dimen name="drawer_header_max_width">104dp</dimen>
-
     <!-- Margin -->
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin">8dp</dimen>
@@ -31,7 +22,7 @@
 
     <!-- Image -->
     <dimen name="icon_small">40dp</dimen>
-    <dimen name="icon_medium">80dp</dimen>
+    <dimen name="icon_medium">60dp</dimen>
     <dimen name="icon_large">100dp</dimen>
 
     <!-- Radius -->

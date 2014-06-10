@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +28,7 @@ public class CommentActivity extends BaseActivity {
         setContentView(R.layout.activity_comment);
     }
     
-    public static void start(FragmentActivity activity, Charactor charactor) {
+    public static void start(BaseActivity activity, Charactor charactor) {
         if (AppUtils.getCharactor() == null) {
             EditSuggestDialogFragment.show(activity);
         } else {

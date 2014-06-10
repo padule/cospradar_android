@@ -1,29 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <ListView
+        android:id="@+id/listview_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:divider="@color/bg_gray"
+        android:dividerHeight="@dimen/line_small"
+        android:scrollingCache="false" />
 
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <RelativeLayout
+        android:id="@+id/container_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/padding_large"
+        android:visibility="gone" >
 
-        <ListView
-            android:id="@+id/drawer_list"
-            android:layout_width="@dimen/drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/bg_white"
-            android:choiceMode="singleChoice"
-            android:dividerHeight="1dp"
-            android:fadingEdge="none"
-            android:scrollingCache="false" />
-    </android.support.v4.widget.DrawerLayout>
+        <TextView
+            android:id="@+id/txt_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/search_list_nothing"
+            android:textSize="@dimen/text_large" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_above="@id/txt_empty"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_emotion_sad" />
+    </RelativeLayout>
 
 </RelativeLayout>

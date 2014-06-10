@@ -8,7 +8,7 @@
     <string name="google_play_service_unavailable">Google Play service is not available.</string>
 
     <!-- Common -->
-    <string name="app_name">Cospradar</string>
+    <string name="app_name">Cosradar</string>
     <string name="ok">OK</string>
     <string name="sending">Sending...</string>
     <string name="loading">Loading...</string>
@@ -36,24 +36,13 @@
     <string name="choose_from_gallery">Choose from galary</string>
     <string name="choose_from_camera">Choose from Camera</string>
 
-    <!-- Drawer -->
-    <string name="open">Open</string>
-    <string name="close">Close</string>
-    <string name="drawer_comment_chat">Commented Chats</string>
-    <string name="drawer_my_chat">My Chat</string>
-    <string name="drawer_search">Search Cosplayer</string>
-    <string name="drawer_no_charactor">Set your charactor!</string>
-    <string name="drawer_current_charactor">Current charactor:</string>
-
     <!-- Search -->
-    <string name="search_radar_title">Radar</string>
-    <string name="search_list_title">List</string>
     <string name="search_list_nothing">Sorry. No Cosplayers are near.</string>
     <string name="search_hint">Search by title</string>
-    <string name="search">Search</string>
     <string name="radar_distance">%1$s km</string>
 
     <!-- CharactorEdit -->
+    <string name="charactor_not_set">Set your charactor!</string>
     <string name="charactor_edit_title">Edit charactor</string>
     <string name="charactor_edit_description1">Set current cosplay charactor!\nSet cosplay charactor is shown in the radar.</string>
     <string name="charactor_edit_description2">Notes: Charactor data is reset in a day.</string>
@@ -72,5 +61,6 @@
     <string name="comment_hint">Write a comment</string>
     <string name="comment_send_failed">Sorry! sending failed...\nPlease try again.</string>
     <string name="comment_nothing">Comments are nothing.</string>
+    <string name="comment_chats">Commented Chats</string>
 
 </resources>

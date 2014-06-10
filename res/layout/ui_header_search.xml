@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_large" >
+    android:padding="@dimen/padding" >
 
     <com.padule.cospradar.ui.RadarView
         android:id="@+id/radar_view"
@@ -23,5 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical" />
     </FrameLayout>
+
+    <SeekBar
+        android:id="@+id/seekbar_radar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radar_view"
+        android:max="200" />
 
 </RelativeLayout>

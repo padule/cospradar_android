@@ -5,17 +5,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import butterknife.ButterKnife;
 
 import com.padule.cospradar.R;
-import com.padule.cospradar.activity.MainActivity;
+import com.padule.cospradar.base.BaseActivity;
 
 public class EditSuggestDialogFragment extends DialogFragment {
 
-    public static void show(FragmentActivity activity) {
+    public static void show(BaseActivity activity) {
         EditSuggestDialogFragment fragment = new EditSuggestDialogFragment();
         fragment.show(activity.getSupportFragmentManager(), 
                 EditSuggestDialogFragment.class.getName());
@@ -36,7 +35,7 @@ public class EditSuggestDialogFragment extends DialogFragment {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((MainActivity)getActivity()).showEditFragment();
+//                ((MainActivity)getActivity()).showEditFragment();
             }
         });
         builder.setNegativeButton(getString(R.string.charactor_edit_suggest_cancel),

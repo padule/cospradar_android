@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +16,20 @@ import butterknife.InjectView;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.CharactorLocation;
+import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
+import com.padule.cospradar.util.TextUtils;
 
-public class SearchListAdapter extends ArrayAdapter<Charactor> {
+public class CharactorListAdapter extends ArrayAdapter<Charactor> {
 
     private Context context;
 
-    public SearchListAdapter(Context context) {
+    public CharactorListAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
     }
 
-    public SearchListAdapter(Context context, List<Charactor> charactors) {
+    public CharactorListAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_charactor, charactors);
         this.context = context;
     }
@@ -43,7 +47,7 @@ public class SearchListAdapter extends ArrayAdapter<Charactor> {
         }
 
         Charactor charactor = getItem(pos);
-        holder.bindData(charactor);
+        holder.bindData(charactor, context);
 
         return view;
     }
@@ -58,14 +62,28 @@ public class SearchListAdapter extends ArrayAdapter<Charactor> {
             ButterKnife.inject(this, view);
         }
 
-        void bindData(Charactor charactor) {
+        void bindData(Charactor charactor, Context context) {
             if (charactor != null) {
                 ImageUtils.displayRoundedImage(charactor.getImageUrl(), mImgIcon);
                 mTxtName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());
-                // TODO implment binding distance.
+                bindDistance(charactor, context);
             }
         }
+
+        void bindDistance(Charactor charactor, Context context) {
+            CharactorLocation location = charactor.getLocation();
+            if (location != null) {
+                float[] results = new float[3];
+                Location.distanceBetween(location.getLatitude(), location.getLongitude(), 
+                        AppUtils.getLatitude(), AppUtils.getLongitude(), results);
+                float meter = results[0];
+
+                String distance = TextUtils.getKiroMeterString(context, (double)meter);
+                mTxtDistance.setText(distance);
+            }
+        }
+
     }
 
 }

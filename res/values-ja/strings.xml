@@ -5,7 +5,7 @@
     <string name="google_play_service_unavailable">Google Play Serviceに対応していないため、利用できません</string>
 
     <!-- Common -->
-    <string name="app_name">コスプレーダー</string>
+    <string name="app_name">コスレーダー</string>
     <string name="ok">OK</string>
     <string name="sending">送信中...</string>
     <string name="loading">ロード中...</string>
@@ -33,24 +33,13 @@
     <string name="choose_from_gallery">ギャラリーから選ぶ</string>
     <string name="choose_from_camera">カメラで撮る</string>
 
-    <!-- Drawer -->
-    <string name="open">開く</string>
-    <string name="close">閉じる</string>
-    <string name="drawer_comment_chat">コメントしたチャット</string>
-    <string name="drawer_my_chat">自分のチャット</string>
-    <string name="drawer_search">レイヤーを探す</string>
-    <string name="drawer_no_charactor">今のコスキャラを設定しよう！</string>
-    <string name="drawer_current_charactor">いまのコスキャラ:</string>
-
     <!-- Search -->
-    <string name="search_radar_title">レーダー</string>
-    <string name="search_list_title">リスト</string>
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
     <string name="search_hint">作品名で検索</string>
-    <string name="search">検索</string>
     <string name="radar_distance">%1$s km</string>
 
     <!-- CharactorEdit -->
+    <string name="charactor_not_set">今のコスキャラを設定しよう！</string>
     <string name="charactor_edit_actionbar">コスキャラ編集</string>
     <string name="charactor_edit_description1">今のコスキャラを設定しよう！\nレーダーに表示されるよ！</string>
     <string name="charactor_edit_description2">※ コスキャラは1日でリセットされます</string>
@@ -69,5 +58,6 @@
     <string name="comment_hint">コメントを書く</string>
     <string name="comment_send_failed">送信に失敗してしましました...\nもう一度試してみてもらえますか？</string>
     <string name="comment_nothing">まだコメントはないみたいです。</string>
+    <string name="comment_chats">コメントしたチャット</string>
 
 </resources>
