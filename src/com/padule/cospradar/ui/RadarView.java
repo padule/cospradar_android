@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.location.Location;
 import android.os.Handler;
 import android.support.v4.util.LruCache;
@@ -43,6 +47,7 @@ public class RadarView extends View implements OnTouchListener {
     private static final int RADAR_STROKE_WIDTH = 6;
     private static final double DEG2RAD = Math.PI/180;
     private static final int REFRESH_DELAY_MILLS = 3 * 1000;
+    private static final float DEFAULT_LOADING_ANGLE = 240;
 
     private List<Charactor> charactors = new ArrayList<Charactor>();
 
@@ -53,9 +58,12 @@ public class RadarView extends View implements OnTouchListener {
     private int strokeColor;
     private int centerColor;
     private float scale = 1.0f;
+    private float loadingAngle = DEFAULT_LOADING_ANGLE;
+    private boolean isLoading = false;
 
     private LruCache<Integer, Bitmap> bmpCache;
     private RadarListener radarListener;
+    private ScheduledExecutorService ses;
 
     public interface RadarListener {
         public void onClickCharactor(Charactor charactor);
@@ -121,8 +129,45 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     private void drawRadar(final Canvas canvas) {
+        if (isLoading) {
+            drawSearching(canvas);
+        }
         drawBackground(canvas);
         drawText(canvas);
+    }
+
+    private void drawSearching(final Canvas canvas) {
+        canvas.save();
+        Paint paint = new Paint( Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(getResources().getColor(R.color.loading_radar));
+        RectF arc = new RectF(0, 0, width, width);
+        canvas.drawArc(arc, loadingAngle, 60, true, paint);
+        canvas.restore();
+    }
+
+    private final Runnable loadingTask = new Runnable(){
+        @Override
+        public void run() {
+            loadingAngle += 1;
+            postInvalidate();
+        }
+    };
+
+    public void startLoading() {
+        isLoading = true;
+        loadingAngle = DEFAULT_LOADING_ANGLE;
+        ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleAtFixedRate(loadingTask, 0L, 3, TimeUnit.MILLISECONDS);
+    }
+
+    public void stopLoading() {
+        isLoading = false;
+        if (ses != null) {
+            ses.shutdown();
+            ses = null;
+        }
+        loadingAngle = DEFAULT_LOADING_ANGLE;
     }
 
     private void drawText(final Canvas canvas) {

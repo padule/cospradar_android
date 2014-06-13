@@ -19,6 +19,7 @@
     <!-- Radar -->
     <color name="stroke_radar">#FEFEFE</color>
     <color name="center_radar">#f1c40f</color>
+    <color name="loading_radar">#f1c40f</color>
     <color name="bg_radar">#e627ae60</color>
 
 </resources>

@@ -39,7 +39,6 @@ import com.padule.cospradar.util.AppUtils;
 public class MainActivity extends BaseActivity implements SearchListener {
 
     @InjectView(R.id.listview_search) ListView mListView;
-    @InjectView(R.id.container_empty) View mContainerEmpty;
 
     private CharactorListAdapter adapter;
     private SearchHeader header;
@@ -114,7 +113,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
         if (header != null) {
             // TODO Remove mock code
             charactors = MockFactory.getCharactors();
-            header.setCharactors(charactors);
+            header.refresh(charactors);
         }
     }
 

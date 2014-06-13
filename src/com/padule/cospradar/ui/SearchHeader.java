@@ -62,6 +62,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
 
     public void startSearching() {
         setCharactors(new ArrayList<Charactor>());
+        radarView.startLoading();
         textCountHeader.setVisibility(View.VISIBLE);
         textCountHeader.setText(getContext().getString(R.string.searching));
     }
@@ -110,4 +111,10 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         radarView.setCharactors(charactors);
     }
 
+    public void refresh(List<Charactor> charactors) {
+        setCharactors(charactors);
+        radarView.stopLoading();
+    }
+
+    
 }
