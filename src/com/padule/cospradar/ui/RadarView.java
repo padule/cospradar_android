@@ -27,7 +27,6 @@ import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.TextUtils;
 
@@ -36,7 +35,7 @@ public class RadarView extends View implements OnTouchListener {
     private static final String TAG = RadarView.class.getName();
 
     public static final double DEFAULT_RADIUS_KIROMETER = 10.0;
-    public static final double MAX_RADIUS_KIROMETER = 30.0;
+    public static final double MAX_RADIUS_KIROMETER = 20.0;
     public static final double MIN_RADIUS_KIROMETER = 0.1;
     private static final float DEFAULT_RADIUS_METER = (float)DEFAULT_RADIUS_KIROMETER * 1000;
     private static final int ICON_SIZE = 100;
@@ -144,9 +143,6 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     private void drawCharactors(final Canvas canvas, Paint paint) {
-        // TODO Remove mock code
-        charactors = MockFactory.getCharactors();
-
         canvas.save();
         for (final Charactor charactor : charactors) {
             drawCharactor(canvas, paint, charactor);
@@ -271,6 +267,11 @@ public class RadarView extends View implements OnTouchListener {
 
     public void updateScale(float kirometer) {
         scale = (float)DEFAULT_RADIUS_KIROMETER / kirometer;
+        postInvalidate();
+    }
+
+    public void setCharactors(List<Charactor> charactors) {
+        this.charactors = charactors;
         postInvalidate();
     }
 

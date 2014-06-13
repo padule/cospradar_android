@@ -10,6 +10,7 @@ public class AppUrls {
     private static final String PATH_USERS = "/users";
 
     private static final String PARAM_PAGE = "page";
+    private static final String PARAM_LIMIT = "limit";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_TITLE = "title";
     public static final String PARAM_IMAGE = "image";
@@ -31,8 +32,14 @@ public class AppUrls {
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
         sb.append(EXT_JSON);
-        sb.append(Q);
-        sb.append(createParam(PARAM_PAGE, page));
+        if (page > 0) {
+            sb.append(Q);
+            sb.append(createParam(PARAM_PAGE, page));
+        } else {
+            // TODO
+            sb.append(Q);
+            sb.append(createParam(PARAM_LIMIT, 300));
+        }
         return sb.toString();
     }
 

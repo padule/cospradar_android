@@ -3,6 +3,7 @@ package com.padule.cospradar.util;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -121,6 +122,11 @@ public class AppUtils {
     public static Dialog makeSendingDialog(Context context) {
         String message = context.getString(R.string.sending);
         return makeProgressDialog(message, context);
+    }
+    
+    public static void vibrate(long mills, Context context) {
+        Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(mills);
     }
 
 }

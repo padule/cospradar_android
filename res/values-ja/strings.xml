@@ -36,7 +36,10 @@
     <!-- Search -->
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
     <string name="search_hint">作品名で検索</string>
+    <string name="search_start">スタート</string>
     <string name="radar_distance">%1$s km</string>
+    <string name="searching">検索中...</string>
+    <string name="search_result_count">検索結果 : %1$d 人</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_not_set">今のコスキャラを設定しよう！</string>

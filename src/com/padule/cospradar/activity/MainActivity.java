@@ -33,14 +33,16 @@ import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
+import com.padule.cospradar.ui.SearchHeader.SearchListener;
 import com.padule.cospradar.util.AppUtils;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements SearchListener {
 
     @InjectView(R.id.listview_search) ListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
 
     private CharactorListAdapter adapter;
+    private SearchHeader header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,9 @@ public class MainActivity extends BaseActivity {
 
     private void initListView() {
         adapter = new CharactorListAdapter(this);
-        mListView.addHeaderView(new SearchHeader(this));
+        header = new SearchHeader(this, this);
+        mListView.addHeaderView(header);
         mListView.setAdapter(adapter);
-        loadData(1);
         initListViewListener();
     }
 
@@ -67,7 +69,8 @@ public class MainActivity extends BaseActivity {
         mListView.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadData(page);
+                // TODO paging
+                // loadData(page);
             }
         });
         mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -103,6 +106,15 @@ public class MainActivity extends BaseActivity {
 
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
+            refreshHeader(charactors);
+        }
+    }
+
+    private void refreshHeader(List<Charactor> charactors) {
+        if (header != null) {
+            // TODO Remove mock code
+            charactors = MockFactory.getCharactors();
+            header.setCharactors(charactors);
         }
     }
 
@@ -138,6 +150,20 @@ public class MainActivity extends BaseActivity {
     private void initActionBar() {
         ActionBar bar = getSupportActionBar();
         bar.setDisplayShowTitleEnabled(false);
+    }
+
+    @Override
+    public void onClickBtnReload(String searchText) {
+        AppUtils.vibrate(100, this);
+        clearListView();
+        header.startSearching();
+        loadData(0);
+    }
+
+    private void clearListView() {
+        if (adapter != null) {
+            adapter.clear();
+        }
     }
 
 }
