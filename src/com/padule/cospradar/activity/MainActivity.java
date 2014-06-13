@@ -134,6 +134,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
         case R.id.item_profile:
             break;
         case android.R.id.home:
+            mListView.setSelection(0);
             break;
         }
         return super.onOptionsItemSelected(item);
@@ -150,6 +151,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
     private void initActionBar() {
         ActionBar bar = getSupportActionBar();
         bar.setDisplayShowTitleEnabled(false);
+        bar.setHomeButtonEnabled(true);
     }
 
     @Override
