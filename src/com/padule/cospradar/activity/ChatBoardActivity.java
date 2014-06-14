@@ -126,13 +126,13 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void loadData(final int page, final boolean shouldClearAll) {
+        if (page == 1) {
+            mLoading.setVisibility(View.GONE);
+        }
         String url = AppUrls.getCharactorCommentsIndex(charactor.getId(), page);
         aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
-                if (page == 1) {
-                    mLoading.setVisibility(View.GONE);
-                }
                 loadCallback(json, status, page, shouldClearAll);
             }
         });

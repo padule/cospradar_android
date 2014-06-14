@@ -45,6 +45,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/footer_comment"
         android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
         android:padding="@dimen/padding_large"
         android:visibility="gone" >
 
@@ -57,11 +58,12 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/comment_nothing"
-            android:textSize="@dimen/text_large" />
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_medium" />
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_above="@id/txt_empty"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_emotion_sad" />

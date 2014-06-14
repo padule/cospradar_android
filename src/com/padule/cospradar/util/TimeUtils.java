@@ -54,7 +54,7 @@ public class TimeUtils {
             return "";
         }
 
-        date = convertUTCToLocal(date);
+        // date = convertUTCToLocal(date);
 
         long dayDiff = getDayDiff(date);
         long hourDiff = getHourDiff(date);

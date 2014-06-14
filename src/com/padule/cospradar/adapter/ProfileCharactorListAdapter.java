@@ -66,6 +66,8 @@ public class ProfileCharactorListAdapter extends ArrayAdapter<Charactor> {
 
         void bindData(Charactor charactor, Context context) {
             if (charactor != null) {
+                mImgCharactor.setScaleType(ScaleType.CENTER_CROP);
+
                 MainApplication.imageLoader.displayImage(charactor.getImageUrl(), mImgCharactor, imageLoaderListener);
                 mTxtCharactorName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());

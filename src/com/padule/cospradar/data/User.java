@@ -52,12 +52,17 @@ public class User extends Data {
     }
 
     public void addCharactor(Charactor charactor) {
+        if (charactor == null) {
+            return;
+        }
+
         for (Charactor c : getCharactors()) {
             if (c.getId() == charactor.getId()) {
                 return;
             }
         }
         getCharactors().add(charactor);
+
     }
 
 }

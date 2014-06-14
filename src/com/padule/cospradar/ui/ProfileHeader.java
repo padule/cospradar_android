@@ -12,6 +12,7 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.R.id;
+import com.padule.cospradar.activity.CharactorSettingActivity;
 import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
@@ -42,7 +43,8 @@ public class ProfileHeader extends RelativeLayout {
     }
 
     private void bindData(User user) {
-        Charactor charactor = user.getCurrentCharactor();
+        Charactor charactor = AppUtils.isLoginUser(user) ? AppUtils.getCharactor() : user.getCurrentCharactor();
+
         if (charactor != null) {
             ImageUtils.displayRoundedImage(charactor.getImageUrl(), mImgUser);
         } else {
@@ -64,7 +66,7 @@ public class ProfileHeader extends RelativeLayout {
 
     @OnClick(R.id.btn_add_charactor)
     void onlickBtnAddCharactor() {
-        //
+        CharactorSettingActivity.start(activity);
     }
 
     @OnClick(R.id.btn_chat)

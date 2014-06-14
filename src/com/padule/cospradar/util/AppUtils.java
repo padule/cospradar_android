@@ -16,6 +16,9 @@ import com.padule.cospradar.data.User;
 public class AppUtils {
 
     public static void setCharactor(Charactor charactor) {
+        User user = getUser();
+        user.addCharactor(charactor);
+        setUser(user);
         String str = charactor != null ? charactor.serializeToString() : null;
         PrefUtils.put(Charactor.class.getName(), str);
     }
