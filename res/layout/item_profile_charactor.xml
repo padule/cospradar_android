@@ -62,7 +62,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_small"
-            android:background="@drawable/bg_clickable_oval"
+            android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:src="@drawable/ic_menu" />
     </LinearLayout>

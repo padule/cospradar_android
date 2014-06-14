@@ -52,7 +52,7 @@
                 android:layout_alignLeft="@id/img_charactor"
                 android:layout_alignRight="@id/img_charactor"
                 android:layout_alignTop="@id/img_charactor"
-                android:background="@drawable/bg_clickable_oval"
+                android:background="@drawable/bg_clickable"
                 android:clickable="true" />
 
             <EditText

@@ -52,10 +52,12 @@
     <string name="charactor_validate_title">作品名が入力されていません</string>
     <string name="charactor_edit_succeeded">コスキャラを登録しました！</string>
     <string name="charactor_edit_failed">登録に失敗してしまいました...\nもう一度試してみてもらえますか？</string>
-    <string name="charactor_edit_suggest_title">コスキャラ登録が必要です</string>
-    <string name="charactor_edit_suggest_message">今のコスキャラを登録すると、検索やチャットが使えるようになります。</string>
-    <string name="charactor_edit_suggest_ok">登録する</string>
-    <string name="charactor_edit_suggest_cancel">あとで</string>
+    
+    <!-- EditSuggest -->
+    <string name="edit_suggest_title">コスキャラの設定が必要です</string>
+    <string name="edit_suggest_message">今のコスキャラを設定すると、けいじばんでやり取りできるようになります。</string>
+    <string name="edit_suggest_ok">登録する</string>
+    <string name="edit_suggest_cancel">あとで</string>
     
     <!-- Profile -->
     <string name="profile">プロフィール</string>

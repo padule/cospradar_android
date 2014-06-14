@@ -1,6 +1,5 @@
 package com.padule.cospradar.ui;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +12,8 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.R.id;
+import com.padule.cospradar.activity.CommentActivity;
+import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
 import com.padule.cospradar.util.AppUtils;
@@ -25,10 +26,16 @@ public class ProfileHeader extends RelativeLayout {
     @InjectView(id.btn_add_charactor) Button mBtnAddCharactor;
     @InjectView(id.btn_chat) Button mBtnChat;
 
-    public ProfileHeader(Context context, User user) {
-        super(context);
-        LayoutInflater.from(context).inflate(R.layout.ui_header_profile, this, true);
+    private User user;
+    private BaseActivity activity;
+
+    public ProfileHeader(BaseActivity activity, User user) {
+        super(activity);
+        LayoutInflater.from(activity).inflate(R.layout.ui_header_profile, this, true);
         ButterKnife.inject(this);
+
+        this.user = user;
+        this.activity = activity;
 
         bindData(user);
         initButton(user);
@@ -62,7 +69,7 @@ public class ProfileHeader extends RelativeLayout {
 
     @OnClick(R.id.btn_chat)
     void onClickBtnChat() {
-        //
+        CommentActivity.start(activity, this.user.getCurrentCharactor());
     }
 
 }
