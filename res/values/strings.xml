@@ -38,7 +38,7 @@
 
     <!-- Search -->
     <string name="search_list_nothing">Sorry. No Cosplayers are near.</string>
-    <string name="search_hint">Search by title</string>
+    <string name="search_hint">Search by title (Empty is also OK)</string>
     <string name="search_start">Start</string>
     <string name="radar_distance">%1$s km</string>
     <string name="searching">Searching...</string>

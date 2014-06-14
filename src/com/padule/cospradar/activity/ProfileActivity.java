@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,6 +39,7 @@ public class ProfileActivity extends BaseActivity {
 
     @InjectView(R.id.listview_charactors) ListView mListView;
 
+    private View mLoading;
     private ProfileCharactorListAdapter adapter;
     private User user;
 
@@ -63,11 +65,22 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void initListView() {
+        initLoading();
         adapter = new ProfileCharactorListAdapter(this);
         mListView.addHeaderView(new ProfileHeader(this, user));
+        mListView.addHeaderView(mLoading);
         mListView.setAdapter(adapter);
         initListViewListener();
         loadData(1);
+    }
+
+    private void initLoading() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLoading = inflater.inflate(R.layout.ui_loading, null);
+    }
+
+    private void hideLoading() {
+        mListView.removeHeaderView(mLoading);
     }
 
     private void initListViewListener() {
@@ -89,6 +102,7 @@ public class ProfileActivity extends BaseActivity {
         aq.ajax(AppUrls.getCharactorsIndex(page, user.getId()), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
+                hideLoading();
                 loadCallback(json);
             }
         });

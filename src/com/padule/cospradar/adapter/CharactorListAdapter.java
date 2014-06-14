@@ -17,6 +17,7 @@ import butterknife.InjectView;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
+import com.padule.cospradar.ui.RadarView;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
@@ -72,6 +73,7 @@ public class CharactorListAdapter extends ArrayAdapter<Charactor> {
         }
 
         void bindDistance(Charactor charactor, Context context) {
+            mTxtDistance.setText("");
             CharactorLocation location = charactor.getLocation();
             if (location != null) {
                 float[] results = new float[3];
@@ -79,8 +81,10 @@ public class CharactorListAdapter extends ArrayAdapter<Charactor> {
                         AppUtils.getLatitude(), AppUtils.getLongitude(), results);
                 float meter = results[0];
 
-                String distance = TextUtils.getKiroMeterString(context, (double)meter);
-                mTxtDistance.setText(distance);
+                if (meter <= RadarView.MAX_RADIUS_KIROMETER * 1000) {
+                    String distance = TextUtils.getKiroMeterString(context, (double)meter);
+                    mTxtDistance.setText(distance);
+                }
             }
         }
 

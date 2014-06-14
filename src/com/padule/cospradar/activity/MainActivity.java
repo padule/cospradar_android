@@ -38,6 +38,8 @@ import com.padule.cospradar.util.AppUtils;
 
 public class MainActivity extends BaseActivity implements SearchListener {
 
+    private static final String TAG = MainActivity.class.getName();
+
     @InjectView(R.id.listview_search) ListView mListView;
 
     private CharactorListAdapter adapter;
@@ -68,35 +70,37 @@ public class MainActivity extends BaseActivity implements SearchListener {
         mListView.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                // TODO paging
+                // TODO implement paging.
                 // loadData(page);
             }
         });
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                CommentActivity.start(MainActivity.this, adapter.getItem(pos));
+                pos -= mListView.getHeaderViewsCount();
+                ProfileActivity.start(MainActivity.this, adapter.getItem(pos).getUser());
             }
         });
     }
 
-    private void loadData(final int page) {
-        Log.d("Cospradar", AppUrls.getCharactorsIndex(page) + "");
-        aq.ajax(AppUrls.getCharactorsIndex(page), JSONArray.class, new AjaxCallback<JSONArray>() {
+    private void loadData(final int page, String title) {
+        Log.d(TAG, AppUrls.getCharactorsIndex(page, title) + "");
+        aq.ajax(AppUrls.getCharactorsIndex(page, title), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
-                loadCallback(json);
+                loadCallback(json, status);
             }
         });
     }
 
-    private void loadCallback(JSONArray json) {
+    private void loadCallback(JSONArray json, AjaxStatus status) {
         List<Charactor> charactors = new ArrayList<Charactor>();
         if (json != null) {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
             charactors = gson.fromJson(json.toString(), collectionType);
         } else {
+            Log.e(TAG, status.getMessage() + "");
             if (AppUtils.isMockMode()) {
                 // FIXME implement using mock.
                 charactors = MockFactory.getCharactors();
@@ -106,6 +110,8 @@ public class MainActivity extends BaseActivity implements SearchListener {
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
             refreshHeader(charactors);
+        } else {
+            refreshHeader(new ArrayList<Charactor>());
         }
     }
 
@@ -158,7 +164,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
         AppUtils.vibrate(100, this);
         clearListView();
         header.startSearching();
-        loadData(0);
+        loadData(0, searchText);
     }
 
     private void clearListView() {

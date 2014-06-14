@@ -27,11 +27,15 @@ public class AppUrls {
     private static final String EQ = "=";
     private static final String SLASH = "/";
 
-    public static String getCharactorsIndex(int page) {
-        return getCharactorsIndex(page, 0);
+    public static String getCharactorsIndex(int page, String title) {
+        return getCharactorsIndex(page, 0, title);
     }
 
     public static String getCharactorsIndex(int page, int userId) {
+        return getCharactorsIndex(page, userId, null);
+    }
+
+    private static String getCharactorsIndex(int page, int userId, String title) {
         StringBuffer sb = new StringBuffer();
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
@@ -47,6 +51,10 @@ public class AppUrls {
         if (userId > 0) {
             sb.append(AND);
             sb.append(createParam(PARAM_USER_ID, userId));
+        }
+        if (title != null && !"".equals(title)) {
+            sb.append(AND);
+            sb.append(createParam(PARAM_TITLE, title));
         }
         return sb.toString();
     }
