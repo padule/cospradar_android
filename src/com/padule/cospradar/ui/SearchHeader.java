@@ -54,6 +54,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     @OnClick(R.id.btn_reload)
     void onClickBtnReload() {
         if (listener != null) {
+            mBtnReload.setEnabled(false);
             String text = mEditSearch.getText().toString();
             listener.onClickBtnReload(text);
         }
@@ -113,6 +114,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     public void refresh(List<Charactor> charactors) {
         setCharactors(charactors);
         mRadarView.stopLoading();
+        mBtnReload.setEnabled(true);
     }
 
 
