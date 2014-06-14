@@ -27,6 +27,8 @@ import com.androidquery.callback.AjaxStatus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.padule.cospradar.AppUrls;
@@ -52,7 +54,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     private static final String TAG = ChatBoardActivity.class.getName();
     private static final int ICON_SIZE = 100;
 
-    @InjectView(R.id.listview_chat) ListView mListView;
+    @InjectView(R.id.listview_chat) PullToRefreshListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
     @InjectView(R.id.loading) View mLoading;
     @InjectView(R.id.footer_comment) CommentFooter mFooter;
@@ -96,8 +98,8 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
 
     private void initListView() {
         adapter = new CommentListAdapter(this, charactor);
+        mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         mListView.setAdapter(adapter);
-        mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         loadData(1);
         initListViewListener();
     }
@@ -111,9 +113,19 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
                 }
             }
         });
+        mListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                loadData(1, true);
+            }
+        });
     }
 
-    private void loadData(final int page) {
+    private void loadData(int page) {
+        loadData(page, false);
+    }
+
+    private void loadData(final int page, final boolean shouldClearAll) {
         String url = AppUrls.getCharactorCommentsIndex(charactor.getId(), page);
         aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
@@ -121,12 +133,12 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
                 if (page == 1) {
                     mLoading.setVisibility(View.GONE);
                 }
-                loadCallback(json, status, page);
+                loadCallback(json, status, page, shouldClearAll);
             }
         });
     }
 
-    private void loadCallback(JSONArray json, AjaxStatus status, int page) {
+    private void loadCallback(JSONArray json, AjaxStatus status, int page, boolean shouldClearAll) {
         List<CharactorComment> comments = new ArrayList<CharactorComment>();
         if (json != null) {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
@@ -141,19 +153,37 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         }
 
         if (comments != null && !comments.isEmpty()) {
+            if (shouldClearAll) {
+                adapter.clear();
+                mListView.onRefreshComplete();
+            }
             if (adapter.isEmpty()) {
                 adapter.addAll(comments);
-                mListView.setSelection(adapter.getCount());
+                mListView.getRefreshableView().setSelection(adapter.getCount()+1);
+                scrollToBottom();
             } else {
                 ListIterator<CharactorComment> itr = comments.listIterator(comments.size());
                 while (itr.hasPrevious()) {
                     adapter.insert(itr.previous(), 0);
                 }
-                mListView.setSelection(comments.size() + 1);
+                mListView.getRefreshableView().setSelection(comments.size()+1);
             }
         } else {
             int visibility = page == 1 ? View.VISIBLE : View.GONE;
             mContainerEmpty.setVisibility(visibility);
+        }
+    }
+
+    private void scrollToBottom() {
+        if (mListView != null) {
+            mListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (adapter != null) {
+                        mListView.getRefreshableView().setSelection(adapter.getCount()+1);
+                    }
+                }
+            });
         }
     }
 
@@ -245,6 +275,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
                 mContainerEmpty.setVisibility(View.GONE);
                 adapter.remove(oldComment);
                 adapter.add(comment);
+                scrollToBottom();
             }
         } else {
             Log.e(TAG, "create_error_message: " + status.getMessage());
