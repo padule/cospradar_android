@@ -1,4 +1,4 @@
-package com.padule.cospradar.fragment;
+package com.padule.cospradar.activity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -10,91 +10,87 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
+import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.CommentListAdapter;
-import com.padule.cospradar.base.BaseFragment;
+import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.ui.CommentFooter.FooterCommentListener;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class CommentFragment extends BaseFragment implements FooterCommentListener {
+public class ChatBoardActivity extends BaseActivity implements FooterCommentListener {
 
-    private static final String TAG = CommentFragment.class.getName();
+    private static final String TAG = ChatBoardActivity.class.getName();
+    private static final int ICON_SIZE = 100;
 
     @InjectView(R.id.listview_chat) ListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
     @InjectView(R.id.loading) View mLoading;
     @InjectView(R.id.footer_comment) CommentFooter mFooter;
 
-    CommentListAdapter adapter;
-    Charactor charactor;
+    private CommentListAdapter adapter;
+    private Charactor charactor;
 
-    public static CommentFragment newInstance(Charactor charactor) {
-        CommentFragment fragment = new CommentFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Charactor.class.getName(), charactor);
-        fragment.setArguments(bundle);
-        return fragment;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        KeyboardUtils.initHidden(this);
+        setContentView(R.layout.activity_chat_board);
+    }
+
+    public static void start(BaseActivity activity, Charactor charactor) {
+        if (AppUtils.getCharactor() == null) {
+            EditSuggestDialogFragment.show(activity);
+        } else {
+            final Intent intent = new Intent(activity, ChatBoardActivity.class);
+            intent.putExtra(Charactor.class.getName(), charactor);
+            activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT_BOARD);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_comment, container, false);
-        ButterKnife.inject(this, view);
-        aq = new AQuery(getActivity());
-
+    protected void initView() {
         setCharactor();
+        initActionBar(charactor);
         initListView();
-        mFooter.setListener(this);
-
-        return view;
-    }
-
-    private void setCharactor() {
-        if (getArguments() != null) {
-            charactor = (Charactor)getArguments().getSerializable(Charactor.class.getName());
-        } else {
-            charactor = AppUtils.getCharactor();
-        }
     }
 
     @OnClick(R.id.root_chat)
     public void onClickListViewChat() {
-        KeyboardUtils.hide(getActivity());
-    }
-
-    @OnClick(R.id.container_empty)
-    public void onClickContainerEmpty() {
-        KeyboardUtils.hide(getActivity());
+        KeyboardUtils.hide(this);
     }
 
     private void initListView() {
-        adapter = new CommentListAdapter(getActivity());
+        adapter = new CommentListAdapter(this);
         mListView.setAdapter(adapter);
         mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         loadData(1);
@@ -156,9 +152,60 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
         }
     }
 
+    @OnClick(R.id.container_empty)
+    public void onClickContainerEmpty() {
+        KeyboardUtils.hide(this);
+    }
+
+    private void setCharactor() {
+        this.charactor = (Charactor)getIntent()
+                .getSerializableExtra(Charactor.class.getName());
+    }
+
+    private void initActionBar(Charactor charactor) {
+        ActionBar bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setDisplayShowHomeEnabled(true);
+        bar.setDisplayShowTitleEnabled(true);
+        bar.setHomeButtonEnabled(true);
+        bar.setTitle(charactor.getNameAndTitle());
+
+        setActionBarIcon(bar, charactor);
+    }
+
+    private void setActionBarIcon(final ActionBar bar, Charactor charactor) {
+        MainApplication.imageLoader.loadImage(charactor.getImageUrl(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap bmp) {
+                Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, ICON_SIZE, ICON_SIZE, false);
+                bar.setIcon(new BitmapDrawable(getResources(), scaledBmp));
+            }
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                setEmptyIcon();
+            }
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason reason) {
+                setEmptyIcon();
+            }
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                setEmptyIcon();
+            }
+
+            private void setEmptyIcon() {
+                bar.setIcon(new BitmapDrawable(getResources(), 
+                        ImageUtils.createEmptyIconBmp(ChatBoardActivity.this, ICON_SIZE)));
+            }
+        });
+    }
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -199,7 +246,7 @@ public class CommentFragment extends BaseFragment implements FooterCommentListen
             if (!AppUtils.isMockMode()) {
                 adapter.remove(oldComment);
             }
-            AppUtils.showToast(getString(R.string.comment_send_failed), getActivity());
+            AppUtils.showToast(getString(R.string.comment_send_failed), this);
         }
     }
 

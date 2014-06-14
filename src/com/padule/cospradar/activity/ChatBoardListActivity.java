@@ -7,12 +7,12 @@ import android.view.MenuItem;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
 
-public class CommentListActivity extends BaseActivity {
+public class ChatBoardListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_list);
+        setContentView(R.layout.activity_chat_board_list);
     }
 
     @Override

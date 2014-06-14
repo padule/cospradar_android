@@ -89,6 +89,9 @@ public class Charactor extends Data {
     }
 
     public User getUser() {
+        if (user.getCharactors().isEmpty()) {
+            user.addCharactor(this);
+        }
         return user;
     }
 

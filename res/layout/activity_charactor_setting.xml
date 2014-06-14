@@ -38,7 +38,8 @@
                 android:layout_marginTop="@dimen/margin_large"
                 android:hint="@string/charactor_name"
                 android:inputType="text"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edit_title"
@@ -48,6 +49,7 @@
                 android:layout_marginTop="@dimen/margin"
                 android:hint="@string/charactor_title"
                 android:inputType="text"
+                android:textColor="@color/apptheme_color"
                 android:textSize="@dimen/text_medium" />
         </RelativeLayout>
     </ScrollView>

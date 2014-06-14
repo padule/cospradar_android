@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -34,6 +33,7 @@ import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
 
 public class RadarView extends View implements OnTouchListener {
@@ -242,7 +242,8 @@ public class RadarView extends View implements OnTouchListener {
                         radius + positions[1] - ICON_SIZE/2, paint);
             }
         } else {
-            bmpCache.put(Integer.valueOf(charactor.getId()), RadarView.this.createEmptyBmp());
+            bmpCache.put(Integer.valueOf(charactor.getId()), 
+                    ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), ICON_SIZE));
             ImageSize targetSize = new ImageSize(ICON_SIZE, ICON_SIZE);
             MainApplication.imageLoader.loadImage(charactor.getImageUrl(), targetSize, 
                     new ImageLoadingListener() {
@@ -252,11 +253,13 @@ public class RadarView extends View implements OnTouchListener {
                 }
                 @Override
                 public void onLoadingCancelled(String url, View view) {
-                    bmpCache.put(Integer.valueOf(charactor.getId()), RadarView.this.createEmptyBmp());
+                    bmpCache.put(Integer.valueOf(charactor.getId()), 
+                            ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), ICON_SIZE));
                 }
                 @Override
                 public void onLoadingFailed(String url, View view, FailReason reason) {
-                    bmpCache.put(Integer.valueOf(charactor.getId()), RadarView.this.createEmptyBmp());
+                    bmpCache.put(Integer.valueOf(charactor.getId()), 
+                            ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), ICON_SIZE));
                 }
                 @Override
                 public void onLoadingStarted(String url, View view) {
@@ -264,13 +267,6 @@ public class RadarView extends View implements OnTouchListener {
                 }
             });
         }
-    }
-
-    private Bitmap createEmptyBmp() {
-        Bitmap bmp = BitmapFactory.decodeResource(RadarView.this.getResources(), R.drawable.ic_no_user_radar);
-        Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, ICON_SIZE, ICON_SIZE, false);
-        bmp = null;
-        return scaledBmp;
     }
 
     @Override

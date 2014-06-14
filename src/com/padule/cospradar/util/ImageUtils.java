@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,9 +28,10 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
+import com.padule.cospradar.ui.RadarView;
 
 public class ImageUtils {
-
+    
     private static final int POS_CHOOSER_GALLERY = 0;
     private static final int POS_CHOOSER_CAMERA = 1;
 
@@ -205,6 +208,13 @@ public class ImageUtils {
                 Constants.AVIARY_SECRET);
         intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_TOOLS_LIST, AVIARY_TOOLS_LIST);
         return intent;
+    }
+    
+    public static Bitmap createEmptyIconBmp(Context context, int iconSize) {
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_no_user_radar);
+        Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, iconSize, iconSize, false);
+        bmp = null;
+        return scaledBmp;
     }
 
 }
