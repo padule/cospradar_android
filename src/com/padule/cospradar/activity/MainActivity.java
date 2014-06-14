@@ -117,8 +117,6 @@ public class MainActivity extends BaseActivity implements SearchListener {
 
     private void refreshHeader(List<Charactor> charactors) {
         if (header != null) {
-            // TODO Remove mock code
-            charactors = MockFactory.getCharactors();
             header.refresh(charactors);
         }
     }

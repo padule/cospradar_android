@@ -18,8 +18,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 import com.padule.cospradar.R;
-import com.padule.cospradar.activity.CommentActivity;
-import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.activity.ProfileActivity;
 import com.padule.cospradar.base.BaseLocationListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.ui.RadarView.RadarListener;
@@ -103,7 +102,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
 
     @Override
     public void onClickCharactor(Charactor charactor) {
-        CommentActivity.start((BaseActivity)getContext(), charactor);
+        ProfileActivity.start(getContext(), charactor.getUser());
     }
 
     public void setCharactors(List<Charactor> charactors) {
