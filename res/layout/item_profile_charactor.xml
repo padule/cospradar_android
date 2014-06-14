@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white"
+    android:padding="@dimen/padding_small" >
+
+    <com.padule.cospradar.ui.ResizableImageView
+        android:id="@+id/img_charactor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:image_ratio="1.5" />
+
+    <TextView
+        android:id="@+id/txt_charactor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_charactor"
+        android:layout_marginTop="@dimen/margin_small"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_charactor_name"
+        android:layout_marginTop="@dimen/margin_small"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/apptheme_color"
+        android:textSize="@dimen/text_medium" />
+
+</RelativeLayout>

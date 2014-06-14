@@ -29,11 +29,11 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
 
     private static final int MAGNIFICATION = 10;
 
-    @InjectView(R.id.radar_view) RadarView radarView;
-    @InjectView(R.id.seekbar_radar) SeekBar seekbar;
-    @InjectView(R.id.btn_reload) ImageButton btnReload;
-    @InjectView(R.id.edit_search) EditText editSearch;
-    @InjectView(R.id.text_count_header) TextView textCountHeader;
+    @InjectView(R.id.radar_view) RadarView mRadarView;
+    @InjectView(R.id.seekbar_radar) SeekBar mSeekBar;
+    @InjectView(R.id.btn_reload) ImageButton mBtnReload;
+    @InjectView(R.id.edit_search) EditText mEditSearch;
+    @InjectView(R.id.text_count_header) TextView mTextCountHeader;
 
     private SearchListener listener;
 
@@ -55,25 +55,25 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     @OnClick(R.id.btn_reload)
     void onClickBtnReload() {
         if (listener != null) {
-            String text = editSearch.getText().toString();
+            String text = mEditSearch.getText().toString();
             listener.onClickBtnReload(text);
         }
     }
 
     public void startSearching() {
         setCharactors(new ArrayList<Charactor>());
-        radarView.startLoading();
-        textCountHeader.setVisibility(View.VISIBLE);
-        textCountHeader.setText(getContext().getString(R.string.searching));
+        mRadarView.startLoading();
+        mTextCountHeader.setVisibility(View.VISIBLE);
+        mTextCountHeader.setText(getContext().getString(R.string.searching));
     }
 
     private void initSeekBar() {
-        seekbar.setMax((int)(RadarView.MAX_RADIUS_KIROMETER * MAGNIFICATION - RadarView.MIN_RADIUS_KIROMETER * MAGNIFICATION));
-        seekbar.setProgress((int)RadarView.DEFAULT_RADIUS_KIROMETER * MAGNIFICATION);;
-        seekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+        mSeekBar.setMax((int)(RadarView.MAX_RADIUS_KIROMETER * MAGNIFICATION - RadarView.MIN_RADIUS_KIROMETER * MAGNIFICATION));
+        mSeekBar.setProgress((int)RadarView.DEFAULT_RADIUS_KIROMETER * MAGNIFICATION);;
+        mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progress += RadarView.MIN_RADIUS_KIROMETER * MAGNIFICATION;
-                radarView.updateScale((float)progress/MAGNIFICATION);
+                mRadarView.updateScale((float)progress/MAGNIFICATION);
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
                 //
@@ -85,7 +85,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     }
 
     private void initRadar() {
-        this.radarView.setRadarListener(this);
+        this.mRadarView.setRadarListener(this);
     }
 
     private void initLocationListener() {
@@ -93,7 +93,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
             @Override
             public void onLocationChanged(Location loc) {
                 super.onLocationChanged(loc);
-                if (radarView != null) {
+                if (mRadarView != null) {
                     AppUtils.setLatLon((float)loc.getLatitude(), (float)loc.getLongitude());
                 }
             }
@@ -107,14 +107,14 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     }
 
     public void setCharactors(List<Charactor> charactors) {
-        textCountHeader.setText(getContext().getString(R.string.search_result_count, charactors.size()));
-        radarView.setCharactors(charactors);
+        mTextCountHeader.setText(getContext().getString(R.string.search_result_count, charactors.size()));
+        mRadarView.setCharactors(charactors);
     }
 
     public void refresh(List<Charactor> charactors) {
         setCharactors(charactors);
-        radarView.stopLoading();
+        mRadarView.stopLoading();
     }
 
-    
+
 }

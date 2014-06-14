@@ -56,6 +56,11 @@
     <string name="charactor_edit_suggest_message">今のコスキャラを登録すると、検索やチャットが使えるようになります。</string>
     <string name="charactor_edit_suggest_ok">登録する</string>
     <string name="charactor_edit_suggest_cancel">あとで</string>
+    
+    <!-- Profile -->
+    <string name="profile">プロフィール</string>
+    <string name="profile_add">コスキャラを設定</string>
+    <string name="profile_chat">けいじばん</string>
 
     <!-- Comment -->
     <string name="comment_hint">コメントを書く</string>

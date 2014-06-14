@@ -85,6 +85,15 @@ public class AppUtils {
         return getUser() != null;
     }
 
+    public static boolean isLoginUser(User user) {
+        User loginUser = getUser();
+        if (loginUser != null && loginUser.getId() == user.getId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void showToast(String message, Context context, int duration) {
         if (message == null || message.length() == 0) {
             return;
@@ -123,7 +132,7 @@ public class AppUtils {
         String message = context.getString(R.string.sending);
         return makeProgressDialog(message, context);
     }
-    
+
     public static void vibrate(long mills, Context context) {
         Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         vib.vibrate(mills);

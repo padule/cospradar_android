@@ -59,6 +59,11 @@
     <string name="charactor_edit_suggest_message">After regist, you can search by title, chat with others.</string>
     <string name="charactor_edit_suggest_ok">Register now</string>
     <string name="charactor_edit_suggest_cancel">After</string>
+    
+    <!-- Profile -->
+    <string name="profile">Profile</string>
+    <string name="profile_add">Add charactor</string>
+    <string name="profile_chat">Chat board</string>
 
     <!-- Comment -->
     <string name="comment_hint">Write a comment</string>

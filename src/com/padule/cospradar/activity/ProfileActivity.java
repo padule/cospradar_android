@@ -6,11 +6,10 @@ import java.util.List;
 
 import org.json.JSONArray;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,28 +25,35 @@ import com.google.gson.reflect.TypeToken;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.CharactorListAdapter;
+import com.padule.cospradar.adapter.ProfileCharactorListAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.User;
 import com.padule.cospradar.mock.MockFactory;
-import com.padule.cospradar.service.LocationService;
-import com.padule.cospradar.ui.SearchHeader;
-import com.padule.cospradar.ui.SearchHeader.SearchListener;
+import com.padule.cospradar.ui.ProfileHeader;
 import com.padule.cospradar.util.AppUtils;
 
-public class MainActivity extends BaseActivity implements SearchListener {
+public class ProfileActivity extends BaseActivity {
 
-    @InjectView(R.id.listview_search) ListView mListView;
+    @InjectView(R.id.listview_charactors) ListView mListView;
 
-    private CharactorListAdapter adapter;
-    private SearchHeader header;
+    private ProfileCharactorListAdapter adapter;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startService(new Intent(this, LocationService.class));
-        setContentView(R.layout.activity_main);
+        user = (User)getIntent().getSerializableExtra(User.class.getName());
+        setContentView(R.layout.activity_profile);
+    }
+
+    public static void start(Context context, User user) {
+        if (user != null) {
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.putExtra(User.class.getName(), user);
+            context.startActivity(intent);
+        }
     }
 
     @Override
@@ -57,32 +63,30 @@ public class MainActivity extends BaseActivity implements SearchListener {
     }
 
     private void initListView() {
-        adapter = new CharactorListAdapter(this);
-        header = new SearchHeader(this, this);
-        mListView.addHeaderView(header);
+        adapter = new ProfileCharactorListAdapter(this);
+        mListView.addHeaderView(new ProfileHeader(this, user));
         mListView.setAdapter(adapter);
         initListViewListener();
+        loadData(1);
     }
 
     private void initListViewListener() {
         mListView.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                // TODO paging
-                // loadData(page);
+                loadData(page);
             }
         });
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                CommentActivity.start(MainActivity.this, adapter.getItem(pos));
+                // TODO
             }
         });
     }
 
     private void loadData(final int page) {
-        Log.d("Cospradar", AppUrls.getCharactorsIndex(page) + "");
-        aq.ajax(AppUrls.getCharactorsIndex(page), JSONArray.class, new AjaxCallback<JSONArray>() {
+        aq.ajax(AppUrls.getCharactorsIndex(page, user.getId()), JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
                 loadCallback(json);
@@ -105,66 +109,24 @@ public class MainActivity extends BaseActivity implements SearchListener {
 
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
-            refreshHeader(charactors);
-        }
-    }
-
-    private void refreshHeader(List<Charactor> charactors) {
-        if (header != null) {
-            // TODO Remove mock code
-            charactors = MockFactory.getCharactors();
-            header.refresh(charactors);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-        case R.id.item_chat_list:
-            startActivity(new Intent(this, CommentListActivity.class));
-            break;
-        case R.id.item_profile:
-            ProfileActivity.start(this, AppUtils.getUser());
-            break;
-        case android.R.id.home:
-            mListView.setSelection(0);
-            break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (adapter != null) {
-            adapter = null;
         }
     }
 
     private void initActionBar() {
         ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(false);
         bar.setHomeButtonEnabled(true);
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setTitle(getString(R.string.profile));
     }
 
     @Override
-    public void onClickBtnReload(String searchText) {
-        AppUtils.vibrate(100, this);
-        clearListView();
-        header.startSearching();
-        loadData(0);
-    }
-
-    private void clearListView() {
-        if (adapter != null) {
-            adapter.clear();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 }

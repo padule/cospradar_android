@@ -7,5 +7,11 @@
     <style name="NoActionBar" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
     </style>
+    
+    <style name="DefaultListView" parent="AppTheme">
+        <item name="android:divider">@color/bg_gray</item>
+        <item name="android:dividerHeight">@dimen/line_small</item>
+        <item name="android:scrollingCache">false</item>
+    </style>
 
 </resources>

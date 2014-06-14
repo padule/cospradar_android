@@ -28,6 +28,10 @@ public class AppUrls {
     private static final String SLASH = "/";
 
     public static String getCharactorsIndex(int page) {
+        return getCharactorsIndex(page, 0);
+    }
+
+    public static String getCharactorsIndex(int page, int userId) {
         StringBuffer sb = new StringBuffer();
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
@@ -39,6 +43,10 @@ public class AppUrls {
             // TODO
             sb.append(Q);
             sb.append(createParam(PARAM_LIMIT, 300));
+        }
+        if (userId > 0) {
+            sb.append(AND);
+            sb.append(createParam(PARAM_USER_ID, userId));
         }
         return sb.toString();
     }

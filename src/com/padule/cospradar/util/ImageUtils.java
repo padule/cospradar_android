@@ -69,7 +69,7 @@ public class ImageUtils {
             .cacheInMemory(true)
             .considerExifParams(true)
             .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-            .displayer(new RoundedBitmapDisplayer(300))
+            .displayer(new RoundedBitmapDisplayer(100))
             .build();
 
     public static void displayRoundedImage(String url, ImageView view) {

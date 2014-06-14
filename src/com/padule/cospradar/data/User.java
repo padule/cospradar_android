@@ -38,4 +38,13 @@ public class User extends Data {
         return charactors;
     }
 
+    public Charactor getCurrentCharactor() {
+        // TODO implements after adding is_enabled column to charactors.
+        if (charactors != null && !charactors.isEmpty()) {
+            return charactors.get(0);
+        } else {
+            return null;
+        }
+    }
+
 }
