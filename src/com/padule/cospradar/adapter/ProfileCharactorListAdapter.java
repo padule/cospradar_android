@@ -54,8 +54,8 @@ public class ProfileCharactorListAdapter extends ArrayAdapter<Charactor> {
     }
 
     static class ViewHolder {
-        @InjectView(R.id.img_charactor) ImageView mImgCharactor;
-        @InjectView(R.id.txt_charactor_name) TextView mTxtCharactorName;
+        @InjectView(R.id.img_charactor_left) ImageView mImgCharactor;
+        @InjectView(R.id.txt_charactor_name_left) TextView mTxtCharactorName;
         @InjectView(R.id.txt_title) TextView mTxtTitle;
         @InjectView(R.id.img_menu) ImageView mImgMenu;
         @InjectView(R.id.loading) View mLoading;

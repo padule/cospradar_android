@@ -39,7 +39,7 @@ public class CharactorSettingActivity extends BaseActivity {
 
     private static final String TAG = CharactorSettingActivity.class.getName();
 
-    @InjectView(R.id.img_charactor) ImageView mImgCharactor;
+    @InjectView(R.id.img_charactor_left) ImageView mImgCharactor;
     @InjectView(R.id.edit_name) EditText mEditName;
     @InjectView(R.id.edit_title) EditText mEditTitle;
 

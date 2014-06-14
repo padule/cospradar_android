@@ -7,7 +7,7 @@
     android:padding="@dimen/padding_small" >
 
     <com.padule.cospradar.ui.ResizableImageView
-        android:id="@+id/img_charactor"
+        android:id="@+id/img_charactor_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -18,10 +18,10 @@
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/img_charactor"
-        android:layout_alignLeft="@id/img_charactor"
-        android:layout_alignRight="@id/img_charactor"
-        android:layout_alignTop="@id/img_charactor" >
+        android:layout_alignBottom="@id/img_charactor_left"
+        android:layout_alignLeft="@id/img_charactor_left"
+        android:layout_alignRight="@id/img_charactor_left"
+        android:layout_alignTop="@id/img_charactor_left" >
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -30,10 +30,10 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/txt_charactor_name"
+        android:id="@+id/txt_charactor_name_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_charactor"
+        android:layout_below="@id/img_charactor_left"
         android:layout_marginTop="@dimen/margin_small"
         android:ellipsize="end"
         android:lines="1"
@@ -43,7 +43,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_charactor_name"
+        android:layout_below="@id/txt_charactor_name_left"
         android:layout_marginTop="@dimen/margin_small"
         android:orientation="horizontal" >
 

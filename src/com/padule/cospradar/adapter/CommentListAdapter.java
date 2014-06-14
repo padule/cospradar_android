@@ -22,13 +22,15 @@ import com.padule.cospradar.util.TimeUtils;
 public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
 
     private Context context;
+    private Charactor chatBoardCharactor;
 
-    public CommentListAdapter(Context context) {
-        this(context, new ArrayList<CharactorComment>());
+    public CommentListAdapter(Context context, Charactor charactor) {
+        this(context, new ArrayList<CharactorComment>(), charactor);
     }
 
-    public CommentListAdapter(Context context, List<CharactorComment> comments) {
+    public CommentListAdapter(Context context, List<CharactorComment> comments, Charactor charactor) {
         super(context, 0, comments);
+        this.chatBoardCharactor = charactor;
         this.context = context;
     }
 
@@ -39,13 +41,12 @@ public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
         final CharactorComment comment = (CharactorComment)getItem(pos);
 
         if (view == null) {
-            int layout = comment.isCurrentCharactor() ? R.layout.item_comment_right : R.layout.item_comment_left;
-            view = LayoutInflater.from(context).inflate(layout, parent, false);
-
-            holder = new ViewHolder(view);
+            view = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
+            holder = new ViewHolder(view, comment.isCurrentCharactor());
             view.setTag(holder);
         } else {
             holder = (ViewHolder)view.getTag();
+            holder.setIsCurrentCharactor(comment.isCurrentCharactor());
         }
 
         bindData(comment, holder);
@@ -64,21 +65,83 @@ public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
             holder.mTxtComment.setText(comment.getText());
             holder.mTxtCharactorName.setText(charactor.getNameAndTitle());
             holder.mTxtDate.setText(TimeUtils.getDisplayDate(comment.getCreatedAt(), context));
+
+            switchCommentColor(charactor, holder);
         } else {
             holder.mRoot.setVisibility(View.GONE);
         }
     }
 
+    private void switchCommentColor(Charactor charactor, ViewHolder holder) {
+        if (chatBoardCharactor.getId() == charactor.getId()) {
+            holder.mTxtCommentLeft.setBackgroundResource(R.drawable.bg_theme_rounded);
+            holder.mImgTriangleLeft.setImageResource(R.drawable.ic_triangle_theme_left);
+            holder.mTxtCommentLeft.setTextColor(context.getResources().getColor(R.color.text_white));
+        } else {
+            holder.mTxtCommentLeft.setBackgroundResource(R.drawable.bg_white_rounded);
+            holder.mImgTriangleLeft.setImageResource(R.drawable.ic_triangle_left);
+            holder.mTxtCommentLeft.setTextColor(context.getResources().getColor(android.R.color.black));
+        }
+    }
+
     static class ViewHolder {
         @InjectView(R.id.container_root) View mRoot;
-        @InjectView(R.id.img_charactor) ImageView mImgCharactor;
-        @InjectView(R.id.txt_comment) TextView mTxtComment;
-        @InjectView(R.id.txt_charactor_name) TextView mTxtCharactorName;
-        @InjectView(R.id.txt_date) TextView mTxtDate;
+        @InjectView(R.id.container_comment_left) View mContainerCommentLeft;
+        @InjectView(R.id.img_charactor_left) ImageView mImgCharactorLeft;
+        @InjectView(R.id.txt_comment_left) TextView mTxtCommentLeft;
+        @InjectView(R.id.txt_charactor_name_left) TextView mTxtCharactorNameLeft;
+        @InjectView(R.id.img_triangle_left) ImageView mImgTriangleLeft;
+        @InjectView(R.id.txt_date_left) TextView mTxtDateLeft;
 
-        public ViewHolder(View view) {
+        @InjectView(R.id.container_comment_right) View mContainerCommentRight;
+        @InjectView(R.id.img_charactor_right) ImageView mImgCharactorRight;
+        @InjectView(R.id.txt_comment_right) TextView mTxtCommentRight;
+        @InjectView(R.id.txt_charactor_name_right) TextView mTxtCharactorNameRight;
+        @InjectView(R.id.txt_date_right) TextView mTxtDateRight;
+
+        View mContainerComment;
+        ImageView mImgCharactor;
+        TextView mTxtComment;
+        TextView mTxtCharactorName;
+        TextView mTxtDate;
+
+        public ViewHolder(View view, boolean isCurrentCharactor) {
             ButterKnife.inject(this, view);
+
+            setIsCurrentCharactor(isCurrentCharactor);
         }
+
+        public void setIsCurrentCharactor(boolean isCurrentCharactor) {
+            switchVisiblity(isCurrentCharactor);
+            setViews(isCurrentCharactor);
+        }
+
+        private void switchVisiblity(boolean isCurrentCharactor) {
+            if (isCurrentCharactor) {
+                mContainerCommentLeft.setVisibility(View.GONE);
+                mContainerCommentRight.setVisibility(View.VISIBLE);
+            } else {
+                mContainerCommentLeft.setVisibility(View.VISIBLE);
+                mContainerCommentRight.setVisibility(View.GONE);
+            }
+        }
+
+        private void setViews(boolean isCurrentCharactor) {
+            if (isCurrentCharactor) {
+                mContainerComment = mContainerCommentRight;
+                mImgCharactor = mImgCharactorRight;
+                mTxtComment = mTxtCommentRight;
+                mTxtCharactorName = mTxtCharactorNameRight;
+                mTxtDate = mTxtDateRight;
+            } else {
+                mContainerComment = mContainerCommentLeft;
+                mImgCharactor = mImgCharactorLeft;
+                mTxtComment = mTxtCommentLeft;
+                mTxtCharactorName = mTxtCharactorNameLeft;
+                mTxtDate = mTxtDateLeft;
+            }
+        }
+
     }
 
 }

@@ -81,7 +81,12 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     protected void initView() {
         setCharactor();
         initActionBar(charactor);
+        initFooter();
         initListView();
+    }
+
+    private void initFooter() {
+        mFooter.setListener(this);
     }
 
     @OnClick(R.id.root_chat)
@@ -90,7 +95,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void initListView() {
-        adapter = new CommentListAdapter(this);
+        adapter = new CommentListAdapter(this, charactor);
         mListView.setAdapter(adapter);
         mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         loadData(1);
