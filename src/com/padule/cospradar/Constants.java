@@ -16,5 +16,6 @@ public class Constants {
     public static final int REQ_ACTIVITY_AVIARY_GALLERY = 10003;
     public static final int REQ_ACTIVITY_AVIARY_CAMERA = 10004;
     public static final int REQ_ACTIVITY_CHAT = 20001;
+    public static final int REQ_ACTIVITY_CHARACTOR_SETTING = 30001;
 
 }

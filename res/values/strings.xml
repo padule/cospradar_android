@@ -45,22 +45,18 @@
     <string name="search_result_count">Result : %1$d</string>
 
     <!-- CharactorEdit -->
-    <string name="charactor_not_set">Set your charactor!</string>
-    <string name="charactor_edit_title">Edit charactor</string>
-    <string name="charactor_edit_description1">Set current cosplay charactor!\nSet cosplay charactor is shown in the radar.</string>
-    <string name="charactor_edit_description2">Notes: Charactor data is reset in a day.</string>
-    <string name="charactor_edit_name">Charactor name</string>
-    <string name="charactor_edit_title">Title</string>
+    <string name="charactor_name">Charactor name</string>
+    <string name="charactor_title">Title</string>
     <string name="charactor_validate_name">Not set charactor name</string>
     <string name="charactor_validate_title">Not set title</string>
     <string name="charactor_edit_succeeded">Charactor saved!</string>
     <string name="charactor_edit_failed">Sorry! Charactor save failed...\nPlease try again.</string>
 
     <!-- EditSuggest -->
-    <string name="edit_suggest_title">Required to regist charactor</string>
-    <string name="edit_suggest_message">After registration, you can communicate in chat board.</string>
-    <string name="edit_suggest_ok">Register now</string>
-    <string name="edit_suggest_cancel">After</string>
+    <string name="setting_suggest_title">Required to regist charactor</string>
+    <string name="setting_suggest_message">After registration, you can communicate in chat board.</string>
+    <string name="setting_suggest_ok">Register now</string>
+    <string name="setting_suggest_cancel">After</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>

@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/margin_small"
         android:layout_toRightOf="@id/img_icon"
         android:gravity="center_vertical"
-        android:text="@string/edit_suggest_title"
+        android:text="@string/setting_suggest_title"
         android:textSize="@dimen/text_medium"
         android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/border"
         android:layout_margin="@dimen/margin_large"
-        android:text="@string/edit_suggest_message"
+        android:text="@string/setting_suggest_message"
         android:textSize="@dimen/text_medium" />
 
     <View
@@ -60,7 +60,7 @@
             android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:gravity="center_vertical|center"
-            android:text="@string/edit_suggest_ok"
+            android:text="@string/setting_suggest_ok"
             android:textSize="@dimen/text_medium" />
 
         <View
@@ -76,7 +76,7 @@
             android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:gravity="center_vertical|center"
-            android:text="@string/edit_suggest_cancel"
+            android:text="@string/setting_suggest_cancel"
             android:textSize="@dimen/text_medium" />
     </LinearLayout>
 

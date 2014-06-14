@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +16,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -76,10 +76,10 @@ public class ImageUtils {
         MainApplication.imageLoader.displayImage(url, view, roundedImageOptions);
     }
 
-    public static void showChooserDialog(final Fragment fragment) {
-        String[] items = fragment.getResources().getStringArray(R.array.photo_chooser);
+    public static void showChooserDialog(final Activity activity) {
+        String[] items = activity.getResources().getStringArray(R.array.photo_chooser);
 
-        new AlertDialog.Builder(fragment.getActivity())
+        new AlertDialog.Builder(activity)
         .setItems(items, new DialogInterface.OnClickListener() {
 
             @Override
@@ -87,12 +87,12 @@ public class ImageUtils {
                 Intent intent = null;
                 switch(which) {
                 case POS_CHOOSER_GALLERY:
-                    intent = createGalleryIntent(fragment.getActivity());
-                    fragment.startActivityForResult(intent, Constants.REQ_ACTIVITY_GALLERY);
+                    intent = createGalleryIntent(activity);
+                    activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_GALLERY);
                     break;
                 case POS_CHOOSER_CAMERA:
                     intent = Intent.createChooser(createCameraIntent(), null);
-                    fragment.startActivityForResult(intent, Constants.REQ_ACTIVITY_CAMERA);
+                    activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CAMERA);
                     break;
                 default:
                     break;

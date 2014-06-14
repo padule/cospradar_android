@@ -1,4 +1,4 @@
-package com.padule.cospradar.fragment;
+package com.padule.cospradar.activity;
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,20 +11,15 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.google.gson.Gson;
@@ -32,8 +27,7 @@ import com.google.gson.GsonBuilder;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.activity.MainActivity;
-import com.padule.cospradar.base.BaseFragment;
+import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
@@ -41,9 +35,9 @@ import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class CharactorEditFragment extends BaseFragment {
+public class CharactorSettingActivity extends BaseActivity {
 
-    private static final String TAG = CharactorEditFragment.class.getName();
+    private static final String TAG = CharactorSettingActivity.class.getName();
 
     @InjectView(R.id.img_charactor) ImageView mImgCharactor;
     @InjectView(R.id.edit_name) EditText mEditName;
@@ -52,17 +46,28 @@ public class CharactorEditFragment extends BaseFragment {
     private Charactor charactor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_charactor_edit, container, false);
-        ButterKnife.inject(this, view);
-        aq = new AQuery(getActivity());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_charactor_setting);
+    }
 
+    public static void start(Activity activity) {
+        final Intent intent = new Intent(activity, CharactorSettingActivity.class);
+        activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CHARACTOR_SETTING);
+    }
+
+    @Override
+    protected void initView() {
         initCharactor();
-        initView();
-        setHasOptionsMenu(true);
+        initActionBar();
+        bindData();
+    }
 
-        return view;
+    private void initActionBar() {
+        ActionBar bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setHomeButtonEnabled(true);
+        bar.setTitle(getString(R.string.charactor_setting));
     }
 
     private void initCharactor() {
@@ -72,7 +77,7 @@ public class CharactorEditFragment extends BaseFragment {
         }
     }
 
-    private void initView() {
+    private void bindData() {
         mEditName.setText(charactor.getName());
         mEditTitle.setText(charactor.getTitle());
         initCharactorImage(charactor.getImageUrl());
@@ -88,13 +93,13 @@ public class CharactorEditFragment extends BaseFragment {
 
     @OnClick(R.id.clicker_img_charactor)
     void onClickClickerImgCharactor() {
-        KeyboardUtils.hide(getActivity());
+        KeyboardUtils.hide(this);
         ImageUtils.showChooserDialog(this);
     }
 
     @OnClick(R.id.root)
     void onClickRoot() {
-        KeyboardUtils.hide(getActivity());
+        KeyboardUtils.hide(this);
     }
 
     @Override
@@ -108,13 +113,13 @@ public class CharactorEditFragment extends BaseFragment {
         switch (requestCode) {
         case Constants.REQ_ACTIVITY_CAMERA:
             if (resultCode == Activity.RESULT_OK) {
-                Intent i = ImageUtils.createAviaryIntent(getActivity(), uri);
+                Intent i = ImageUtils.createAviaryIntent(this, uri);
                 startActivityForResult(i, Constants.REQ_ACTIVITY_AVIARY_CAMERA);
             }
             break;
         case Constants.REQ_ACTIVITY_GALLERY:
             if (resultCode == Activity.RESULT_OK) {
-                Intent i = ImageUtils.createAviaryIntent(getActivity(), uri);
+                Intent i = ImageUtils.createAviaryIntent(this, uri);
                 startActivityForResult(i, Constants.REQ_ACTIVITY_AVIARY_GALLERY);
             }
             break;
@@ -128,31 +133,39 @@ public class CharactorEditFragment extends BaseFragment {
     }
 
     private void setCharactorImage(Uri uri) {
-        String path = ImageUtils.getPath(getActivity(), uri);
+        String path = ImageUtils.getPath(this, uri);
         this.charactor.setImage(path);
         initCharactorImage(ImageUtils.convertToValidUrl(path));
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.only_ok, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_charactor_edit, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (R.id.item_ok == item.getItemId()) {
+        switch(item.getItemId()) {
+        case R.id.item_ok:
             if (validate()) {
-                KeyboardUtils.hide(getActivity());
+                KeyboardUtils.hide(this);
                 saveCharactor();
             }
+            break;
+        case android.R.id.home:
+            if (isEditing()) {
+            } else {
+                finish();
+            }
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void saveCharactor() {
         String url = AppUrls.getCharactorsCreate();
-        Dialog dialog = AppUtils.makeSendingDialog(getActivity());
+        Dialog dialog = AppUtils.makeSendingDialog(this);
         final Map<String, Object> params = createParams();
         Log.d(TAG, "create_params: " + params.toString());
 
@@ -173,7 +186,6 @@ public class CharactorEditFragment extends BaseFragment {
             this.charactor = charactor;
             AppUtils.setCharactor(charactor);
             showToast(R.string.charactor_edit_succeeded);
-//            ((MainActivity)getActivity()).initDrawer();
         } else {
             if (AppUtils.isMockMode()) {
                 // FIXME Remove me. Just implement for test.
@@ -181,12 +193,15 @@ public class CharactorEditFragment extends BaseFragment {
                         mEditTitle.getText().toString(), charactor.getImageUrl());
                 AppUtils.setCharactor(charactor);
                 showToast(R.string.charactor_edit_succeeded);
-//                ((MainActivity)getActivity()).initDrawer();
             } else {
                 Log.e(TAG, "create_error_message: " + status.getMessage());
                 showToast(R.string.charactor_edit_failed);
             }
         }
+    }
+
+    private void showToast(int resId) {
+        AppUtils.showToast(getString(resId), this);
     }
 
     private Map<String, Object> createParams() {
@@ -213,13 +228,17 @@ public class CharactorEditFragment extends BaseFragment {
             showToast(R.string.invalidate_input);
             return false;
         }
-        if (charactor.getName().equals(mEditName.getText().toString())
-                && charactor.getTitle().equals(mEditTitle.getText().toString())
-                && (AppUtils.getCharactor() != null && AppUtils.getCharactor().getImageUrl().equals(charactor.getImageUrl()))) {
+        if (!isEditing()) {
             showToast(R.string.not_changed_input);
             return false;
         }
         return true;
+    }
+
+    private boolean isEditing() {
+        return !charactor.getName().equals(mEditName.getText().toString())
+                || !charactor.getTitle().equals(mEditTitle.getText().toString())
+                || !(AppUtils.getCharactor() != null && AppUtils.getCharactor().getImageUrl().equals(charactor.getImageUrl()));
     }
 
 }
