@@ -26,6 +26,7 @@ public class ProfileHeader extends RelativeLayout {
     @InjectView(id.txt_user_name) TextView mTxtUserName;
     @InjectView(id.btn_add_charactor) Button mBtnAddCharactor;
     @InjectView(id.btn_chat) Button mBtnChat;
+    @InjectView(id.btn_my_chat) Button mBtnMyChat;
 
     private User user;
     private BaseActivity activity;
@@ -57,9 +58,11 @@ public class ProfileHeader extends RelativeLayout {
     private void initButton(User user) {
         if (AppUtils.isLoginUser(user)) {
             mBtnAddCharactor.setVisibility(View.VISIBLE);
+            mBtnMyChat.setVisibility(View.VISIBLE);
             mBtnChat.setVisibility(View.GONE);
         } else {
             mBtnAddCharactor.setVisibility(View.GONE);
+            mBtnMyChat.setVisibility(View.GONE);
             mBtnChat.setVisibility(View.VISIBLE);
         }
     }
@@ -67,6 +70,11 @@ public class ProfileHeader extends RelativeLayout {
     @OnClick(R.id.btn_add_charactor)
     void onlickBtnAddCharactor() {
         CharactorSettingActivity.start(activity);
+    }
+
+    @OnClick(R.id.btn_my_chat)
+    void onClickBtnMyChat() {
+        ChatBoardActivity.start(activity, AppUtils.getCharactor());
     }
 
     @OnClick(R.id.btn_chat)

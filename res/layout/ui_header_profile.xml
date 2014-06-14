@@ -44,17 +44,17 @@
         android:background="@drawable/btn_white_rounded"
         android:text="@string/profile_add"
         android:textColor="@color/text_gray"
-        android:textSize="@dimen/text_large" />
+        android:textSize="@dimen/text_large"
+        android:visibility="gone" />
 
     <Button
-        android:id="@+id/btn_add_charactor"
+        android:id="@+id/btn_my_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_user_name"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_below="@id/btn_add_charactor"
+        android:layout_marginBottom="@dimen/margin"
         android:background="@drawable/btn_white_rounded"
-        android:text="@string/profile_add"
+        android:text="@string/profile_chat"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_large"
         android:visibility="gone" />

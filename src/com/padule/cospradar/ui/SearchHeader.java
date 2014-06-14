@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +48,7 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         initLocationListener();
         initRadar();
         initSeekBar();
+        initEditSearch();
     }
 
     public interface SearchListener {
@@ -58,6 +62,13 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
             String text = mEditSearch.getText().toString();
             listener.onClickBtnReload(text);
         }
+    }
+
+    private void initEditSearch() {
+        Bitmap bmp = ((BitmapDrawable)getContext().getResources().getDrawable(R.drawable.ic_search)).getBitmap();
+        Drawable searchIcon = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bmp, 50, 50, true));
+        mEditSearch.setCompoundDrawablePadding(12);
+        mEditSearch.setCompoundDrawablesWithIntrinsicBounds(searchIcon, null, null, null);
     }
 
     public void startSearching() {

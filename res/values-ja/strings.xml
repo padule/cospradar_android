@@ -35,7 +35,7 @@
 
     <!-- Search -->
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
-    <string name="search_hint">作品名でしぼる（なくてもOK）</string>
+    <string name="search_hint">作品名でしぼる (空白OK)</string>
     <string name="search_start">スタート</string>
     <string name="radar_distance">%1$s km</string>
     <string name="searching">検索中...</string>
