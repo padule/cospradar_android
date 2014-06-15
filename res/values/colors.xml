@@ -4,7 +4,7 @@
     <!-- Background -->
     <color name="bg_white">#FEFEFE</color>
     <color name="bg_black_alfa_light">#1a000000</color>
-    <color name="bg_black_alfa_dark">#66000000</color>
+    <color name="bg_black_alfa_dark">#b3000000</color>
     <color name="bg_gray">#ecf0f1</color>
     <color name="bg_gray_dark">#bdc3c7</color>
     <color name="bg_twitter">#55acee</color>

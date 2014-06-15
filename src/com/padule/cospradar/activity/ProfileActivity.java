@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.ProfileCharactorListAdapter;
+import com.padule.cospradar.adapter.ProfileCharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
@@ -40,7 +40,7 @@ public class ProfileActivity extends BaseActivity {
     @InjectView(R.id.listview_charactors) ListView mListView;
 
     private View mLoading;
-    private ProfileCharactorListAdapter adapter;
+    private ProfileCharactorsAdapter adapter;
     private User user;
 
     @Override
@@ -66,7 +66,7 @@ public class ProfileActivity extends BaseActivity {
 
     private void initListView() {
         initLoading();
-        adapter = new ProfileCharactorListAdapter(this);
+        adapter = new ProfileCharactorsAdapter(this);
         mListView.addHeaderView(new ProfileHeader(this, user));
         mListView.addHeaderView(mLoading);
         mListView.setAdapter(adapter);
@@ -93,7 +93,15 @@ public class ProfileActivity extends BaseActivity {
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-                // TODO
+                switch (view.getId()) {
+                case R.id.img_charactor_clicker:
+                    PhotoPreviewActivity.start(ProfileActivity.this, 
+                            adapter.getItem(pos).getImageUrl());
+                    break;
+                case R.id.img_menu:
+                    // TODO
+                    break;
+                }
             }
         });
     }

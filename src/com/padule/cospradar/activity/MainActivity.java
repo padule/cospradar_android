@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.CharactorListAdapter;
+import com.padule.cospradar.adapter.CharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
 
     @InjectView(R.id.listview_search) ListView mListView;
 
-    private CharactorListAdapter adapter;
+    private CharactorsAdapter adapter;
     private SearchHeader header;
 
     @Override
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
     }
 
     private void initListView() {
-        adapter = new CharactorListAdapter(this);
+        adapter = new CharactorsAdapter(this);
         header = new SearchHeader(this, this);
         mListView.addHeaderView(header);
         mListView.setAdapter(adapter);

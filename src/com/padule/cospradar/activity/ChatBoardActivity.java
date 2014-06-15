@@ -35,7 +35,7 @@ import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.CommentListAdapter;
+import com.padule.cospradar.adapter.CommentsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
@@ -59,7 +59,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     @InjectView(R.id.loading) View mLoading;
     @InjectView(R.id.footer_comment) CommentFooter mFooter;
 
-    private CommentListAdapter adapter;
+    private CommentsAdapter adapter;
     private Charactor charactor;
 
     @Override
@@ -97,7 +97,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void initListView() {
-        adapter = new CommentListAdapter(this, charactor);
+        adapter = new CommentsAdapter(this, charactor);
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         mListView.setAdapter(adapter);
         loadData(1);

@@ -7,10 +7,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,15 +24,15 @@ import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.util.AppUtils;
 
-public class ProfileCharactorListAdapter extends ArrayAdapter<Charactor> {
+public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
 
     private Context context;
 
-    public ProfileCharactorListAdapter(Context context) {
+    public ProfileCharactorsAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
     }
 
-    public ProfileCharactorListAdapter(Context context, List<Charactor> charactors) {
+    public ProfileCharactorsAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_profile_charactor, charactors);
         this.context = context;
     }
@@ -49,16 +51,29 @@ public class ProfileCharactorListAdapter extends ArrayAdapter<Charactor> {
 
         Charactor charactor = getItem(pos);
         holder.bindData(charactor, context);
+        initListeners(holder, parent, pos);
 
         return view;
     }
 
+    private void initListeners(ViewHolder holder, final ViewGroup parent, final int pos) {
+        OnClickListener onClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ListView) parent).performItemClick(v, pos, 0L);
+            }
+        };
+        holder.mImgClicker.setOnClickListener(onClickListener);
+        holder.mImgMenu.setOnClickListener(onClickListener);
+    }
+
     static class ViewHolder {
-        @InjectView(R.id.img_charactor_left) ImageView mImgCharactor;
-        @InjectView(R.id.txt_charactor_name_left) TextView mTxtCharactorName;
+        @InjectView(R.id.img_charactor) ImageView mImgCharactor;
+        @InjectView(R.id.txt_charactor_name) TextView mTxtCharactorName;
         @InjectView(R.id.txt_title) TextView mTxtTitle;
         @InjectView(R.id.img_menu) ImageView mImgMenu;
         @InjectView(R.id.loading) View mLoading;
+        @InjectView(R.id.img_charactor_clicker) View mImgClicker;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);

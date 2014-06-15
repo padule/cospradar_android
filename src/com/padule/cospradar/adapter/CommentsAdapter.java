@@ -19,16 +19,16 @@ import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TimeUtils;
 
-public class CommentListAdapter extends ArrayAdapter<CharactorComment> {
+public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
 
     private Context context;
     private Charactor chatBoardCharactor;
 
-    public CommentListAdapter(Context context, Charactor charactor) {
+    public CommentsAdapter(Context context, Charactor charactor) {
         this(context, new ArrayList<CharactorComment>(), charactor);
     }
 
-    public CommentListAdapter(Context context, List<CharactorComment> comments, Charactor charactor) {
+    public CommentsAdapter(Context context, List<CharactorComment> comments, Charactor charactor) {
         super(context, 0, comments);
         this.chatBoardCharactor = charactor;
         this.context = context;

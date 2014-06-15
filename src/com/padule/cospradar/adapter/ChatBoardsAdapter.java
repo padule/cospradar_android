@@ -22,15 +22,15 @@ import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class ChatBoardListAdapter extends ArrayAdapter<Charactor> {
+public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
 
     private Context context;
 
-    public ChatBoardListAdapter(Context context) {
+    public ChatBoardsAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
     }
 
-    public ChatBoardListAdapter(Context context, List<Charactor> charactors) {
+    public ChatBoardsAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_charactor, charactors);
         this.context = context;
     }

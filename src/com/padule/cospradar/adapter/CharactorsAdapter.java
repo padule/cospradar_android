@@ -22,15 +22,15 @@ import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class CharactorListAdapter extends ArrayAdapter<Charactor> {
+public class CharactorsAdapter extends ArrayAdapter<Charactor> {
 
     private Context context;
 
-    public CharactorListAdapter(Context context) {
+    public CharactorsAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
     }
 
-    public CharactorListAdapter(Context context, List<Charactor> charactors) {
+    public CharactorsAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_charactor, charactors);
         this.context = context;
     }

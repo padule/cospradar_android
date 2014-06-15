@@ -59,6 +59,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.padule.cospradar.activity.PhotoPreviewActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/PhotoPreview" />
+        <activity
             android:name="com.padule.cospradar.activity.ProfileActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name"

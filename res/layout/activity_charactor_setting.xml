@@ -23,7 +23,7 @@
                 android:clickable="true" />
 
             <ImageView
-                android:id="@+id/img_charactor_left"
+                android:id="@+id/img_charactor"
                 android:layout_width="@dimen/icon_large"
                 android:layout_height="@dimen/icon_large"
                 android:layout_centerHorizontal="true"
@@ -34,7 +34,7 @@
                 android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/img_charactor_left"
+                android:layout_below="@id/img_charactor"
                 android:layout_marginTop="@dimen/margin_large"
                 android:hint="@string/charactor_name"
                 android:inputType="text"

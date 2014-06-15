@@ -26,7 +26,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.ChatBoardListAdapter;
+import com.padule.cospradar.adapter.ChatBoardsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
@@ -40,7 +40,7 @@ public class ChatBoardListActivity extends BaseActivity {
     @InjectView(R.id.container_empty) View mContainerEmpty;
     @InjectView(R.id.loading) View mLoading;
 
-    private ChatBoardListAdapter adapter;
+    private ChatBoardsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class ChatBoardListActivity extends BaseActivity {
     }
 
     private void initListView() {
-        adapter = new ChatBoardListAdapter(this);
+        adapter = new ChatBoardsAdapter(this);
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         mListView.setAdapter(adapter);
         initListViewListener();
