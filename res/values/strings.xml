@@ -42,7 +42,8 @@
     <string name="search_start">Start</string>
     <string name="radar_distance">%1$s km</string>
     <string name="searching">Searching...</string>
-    <string name="search_result_count">Result : %1$d</string>
+    <string name="search_result_count">%1$d cosplayer discovered!</string>
+    <string name="search_result_count_zero">No cosplayer nearby...</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_name">Charactor name</string>

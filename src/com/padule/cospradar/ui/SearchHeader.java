@@ -118,7 +118,11 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     }
 
     public void setCharactors(List<Charactor> charactors) {
-        mTextCountHeader.setText(getContext().getString(R.string.search_result_count, charactors.size()));
+        if (charactors.isEmpty()) {
+            mTextCountHeader.setText(getContext().getString(R.string.search_result_count_zero));
+        } else {
+            mTextCountHeader.setText(getContext().getString(R.string.search_result_count, charactors.size()));
+        }
         mRadarView.setCharactors(charactors);
     }
 
