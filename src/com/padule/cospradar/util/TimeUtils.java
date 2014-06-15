@@ -54,7 +54,7 @@ public class TimeUtils {
             return "";
         }
 
-        date = convertUTCToLocal(date);
+        // date = convertUTCToLocal(date);
 
         long dayDiff = getDayDiff(date);
         long hourDiff = getHourDiff(date);
@@ -62,7 +62,7 @@ public class TimeUtils {
         long secDiff = getSecDiff(date);
 
         if (dayDiff >= 1) {
-            DateFormat format = android.text.format.DateFormat.getLongDateFormat(context);
+            DateFormat format = android.text.format.DateFormat.getMediumDateFormat(context);
             return format.format(date);
         } else if (hourDiff > 1) {
             return context.getString(R.string.time_hours_ago, hourDiff);

@@ -6,16 +6,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -26,9 +28,10 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
+import com.padule.cospradar.ui.RadarView;
 
 public class ImageUtils {
-
+    
     private static final int POS_CHOOSER_GALLERY = 0;
     private static final int POS_CHOOSER_CAMERA = 1;
 
@@ -69,17 +72,17 @@ public class ImageUtils {
             .cacheInMemory(true)
             .considerExifParams(true)
             .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-            .displayer(new RoundedBitmapDisplayer(300))
+            .displayer(new RoundedBitmapDisplayer(100))
             .build();
 
     public static void displayRoundedImage(String url, ImageView view) {
         MainApplication.imageLoader.displayImage(url, view, roundedImageOptions);
     }
 
-    public static void showChooserDialog(final Fragment fragment) {
-        String[] items = fragment.getResources().getStringArray(R.array.photo_chooser);
+    public static void showChooserDialog(final Activity activity) {
+        String[] items = activity.getResources().getStringArray(R.array.photo_chooser);
 
-        new AlertDialog.Builder(fragment.getActivity())
+        new AlertDialog.Builder(activity)
         .setItems(items, new DialogInterface.OnClickListener() {
 
             @Override
@@ -87,12 +90,12 @@ public class ImageUtils {
                 Intent intent = null;
                 switch(which) {
                 case POS_CHOOSER_GALLERY:
-                    intent = createGalleryIntent(fragment.getActivity());
-                    fragment.startActivityForResult(intent, Constants.REQ_ACTIVITY_GALLERY);
+                    intent = createGalleryIntent(activity);
+                    activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_GALLERY);
                     break;
                 case POS_CHOOSER_CAMERA:
                     intent = Intent.createChooser(createCameraIntent(), null);
-                    fragment.startActivityForResult(intent, Constants.REQ_ACTIVITY_CAMERA);
+                    activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CAMERA);
                     break;
                 default:
                     break;
@@ -205,6 +208,13 @@ public class ImageUtils {
                 Constants.AVIARY_SECRET);
         intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_TOOLS_LIST, AVIARY_TOOLS_LIST);
         return intent;
+    }
+    
+    public static Bitmap createEmptyIconBmp(Context context, int iconSize) {
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_no_user_radar);
+        Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, iconSize, iconSize, false);
+        bmp = null;
+        return scaledBmp;
     }
 
 }

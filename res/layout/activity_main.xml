@@ -1,29 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <ListView
+        android:id="@+id/listview_search"
+        style="@style/DefaultListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ListView
-            android:id="@+id/drawer_list"
-            android:layout_width="@dimen/drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/bg_white"
-            android:choiceMode="singleChoice"
-            android:dividerHeight="1dp"
-            android:fadingEdge="none"
-            android:scrollingCache="false" />
-    </android.support.v4.widget.DrawerLayout>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

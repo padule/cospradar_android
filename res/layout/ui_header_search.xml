@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.padule.cospradar.ui.RadarView
+        android:id="@+id/radar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginTop="@dimen/margin" />
+
+    <SeekBar
+        android:id="@+id/seekbar_radar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radar_view" />
+
+    <LinearLayout
+        android:id="@+id/container_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/seekbar_radar"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textSize="@dimen/text_medium" />
+
+        <ImageButton
+            android:id="@+id/btn_reload"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_weight="0"
+            android:background="@drawable/btn_accent_rounded"
+            android:padding="@dimen/padding_large"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_reload" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_count_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_search"
+        android:layout_marginTop="@dimen/margin"
+        android:background="@color/bg_gray"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:paddingTop="@dimen/padding_small"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</RelativeLayout>

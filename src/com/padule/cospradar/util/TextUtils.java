@@ -1,7 +1,10 @@
 package com.padule.cospradar.util;
 
+import android.content.Context;
 import android.text.Html;
 import android.widget.EditText;
+
+import com.padule.cospradar.R;
 
 public class TextUtils {
 
@@ -24,6 +27,11 @@ public class TextUtils {
             return "";
         }
         return Html.fromHtml(text).toString();
+    }
+
+    public static String getKiroMeterString(Context context, double meter) {
+        double kiro = Math.floor(meter / 1000 * 10) / 10;
+        return context.getString(R.string.radar_distance, String.valueOf(kiro));
     }
 
 }

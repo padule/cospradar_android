@@ -1,5 +1,6 @@
 package com.padule.cospradar.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -35,7 +36,33 @@ public class User extends Data {
     }
 
     public List<Charactor> getCharactors() {
+        if (charactors == null) {
+            charactors = new ArrayList<Charactor>();
+        }
         return charactors;
+    }
+
+    public Charactor getCurrentCharactor() {
+        // TODO implements after adding is_enabled column to charactors.
+        if (charactors != null && !charactors.isEmpty()) {
+            return charactors.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public void addCharactor(Charactor charactor) {
+        if (charactor == null) {
+            return;
+        }
+
+        for (Charactor c : getCharactors()) {
+            if (c.getId() == charactor.getId()) {
+                return;
+            }
+        }
+        getCharactors().add(charactor);
+
     }
 
 }

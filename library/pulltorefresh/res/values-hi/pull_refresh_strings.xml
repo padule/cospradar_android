@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pull_to_refresh_pull_label">को ताज़ा करने के लिए पुल ... </string>
+    <string name="pull_to_refresh_release_label">ताज़ा करने के लिए जारी ... </string>
+    <string name="pull_to_refresh_refreshing_label">लोड हो रहा है ...</string>
+</resources>

@@ -3,6 +3,7 @@ package com.padule.cospradar.util;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -15,6 +16,9 @@ import com.padule.cospradar.data.User;
 public class AppUtils {
 
     public static void setCharactor(Charactor charactor) {
+        User user = getUser();
+        user.addCharactor(charactor);
+        setUser(user);
         String str = charactor != null ? charactor.serializeToString() : null;
         PrefUtils.put(Charactor.class.getName(), str);
     }
@@ -26,6 +30,45 @@ public class AppUtils {
 
     public static boolean isMockMode() {
         return Constants.MOCK_MODE;
+    }
+
+    public static void setLatLon(float lat, float lon) {
+        PrefUtils.put(PrefUtils.KEY_LAT_LON, lat + "," + lon);
+    }
+
+    public static float getLatitude() {
+        float[] array = getLatLon();
+        if (array != null) {
+            return array[0];
+        } else {
+            return 0;
+        }
+    }
+
+    public static float getLongitude() {
+        float[] array = getLatLon();
+        if (array != null) {
+            return array[1];
+        } else {
+            return 0;
+        }
+    }
+
+    private static float[] getLatLon() {
+        try {
+            String latLon = PrefUtils.get(PrefUtils.KEY_LAT_LON, null);
+            if (latLon != null) {
+                String[] array = latLon.split(",");
+                float[] result = new float[2];
+                result[0] = Float.parseFloat(array[0]);
+                result[1] = Float.parseFloat(array[1]);
+                return result;
+            } else {
+                return null;
+            }
+        } catch(Exception e) {
+            return null;
+        }
     }
 
     public static Charactor getCharactor() {
@@ -45,6 +88,15 @@ public class AppUtils {
         return getUser() != null;
     }
 
+    public static boolean isLoginUser(User user) {
+        User loginUser = getUser();
+        if (loginUser != null && loginUser.getId() == user.getId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void showToast(String message, Context context, int duration) {
         if (message == null || message.length() == 0) {
             return;
@@ -58,7 +110,7 @@ public class AppUtils {
             AQUtility.report(e);
         }
     }
-    
+
     public static void showToast(String message, Context context) {
         showToast(message, context, Toast.LENGTH_LONG);
     }
@@ -83,5 +135,10 @@ public class AppUtils {
         String message = context.getString(R.string.sending);
         return makeProgressDialog(message, context);
     }
-    
+
+    public static void vibrate(long mills, Context context) {
+        Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(mills);
+    }
+
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ResizableImageView">
+        <attr name="image_ratio" format="float" />
+        <attr name="auto_scale" format="boolean" />
+    </declare-styleable>
+
+</resources>

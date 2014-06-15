@@ -28,10 +28,11 @@ public class Charactor extends Data {
         this.title = "";
     }
 
-    public Charactor(int id, int userId, String name, String title, String image) {
+    public Charactor(int id, User user, String name, String title, String image) {
         super();
         this.id = id;
-        this.userId = userId;
+        this.user = user;
+        this.userId = user.getId();
         this.name = name;
         this.title = title;
         this.image = image;
@@ -82,9 +83,16 @@ public class Charactor extends Data {
     public void setLocation(CharactorLocation charactorLocation) {
         this.charactorLocation = charactorLocation;
     }
-    
+
     public CharactorLocation getLocation() {
         return charactorLocation;
+    }
+
+    public User getUser() {
+        if (user.getCharactors().isEmpty()) {
+            user.addCharactor(this);
+        }
+        return user;
     }
 
 }

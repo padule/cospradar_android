@@ -8,8 +8,11 @@ public class AppUrls {
     private static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
     private static final String PATH_CHARACTOR_LOCATIONS = "/charactor_locations";
     private static final String PATH_USERS = "/users";
+    private static final String PATH_COMMENT_LIST = "/comment_list";
 
     private static final String PARAM_PAGE = "page";
+    private static final String PARAM_LIMIT = "limit";
+    private static final String PARAM_DESC = "desc";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_TITLE = "title";
     public static final String PARAM_IMAGE = "image";
@@ -26,13 +29,37 @@ public class AppUrls {
     private static final String EQ = "=";
     private static final String SLASH = "/";
 
-    public static String getCharactorsIndex(int page) {
+    public static String getCharactorsIndex(int page, String title) {
+        return getCharactorsIndex(page, 0, title);
+    }
+
+    public static String getCharactorsIndex(int page, int userId) {
+        return getCharactorsIndex(page, userId, null);
+    }
+
+    private static String getCharactorsIndex(int page, int userId, String title) {
         StringBuffer sb = new StringBuffer();
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
         sb.append(EXT_JSON);
-        sb.append(Q);
-        sb.append(createParam(PARAM_PAGE, page));
+        if (page > 0) {
+            sb.append(Q);
+            sb.append(createParam(PARAM_PAGE, page));
+        } else {
+            // TODO
+            sb.append(Q);
+            sb.append(createParam(PARAM_LIMIT, 300));
+        }
+        if (userId > 0) {
+            sb.append(AND);
+            sb.append(createParam(PARAM_USER_ID, userId));
+            sb.append(AND);
+            sb.append(createParam(PARAM_DESC, "is_enabled"));
+        }
+        if (title != null && !"".equals(title)) {
+            sb.append(AND);
+            sb.append(createParam(PARAM_TITLE, title));
+        }
         return sb.toString();
     }
 
@@ -87,6 +114,19 @@ public class AppUrls {
         sb.append(API_URL);
         sb.append(PATH_CHARACTOR_COMMENTS);
         sb.append(EXT_JSON);
+        return sb.toString();
+    }
+
+    public static String getCharactorCommentsCommentList(int commentCharactorId, int page) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(API_URL);
+        sb.append(PATH_CHARACTOR_COMMENTS);
+        sb.append(PATH_COMMENT_LIST);
+        sb.append(EXT_JSON);
+        sb.append(Q);
+        sb.append(createParam(PARAM_COMMENT_CHARACTOR_ID, commentCharactorId));
+        sb.append(AND);
+        sb.append(createParam(PARAM_PAGE, page));
         return sb.toString();
     }
 

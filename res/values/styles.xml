@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppBaseTheme" parent="android:Theme.Light" />
 
@@ -6,6 +6,20 @@
 
     <style name="NoActionBar" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="DefaultListView" parent="AppTheme">
+        <item name="android:divider">@color/bg_gray</item>
+        <item name="android:dividerHeight">@dimen/line_small</item>
+        <item name="android:scrollingCache">false</item>
+    </style>
+
+    <style name="PhotoPreview" parent="NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

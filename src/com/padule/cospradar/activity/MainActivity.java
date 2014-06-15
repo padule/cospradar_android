@@ -1,46 +1,50 @@
 package com.padule.cospradar.activity;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.view.KeyEvent;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import butterknife.InjectView;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.padule.cospradar.AppUrls;
+import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
-import com.padule.cospradar.adapter.DrawerItemListAdapter;
+import com.padule.cospradar.adapter.CharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
-import com.padule.cospradar.data.DrawerItem;
-import com.padule.cospradar.fragment.CharactorEditFragment;
-import com.padule.cospradar.fragment.ChatListFragment;
-import com.padule.cospradar.fragment.CommentFragment;
-import com.padule.cospradar.fragment.SearchFragment;
+import com.padule.cospradar.base.EndlessScrollListener;
+import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.service.LocationService;
-import com.padule.cospradar.ui.DrawerHeader;
+import com.padule.cospradar.ui.SearchHeader;
+import com.padule.cospradar.ui.SearchHeader.SearchListener;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.KeyboardUtils;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements SearchListener {
 
-    @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @InjectView(R.id.drawer_list) ListView mDrawerListView;
-    private DrawerHeader mHeader;
+    private static final String TAG = MainActivity.class.getName();
 
-    private ActionBarDrawerToggle drawerToggle;
-    private DrawerItemListAdapter adapter;
-    private CountDownTimer keyEventTimer;
-    private boolean backKeyPressed = false;
+    @InjectView(R.id.listview_search) ListView mListView;
+
+    private CharactorsAdapter adapter;
+    private SearchHeader header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,128 +56,121 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         initActionBar();
-        initDrawer();
-        initBackButton();
-        showFragment(new SearchFragment(), R.id.content_frame);
+        initListView();
     }
 
-    private void initBackButton() {
-        keyEventTimer = new CountDownTimer(1000, 100) {
+    private void initListView() {
+        adapter = new CharactorsAdapter(this);
+        header = new SearchHeader(this, this);
+        mListView.addHeaderView(header);
+        mListView.setAdapter(adapter);
+        initListViewListener();
+    }
+
+    private void initListViewListener() {
+        mListView.setOnScrollListener(new EndlessScrollListener() {
             @Override
-            public void onTick(long millisUntilFinished) {
-                //
+            public void onLoadMore(int page, int totalItemsCount) {
+                // TODO implement paging.
+                // loadData(page);
             }
+        });
+        mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onFinish() {
-                backKeyPressed = false;
-            }
-        };
-    }
-
-    @Override  
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
-    }
-
-    @Override  
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void initActionBar() {
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setHomeButtonEnabled(true);
-    }
-
-    public void initDrawer() {
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.open, R.string.close) {
-            @Override
-            public void onDrawerOpened(View view) {
-                super.onDrawerOpened(view);
-            }
-            @Override
-            public void onDrawerClosed(View view) {
-                replaceFragment(mDrawerListView.getCheckedItemPosition());
-                super.onDrawerClosed(view);
-            }
-            @Override
-            public void onDrawerSlide(View view, float offset) {
-                super.onDrawerSlide(view, offset);
-            }
-        };
-        mDrawerLayout.setDrawerListener(drawerToggle);
-        createDrawerList();
-    }
-
-    private void replaceFragment(int pos) {
-        if (pos <= 0) {
-            showEditFragment();
-        } else {
-            DrawerItem drawerItem = (DrawerItem)mDrawerListView.getItemAtPosition(pos);
-            showFragment(drawerItem.getFragmentPackage(), R.id.content_frame);
-            setActionBarTitle(drawerItem.getTitle());
-        }
-    }
-
-    public void showEditFragment() {
-        showFragment(CharactorEditFragment.class.getName(), R.id.content_frame);
-        setActionBarTitle(getString(R.string.charactor_edit_actionbar));
-    }
-
-    private void setActionBarTitle(String title) {
-        ActionBar bar = getSupportActionBar();
-        bar.setTitle(title);
-    }
-
-    private void createDrawerList() {
-        if (mDrawerListView.getHeaderViewsCount() > 0) {
-            mDrawerListView.removeHeaderView(mHeader);
-        }
-        mHeader = new DrawerHeader(this, AppUtils.getCharactor());
-        mDrawerListView.addHeaderView(mHeader);
-
-        List<DrawerItem> list = new ArrayList<DrawerItem>();
-        list.add(new DrawerItem(getString(R.string.drawer_search), R.drawable.ic_drawer_search, SearchFragment.class.getName()));
-        list.add(new DrawerItem(getString(R.string.drawer_my_chat), R.drawable.ic_drawer_my_chat, CommentFragment.class.getName()));
-        list.add(new DrawerItem(getString(R.string.drawer_comment_chat), R.drawable.ic_drawer_comment_chat, ChatListFragment.class.getName()));
-
-        adapter = new DrawerItemListAdapter(this, list);
-        mDrawerListView.setAdapter(adapter);
-        mDrawerListView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, final int pos, long id) {
-                mDrawerListView.setItemChecked(pos, true);
-                mDrawerLayout.closeDrawer(mDrawerListView);
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                pos -= mListView.getHeaderViewsCount();
+                ProfileActivity.start(MainActivity.this, adapter.getItem(pos).getUser());
             }
         });
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            if (!backKeyPressed) {
-                keyEventTimer.cancel();
-                keyEventTimer.start();
-                AppUtils.showToast(getString(R.string.back_btn_msg), this, Toast.LENGTH_SHORT);
-                backKeyPressed = true;
-                return false;
+    private void loadData(final int page, String title) {
+        Log.d(TAG, AppUrls.getCharactorsIndex(page, title) + "");
+        aq.ajax(AppUrls.getCharactorsIndex(page, title), JSONArray.class, new AjaxCallback<JSONArray>() {
+            @Override
+            public void callback(String url, JSONArray json, AjaxStatus status) {
+                loadCallback(json, status);
             }
-            return super.dispatchKeyEvent(event);
+        });
+    }
+
+    private void loadCallback(JSONArray json, AjaxStatus status) {
+        List<Charactor> charactors = new ArrayList<Charactor>();
+        if (json != null) {
+            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
+            Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
+            charactors = gson.fromJson(json.toString(), collectionType);
+        } else {
+            Log.e(TAG, status.getMessage() + "");
+            if (AppUtils.isMockMode()) {
+                // FIXME implement using mock.
+                charactors = MockFactory.getCharactors();
+            }
         }
-        return super.dispatchKeyEvent(event);
+
+        if (charactors != null && !charactors.isEmpty() && adapter != null) {
+            adapter.addAll(charactors);
+            refreshHeader(charactors);
+        } else {
+            refreshHeader(new ArrayList<Charactor>());
+        }
+    }
+
+    private void refreshHeader(List<Charactor> charactors) {
+        if (header != null) {
+            header.refresh(charactors);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+        case R.id.item_chat_list:
+            ChatBoardListActivity.start(this);
+            break;
+        case R.id.item_profile:
+            ProfileActivity.start(this, AppUtils.getUser());
+            break;
+        case android.R.id.home:
+            mListView.setSelection(0);
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter = null;
+        }
+    }
+
+    private void initActionBar() {
+        ActionBar bar = getSupportActionBar();
+        bar.setDisplayShowTitleEnabled(false);
+        bar.setHomeButtonEnabled(true);
+    }
+
+    @Override
+    public void onClickBtnReload(String searchText) {
+        AppUtils.vibrate(100, this);
+        clearListView();
+        header.startSearching();
+        loadData(0, searchText);
+        KeyboardUtils.hide(this);
+    }
+
+    private void clearListView() {
+        if (adapter != null) {
+            adapter.clear();
+        }
     }
 
 }

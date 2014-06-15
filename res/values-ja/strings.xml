@@ -5,7 +5,7 @@
     <string name="google_play_service_unavailable">Google Play Serviceに対応していないため、利用できません</string>
 
     <!-- Common -->
-    <string name="app_name">コスプレーダー</string>
+    <string name="app_name">コスレーダー</string>
     <string name="ok">OK</string>
     <string name="sending">送信中...</string>
     <string name="loading">ロード中...</string>
@@ -33,41 +33,38 @@
     <string name="choose_from_gallery">ギャラリーから選ぶ</string>
     <string name="choose_from_camera">カメラで撮る</string>
 
-    <!-- Drawer -->
-    <string name="open">開く</string>
-    <string name="close">閉じる</string>
-    <string name="drawer_comment_chat">コメントしたチャット</string>
-    <string name="drawer_my_chat">自分のチャット</string>
-    <string name="drawer_search">レイヤーを探す</string>
-    <string name="drawer_no_charactor">今のコスキャラを設定しよう！</string>
-    <string name="drawer_current_charactor">いまのコスキャラ:</string>
-
     <!-- Search -->
-    <string name="search_radar_title">レーダー</string>
-    <string name="search_list_title">リスト</string>
     <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
-    <string name="search_hint">作品名で検索</string>
-    <string name="search">検索</string>
+    <string name="search_hint">作品名でしぼる (空白OK)</string>
+    <string name="search_start">スタート</string>
     <string name="radar_distance">%1$s km</string>
+    <string name="searching">検索中...</string>
+    <string name="search_result_count">検索結果 : %1$d 人</string>
 
-    <!-- CharactorEdit -->
-    <string name="charactor_edit_actionbar">コスキャラ編集</string>
-    <string name="charactor_edit_description1">今のコスキャラを設定しよう！\nレーダーに表示されるよ！</string>
-    <string name="charactor_edit_description2">※ コスキャラは1日でリセットされます</string>
-    <string name="charactor_edit_name">キャラクター名</string>
-    <string name="charactor_edit_title">作品名</string>
+    <!-- CharactorSetting -->
+    <string name="charactor_setting">コスキャラ設定</string>
+    <string name="charactor_name">キャラクター名（必須）</string>
+    <string name="charactor_title">作品名（必須）</string>
     <string name="charactor_validate_name">キャラクター名が入力されていません</string>
     <string name="charactor_validate_title">作品名が入力されていません</string>
     <string name="charactor_edit_succeeded">コスキャラを登録しました！</string>
     <string name="charactor_edit_failed">登録に失敗してしまいました...\nもう一度試してみてもらえますか？</string>
-    <string name="charactor_edit_suggest_title">コスキャラ登録が必要です</string>
-    <string name="charactor_edit_suggest_message">今のコスキャラを登録すると、検索やチャットが使えるようになります。</string>
-    <string name="charactor_edit_suggest_ok">登録する</string>
-    <string name="charactor_edit_suggest_cancel">あとで</string>
+
+    <!-- SettingSuggest -->
+    <string name="setting_suggest_title">コスキャラの設定が必要です</string>
+    <string name="setting_suggest_message">今のコスキャラを設定すると、けいじばんでやり取りできるようになります。</string>
+    <string name="setting_suggest_ok">登録する</string>
+    <string name="setting_suggest_cancel">あとで</string>
+
+    <!-- Profile -->
+    <string name="profile">プロフィール</string>
+    <string name="profile_add">コスキャラを設定</string>
+    <string name="profile_chat">けいじばん</string>
 
     <!-- Comment -->
     <string name="comment_hint">コメントを書く</string>
     <string name="comment_send_failed">送信に失敗してしましました...\nもう一度試してみてもらえますか？</string>
     <string name="comment_nothing">まだコメントはないみたいです。</string>
+    <string name="comment_chats">コメントしたチャット</string>
 
 </resources>

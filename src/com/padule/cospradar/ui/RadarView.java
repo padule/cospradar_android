@@ -2,6 +2,11 @@ package com.padule.cospradar.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -10,65 +15,98 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.location.Location;
+import android.os.Handler;
 import android.support.v4.util.LruCache;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
-import com.padule.cospradar.mock.MockFactory;
+import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.ImageUtils;
+import com.padule.cospradar.util.TextUtils;
 
 public class RadarView extends View implements OnTouchListener {
 
     private static final String TAG = RadarView.class.getName();
 
-    private static final double DEFAULT_RADIUS_KIROMETER = 10.0;
-    private static final double MAX_RADIUS_KIROMETER = 100.0;
-    private static final double MIN_RADIUS_KIROMETER = 0.1;
+    public static final double DEFAULT_RADIUS_KIROMETER = 10.0;
+    public static final double MAX_RADIUS_KIROMETER = 20.0;
+    public static final double MIN_RADIUS_KIROMETER = 0.1;
     private static final float DEFAULT_RADIUS_METER = (float)DEFAULT_RADIUS_KIROMETER * 1000;
     private static final int ICON_SIZE = 100;
     private static final int TEXT_SIZE = 40;
+    private static final int RADAR_STROKE_WIDTH = 6;
     private static final double DEG2RAD = Math.PI/180;
+    private static final int REFRESH_DELAY_MILLS = 3 * 1000;
+    private static final float DEFAULT_LOADING_ANGLE = 240;
 
     private List<Charactor> charactors = new ArrayList<Charactor>();
 
     private int height;
     private int width;
     private float azimuth;
-    private int color;
+    private int bgColor;
+    private int strokeColor;
+    private int centerColor;
     private float scale = 1.0f;
-
-    private float centerLat;
-    private float centerLon;
+    private float loadingAngle = DEFAULT_LOADING_ANGLE;
+    private boolean isLoading = false;
 
     private LruCache<Integer, Bitmap> bmpCache;
     private RadarListener radarListener;
+    private ScheduledExecutorService ses;
+
+    private Bitmap emptyBmp;
 
     public interface RadarListener {
         public void onClickCharactor(Charactor charactor);
-        public void onCharactorDrawed();
     }
 
     public RadarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        color = context.getResources().getColor(R.color.apptheme_color);
+        initColors(context);
         initBmpCache(context);
+        scheduleRefresh();
     }
 
-    public RadarView(Context context) {
-        super(context);
-        color = context.getResources().getColor(R.color.apptheme_color);
-        initBmpCache(context);
+    private void initColors(Context context) {
+        bgColor = context.getResources().getColor(R.color.bg_radar);
+        strokeColor = context.getResources().getColor(R.color.stroke_radar);
+        centerColor = context.getResources().getColor(R.color.center_radar);
+    }
+
+    private void scheduleRefresh() {
+        if (mTimer != null){
+            mTimer.cancel();
+        }
+        timerTask = new RefreshTimerTask();
+        mTimer = new Timer(true);
+        mTimer.schedule(timerTask, REFRESH_DELAY_MILLS, REFRESH_DELAY_MILLS);
+    }
+
+    RefreshTimerTask timerTask = null;
+    Timer mTimer = null;
+    Handler mHandler = new Handler();
+    private class RefreshTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            mHandler.post( new Runnable() {
+                public void run() {
+                    RadarView.this.postInvalidate();
+                }
+            });
+        }
     }
 
     public void setRadarListener(RadarListener radarListener) {
@@ -84,6 +122,7 @@ public class RadarView extends View implements OnTouchListener {
                 return bmp.getByteCount();
             }
         };
+        emptyBmp = ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), ICON_SIZE);
     }
 
     @Override
@@ -95,51 +134,96 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     private void drawRadar(final Canvas canvas) {
+        if (isLoading) {
+            drawSearching(canvas);
+        }
         drawBackground(canvas);
         drawText(canvas);
+    }
+
+    private void drawSearching(final Canvas canvas) {
+        canvas.save();
+        Paint paint = new Paint( Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(getResources().getColor(R.color.loading_radar));
+        RectF arc = new RectF(0, 0, width, width);
+        canvas.drawArc(arc, loadingAngle, 60, true, paint);
+        canvas.restore();
+    }
+
+    private final Runnable loadingTask = new Runnable(){
+        @Override
+        public void run() {
+            loadingAngle += 1;
+            postInvalidate();
+        }
+    };
+
+    public void startLoading() {
+        isLoading = true;
+        loadingAngle = DEFAULT_LOADING_ANGLE;
+        ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleAtFixedRate(loadingTask, 0L, 3, TimeUnit.MILLISECONDS);
+    }
+
+    public void stopLoading() {
+        isLoading = false;
+        if (ses != null) {
+            ses.shutdown();
+            ses = null;
+        }
+        loadingAngle = DEFAULT_LOADING_ANGLE;
     }
 
     private void drawText(final Canvas canvas) {
         Paint paint = new Paint( Paint.ANTI_ALIAS_FLAG);
         paint.setTextSize(TEXT_SIZE);
         paint.setColor(getResources().getColor(R.color.text_white));
-        canvas.drawText(getResources().getString(R.string.radar_distance, getRadiusKiroMeterString()), 
+        canvas.drawText(TextUtils.getKiroMeterString(getContext(), getRadiusMeter()), 
                 width/2-TEXT_SIZE-TEXT_SIZE/2, width - TEXT_SIZE, paint);
-    }
-
-    private void drawArc(final Canvas canvas) {
-        final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(getResources().getColor(R.color.radar_light));
-        RectF arc = new RectF(0, 0, width, width);
-        canvas.drawArc(arc, 240, 60, true, paint);
     }
 
     private void drawBackground(final Canvas canvas) {
         final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(color);
+        drawCircle(canvas, paint);
+        drawCharactors(canvas, paint);
 
-        final int radius = width / 2;
-        canvas.save();
-        canvas.drawCircle(radius, radius, radius, paint);
-        drawArc(canvas);
-        canvas.scale(scale, scale);
-        canvas.restore();
+        setOnTouchListener(null);
+        setOnTouchListener(this);
+    }
 
-        // TODO Remove mock code
-        charactors = MockFactory.getCharactors();
-
+    private void drawCharactors(final Canvas canvas, Paint paint) {
         canvas.save();
         for (final Charactor charactor : charactors) {
             drawCharactor(canvas, paint, charactor);
         }
         canvas.scale(scale, scale);
-
-        setOnTouchListener(null);
-        setOnTouchListener(this);
-
         canvas.restore();
+    }
+
+    private void drawCircle(final Canvas canvas, Paint paint) {
+        canvas.save();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(bgColor);
+        final int radius = width / 2;
+        canvas.drawCircle(radius, radius, radius, paint);
+        canvas.scale(scale, scale);
+        canvas.restore();
+
+        canvas.save();
+        int strokeCount = 3;
+        for (int i = 1; i < strokeCount + 1; i++) {
+            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+            p.setColor(strokeColor);
+            p.setStyle(Paint.Style.STROKE);
+            p.setStrokeWidth(RADAR_STROKE_WIDTH);
+            int r = radius/strokeCount * i;
+            canvas.drawCircle(radius, radius, r, p);
+        }
+
+        paint.setColor(centerColor);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(radius, radius, 24, paint);
     }
 
     private void drawCharactor(final Canvas canvas, final Paint paint, final Charactor charactor) {
@@ -161,12 +245,25 @@ public class RadarView extends View implements OnTouchListener {
                         radius + positions[1] - ICON_SIZE/2, paint);
             }
         } else {
+            bmpCache.put(Integer.valueOf(charactor.getId()), emptyBmp);
             ImageSize targetSize = new ImageSize(ICON_SIZE, ICON_SIZE);
             MainApplication.imageLoader.loadImage(charactor.getImageUrl(), targetSize, 
-                    new SimpleImageLoadingListener() {
+                    new ImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String url, View view, Bitmap bmp) {
                     bmpCache.put(Integer.valueOf(charactor.getId()), bmp);
+                }
+                @Override
+                public void onLoadingCancelled(String url, View view) {
+                    bmpCache.put(Integer.valueOf(charactor.getId()), emptyBmp);
+                }
+                @Override
+                public void onLoadingFailed(String url, View view, FailReason reason) {
+                    bmpCache.put(Integer.valueOf(charactor.getId()), emptyBmp);
+                }
+                @Override
+                public void onLoadingStarted(String url, View view) {
+                    //
                 }
             });
         }
@@ -190,13 +287,13 @@ public class RadarView extends View implements OnTouchListener {
     private float[] convertLocationToPosition(float lat, float lon) {
         float[] results = new float[3];
 
-        Location.distanceBetween(lat, lon, centerLat, centerLon, results);
+        Location.distanceBetween(lat, lon, AppUtils.getLatitude(), AppUtils.getLongitude(), results);
 
         float distance = results[0];
         double angle = (results[1] - azimuth) * DEG2RAD;
         double x = Math.cos(angle) * distance + ICON_SIZE/2;
         double y = Math.sin(angle) * distance + ICON_SIZE/2;
-        Log.d(TAG, "distance: " + distance + ", angle: " + angle + ", x: " + x + ", y: " + y);
+        //        Log.d(TAG, "distance: " + distance + ", angle: " + angle + ", x: " + x + ", y: " + y);
 
         float[] coordinates = new float[2];
         coordinates[0] = convertRealCoordinatesToRadar(x);
@@ -213,23 +310,8 @@ public class RadarView extends View implements OnTouchListener {
         return DEFAULT_RADIUS_METER / scale;
     }
 
-    private float getRadiusKiroMeter() {
-        return getRadiusMeter() / 1000;
-    }
-
-    private String getRadiusKiroMeterString() {
-        double kiro = Math.floor(getRadiusMeter() / 1000 * 10) / 10;
-        return String.valueOf(kiro);
-    }
-
-    public void setCenterLocation(float centerLat, float centerLon) {
-        this.centerLat = centerLat;
-        this.centerLon = centerLon;
-    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        scaleDetector.onTouchEvent(event);
         return touchDetector.onTouchEvent(event);
     }
 
@@ -246,41 +328,15 @@ public class RadarView extends View implements OnTouchListener {
         }
     }
 
-    private void checkMinMaxScale() {
-        if (RadarView.this.getRadiusKiroMeter() < MIN_RADIUS_KIROMETER) {
-            scale = (float)(DEFAULT_RADIUS_KIROMETER / MIN_RADIUS_KIROMETER);
-        } else if (RadarView.this.getRadiusKiroMeter() > MAX_RADIUS_KIROMETER) {
-            scale = (float)(DEFAULT_RADIUS_KIROMETER / MAX_RADIUS_KIROMETER);
-        }
+    public void updateScale(float kirometer) {
+        scale = (float)DEFAULT_RADIUS_KIROMETER / kirometer;
+        postInvalidate();
     }
 
-    private ScaleGestureDetector scaleDetector = 
-            new ScaleGestureDetector(RadarView.this.getContext(), 
-                    new ScaleGestureDetector.SimpleOnScaleGestureListener() {
-                @Override
-                public boolean onScaleBegin(ScaleGestureDetector detector) {
-                    scale *= detector.getScaleFactor();
-                    checkMinMaxScale();
-                    invalidate();
-                    return super.onScaleBegin(detector);
-                }
-
-                @Override
-                public void onScaleEnd(ScaleGestureDetector detector) {
-                    scale *= detector.getScaleFactor();
-                    checkMinMaxScale();
-                    invalidate();
-                    super.onScaleEnd(detector);
-                }
-
-                @Override
-                public boolean onScale(ScaleGestureDetector detector) {
-                    scale *= detector.getScaleFactor();
-                    checkMinMaxScale();
-                    invalidate();
-                    return true;
-                };
-            });
+    public void setCharactors(List<Charactor> charactors) {
+        this.charactors = charactors;
+        postInvalidate();
+    }
 
     private GestureDetector touchDetector =
             new GestureDetector(RadarView.this.getContext(), new OnGestureListener(){
@@ -288,12 +344,10 @@ public class RadarView extends View implements OnTouchListener {
                 public boolean onDown(MotionEvent e) {
                     return true;
                 }
-
                 @Override
                 public void onShowPress(MotionEvent e) {
                     //
                 }
-
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
                     for (final Charactor charactor : charactors) {
@@ -306,18 +360,15 @@ public class RadarView extends View implements OnTouchListener {
                     }
                     return true;
                 }
-
                 @Override
                 public boolean onScroll(MotionEvent e1, MotionEvent e2,
                         float distanceX, float distanceY) {
                     return true;
                 }
-
                 @Override
                 public void onLongPress(MotionEvent e) {
                     //
                 }
-
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, 
                         float velocityX, float velocityY) {

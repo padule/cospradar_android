@@ -13,6 +13,7 @@ public class PrefUtils {
     
     public static final String KEY_PHOTO_PATH = "photo_path";
     public static final String KEY_PHOTO_NAME = "photo_name";
+    public static final String KEY_LAT_LON = "lat_lon";
 
     private static SharedPreferences pref;
 
