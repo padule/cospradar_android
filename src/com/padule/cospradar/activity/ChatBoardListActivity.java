@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -30,6 +31,7 @@ import com.padule.cospradar.adapter.ChatBoardsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
 
@@ -46,6 +48,15 @@ public class ChatBoardListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_board_list);
+    }
+
+    public static void start(BaseActivity activity) {
+        if (AppUtils.getCharactor() == null) {
+            EditSuggestDialogFragment.show(activity);
+        } else {
+            final Intent intent = new Intent(activity, ChatBoardListActivity.class);
+            activity.startActivity(intent);
+        }
     }
 
     @Override
@@ -91,8 +102,8 @@ public class ChatBoardListActivity extends BaseActivity {
     }
 
     private void loadData(final int page, final boolean shouldAllClear) {
-        // TODO implements URL.
-        aq.ajax(AppUrls.getCharactorsIndex(page, null), JSONArray.class, new AjaxCallback<JSONArray>() {
+        String url = AppUrls.getCharactorCommentsCommentList(AppUtils.getCharactor().getId(), page);
+        aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
                 if (page == 1) {

@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
         case R.id.item_chat_list:
-            startActivity(new Intent(this, ChatBoardListActivity.class));
+            ChatBoardListActivity.start(this);
             break;
         case R.id.item_profile:
             ProfileActivity.start(this, AppUtils.getUser());
