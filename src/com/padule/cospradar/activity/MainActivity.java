@@ -35,6 +35,7 @@ import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
 import com.padule.cospradar.ui.SearchHeader.SearchListener;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.KeyboardUtils;
 
 public class MainActivity extends BaseActivity implements SearchListener {
 
@@ -163,6 +164,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
         clearListView();
         header.startSearching();
         loadData(0, searchText);
+        KeyboardUtils.hide(this);
     }
 
     private void clearListView() {

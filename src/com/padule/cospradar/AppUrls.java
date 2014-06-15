@@ -53,13 +53,13 @@ public class AppUrls {
         if (userId > 0) {
             sb.append(AND);
             sb.append(createParam(PARAM_USER_ID, userId));
+            sb.append(AND);
+            sb.append(createParam(PARAM_DESC, "is_enabled"));
         }
         if (title != null && !"".equals(title)) {
             sb.append(AND);
             sb.append(createParam(PARAM_TITLE, title));
         }
-        sb.append(AND);
-        sb.append(createParam(PARAM_DESC, "is_enabled"));
         return sb.toString();
     }
 
