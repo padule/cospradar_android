@@ -97,6 +97,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
     private void loadCallback(JSONArray json, AjaxStatus status) {
         List<Charactor> charactors = new ArrayList<Charactor>();
         if (json != null) {
+            Log.d(TAG, json.toString());
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
             charactors = gson.fromJson(json.toString(), collectionType);

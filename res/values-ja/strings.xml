@@ -65,6 +65,6 @@
     <string name="comment_hint">コメントを書く</string>
     <string name="comment_send_failed">送信に失敗してしましました...\nもう一度試してみてもらえますか？</string>
     <string name="comment_nothing">まだコメントはないみたいです。</string>
-    <string name="comment_chats">コメントしたチャット</string>
+    <string name="comment_chats">コメントしたけいじばん</string>
 
 </resources>

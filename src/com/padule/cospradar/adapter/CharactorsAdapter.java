@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
 
 public class CharactorsAdapter extends ArrayAdapter<Charactor> {
+
+    private static final String TAG = CharactorsAdapter.class.getName();
 
     private Context context;
 
@@ -75,7 +78,9 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
         void bindDistance(Charactor charactor, Context context) {
             mTxtDistance.setText("");
             CharactorLocation location = charactor.getLocation();
+
             if (location != null) {
+                Log.d(TAG, "latitude: " + location.getLatitude() + ", longitude: " + location.getLongitude());
                 float[] results = new float[3];
                 Location.distanceBetween(location.getLatitude(), location.getLongitude(), 
                         AppUtils.getLatitude(), AppUtils.getLongitude(), results);

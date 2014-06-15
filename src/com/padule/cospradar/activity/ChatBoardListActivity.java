@@ -74,7 +74,8 @@ public class ChatBoardListActivity extends BaseActivity {
     }
 
     private void initListViewListener() {
-        mListView.setOnScrollListener(new EndlessScrollListener() {
+        int headerCount = mListView.getRefreshableView().getHeaderViewsCount();
+        mListView.setOnScrollListener(new EndlessScrollListener(-headerCount) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 if (adapter != null && page > 1) {

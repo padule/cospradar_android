@@ -303,7 +303,7 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     private float convertRealCoordinatesToRadar(double coordinate) {
-        return (float)(coordinate / getRadiusMeter() * width);
+        return (float)(coordinate / getRadiusMeter() * width/2);
     }
 
     private float getRadiusMeter() {
