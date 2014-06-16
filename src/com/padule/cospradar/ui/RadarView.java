@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.location.Location;
 import android.os.Handler;
@@ -250,9 +251,11 @@ public class RadarView extends View implements OnTouchListener {
             float x_limit = positions[0] > 0 ? positions[0] + ICON_SIZE/2 : positions[0] - ICON_SIZE/2;
             float y_limit = positions[1] > 0 ? positions[1] + ICON_SIZE/2 : positions[1] - ICON_SIZE/2;
 
-            if (x_limit*x_limit + y_limit*y_limit < radius*radius) {
-                canvas.drawBitmap(bmp, radius + positions[0] - ICON_SIZE/2, 
-                        radius + positions[1] - ICON_SIZE/2, paint);
+            if (x_limit*x_limit + y_limit*y_limit < (radius+ICON_SIZE/2)*(radius+ICON_SIZE/2)) {
+                int x = (int)(radius+positions[0]-ICON_SIZE/2);
+                int y = (int)(radius+positions[1]-ICON_SIZE/2);
+                RectF rect = new RectF(x, y, x+ICON_SIZE, y+ICON_SIZE);
+                canvas.drawBitmap(bmp, null, rect, paint);
                 return true;
             }
         } else {

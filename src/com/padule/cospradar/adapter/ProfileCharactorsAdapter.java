@@ -116,7 +116,8 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
             }
 
             private void setEmptyImage() {
-                mImgCharactor.setScaleType(ScaleType.CENTER);
+                // TODO
+                // mImgCharactor.setScaleType(ScaleType.CENTER);
                 mImgCharactor.setBackgroundResource(R.color.bg_gray);
             }
         };
