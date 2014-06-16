@@ -71,6 +71,7 @@ public class RadarView extends View implements OnTouchListener {
 
     public interface RadarListener {
         public void onClickCharactor(Charactor charactor);
+        public void onDrawCharactors(int drawCount);
     }
 
     public RadarView(Context context, AttributeSet attrs) {
@@ -186,19 +187,28 @@ public class RadarView extends View implements OnTouchListener {
     private void drawBackground(final Canvas canvas) {
         final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         drawCircle(canvas, paint);
-        drawCharactors(canvas, paint);
-
+        int drawCount = drawCharactors(canvas, paint);
+        
+        if (radarListener != null) {
+            radarListener.onDrawCharactors(drawCount);
+        }
+        
         setOnTouchListener(null);
         setOnTouchListener(this);
     }
 
-    private void drawCharactors(final Canvas canvas, Paint paint) {
+    private int drawCharactors(final Canvas canvas, Paint paint) {
+        int drawCount = 0;
         canvas.save();
         for (final Charactor charactor : charactors) {
-            drawCharactor(canvas, paint, charactor);
+            if (drawCharactor(canvas, paint, charactor)) {
+                drawCount++;
+            }
         }
         canvas.scale(scale, scale);
         canvas.restore();
+        
+        return drawCount;
     }
 
     private void drawCircle(final Canvas canvas, Paint paint) {
@@ -226,11 +236,11 @@ public class RadarView extends View implements OnTouchListener {
         canvas.drawCircle(radius, radius, 24, paint);
     }
 
-    private void drawCharactor(final Canvas canvas, final Paint paint, final Charactor charactor) {
+    private boolean drawCharactor(final Canvas canvas, final Paint paint, final Charactor charactor) {
         int radius = width/2;
         CharactorLocation location = charactor.getLocation();
         if (location == null) {
-            return;
+            return false;
         }
 
         Bitmap bmp = bmpCache.get(Integer.valueOf(charactor.getId()));
@@ -243,6 +253,7 @@ public class RadarView extends View implements OnTouchListener {
             if (x_limit*x_limit + y_limit*y_limit < radius*radius) {
                 canvas.drawBitmap(bmp, radius + positions[0] - ICON_SIZE/2, 
                         radius + positions[1] - ICON_SIZE/2, paint);
+                return true;
             }
         } else {
             bmpCache.put(Integer.valueOf(charactor.getId()), emptyBmp);
@@ -267,6 +278,7 @@ public class RadarView extends View implements OnTouchListener {
                 }
             });
         }
+        return false;
     }
 
     @Override

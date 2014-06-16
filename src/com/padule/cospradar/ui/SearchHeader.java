@@ -132,5 +132,11 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         mBtnReload.setEnabled(true);
     }
 
+    @Override
+    public void onDrawCharactors(int drawCount) {
+        if (mBtnReload.isEnabled()) {
+            mTextCountHeader.setText(getContext().getString(R.string.search_result_count, drawCount));
+        }
+    }
 
 }
