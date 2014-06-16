@@ -15,6 +15,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import butterknife.InjectView;
 import butterknife.OnClick;
 
 import com.androidquery.callback.AjaxCallback;
@@ -37,6 +41,9 @@ public class LoginActivity extends BaseActivity {
     private String callbackUrl;
     private Twitter twitter;
     private RequestToken requestToken;
+
+    @InjectView(R.id.btn_login_twitter) Button mBtnLoginTwitter;
+    @InjectView(R.id.loading) View mLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +89,8 @@ public class LoginActivity extends BaseActivity {
 
     private void saveUser(String screenName, String imgUrl) {
         if (screenName == null || imgUrl == null) {
-            AppUtils.showToast(getString(R.string.login_failed), this);
+            showToast(R.string.login_failed);
+            toggleLoginBtnStatus(true);
             return;
         }
 
@@ -106,17 +114,19 @@ public class LoginActivity extends BaseActivity {
             Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
             User user = gson.fromJson(json.toString(), User.class);
             AppUtils.setUser(user);
-            AppUtils.showToast(getString(R.string.login_succeeded), this);
+            showToast(R.string.login_succeeded);
             startMainActivity();
         } else {
             if (AppUtils.isMockMode()) {
                 AppUtils.setUser(MockFactory.getUser1());
-                AppUtils.showToast(getString(R.string.login_succeeded), this);
+                showToast(R.string.login_succeeded);
             } else {
-                AppUtils.showToast(getString(R.string.login_failed), this);
+                showToast(R.string.login_failed);
                 Log.e(TAG, "create_error_message: " + status.getMessage());
             }
         }
+
+        toggleLoginBtnStatus(true);
     }
 
     private Map<String, Object> createParams(String screenName, String imgUrl) {
@@ -133,6 +143,8 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btn_login_twitter)
     public void onClickBtnLoginTwitter() {
+        toggleLoginBtnStatus(false);
+
         if (TwitterUtils.hasAccessToken()) {
             if (AppUtils.isLoggedIn()) {
                 startMainActivity();
@@ -142,6 +154,15 @@ public class LoginActivity extends BaseActivity {
         } else {
             authTwitter();
         }
+    }
+
+    private void toggleLoginBtnStatus(boolean enabled) {
+        int resColorId = enabled ? R.color.text_white : R.color.text_gray;
+        mBtnLoginTwitter.setTextColor(getResources().getColor(resColorId));
+        mBtnLoginTwitter.setEnabled(enabled);
+
+        int visibility = enabled ? View.GONE : View.VISIBLE;
+        mLoading.setVisibility(visibility);
     }
 
     private void authTwitter() {
@@ -183,7 +204,7 @@ public class LoginActivity extends BaseActivity {
             protected AccessToken doInBackground(String... params) {
                 try {
                     return twitter.getOAuthAccessToken(requestToken, params[0]);
-                } catch (TwitterException e) {
+                } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
                 return null;
@@ -192,14 +213,17 @@ public class LoginActivity extends BaseActivity {
             @Override
             protected void onPostExecute(AccessToken accessToken) {
                 if (accessToken != null) {
-                    AppUtils.showToast(LoginActivity.this.getString(R.string.login_succeeded), LoginActivity.this);
                     onSuccessOAuth(accessToken);
                 } else {
-                    AppUtils.showToast(LoginActivity.this.getString(R.string.login_failed), LoginActivity.this);
+                    showToast(R.string.login_failed);
                 }
             }
         };
         task.execute(verifier);
+    }
+
+    private void showToast(int resId) {
+        AppUtils.showToast(getString(resId), this, Toast.LENGTH_SHORT);
     }
 
     private void onSuccessOAuth(AccessToken accessToken) {

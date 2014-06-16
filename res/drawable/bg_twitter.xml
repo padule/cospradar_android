@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="false">
+    <item android:state_pressed="false" android:state_enabled="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/bg_twitter" />
             <corners android:radius="@dimen/radius_btn" />
         </shape>
     </item>
-    <item android:state_pressed="true">
+    <item android:state_pressed="true" android:state_enabled="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bg_twitter" />
+                    <corners android:radius="@dimen/radius_btn" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bg_black_alfa_light" />
+                    <corners android:radius="@dimen/radius_btn" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_pressed="false" android:state_enabled="false">
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
