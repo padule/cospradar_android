@@ -34,12 +34,12 @@
     <string name="choose_from_camera">カメラで撮る</string>
 
     <!-- Search -->
-    <string name="search_list_nothing">残念。近くにレイヤーさんはいないみたいです。</string>
-    <string name="search_hint">作品名でしぼる (空白OK)</string>
+    <string name="search_list_nothing">残念。近くにレイヤーさんはいません。</string>
+    <string name="search_hint">作品名で探す (空白OK)</string>
     <string name="search_start">スタート</string>
     <string name="radar_distance">%1$s km</string>
     <string name="searching">検索中...</string>
-    <string name="search_result_count">%1$d 人のレイヤーを発見！</string>
+    <string name="search_result_count">レイヤーを発見！ %1$d 人</string>
     <string name="search_result_count_zero">近くにレイヤーはいません</string>
 
     <!-- CharactorSetting -->
