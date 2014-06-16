@@ -9,6 +9,7 @@ import com.padule.cospradar.base.Data;
 public class User extends Data {
 
     private static final long serialVersionUID = 1L;
+    private static final String AT = "@";
 
     @SerializedName("id") int id;
     @SerializedName("name") String name;
@@ -29,6 +30,10 @@ public class User extends Data {
 
     public String getName() {
         return name;
+    }
+    
+    public String getScreenName() {
+        return AT + name;
     }
 
     public String getImage() {

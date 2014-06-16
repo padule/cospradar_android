@@ -52,7 +52,7 @@ public class ProfileHeader extends RelativeLayout {
             mImgUser.setImageResource(R.drawable.ic_no_user_rounded);
         }
 
-        mTxtUserName.setText(user.getName());
+        mTxtUserName.setText(user.getScreenName());
     }
 
     private void initButton(User user) {
