@@ -99,5 +99,9 @@ public class Charactor extends Data {
     public CharactorComment getLatestComment() {
         return latestComment;
     }
+    
+    public void setLatestComment(CharactorComment comment) {
+        latestComment = comment;
+    }
 
 }

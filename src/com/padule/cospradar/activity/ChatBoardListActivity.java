@@ -98,6 +98,32 @@ public class ChatBoardListActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch(requestCode) {
+        case Constants.REQ_ACTIVITY_CHAT_BOARD:
+            if (intent != null) {
+                Charactor charactor = (Charactor)intent.getSerializableExtra(Charactor.class.getName());
+                updateItem(charactor);
+            }
+            break;
+        }
+    }
+
+    private void updateItem(Charactor newCharactor) {
+        if (adapter != null && newCharactor != null) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                Charactor orgCharactor = adapter.getItem(i);
+                if (orgCharactor != null && orgCharactor.getId() == newCharactor.getId()) {
+                    adapter.remove(orgCharactor);
+                    adapter.insert(newCharactor, i);
+                    return;
+                }
+            }
+        }
+    }
+
     private void loadData(int page) {
         loadData(page, false);
     }

@@ -75,6 +75,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         } else {
             final Intent intent = new Intent(activity, ChatBoardActivity.class);
             intent.putExtra(Charactor.class.getName(), charactor);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT_BOARD);
         }
     }
@@ -126,13 +127,13 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void loadData(final int page, final boolean shouldClearAll) {
-        if (page == 1) {
-            mLoading.setVisibility(View.GONE);
-        }
         String url = AppUrls.getCharactorCommentsIndex(charactor.getId(), page);
         aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
             @Override
             public void callback(String url, JSONArray json, AjaxStatus status) {
+                if (page == 1) {
+                    mLoading.setVisibility(View.GONE);
+                }
                 loadCallback(json, status, page, shouldClearAll);
             }
         });
@@ -238,9 +239,16 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            setResult();
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    private void setResult() {
+        Intent intent = new Intent();
+        intent.putExtra(Charactor.class.getName(), charactor);
+        setResult(RESULT_OK, intent);
     }
 
     @Override
@@ -275,6 +283,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
                 mContainerEmpty.setVisibility(View.GONE);
                 adapter.remove(oldComment);
                 adapter.add(comment);
+                charactor.setLatestComment(comment);
                 scrollToBottom();
             }
         } else {
