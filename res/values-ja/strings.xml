@@ -39,7 +39,7 @@
     <string name="search_start">スタート</string>
     <string name="radar_distance">%1$s km</string>
     <string name="searching">検索中...</string>
-    <string name="search_result_count">レイヤーを発見！ %1$d 人</string>
+    <string name="search_result_count">%1$d 人のレイヤーを発見！</string>
     <string name="search_result_count_zero">近くにレイヤーはいません</string>
 
     <!-- CharactorSetting -->
