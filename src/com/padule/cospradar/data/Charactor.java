@@ -21,6 +21,7 @@ public class Charactor extends Data {
 
     @SerializedName("user") User user;
     @SerializedName("charactor_location") CharactorLocation charactorLocation;
+    @SerializedName("latest_comment") CharactorComment latestComment;
 
     public Charactor() {
         super();
@@ -93,6 +94,10 @@ public class Charactor extends Data {
             user.addCharactor(this);
         }
         return user;
+    }
+    
+    public CharactorComment getLatestComment() {
+        return latestComment;
     }
 
 }

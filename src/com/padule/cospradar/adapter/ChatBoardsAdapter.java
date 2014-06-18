@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,9 @@ import butterknife.InjectView;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
-import com.padule.cospradar.data.CharactorLocation;
-import com.padule.cospradar.ui.RadarView;
-import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.util.ImageUtils;
-import com.padule.cospradar.util.TextUtils;
+import com.padule.cospradar.util.TimeUtils;
 
 public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
 
@@ -40,7 +37,7 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
         ViewHolder holder;
 
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_charactor, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_comment_charactor, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
@@ -57,7 +54,9 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
         @InjectView(R.id.img_icon) ImageView mImgIcon;
         @InjectView(R.id.txt_name) TextView mTxtName;
         @InjectView(R.id.txt_title) TextView mTxtTitle;
-        @InjectView(R.id.txt_distance) TextView mTxtDistance;
+        @InjectView(R.id.txt_user_name) TextView mTxtUserName;
+        @InjectView(R.id.txt_latest_comment_time) TextView mTxtLatestCommentTime;
+        @InjectView(R.id.txt_latest_comment) TextView mTxtLatestComment;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -68,23 +67,22 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
                 ImageUtils.displayRoundedImage(charactor.getImageUrl(), mImgIcon);
                 mTxtName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());
-                bindDistance(charactor, context);
+                bindUserName(charactor);
+                bindLatestComment(charactor, context);
             }
         }
 
-        void bindDistance(Charactor charactor, Context context) {
-            mTxtDistance.setText("");
-            CharactorLocation location = charactor.getLocation();
-            if (location != null) {
-                float[] results = new float[3];
-                Location.distanceBetween(location.getLatitude(), location.getLongitude(), 
-                        AppUtils.getLatitude(), AppUtils.getLongitude(), results);
-                float meter = results[0];
+        void bindUserName(Charactor charactor) {
+            if (charactor.getUser() != null) {
+                mTxtUserName.setText(charactor.getUser().getScreenName());
+            }
+        }
 
-                if (meter <= RadarView.MAX_RADIUS_KIROMETER * 1000) {
-                    String distance = TextUtils.getKiroMeterString(context, (double)meter);
-                    mTxtDistance.setText(distance);
-                }
+        void bindLatestComment(Charactor charactor, Context context) {
+            CharactorComment comment = charactor.getLatestComment();
+            if (comment != null) {
+                mTxtLatestComment.setText(comment.getText());
+                mTxtLatestCommentTime.setText(TimeUtils.getDisplayDate(comment.getCreatedAt(), context));
             }
         }
 
