@@ -3,7 +3,6 @@ package com.padule.cospradar.base;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -16,7 +15,7 @@ public class BaseLocationListener implements LocationListener, ConnectionCallbac
 
     private static final String TAG = BaseLocationListener.class.getName();
     private static final int INTERVAL_MILLS = 5000;
-    private static final int MIN_PLACE_DISTANCE_METER = 1;
+    private static final int MIN_PLACE_DISTANCE_METER = 5; // TODO adjust
     private LocationClient locClient = null;
     private boolean reConnect = false;
 
@@ -61,12 +60,11 @@ public class BaseLocationListener implements LocationListener, ConnectionCallbac
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        // Locationサービスへの接続に失敗したため、ユーザーへアラート表示等を行う
+        //
     }
 
     @Override
     public void onLocationChanged(Location loc) {
-        // 位置情報が続々とやってくるので、ここで位置情報を利用する処理を行う
-//        Log.d(TAG, "location: " + loc);
+        //
     }
 }

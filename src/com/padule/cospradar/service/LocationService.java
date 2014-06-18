@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -49,7 +48,9 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "MyService#onDestroy", Toast.LENGTH_SHORT).show();
+        if (listener != null) {
+            listener.stop();
+        }
     }
 
     private void initLocationListener() {
@@ -59,6 +60,7 @@ public class LocationService extends Service {
                 public void onLocationChanged(Location loc) {
                     super.onLocationChanged(loc);
                     Log.d(TAG, "onLocationChanged: " + loc);
+                    AppUtils.setLatLon((float)loc.getLatitude(), (float)loc.getLongitude());
                     uploadLocation(loc.getLatitude(), loc.getLongitude());
                 }
             };
@@ -69,11 +71,13 @@ public class LocationService extends Service {
     private void uploadLocation(double lat, double lon) {
         Charactor charactor = AppUtils.getCharactor();
         if (charactor != null) {
-            if (charactor.getLocation() != null) {
-                updateLocation(charactor, lat, lon);
-            } else {
-                createLocation(charactor, lat, lon);
-            }
+            createLocation(charactor, lat, lon);
+            // FIXME create charactors API return json is invalid...
+            // if (charactor.getLocation() != null && charactor.getLocation().getId() > 0) {
+            //     updateLocation(charactor, lat, lon);
+            // } else {
+            //     createLocation(charactor, lat, lon);
+            // }
         }
     }
 

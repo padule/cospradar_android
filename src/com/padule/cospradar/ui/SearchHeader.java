@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -22,10 +21,8 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.activity.ProfileActivity;
-import com.padule.cospradar.base.BaseLocationListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.ui.RadarView.RadarListener;
-import com.padule.cospradar.util.AppUtils;
 
 public class SearchHeader extends RelativeLayout implements RadarListener {
 
@@ -45,7 +42,6 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         ButterKnife.inject(this);
 
         this.listener = listener;
-        initLocationListener();
         initRadar();
         initSeekBar();
         initEditSearch();
@@ -97,19 +93,6 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
 
     private void initRadar() {
         this.mRadarView.setRadarListener(this);
-    }
-
-    private void initLocationListener() {
-        BaseLocationListener listener = new BaseLocationListener(getContext()) {
-            @Override
-            public void onLocationChanged(Location loc) {
-                super.onLocationChanged(loc);
-                if (mRadarView != null) {
-                    AppUtils.setLatLon((float)loc.getLatitude(), (float)loc.getLongitude());
-                }
-            }
-        };
-        listener.start();
     }
 
     @Override
