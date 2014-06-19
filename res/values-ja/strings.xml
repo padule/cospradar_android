@@ -39,6 +39,7 @@
     <string name="search_hint">作品名で探す (空白OK)</string>
     <string name="search_start">スタート</string>
     <string name="radar_distance">%1$s km</string>
+    <string name="radar_distance_meter">%1$s m</string>
     <string name="searching">検索中...</string>
     <string name="search_result_count">%1$d 人のレイヤーを発見！</string>
     <string name="search_result_count_zero">近くにレイヤーはいません</string>

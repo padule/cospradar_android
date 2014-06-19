@@ -96,7 +96,7 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
                 float meter = results[0];
 
                 if (meter <= RadarView.MAX_RADIUS_KIROMETER * 1000) {
-                    String distance = TextUtils.getKiroMeterString(context, (double)meter);
+                    String distance = TextUtils.getDistanceString(context, (double)meter);
                     mTxtDistance.setText(distance);
                 }
             }

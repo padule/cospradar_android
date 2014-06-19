@@ -42,6 +42,7 @@
     <string name="search_hint">Search by title (Empty is also OK)</string>
     <string name="search_start">Start</string>
     <string name="radar_distance">%1$s km</string>
+    <string name="radar_distance_meter">%1$s m</string>
     <string name="searching">Searching...</string>
     <string name="search_result_count">%1$d cosplayer discovered!</string>
     <string name="search_result_count_zero">No cosplayer nearby...</string>

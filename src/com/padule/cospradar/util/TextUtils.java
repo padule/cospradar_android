@@ -1,5 +1,7 @@
 package com.padule.cospradar.util;
 
+import java.math.BigDecimal;
+
 import android.content.Context;
 import android.text.Html;
 import android.widget.EditText;
@@ -29,9 +31,14 @@ public class TextUtils {
         return Html.fromHtml(text).toString();
     }
 
-    public static String getKiroMeterString(Context context, double meter) {
+    public static String getDistanceString(Context context, double meter) {
         double kiro = Math.floor(meter / 1000 * 10) / 10;
-        return context.getString(R.string.radar_distance, String.valueOf(kiro));
+        if (kiro > 1) {
+            return context.getString(R.string.radar_distance, kiro + "");
+        } else {
+            BigDecimal m = new BigDecimal(meter).setScale(0, BigDecimal.ROUND_HALF_UP);
+            return context.getString(R.string.radar_distance_meter, m + "");
+        }
     }
 
 }

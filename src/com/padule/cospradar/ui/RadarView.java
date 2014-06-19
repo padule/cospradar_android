@@ -179,7 +179,7 @@ public class RadarView extends View implements OnTouchListener {
         Paint paint = new Paint( Paint.ANTI_ALIAS_FLAG);
         paint.setTextSize(TEXT_SIZE);
         paint.setColor(getResources().getColor(R.color.text_white));
-        canvas.drawText(TextUtils.getKiroMeterString(getContext(), getRadiusMeter()), 
+        canvas.drawText(TextUtils.getDistanceString(getContext(), getRadiusMeter()), 
                 width/2-TEXT_SIZE-TEXT_SIZE/2, width - TEXT_SIZE, paint);
     }
 
