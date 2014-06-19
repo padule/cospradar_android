@@ -306,14 +306,14 @@ public class RadarView extends View implements OnTouchListener {
 
         float distance = results[0];
         double angle = (results[1] - azimuth) * DEG2RAD;
-        double x = Math.cos(angle) * distance + ICON_SIZE/2;
-        double y = Math.sin(angle) * distance + ICON_SIZE/2;
-        //        Log.d(TAG, "distance: " + distance + ", angle: " + angle + ", x: " + x + ", y: " + y);
+        double x = Math.cos(angle) * distance;
+        double y = Math.sin(angle) * distance;
+        //Log.d(TAG, "distance: " + distance + ", angle: " + angle + ", x: " + x + ", y: " + y);
 
         float[] coordinates = new float[2];
         coordinates[0] = convertRealCoordinatesToRadar(x);
         coordinates[1] = convertRealCoordinatesToRadar(y);
-        //        Log.d(TAG, "x: " + coordinates[0] + ", y: " + coordinates[1]);
+        //Log.d(TAG, "x: " + coordinates[0] + ", y: " + coordinates[1]);
         return coordinates;
     }
 
