@@ -13,6 +13,7 @@
     <string name="not_changed_input">変更がありません</string>
     <string name="send">送信</string>
     <string name="back_btn_msg">もう一度バックボタンを押すと終了します</string>
+    <string name="close">閉じる</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>
@@ -41,6 +42,7 @@
     <string name="searching">検索中...</string>
     <string name="search_result_count">%1$d 人のレイヤーを発見！</string>
     <string name="search_result_count_zero">近くにレイヤーはいません</string>
+    <string name="search_dialog_count">%1$d 人のレイヤーがいます</string>
 
     <!-- CharactorSetting -->
     <string name="charactor_setting">コスキャラ設定</string>

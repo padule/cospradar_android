@@ -16,6 +16,7 @@
     <string name="not_changed_input">Input is not changed</string>
     <string name="send">Send</string>
     <string name="back_btn_msg">After next back key click, app close</string>
+    <string name="close">Close</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -44,6 +45,7 @@
     <string name="searching">Searching...</string>
     <string name="search_result_count">%1$d cosplayer discovered!</string>
     <string name="search_result_count_zero">No cosplayer nearby...</string>
+    <string name="search_dialog_count">%1$d cosplayer!</string>
 
     <!-- CharactorEdit -->
     <string name="charactor_name">Charactor name</string>

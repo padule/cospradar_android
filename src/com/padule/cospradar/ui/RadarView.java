@@ -13,13 +13,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.location.Location;
 import android.os.Handler;
 import android.support.v4.util.LruCache;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
@@ -71,7 +69,7 @@ public class RadarView extends View implements OnTouchListener {
     private Bitmap emptyBmp;
 
     public interface RadarListener {
-        public void onClickCharactor(Charactor charactor);
+        public void onClickCharactor(ArrayList<Charactor> charactors);
         public void onDrawCharactors(int drawCount);
     }
 
@@ -189,11 +187,11 @@ public class RadarView extends View implements OnTouchListener {
         final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         drawCircle(canvas, paint);
         int drawCount = drawCharactors(canvas, paint);
-        
+
         if (radarListener != null) {
             radarListener.onDrawCharactors(drawCount);
         }
-        
+
         setOnTouchListener(null);
         setOnTouchListener(this);
     }
@@ -208,7 +206,7 @@ public class RadarView extends View implements OnTouchListener {
         }
         canvas.scale(scale, scale);
         canvas.restore();
-        
+
         return drawCount;
     }
 
@@ -330,17 +328,11 @@ public class RadarView extends View implements OnTouchListener {
         return touchDetector.onTouchEvent(event);
     }
 
-    private void setTouchEvent(float startX, float startY, float endX, float endY, 
-            MotionEvent event, Charactor charactor) {
-        if (event.getX(0) >= startX
+    private boolean isTouched(float startX, float startY, float endX, float endY, MotionEvent event) {
+        return event.getX(0) >= startX
                 && event.getY(0) >= startY
                 && event.getX(0) <= endX
-                && event.getY(0) <= endY) {
-            Log.e(TAG, "charactor_id: " + charactor.getId() + ", name: " + charactor.getName());
-            if (radarListener != null) {
-                radarListener.onClickCharactor(charactor);
-            }
-        }
+                && event.getY(0) <= endY;
     }
 
     public void updateScale(float kirometer) {
@@ -365,13 +357,20 @@ public class RadarView extends View implements OnTouchListener {
                 }
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
+                    ArrayList<Charactor> results = new ArrayList<Charactor>();
+
                     for (final Charactor charactor : charactors) {
                         int radius = width/2;
                         CharactorLocation location = charactor.getLocation();
                         float[] positions = convertLocationToPosition(location.getLatitude(), location.getLongitude());
-                        setTouchEvent(radius + positions[0] - ICON_SIZE/2, radius + positions[1] - ICON_SIZE/2, 
-                                radius + positions[0] + ICON_SIZE/2, radius + positions[1] + ICON_SIZE/2, 
-                                e, charactor);
+
+                        if (isTouched(radius+positions[0]-ICON_SIZE/2, radius+positions[1]-ICON_SIZE/2, 
+                                radius+positions[0]+ICON_SIZE/2, radius+positions[1]+ICON_SIZE/2, e)) {
+                            results.add(charactor);
+                        }
+                    }
+                    if (radarListener != null && results != null && !results.isEmpty()) {
+                        radarListener.onClickCharactor(results);
                     }
                     return true;
                 }
