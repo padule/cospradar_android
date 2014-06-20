@@ -1,6 +1,7 @@
 package com.padule.cospradar.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -199,7 +200,11 @@ public class RadarView extends View implements OnTouchListener {
     private int drawCharactors(final Canvas canvas, Paint paint) {
         int drawCount = 0;
         canvas.save();
-        for (final Charactor charactor : charactors) {
+
+        List<Charactor> charas = new ArrayList<Charactor>(charactors);
+        Collections.reverse(charas);
+
+        for (final Charactor charactor : charas) {
             if (drawCharactor(canvas, paint, charactor)) {
                 drawCount++;
             }

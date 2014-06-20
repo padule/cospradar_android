@@ -1,5 +1,7 @@
 package com.padule.cospradar;
 
+import com.padule.cospradar.util.AppUtils;
+
 public class AppUrls {
 
     private static final String API_URL = Constants.APP_URL;
@@ -30,14 +32,14 @@ public class AppUrls {
     private static final String SLASH = "/";
 
     public static String getCharactorsIndex(int page, String title) {
-        return getCharactorsIndex(page, 0, title);
+        return getCharactorsIndex(page, 0, title, AppUtils.getLatitude(), AppUtils.getLongitude());
     }
 
     public static String getCharactorsIndex(int page, int userId) {
-        return getCharactorsIndex(page, userId, null);
+        return getCharactorsIndex(page, userId, null, AppUtils.getLatitude(), AppUtils.getLongitude());
     }
 
-    private static String getCharactorsIndex(int page, int userId, String title) {
+    private static String getCharactorsIndex(int page, int userId, String title, float lat, float lng) {
         StringBuffer sb = new StringBuffer();
         sb.append(API_URL);
         sb.append(PATH_CHARACTORS);
@@ -60,6 +62,11 @@ public class AppUrls {
             sb.append(AND);
             sb.append(createParam(PARAM_TITLE, title));
         }
+        sb.append(AND);
+        sb.append(createParam(PARAM_LATITUDE, lat + ""));
+        sb.append(AND);
+        sb.append(createParam(PARAM_LONGITUDE, lng + ""));
+
         return sb.toString();
     }
 
