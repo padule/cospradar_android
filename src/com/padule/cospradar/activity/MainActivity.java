@@ -1,11 +1,13 @@
 package com.padule.cospradar.activity;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.json.JSONArray;
-
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -18,19 +20,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import butterknife.InjectView;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.padule.cospradar.AppUrls;
-import com.padule.cospradar.Constants;
+import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.CharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
-import com.padule.cospradar.mock.MockFactory;
+import com.padule.cospradar.service.APIService;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
 import com.padule.cospradar.ui.SearchHeader.SearchListener;
@@ -85,30 +81,33 @@ public class MainActivity extends BaseActivity implements SearchListener {
     }
 
     private void loadData(final int page, String title) {
-        Log.d(TAG, AppUrls.getCharactorsIndex(page, title) + "");
-        aq.ajax(AppUrls.getCharactorsIndex(page, title), JSONArray.class, new AjaxCallback<JSONArray>() {
+        MainApplication.API.getCharactors(createParams(title), 
+                new Callback<List<Charactor>>() {
             @Override
-            public void callback(String url, JSONArray json, AjaxStatus status) {
-                loadCallback(json, status);
+            public void failure(RetrofitError e) {
+                Log.e(TAG, e.getMessage() + "");
+            }
+
+            @Override
+            public void success(List<Charactor> charactors, Response response) {
+                renderView(charactors);
             }
         });
     }
 
-    private void loadCallback(JSONArray json, AjaxStatus status) {
-        List<Charactor> charactors = new ArrayList<Charactor>();
-        if (json != null) {
-            Log.d(TAG, json.toString());
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
-            charactors = gson.fromJson(json.toString(), collectionType);
-        } else {
-            Log.e(TAG, status.getMessage() + "");
-            if (AppUtils.isMockMode()) {
-                // FIXME implement using mock.
-                charactors = MockFactory.getCharactors();
-            }
+    private Map<String, String> createParams(String title) {
+        Map<String, String> params = new HashMap<String, String>();
+        if (title != null && !"".equals(title)) {
+            params.put(APIService.PARAM_TITLE, title);
         }
+        params.put(APIService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
+        params.put(APIService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
+        params.put(APIService.PARAM_LIMIT, "300");
 
+        return params;
+    }
+
+    private void renderView(List<Charactor> charactors) {
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
             refreshHeader(charactors);

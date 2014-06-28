@@ -1,6 +1,5 @@
 package com.padule.cospradar;
 
-import com.padule.cospradar.util.AppUtils;
 
 public class AppUrls {
 
@@ -13,8 +12,6 @@ public class AppUrls {
     private static final String PATH_COMMENT_LIST = "/comment_list";
 
     private static final String PARAM_PAGE = "page";
-    private static final String PARAM_LIMIT = "limit";
-    private static final String PARAM_DESC = "desc";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_TITLE = "title";
     public static final String PARAM_IMAGE = "image";
@@ -30,45 +27,6 @@ public class AppUrls {
     private static final String AND = "&";
     private static final String EQ = "=";
     private static final String SLASH = "/";
-
-    public static String getCharactorsIndex(int page, String title) {
-        return getCharactorsIndex(page, 0, title, AppUtils.getLatitude(), AppUtils.getLongitude());
-    }
-
-    public static String getCharactorsIndex(int page, int userId) {
-        return getCharactorsIndex(page, userId, null, AppUtils.getLatitude(), AppUtils.getLongitude());
-    }
-
-    private static String getCharactorsIndex(int page, int userId, String title, float lat, float lng) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(API_URL);
-        sb.append(PATH_CHARACTORS);
-        sb.append(EXT_JSON);
-        if (page > 0) {
-            sb.append(Q);
-            sb.append(createParam(PARAM_PAGE, page));
-        } else {
-            // TODO
-            sb.append(Q);
-            sb.append(createParam(PARAM_LIMIT, 300));
-        }
-        if (userId > 0) {
-            sb.append(AND);
-            sb.append(createParam(PARAM_USER_ID, userId));
-            sb.append(AND);
-            sb.append(createParam(PARAM_DESC, "is_enabled"));
-        }
-        if (title != null && !"".equals(title)) {
-            sb.append(AND);
-            sb.append(createParam(PARAM_TITLE, title));
-        }
-        sb.append(AND);
-        sb.append(createParam(PARAM_LATITUDE, lat + ""));
-        sb.append(AND);
-        sb.append(createParam(PARAM_LONGITUDE, lng + ""));
-
-        return sb.toString();
-    }
 
     public static String getCharactorsCreate() {
         StringBuffer sb = new StringBuffer();
@@ -100,26 +58,6 @@ public class AppUrls {
         StringBuffer sb = new StringBuffer();
         sb.append(API_URL);
         sb.append(PATH_USERS);
-        sb.append(EXT_JSON);
-        return sb.toString();
-    }
-
-    public static String getCharactorCommentsIndex(int charactorId, int page) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(API_URL);
-        sb.append(PATH_CHARACTOR_COMMENTS);
-        sb.append(EXT_JSON);
-        sb.append(Q);
-        sb.append(createParam(PARAM_CHARACTOR_ID, charactorId));
-        sb.append(AND);
-        sb.append(createParam(PARAM_PAGE, page));
-        return sb.toString();
-    }
-
-    public static String getCharactorCommentsCreate() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(API_URL);
-        sb.append(PATH_CHARACTOR_COMMENTS);
         sb.append(EXT_JSON);
         return sb.toString();
     }
