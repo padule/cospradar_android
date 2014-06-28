@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.padule.cospradar.event.RadarCharactorClickedEvent;
 import com.padule.cospradar.event.RadarCharactorDrawedEvent;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.fragment.CharactorsDialogFragment;
+import com.padule.cospradar.util.AnalyticsUtils;
 
 import de.greenrobot.event.EventBus;
 
@@ -55,6 +57,14 @@ public class SearchHeader extends RelativeLayout {
         mBtnReload.setEnabled(false);
         String text = mEditSearch.getText().toString();
         EventBus.getDefault().post(new SearchBtnClickedEvent(text));
+        AnalyticsUtils.sendEvent(AnalyticsUtils.CATEGORY_RADAR, AnalyticsUtils.EVENT_CLICKED_SEARCH_WITH_TEXT, getContext());
+        sendAnalyticsEvent(text);
+    }
+
+    private void sendAnalyticsEvent(String text) {
+        String event = TextUtils.isEmpty(text) ? AnalyticsUtils.EVENT_CLICKED_SEARCH_WITHOUT_TEXT 
+                : AnalyticsUtils.EVENT_CLICKED_SEARCH_WITH_TEXT;
+        AnalyticsUtils.sendEvent(AnalyticsUtils.CATEGORY_RADAR, event, getContext());
     }
 
     private void initEditSearch() {

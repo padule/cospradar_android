@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.padule.cospradar.R;
+import com.padule.cospradar.util.AnalyticsUtils;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 
@@ -20,6 +21,18 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         checkGooglePlayServicesAvailable();
         this.setTheme(R.style.AppTheme);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        AnalyticsUtils.activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AnalyticsUtils.activityStop(this);
     }
 
     private void checkGooglePlayServicesAvailable() {
