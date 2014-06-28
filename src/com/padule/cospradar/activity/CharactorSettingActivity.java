@@ -9,6 +9,7 @@ import retrofit.mime.TypedFile;
 import retrofit.mime.TypedString;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,9 +48,9 @@ public class CharactorSettingActivity extends BaseActivity {
         setContentView(R.layout.activity_charactor_setting);
     }
 
-    public static void start(Activity activity) {
-        final Intent intent = new Intent(activity, CharactorSettingActivity.class);
-        activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CHARACTOR_SETTING);
+    public static void start(Context context) {
+        final Intent intent = new Intent(context, CharactorSettingActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
