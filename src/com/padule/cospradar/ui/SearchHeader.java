@@ -23,13 +23,14 @@ import com.padule.cospradar.R;
 import com.padule.cospradar.activity.ProfileActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.event.RadarCharactorClickedEvent;
+import com.padule.cospradar.event.RadarCharactorDrawedEvent;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.fragment.CharactorsDialogFragment;
-import com.padule.cospradar.ui.RadarView.RadarListener;
 
 import de.greenrobot.event.EventBus;
 
-public class SearchHeader extends RelativeLayout implements RadarListener {
+public class SearchHeader extends RelativeLayout {
 
     private static final int MAGNIFICATION = 10;
 
@@ -43,8 +44,8 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.ui_header_search, this, true);
         ButterKnife.inject(this);
+        EventBus.getDefault().register(this);
 
-        initRadar();
         initSeekBar();
         initEditSearch();
     }
@@ -87,12 +88,8 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         });
     }
 
-    private void initRadar() {
-        this.mRadarView.setRadarListener(this);
-    }
-
-    @Override
-    public void onClickCharactor(ArrayList<Charactor> charactors) {
+    public void onEvent(RadarCharactorClickedEvent event) {
+        ArrayList<Charactor> charactors = event.charactors;
         if (charactors.size() == 1) {
             ProfileActivity.start(getContext(), charactors.get(0).getUser());
         } else {
@@ -115,10 +112,9 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
         mBtnReload.setEnabled(true);
     }
 
-    @Override
-    public void onDrawCharactors(int drawCount) {
+    public void onEvent(RadarCharactorDrawedEvent event) {
         if (mBtnReload.isEnabled()) {
-            mTextCountHeader.setText(getContext().getString(R.string.search_result_count, drawCount));
+            mTextCountHeader.setText(getContext().getString(R.string.search_result_count, event.drawCount));
         }
     }
 

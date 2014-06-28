@@ -13,7 +13,6 @@ import com.google.android.gms.location.LocationRequest;
 
 public class BaseLocationListener implements LocationListener, ConnectionCallbacks, OnConnectionFailedListener {
 
-    private static final String TAG = BaseLocationListener.class.getName();
     private static final int INTERVAL_MILLS = 5000;
     private static final int MIN_PLACE_DISTANCE_METER = 5; // TODO adjust
     private LocationClient locClient = null;
