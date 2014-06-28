@@ -23,8 +23,11 @@ import com.padule.cospradar.R;
 import com.padule.cospradar.activity.ProfileActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.fragment.CharactorsDialogFragment;
 import com.padule.cospradar.ui.RadarView.RadarListener;
+
+import de.greenrobot.event.EventBus;
 
 public class SearchHeader extends RelativeLayout implements RadarListener {
 
@@ -36,30 +39,21 @@ public class SearchHeader extends RelativeLayout implements RadarListener {
     @InjectView(R.id.edit_search) EditText mEditSearch;
     @InjectView(R.id.text_count_header) TextView mTextCountHeader;
 
-    private SearchListener listener;
-
-    public SearchHeader(Context context, SearchListener listener) {
+    public SearchHeader(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.ui_header_search, this, true);
         ButterKnife.inject(this);
 
-        this.listener = listener;
         initRadar();
         initSeekBar();
         initEditSearch();
     }
 
-    public interface SearchListener {
-        public void onClickBtnReload(String searchText);
-    }
-
     @OnClick(R.id.btn_reload)
     void onClickBtnReload() {
-        if (listener != null) {
-            mBtnReload.setEnabled(false);
-            String text = mEditSearch.getText().toString();
-            listener.onClickBtnReload(text);
-        }
+        mBtnReload.setEnabled(false);
+        String text = mEditSearch.getText().toString();
+        EventBus.getDefault().post(new SearchBtnClickedEvent(text));
     }
 
     private void initEditSearch() {

@@ -26,14 +26,16 @@ import com.padule.cospradar.adapter.CharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.service.APIService;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
-import com.padule.cospradar.ui.SearchHeader.SearchListener;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 
-public class MainActivity extends BaseActivity implements SearchListener {
+import de.greenrobot.event.EventBus;
+
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
         super.onCreate(savedInstanceState);
         startService(new Intent(this, LocationService.class));
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -55,9 +58,18 @@ public class MainActivity extends BaseActivity implements SearchListener {
         initListView();
     }
 
+    public void onEvent(SearchBtnClickedEvent event) {
+        AppUtils.vibrate(100, this);
+        clearListView();
+        header.startSearching();
+        loadData(0, event.searchText);
+        KeyboardUtils.hide(this);
+    }
+
+
     private void initListView() {
         adapter = new CharactorsAdapter(this);
-        header = new SearchHeader(this, this);
+        header = new SearchHeader(this);
         mListView.addHeaderView(header);
         mListView.setAdapter(adapter);
         initListViewListener();
@@ -147,6 +159,7 @@ public class MainActivity extends BaseActivity implements SearchListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (adapter != null) {
             adapter = null;
         }
@@ -156,15 +169,6 @@ public class MainActivity extends BaseActivity implements SearchListener {
         ActionBar bar = getSupportActionBar();
         bar.setDisplayShowTitleEnabled(false);
         bar.setHomeButtonEnabled(true);
-    }
-
-    @Override
-    public void onClickBtnReload(String searchText) {
-        AppUtils.vibrate(100, this);
-        clearListView();
-        header.startSearching();
-        loadData(0, searchText);
-        KeyboardUtils.hide(this);
     }
 
     private void clearListView() {
