@@ -13,20 +13,18 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 import com.padule.cospradar.R;
+import com.padule.cospradar.event.SendBtnClickedEvent;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class CommentFooter extends LinearLayout implements TextWatcher {
 
     @InjectView(R.id.btn_comment) Button mBtnComment;
     @InjectView(R.id.edit_comment) EditText mEditComment;
 
-    private FooterCommentListener listener;
     private Context context;
-
-    public interface FooterCommentListener {
-        public void onClickBtnComment(String text);
-    }
 
     public CommentFooter(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,15 +35,10 @@ public class CommentFooter extends LinearLayout implements TextWatcher {
         mEditComment.addTextChangedListener(this);
     }
 
-    public void setListener(FooterCommentListener listener) {
-        this.listener = listener;
-    }
-
     @OnClick(R.id.btn_comment)
     public void onClickSendComment() {
-        if (listener != null) {
-            listener.onClickBtnComment(mEditComment.getText().toString());
-        }
+        SendBtnClickedEvent event = new SendBtnClickedEvent(mEditComment.getText().toString());
+        EventBus.getDefault().post(event);
         clearText();
     }
 
