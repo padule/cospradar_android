@@ -1,11 +1,7 @@
 package com.padule.cospradar.activity;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
-
-import org.json.JSONObject;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -22,15 +18,10 @@ import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
@@ -252,46 +243,29 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         uploadComment(comment);
     }
 
-    private void uploadComment(final CharactorComment comment) {
-        final String url = AppUrls.getCharactorCommentsCreate();
-        Map<String, Object> params = createParams(comment);
-        Log.d(TAG, "create_params: " + params.toString());
+    private void uploadComment(final CharactorComment orgComment) {
+        MainApplication.API.postCharactorComments(orgComment, new Callback<CharactorComment>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "create_error_message: " + e.getMessage());
+                AppUtils.showToast(ChatBoardActivity.this.getString(R.string.comment_send_failed), ChatBoardActivity.this);
+            }
 
-        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d(TAG, "create_url: " + url);
-                showComment(json, comment, status);
+            @Override
+            public void success(CharactorComment comment, Response response) {
+                renderView(comment, orgComment);
             }
         });
     }
 
-    private void showComment(JSONObject json, final CharactorComment oldComment, AjaxStatus status) {
-        if (json != null) {
-            Log.d(TAG, "create_json: " + json.toString());
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            CharactorComment comment = gson.fromJson(json.toString(), CharactorComment.class);
-            if (comment != null) {
-                mContainerEmpty.setVisibility(View.GONE);
-                adapter.remove(oldComment);
-                adapter.add(comment);
-                charactor.setLatestComment(comment);
-                scrollToBottom();
-            }
-        } else {
-            Log.e(TAG, "create_error_message: " + status.getMessage());
-            if (!AppUtils.isMockMode()) {
-                adapter.remove(oldComment);
-            }
-            AppUtils.showToast(getString(R.string.comment_send_failed), this);
+    private void renderView(CharactorComment comment, CharactorComment orgComment) {
+        if (comment != null) {
+            mContainerEmpty.setVisibility(View.GONE);
+            adapter.remove(orgComment);
+            adapter.add(comment);
+            charactor.setLatestComment(comment);
+            scrollToBottom();
         }
-    }
-
-    private Map<String, Object> createParams(CharactorComment comment) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put(AppUrls.PARAM_TEXT, comment.getText());
-        params.put(AppUrls.PARAM_COMMENT_CHARACTOR_ID, comment.getCommentCharactorId());
-        params.put(AppUrls.PARAM_CHARACTOR_ID, comment.getCharactorId());
-        return params;
     }
 
 }
