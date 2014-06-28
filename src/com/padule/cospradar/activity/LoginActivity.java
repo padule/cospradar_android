@@ -1,10 +1,8 @@
 package com.padule.cospradar.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONObject;
-
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
@@ -21,16 +19,10 @@ import android.widget.Toast;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.padule.cospradar.AppUrls;
-import com.padule.cospradar.Constants;
+import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.User;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.TwitterUtils;
 
@@ -94,46 +86,27 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        String url = AppUrls.getUsersCreate();
-        Dialog dialog = AppUtils.makeSendingDialog(this);
-        final Map<String, Object> params = createParams(screenName, imgUrl);
-        Log.d(TAG, "create_params: " + params.toString());
+        final Dialog dialog = AppUtils.makeSendingDialog(this);
+        dialog.show();
 
-        aq.progress(dialog).ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+        MainApplication.API.postUsers(screenName, imgUrl, new Callback<User>() {
             @Override
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d(TAG, "create_url: " + url);
-                saveUserCallBack(json, status);
-            }
-        });
-    }
-
-    private void saveUserCallBack(JSONObject json, AjaxStatus status) {
-        if (json != null) {
-            Log.d(TAG, json.toString());
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            User user = gson.fromJson(json.toString(), User.class);
-            AppUtils.setUser(user);
-            showToast(R.string.login_succeeded);
-            startMainActivity();
-        } else {
-            if (AppUtils.isMockMode()) {
-                AppUtils.setUser(MockFactory.getUser1());
-                showToast(R.string.login_succeeded);
-            } else {
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "create_error_message: " + e.getMessage());
+                dialog.dismiss();
                 showToast(R.string.login_failed);
-                Log.e(TAG, "create_error_message: " + status.getMessage());
+                toggleLoginBtnStatus(true);
             }
-        }
 
-        toggleLoginBtnStatus(true);
-    }
+            @Override
+            public void success(User user, Response response) {
+                dialog.dismiss();
+                AppUtils.setUser(user);
+                showToast(R.string.login_succeeded);
+                startMainActivity();
+            }
 
-    private Map<String, Object> createParams(String screenName, String imgUrl) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put(AppUrls.PARAM_NAME, screenName);
-        params.put(AppUrls.PARAM_IMAGE, imgUrl);
-        return params;
+        });
     }
 
     @Override

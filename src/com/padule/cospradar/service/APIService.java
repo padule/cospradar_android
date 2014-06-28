@@ -20,11 +20,13 @@ import com.padule.cospradar.Constants;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.data.CharactorLocation;
+import com.padule.cospradar.data.User;
 
 public interface APIService {
 
     static final String API_URL = Constants.APP_URL;
 
+    static final String PATH_USERS = "/users";
     static final String PATH_CHARACTORS = "/charactors";
     static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
     static final String PATH_CHARACTOR_LOCATIONS = "/charactor_locations";
@@ -73,5 +75,10 @@ public interface APIService {
     void postCharactorLocations(@Field(PARAM_CHARACTOR_ID) int charactorId, 
             @Field(PARAM_LATITUDE) double lat, @Field(PARAM_LONGITUDE) double lng, 
             Callback<CharactorLocation> cb);
+
+    @FormUrlEncoded
+    @POST(PATH_USERS + EXT_JSON)
+    void postUsers(@Field(PARAM_NAME) String name, @Field(PARAM_IMAGE) String imgUrl, 
+            Callback<User> cb);
 
 }
