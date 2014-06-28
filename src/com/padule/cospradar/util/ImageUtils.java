@@ -28,7 +28,6 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
-import com.padule.cospradar.ui.RadarView;
 
 public class ImageUtils {
     

@@ -32,13 +32,15 @@ import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
+import com.padule.cospradar.event.RadarCharactorClickedEvent;
+import com.padule.cospradar.event.RadarCharactorDrawedEvent;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class RadarView extends View implements OnTouchListener {
+import de.greenrobot.event.EventBus;
 
-    private static final String TAG = RadarView.class.getName();
+public class RadarView extends View implements OnTouchListener {
 
     public static final double DEFAULT_RADIUS_KIROMETER = 10.0;
     public static final double MAX_RADIUS_KIROMETER = 20.0;
@@ -64,15 +66,9 @@ public class RadarView extends View implements OnTouchListener {
     private boolean isLoading = false;
 
     private LruCache<Integer, Bitmap> bmpCache;
-    private RadarListener radarListener;
     private ScheduledExecutorService ses;
 
     private Bitmap emptyBmp;
-
-    public interface RadarListener {
-        public void onClickCharactor(ArrayList<Charactor> charactors);
-        public void onDrawCharactors(int drawCount);
-    }
 
     public RadarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -108,10 +104,6 @@ public class RadarView extends View implements OnTouchListener {
                 }
             });
         }
-    }
-
-    public void setRadarListener(RadarListener radarListener) {
-        this.radarListener = radarListener;
     }
 
     private void initBmpCache(Context context) {
@@ -189,9 +181,7 @@ public class RadarView extends View implements OnTouchListener {
         drawCircle(canvas, paint);
         int drawCount = drawCharactors(canvas, paint);
 
-        if (radarListener != null) {
-            radarListener.onDrawCharactors(drawCount);
-        }
+        EventBus.getDefault().post(new RadarCharactorDrawedEvent(drawCount));
 
         setOnTouchListener(null);
         setOnTouchListener(this);
@@ -374,8 +364,8 @@ public class RadarView extends View implements OnTouchListener {
                             results.add(charactor);
                         }
                     }
-                    if (radarListener != null && results != null && !results.isEmpty()) {
-                        radarListener.onClickCharactor(results);
+                    if (results != null && !results.isEmpty()) {
+                        EventBus.getDefault().post(new RadarCharactorClickedEvent(results));
                     }
                     return true;
                 }

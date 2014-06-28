@@ -1,9 +1,7 @@
 package com.padule.cospradar.util;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 import android.content.Context;
 
@@ -18,14 +16,6 @@ public class TimeUtils {
         int oneDayTime = 1000 * 60 * 60 * 24;
         long diff = (eDate.getTime() - sDate.getTime()) / oneDayTime;
         return (int)diff;
-    }
-
-    private static Date convertUTCToLocal(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getDefault());
-        int offset = TimeZone.getDefault().getRawOffset();
-        calendar.setTimeInMillis(date.getTime() + offset);
-        return calendar.getTime();
     }
 
     private static long getDateTimeDiff(Date date, long unit) {
