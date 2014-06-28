@@ -8,9 +8,13 @@ import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Query;
 import retrofit.http.QueryMap;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.data.Charactor;
@@ -27,7 +31,10 @@ public interface APIService {
     static final String PATH_COMMENT_LIST = "/comment_list";
 
     static final String PARAM_PAGE = "page";
+    static final String PARAM_NAME = "name";
     static final String PARAM_TITLE = "title";
+    static final String PARAM_TEXT = "text";
+    static final String PARAM_IMAGE = "image";
     static final String PARAM_LIMIT = "limit";
     static final String PARAM_DESC = "desc";
     static final String PARAM_CHARACTOR_ID = "charactor_id";
@@ -54,6 +61,12 @@ public interface APIService {
     @GET(PATH_CHARACTORS + EXT_JSON)
     void getCharactors(@QueryMap Map<String, String> params, 
             Callback<List<Charactor>> cb);
+
+    @Multipart
+    @POST(PATH_CHARACTORS + EXT_JSON)
+    void postCharactors(@Part(PARAM_NAME) TypedString name, @Part(PARAM_TITLE) TypedString title, 
+            @Part(PARAM_USER_ID) TypedString userId, @Part(PARAM_IMAGE) TypedFile image,
+            Callback<Charactor> cb);
 
     @FormUrlEncoded
     @POST(PATH_CHARACTOR_LOCATIONS + EXT_JSON)

@@ -1,11 +1,12 @@
 package com.padule.cospradar.activity;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.json.JSONObject;
-
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -20,16 +21,11 @@ import android.widget.ImageView;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
+import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
@@ -164,57 +160,38 @@ public class CharactorSettingActivity extends BaseActivity {
     }
 
     private void saveCharactor() {
-        String url = AppUrls.getCharactorsCreate();
-        Dialog dialog = AppUtils.makeSendingDialog(this);
-        final Map<String, Object> params = createParams();
-        Log.d(TAG, "create_params: " + params.toString());
+        final Dialog dialog = AppUtils.makeSendingDialog(this);
+        dialog.show();
 
-        aq.progress(dialog).ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+        TypedFile file = null;
+        if (charactor.getImageUrl() != null) {
+            file = new TypedFile("image/*", new File(charactor.getImage()));
+        }
+
+        MainApplication.API.postCharactors(new TypedString(mEditName.getText().toString()), 
+                new TypedString(mEditTitle.getText().toString()), 
+                new TypedString(AppUtils.getUser().getId() + ""), 
+                file, 
+                new Callback<Charactor>() {
             @Override
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d(TAG, "create_url: " + url);
-                saveCharactorCallBack(json, status);
+            public void failure(RetrofitError e) {
+                Log.d(TAG, "create_error: " + e.getMessage());
+                dialog.dismiss();
+                showToast(R.string.charactor_edit_failed);
+            }
+
+            @Override
+            public void success(Charactor charactor, Response response) {
+                dialog.dismiss();
+                CharactorSettingActivity.this.charactor = charactor;
+                AppUtils.setCharactor(charactor);
+                showToast(R.string.charactor_edit_succeeded);
             }
         });
     }
 
-    private void saveCharactorCallBack(JSONObject json, AjaxStatus status) {
-        if (json != null) {
-            Log.d(TAG, json.toString());
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            Charactor charactor = gson.fromJson(json.toString(), Charactor.class);
-            this.charactor = charactor;
-            AppUtils.setCharactor(charactor);
-            showToast(R.string.charactor_edit_succeeded);
-        } else {
-            if (AppUtils.isMockMode()) {
-                // FIXME Remove me. Just implement for test.
-                this.charactor = MockFactory.createCharactor(mEditName.getText().toString(), 
-                        mEditTitle.getText().toString(), charactor.getImageUrl());
-                AppUtils.setCharactor(charactor);
-                showToast(R.string.charactor_edit_succeeded);
-            } else {
-                Log.e(TAG, "create_error_message: " + status.getMessage());
-                showToast(R.string.charactor_edit_failed);
-            }
-        }
-    }
-
     private void showToast(int resId) {
         AppUtils.showToast(getString(resId), this);
-    }
-
-    private Map<String, Object> createParams() {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put(AppUrls.PARAM_NAME, mEditName.getText().toString());
-        params.put(AppUrls.PARAM_TITLE, mEditTitle.getText().toString());
-        params.put(AppUrls.PARAM_USER_ID, AppUtils.getUser().getId());
-
-        if (charactor.getImageUrl() != null) {
-            params.put(AppUrls.PARAM_IMAGE, new File(charactor.getImage()));
-        }
-
-        return params;
     }
 
     private boolean validate() {
