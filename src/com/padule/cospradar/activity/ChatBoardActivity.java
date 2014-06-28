@@ -30,15 +30,17 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.event.SendBtnClickedEvent;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.ui.CommentFooter;
-import com.padule.cospradar.ui.CommentFooter.FooterCommentListener;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class ChatBoardActivity extends BaseActivity implements FooterCommentListener {
+import de.greenrobot.event.EventBus;
+
+public class ChatBoardActivity extends BaseActivity {
 
     private static final String TAG = ChatBoardActivity.class.getName();
     private static final int ICON_SIZE = 100;
@@ -56,6 +58,26 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         super.onCreate(savedInstanceState);
         KeyboardUtils.initHidden(this);
         setContentView(R.layout.activity_chat_board);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(SendBtnClickedEvent event) {
+        onClickSendBtn(event.text);
+    }
+
+    private void onClickSendBtn(String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        CharactorComment comment = CharactorComment.createTmp(charactor.getId(), text);
+        adapter.add(comment);
+        uploadComment(comment);
     }
 
     public static void start(BaseActivity activity, Charactor charactor) {
@@ -73,12 +95,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     protected void initView() {
         setCharactor();
         initActionBar(charactor);
-        initFooter();
         initListView();
-    }
-
-    private void initFooter() {
-        mFooter.setListener(this);
     }
 
     @OnClick(R.id.root_chat)
@@ -231,16 +248,6 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         Intent intent = new Intent();
         intent.putExtra(Charactor.class.getName(), charactor);
         setResult(RESULT_OK, intent);
-    }
-
-    @Override
-    public void onClickBtnComment(String text) {
-        if (TextUtils.isEmpty(text)) {
-            return;
-        }
-        CharactorComment comment = CharactorComment.createTmp(charactor.getId(), text);
-        adapter.add(comment);
-        uploadComment(comment);
     }
 
     private void uploadComment(final CharactorComment orgComment) {
