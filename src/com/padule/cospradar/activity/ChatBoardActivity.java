@@ -1,15 +1,15 @@
 package com.padule.cospradar.activity;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,7 +26,6 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -41,7 +40,6 @@ import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.ui.CommentFooter.FooterCommentListener;
 import com.padule.cospradar.util.AppUtils;
@@ -127,30 +125,23 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void loadData(final int page, final boolean shouldClearAll) {
-        String url = AppUrls.getCharactorCommentsIndex(charactor.getId(), page);
-        aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
+        apiService.getCharactorComments(charactor.getId(), page, 
+                new Callback<List<CharactorComment>>() {
             @Override
-            public void callback(String url, JSONArray json, AjaxStatus status) {
-                if (page == 1) {
-                    mLoading.setVisibility(View.GONE);
-                }
-                loadCallback(json, status, page, shouldClearAll);
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "load_error_message: " + e.getMessage());
+            }
+
+            @Override
+            public void success(List<CharactorComment> comments, Response response) {
+                renderView(comments, page, shouldClearAll);
             }
         });
     }
 
-    private void loadCallback(JSONArray json, AjaxStatus status, int page, boolean shouldClearAll) {
-        List<CharactorComment> comments = new ArrayList<CharactorComment>();
-        if (json != null) {
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            Type collectionType = new TypeToken<List<CharactorComment>>() {}.getType();
-            comments = gson.fromJson(json.toString(), collectionType);
-        } else {
-            if (AppUtils.isMockMode()) {
-                comments = MockFactory.getComments(charactor);
-            } else {
-                Log.e(TAG, "load_error_message: " + status.getMessage());
-            }
+    private void renderView(List<CharactorComment> comments, int page, boolean shouldClearAll) {
+        if (page == 1) {
+            mLoading.setVisibility(View.GONE);
         }
 
         if (comments != null && !comments.isEmpty()) {
@@ -244,7 +235,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     private void setResult() {
         Intent intent = new Intent();
         intent.putExtra(Charactor.class.getName(), charactor);
