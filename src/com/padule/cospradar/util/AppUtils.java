@@ -7,7 +7,6 @@ import android.os.Vibrator;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.androidquery.util.AQUtility;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
@@ -107,7 +106,7 @@ public class AppUtils {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } catch (Exception e) {
-            AQUtility.report(e);
+            //
         }
     }
 

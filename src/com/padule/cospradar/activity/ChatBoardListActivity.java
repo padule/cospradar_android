@@ -1,11 +1,10 @@
 package com.padule.cospradar.activity;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -17,22 +16,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import butterknife.InjectView;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
+import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.ChatBoardsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.util.AppUtils;
 
 public class ChatBoardListActivity extends BaseActivity {
@@ -128,31 +121,24 @@ public class ChatBoardListActivity extends BaseActivity {
         loadData(page, false);
     }
 
-    private void loadData(final int page, final boolean shouldAllClear) {
-        String url = AppUrls.getCharactorCommentsCommentList(AppUtils.getCharactor().getId(), page);
-        aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
+    private void loadData(final int page, final boolean shouldClearAll) {
+        MainApplication.API.getCharactorCommentsCommentList(AppUtils.getCharactor().getId(), page, 
+                new Callback<List<Charactor>>() {
             @Override
-            public void callback(String url, JSONArray json, AjaxStatus status) {
-                if (page == 1) {
-                    mLoading.setVisibility(View.GONE);
-                }
-                loadCallback(json, status, page, shouldAllClear);
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "load_error_message: " + e.getMessage());
+            }
+
+            @Override
+            public void success(List<Charactor> charactors, Response response) {
+                renderView(charactors, page, shouldClearAll);
             }
         });
     }
 
-    private void loadCallback(JSONArray json, AjaxStatus status, int page, boolean shouldClearAll) {
-        List<Charactor> charactors = new ArrayList<Charactor>();
-        if (json != null) {
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
-            charactors = gson.fromJson(json.toString(), collectionType);
-        } else {
-            Log.e(TAG, status.getMessage() + "");
-            if (AppUtils.isMockMode()) {
-                // FIXME implement using mock.
-                charactors = MockFactory.getCharactors();
-            }
+    private void renderView(List<Charactor> charactors, int page, boolean shouldClearAll) {
+        if (page == 1) {
+            mLoading.setVisibility(View.GONE);
         }
 
         if (charactors != null && !charactors.isEmpty()) {

@@ -76,7 +76,7 @@ public class ImageUtils {
             .build();
 
     public static void displayRoundedImage(String url, ImageView view) {
-        MainApplication.imageLoader.displayImage(url, view, roundedImageOptions);
+        MainApplication.IMAGE_LOADER.displayImage(url, view, roundedImageOptions);
     }
 
     public static void showChooserDialog(final Activity activity) {

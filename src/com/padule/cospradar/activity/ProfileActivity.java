@@ -1,15 +1,17 @@
 package com.padule.cospradar.activity;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.json.JSONArray;
-
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,24 +20,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import butterknife.InjectView;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.padule.cospradar.AppUrls;
-import com.padule.cospradar.Constants;
+import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.ProfileCharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
-import com.padule.cospradar.mock.MockFactory;
+import com.padule.cospradar.service.APIService;
 import com.padule.cospradar.ui.ProfileHeader;
 import com.padule.cospradar.util.AppUtils;
 
 public class ProfileActivity extends BaseActivity {
+
+    private static final String TAG = ProfileActivity.class.getName();
 
     @InjectView(R.id.listview_charactors) ListView mListView;
 
@@ -106,29 +104,36 @@ public class ProfileActivity extends BaseActivity {
         });
     }
 
-    private void loadData(final int page) {
-        aq.ajax(AppUrls.getCharactorsIndex(page, user.getId()), JSONArray.class, new AjaxCallback<JSONArray>() {
+    private void loadData(int page) {
+        MainApplication.API.getCharactors(createParams(user.getId(), page), 
+                new Callback<List<Charactor>>() {
             @Override
-            public void callback(String url, JSONArray json, AjaxStatus status) {
+            public void failure(RetrofitError e) {
+                Log.e(TAG, e.getMessage() + "");
+            }
+
+            @Override
+            public void success(List<Charactor> charactors, Response response) {
                 hideLoading();
-                loadCallback(json);
+                renderView(charactors);
             }
         });
     }
 
-    private void loadCallback(JSONArray json) {
-        List<Charactor> charactors = new ArrayList<Charactor>();
-        if (json != null) {
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            Type collectionType = new TypeToken<List<Charactor>>() {}.getType();
-            charactors = gson.fromJson(json.toString(), collectionType);
-        } else {
-            if (AppUtils.isMockMode()) {
-                // FIXME implement using mock.
-                charactors = MockFactory.getCharactors();
-            }
+    private Map<String, String> createParams(int userId, int page) {
+        Map<String, String> params = new HashMap<String, String>();
+        if (userId > 0) {
+            params.put(APIService.PARAM_USER_ID, userId + "");
+            params.put(APIService.PARAM_DESC, "is_enabled");
         }
+        params.put(APIService.PARAM_PAGE, page + "");
+        params.put(APIService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
+        params.put(APIService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
 
+        return params;
+    }
+
+    private void renderView(List<Charactor> charactors) {
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
         }

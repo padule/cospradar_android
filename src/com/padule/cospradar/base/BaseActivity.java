@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import butterknife.ButterKnife;
 
-import com.androidquery.AQuery;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.padule.cospradar.R;
@@ -15,14 +14,12 @@ import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 
 public abstract class BaseActivity extends ActionBarActivity {
-    protected AQuery aq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkGooglePlayServicesAvailable();
         this.setTheme(R.style.AppTheme);
-        aq = new AQuery(this);
     }
 
     private void checkGooglePlayServicesAvailable() {
@@ -38,12 +35,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.setContentView(layoutResId);
         ButterKnife.inject(this);
         initView();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        aq.clear();
     }
 
     @Override

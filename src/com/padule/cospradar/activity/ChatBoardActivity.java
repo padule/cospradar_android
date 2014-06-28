@@ -1,15 +1,11 @@
 package com.padule.cospradar.activity;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,16 +18,10 @@ import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.padule.cospradar.AppUrls;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
@@ -41,7 +31,6 @@ import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
-import com.padule.cospradar.mock.MockFactory;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.ui.CommentFooter.FooterCommentListener;
 import com.padule.cospradar.util.AppUtils;
@@ -127,30 +116,23 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void loadData(final int page, final boolean shouldClearAll) {
-        String url = AppUrls.getCharactorCommentsIndex(charactor.getId(), page);
-        aq.ajax(url, JSONArray.class, new AjaxCallback<JSONArray>() {
+        MainApplication.API.getCharactorComments(charactor.getId(), page, 
+                new Callback<List<CharactorComment>>() {
             @Override
-            public void callback(String url, JSONArray json, AjaxStatus status) {
-                if (page == 1) {
-                    mLoading.setVisibility(View.GONE);
-                }
-                loadCallback(json, status, page, shouldClearAll);
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "load_error_message: " + e.getMessage());
+            }
+
+            @Override
+            public void success(List<CharactorComment> comments, Response response) {
+                renderView(comments, page, shouldClearAll);
             }
         });
     }
 
-    private void loadCallback(JSONArray json, AjaxStatus status, int page, boolean shouldClearAll) {
-        List<CharactorComment> comments = new ArrayList<CharactorComment>();
-        if (json != null) {
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            Type collectionType = new TypeToken<List<CharactorComment>>() {}.getType();
-            comments = gson.fromJson(json.toString(), collectionType);
-        } else {
-            if (AppUtils.isMockMode()) {
-                comments = MockFactory.getComments(charactor);
-            } else {
-                Log.e(TAG, "load_error_message: " + status.getMessage());
-            }
+    private void renderView(List<CharactorComment> comments, int page, boolean shouldClearAll) {
+        if (page == 1) {
+            mLoading.setVisibility(View.GONE);
         }
 
         if (comments != null && !comments.isEmpty()) {
@@ -210,7 +192,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void setActionBarIcon(final ActionBar bar, Charactor charactor) {
-        MainApplication.imageLoader.loadImage(charactor.getImageUrl(), new ImageLoadingListener() {
+        MainApplication.IMAGE_LOADER.loadImage(charactor.getImageUrl(), new ImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap bmp) {
                 Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, ICON_SIZE, ICON_SIZE, false);
@@ -244,7 +226,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     private void setResult() {
         Intent intent = new Intent();
         intent.putExtra(Charactor.class.getName(), charactor);
@@ -261,46 +243,29 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
         uploadComment(comment);
     }
 
-    private void uploadComment(final CharactorComment comment) {
-        final String url = AppUrls.getCharactorCommentsCreate();
-        Map<String, Object> params = createParams(comment);
-        Log.d(TAG, "create_params: " + params.toString());
+    private void uploadComment(final CharactorComment orgComment) {
+        MainApplication.API.postCharactorComments(orgComment, new Callback<CharactorComment>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "create_error_message: " + e.getMessage());
+                AppUtils.showToast(ChatBoardActivity.this.getString(R.string.comment_send_failed), ChatBoardActivity.this);
+            }
 
-        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d(TAG, "create_url: " + url);
-                showComment(json, comment, status);
+            @Override
+            public void success(CharactorComment comment, Response response) {
+                renderView(comment, orgComment);
             }
         });
     }
 
-    private void showComment(JSONObject json, final CharactorComment oldComment, AjaxStatus status) {
-        if (json != null) {
-            Log.d(TAG, "create_json: " + json.toString());
-            Gson gson = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
-            CharactorComment comment = gson.fromJson(json.toString(), CharactorComment.class);
-            if (comment != null) {
-                mContainerEmpty.setVisibility(View.GONE);
-                adapter.remove(oldComment);
-                adapter.add(comment);
-                charactor.setLatestComment(comment);
-                scrollToBottom();
-            }
-        } else {
-            Log.e(TAG, "create_error_message: " + status.getMessage());
-            if (!AppUtils.isMockMode()) {
-                adapter.remove(oldComment);
-            }
-            AppUtils.showToast(getString(R.string.comment_send_failed), this);
+    private void renderView(CharactorComment comment, CharactorComment orgComment) {
+        if (comment != null) {
+            mContainerEmpty.setVisibility(View.GONE);
+            adapter.remove(orgComment);
+            adapter.add(comment);
+            charactor.setLatestComment(comment);
+            scrollToBottom();
         }
-    }
-
-    private Map<String, Object> createParams(CharactorComment comment) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put(AppUrls.PARAM_TEXT, comment.getText());
-        params.put(AppUrls.PARAM_COMMENT_CHARACTOR_ID, comment.getCommentCharactorId());
-        params.put(AppUrls.PARAM_CHARACTOR_ID, comment.getCharactorId());
-        return params;
     }
 
 }
