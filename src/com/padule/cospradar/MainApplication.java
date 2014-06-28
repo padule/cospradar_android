@@ -1,22 +1,34 @@
 package com.padule.cospradar;
 
+import retrofit.RestAdapter;
+import retrofit.converter.GsonConverter;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 
 import com.androidquery.util.AQUtility;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.padule.cospradar.service.APIService;
 
 public class MainApplication extends Application 
 implements Thread.UncaughtExceptionHandler {
 
-    public static final ImageLoader imageLoader = ImageLoader.getInstance();
+    public static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
+
+    private static Gson GSON = new GsonBuilder().setDateFormat(Constants.JSON_DATE_FORMAT).create();
+
+    private static RestAdapter REST_ADAPTER = new RestAdapter.Builder()
+    .setEndpoint(Constants.APP_URL).setConverter(new GsonConverter(GSON)).build();
+
+    public static APIService API = REST_ADAPTER.create(APIService.class);
 
     @Override
     public void onCreate() {
@@ -56,7 +68,7 @@ implements Thread.UncaughtExceptionHandler {
                 .defaultDisplayImageOptions(defaultOptions)
                 .build();
 
-        imageLoader.init(config);
+        IMAGE_LOADER.init(config);
     }
 
     @Override

@@ -125,7 +125,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void loadData(final int page, final boolean shouldClearAll) {
-        apiService.getCharactorComments(charactor.getId(), page, 
+        MainApplication.API.getCharactorComments(charactor.getId(), page, 
                 new Callback<List<CharactorComment>>() {
             @Override
             public void failure(RetrofitError e) {
@@ -201,7 +201,7 @@ public class ChatBoardActivity extends BaseActivity implements FooterCommentList
     }
 
     private void setActionBarIcon(final ActionBar bar, Charactor charactor) {
-        MainApplication.imageLoader.loadImage(charactor.getImageUrl(), new ImageLoadingListener() {
+        MainApplication.IMAGE_LOADER.loadImage(charactor.getImageUrl(), new ImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap bmp) {
                 Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, ICON_SIZE, ICON_SIZE, false);

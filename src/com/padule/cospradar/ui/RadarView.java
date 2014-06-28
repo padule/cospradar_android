@@ -264,7 +264,7 @@ public class RadarView extends View implements OnTouchListener {
         } else {
             bmpCache.put(Integer.valueOf(charactor.getId()), emptyBmp);
             ImageSize targetSize = new ImageSize(ICON_SIZE, ICON_SIZE);
-            MainApplication.imageLoader.loadImage(charactor.getImageUrl(), targetSize, 
+            MainApplication.IMAGE_LOADER.loadImage(charactor.getImageUrl(), targetSize, 
                     new ImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String url, View view, Bitmap bmp) {

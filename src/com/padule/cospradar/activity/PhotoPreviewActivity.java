@@ -47,6 +47,6 @@ public class PhotoPreviewActivity extends BaseActivity {
         if (imageUrl == null) {
             return;
         }
-        MainApplication.imageLoader.displayImage(imageUrl, mImgPreview);
+        MainApplication.IMAGE_LOADER.displayImage(imageUrl, mImgPreview);
     }
 }
