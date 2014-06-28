@@ -6,11 +6,10 @@ import java.util.Map;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.androidquery.util.AQUtility;
 import com.padule.cospradar.MainApplication;
 
 public class PrefUtils {
-    
+
     public static final String KEY_PHOTO_PATH = "photo_path";
     public static final String KEY_PHOTO_NAME = "photo_name";
     public static final String KEY_LAT_LON = "lat_lon";
@@ -96,7 +95,6 @@ public class PrefUtils {
                 result = Enum.valueOf(cls, pref);
             } catch (Exception e) {
                 clearEnum(cls);
-                AQUtility.report(e);
             }
         }
 

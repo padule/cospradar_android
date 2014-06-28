@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 
-import com.androidquery.util.AQUtility;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -29,19 +28,18 @@ implements Thread.UncaughtExceptionHandler {
     .setEndpoint(Constants.APP_URL).setConverter(new GsonConverter(GSON)).build();
 
     public static APIService API = REST_ADAPTER.create(APIService.class);
+    
+    private static Context context;
 
     @Override
     public void onCreate() {
         initImageLoader();
-        AQUtility.setContext(this);
-        AQUtility.setExceptionHandler(this);
-        AQUtility.setCacheDir(null);
-
+        context = this;
         super.onCreate();
     }
-
+    
     public static Context getContext() {
-        return AQUtility.getContext();
+        return context;
     }
 
     private void initImageLoader() {
