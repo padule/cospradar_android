@@ -22,6 +22,12 @@ public class CharactorLocation extends Data {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    
+    public CharactorLocation(int id, Charactor charactor, float latitude,
+            float longitude) {
+        this(id, charactor.id, latitude, longitude);
+        this.charactor = charactor;
+    }
 
     public int getId() {
         return id;
