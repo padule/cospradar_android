@@ -7,7 +7,6 @@ import android.os.Vibrator;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
@@ -25,10 +24,6 @@ public class AppUtils {
     public static void setUser(User user) {
         String str = user != null ? user.serializeToString() : null;
         PrefUtils.put(User.class.getName(), str);
-    }
-
-    public static boolean isMockMode() {
-        return Constants.MOCK_MODE;
     }
 
     public static void setLatLon(float lat, float lon) {

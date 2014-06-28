@@ -18,15 +18,17 @@ import butterknife.InjectView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.ChatBoardsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.util.AppUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class ChatBoardListActivity extends BaseActivity {
 
@@ -41,6 +43,16 @@ public class ChatBoardListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_board_list);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(CommentSentEvent event) {
+        updateItem(event.charactor);
     }
 
     public static void start(BaseActivity activity) {
@@ -89,19 +101,6 @@ public class ChatBoardListActivity extends BaseActivity {
                 ChatBoardActivity.start(ChatBoardListActivity.this, adapter.getItem(pos));
             }
         });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        switch(requestCode) {
-        case Constants.REQ_ACTIVITY_CHAT_BOARD:
-            if (intent != null) {
-                Charactor charactor = (Charactor)intent.getSerializableExtra(Charactor.class.getName());
-                updateItem(charactor);
-            }
-            break;
-        }
     }
 
     private void updateItem(Charactor newCharactor) {

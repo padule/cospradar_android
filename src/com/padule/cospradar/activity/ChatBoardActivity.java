@@ -22,7 +22,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.CommentsAdapter;
@@ -30,6 +29,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.event.SendBtnClickedEvent;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.ui.CommentFooter;
@@ -87,7 +87,7 @@ public class ChatBoardActivity extends BaseActivity {
             final Intent intent = new Intent(activity, ChatBoardActivity.class);
             intent.putExtra(Charactor.class.getName(), charactor);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivityForResult(intent, Constants.REQ_ACTIVITY_CHAT_BOARD);
+            activity.startActivity(intent);
         }
     }
 
@@ -238,16 +238,9 @@ public class ChatBoardActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            setResult();
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setResult() {
-        Intent intent = new Intent();
-        intent.putExtra(Charactor.class.getName(), charactor);
-        setResult(RESULT_OK, intent);
     }
 
     private void uploadComment(final CharactorComment orgComment) {
@@ -261,6 +254,7 @@ public class ChatBoardActivity extends BaseActivity {
             @Override
             public void success(CharactorComment comment, Response response) {
                 renderView(comment, orgComment);
+                EventBus.getDefault().post(new CommentSentEvent(charactor));
             }
         });
     }
