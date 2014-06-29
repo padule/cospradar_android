@@ -7,6 +7,8 @@ import android.os.Vibrator;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
@@ -133,6 +135,11 @@ public class AppUtils {
     public static void vibrate(long mills, Context context) {
         Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         vib.vibrate(mills);
+    }
+
+    public static boolean isGooglePlayServicesAvailable(Context context) {
+        final int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+        return result == ConnectionResult.SUCCESS;
     }
 
 }

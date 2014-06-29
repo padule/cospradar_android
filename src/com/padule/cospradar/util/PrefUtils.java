@@ -1,8 +1,5 @@
 package com.padule.cospradar.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -13,6 +10,8 @@ public class PrefUtils {
     public static final String KEY_PHOTO_PATH = "photo_path";
     public static final String KEY_PHOTO_NAME = "photo_name";
     public static final String KEY_LAT_LON = "lat_lon";
+    public static final String KEY_LAST_NOTIFICATION_PRIORITY = "last_notification_priority";
+    public static final String KEY_REGISTRATION_ID = "registration_id";
 
     private static SharedPreferences pref;
 
@@ -28,6 +27,12 @@ public class PrefUtils {
     public static void put(String name, String value) {
         SharedPreferences.Editor edit = getPref().edit();
         edit.putString(name, value);
+        edit.commit();
+    }
+
+    public static void put(String name, int value) {
+        SharedPreferences.Editor edit = getPref().edit();
+        edit.putInt(name, value);
         edit.commit();
     }
 
@@ -55,55 +60,12 @@ public class PrefUtils {
         return getPref().getLong(name, defaultValue);
     }
 
+    public static int getInt(String name, int defaultValue) {
+        return getPref().getInt(name, defaultValue);
+    }
+
     public static String get(String name, String defaultValue) {
         return getPref().getString(name, defaultValue);
     }
-
-    public static <T extends Enum<T>> void putEnum(Enum<T> value) {
-        String key = value.getClass().getName();
-        put(key, value.name());
-        enums.put(key, value);
-    }
-
-    public static void clearEnum(Class<?> cls) {
-        String key = cls.getName();
-        put(key, (String) null);
-    }
-
-    private static Map<String, Object> enums = new HashMap<String, Object>();
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Enum<T>> T getEnum(Class<T> cls, T defaultValue) {
-        String key = cls.getName();
-
-        T result = (T) enums.get(key);
-        if (result == null) {
-            result = PrefUtils.getPrefEnum(cls, defaultValue);
-            enums.put(key, result);
-        }
-
-        return result;
-    }
-
-    private static <T extends Enum<T>> T getPrefEnum(Class<T> cls, T defaultValue) {
-        T result = null;
-
-        String pref = get(cls.getName(), null);
-
-        if (pref != null) {
-            try {
-                result = Enum.valueOf(cls, pref);
-            } catch (Exception e) {
-                clearEnum(cls);
-            }
-        }
-
-        if (result == null) {
-            result = defaultValue;
-        }
-
-        return result;
-    }
-
 
 }

@@ -7,8 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import butterknife.ButterKnife;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.padule.cospradar.R;
 import com.padule.cospradar.util.AnalyticsUtils;
 import com.padule.cospradar.util.AppUtils;
@@ -36,8 +34,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     private void checkGooglePlayServicesAvailable() {
-        final int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (result != ConnectionResult.SUCCESS) {
+        if (!AppUtils.isGooglePlayServicesAvailable(this)) {
             AppUtils.showToast(getString(R.string.google_play_service_unavailable), this);
             finish();
         }
