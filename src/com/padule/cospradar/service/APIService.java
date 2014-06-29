@@ -20,13 +20,15 @@ import com.padule.cospradar.Constants;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.data.CharactorLocation;
+import com.padule.cospradar.data.Device;
 import com.padule.cospradar.data.User;
 
-public interface APIService {
+public interface ApiService {
 
     static final String API_URL = Constants.APP_URL;
 
     static final String PATH_USERS = "/users";
+    static final String PATH_DEVICES = "/devices";
     static final String PATH_CHARACTORS = "/charactors";
     static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
     static final String PATH_CHARACTOR_LOCATIONS = "/charactor_locations";
@@ -44,6 +46,8 @@ public interface APIService {
     static final String PARAM_USER_ID = "user_id";
     static final String PARAM_LATITUDE = "latitude";
     static final String PARAM_LONGITUDE = "longitude";
+    static final String PARAM_PLATFORM = "platform";
+    static final String PARAM_TOKEN = "token";
 
     static final String EXT_JSON = ".json";
 
@@ -80,5 +84,11 @@ public interface APIService {
     @POST(PATH_USERS + EXT_JSON)
     void postUsers(@Field(PARAM_NAME) String name, @Field(PARAM_IMAGE) String imgUrl, 
             Callback<User> cb);
+
+    @FormUrlEncoded
+    @POST(PATH_DEVICES + EXT_JSON)
+    void postDevices(@Field(PARAM_USER_ID) int userId, 
+            @Field(PARAM_PLATFORM) int platform, @Field(PARAM_TOKEN) String token,
+            Callback<Device> cb);
 
 }

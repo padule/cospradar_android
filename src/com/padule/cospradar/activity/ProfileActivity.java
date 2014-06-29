@@ -27,7 +27,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
-import com.padule.cospradar.service.APIService;
+import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.ProfileHeader;
 import com.padule.cospradar.util.AppUtils;
 
@@ -123,12 +123,12 @@ public class ProfileActivity extends BaseActivity {
     private Map<String, String> createParams(int userId, int page) {
         Map<String, String> params = new HashMap<String, String>();
         if (userId > 0) {
-            params.put(APIService.PARAM_USER_ID, userId + "");
-            params.put(APIService.PARAM_DESC, "is_enabled");
+            params.put(ApiService.PARAM_USER_ID, userId + "");
+            params.put(ApiService.PARAM_DESC, "is_enabled");
         }
-        params.put(APIService.PARAM_PAGE, page + "");
-        params.put(APIService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
-        params.put(APIService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
+        params.put(ApiService.PARAM_PAGE, page + "");
+        params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
+        params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
 
         return params;
     }

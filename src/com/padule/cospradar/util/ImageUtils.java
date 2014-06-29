@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,22 +16,25 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.aviary.android.feather.FeatherActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 
 public class ImageUtils {
-    
+
     private static final int POS_CHOOSER_GALLERY = 0;
     private static final int POS_CHOOSER_CAMERA = 1;
 
@@ -208,12 +212,27 @@ public class ImageUtils {
         intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_TOOLS_LIST, AVIARY_TOOLS_LIST);
         return intent;
     }
-    
+
     public static Bitmap createEmptyIconBmp(Context context, int iconSize) {
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_no_user_radar);
         Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, iconSize, iconSize, false);
         bmp = null;
         return scaledBmp;
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static Bitmap getNotificationLargeIcon(Context context, String iconUrl) {
+        Bitmap bmp = null;
+        if (!TextUtils.isEmpty(iconUrl)) {
+            int height = (int)context.getResources().getDimension(android.R.dimen.notification_large_icon_height);
+            int width = (int)context.getResources().getDimension(android.R.dimen.notification_large_icon_width);
+            ImageSize isize = new ImageSize(width, height);
+            bmp = MainApplication.IMAGE_LOADER.loadImageSync(iconUrl, isize);
+        }
+        if (bmp == null) {
+            bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
+        }
+        return bmp;
     }
 
 }

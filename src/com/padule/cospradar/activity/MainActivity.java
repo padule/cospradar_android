@@ -27,10 +27,11 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
-import com.padule.cospradar.service.APIService;
+import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.GcmUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 
 import de.greenrobot.event.EventBus;
@@ -50,6 +51,8 @@ public class MainActivity extends BaseActivity {
         startService(new Intent(this, LocationService.class));
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
+
+        GcmUtils.register(this);
     }
 
     @Override
@@ -110,11 +113,11 @@ public class MainActivity extends BaseActivity {
     private Map<String, String> createParams(String title) {
         Map<String, String> params = new HashMap<String, String>();
         if (title != null && !"".equals(title)) {
-            params.put(APIService.PARAM_TITLE, title);
+            params.put(ApiService.PARAM_TITLE, title);
         }
-        params.put(APIService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
-        params.put(APIService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
-        params.put(APIService.PARAM_LIMIT, "300");
+        params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
+        params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
+        params.put(ApiService.PARAM_LIMIT, "300");
 
         return params;
     }

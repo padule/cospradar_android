@@ -15,7 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.padule.cospradar.service.APIService;
+import com.padule.cospradar.service.ApiService;
 
 public class MainApplication extends Application 
 implements Thread.UncaughtExceptionHandler {
@@ -27,7 +27,7 @@ implements Thread.UncaughtExceptionHandler {
     private static RestAdapter REST_ADAPTER = new RestAdapter.Builder()
     .setEndpoint(Constants.APP_URL).setConverter(new GsonConverter(GSON)).build();
 
-    public static APIService API = REST_ADAPTER.create(APIService.class);
+    public static ApiService API = REST_ADAPTER.create(ApiService.class);
     
     private static Context context;
 
