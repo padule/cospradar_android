@@ -102,4 +102,8 @@ public class Charactor extends Data {
         latestComment = comment;
     }
 
+    public void setIsEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
 }

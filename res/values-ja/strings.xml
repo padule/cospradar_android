@@ -76,6 +76,7 @@
     
     <!-- CharactorChooser -->
     <string name="charactor_chooser">コスキャラを選択</string>
+    <string name="charactor_chooser_not_selected">キャラが選択されていません。</string>
 
     <!-- Comment -->
     <string name="comment_hint">コメントを書く</string>
