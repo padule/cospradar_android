@@ -20,6 +20,8 @@
     <string name="done">Done</string>
     <string name="confirm">Is it OK?</string>
     <string name="cancel">Cancel</string>
+    <string name="menu">Menu</string>
+    <string name="logout">Logout</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -87,5 +89,17 @@
     <string name="comment_nothing">Comments are nothing.</string>
     <string name="comment_chats">Commented Chats</string>
     <string name="comment_close_confirm">Discard comment?</string>
+
+    <!-- Setting -->
+    <string name="setting">Setting</string>
+    <string name="setting_charactor">Charactor</string>
+    <string name="setting_support">Support</string>
+    <string name="setting_charactor_add">Add charactor</string>
+    <string name="setting_charactor_set">Set current charactor</string>
+    <string name="setting_evaluate">Evaluate app</string>
+    <string name="setting_inquery">Inquery</string>
+    <string name="setting_terms">Terms</string>
+    <string name="setting_privacy">Privacy policy</string>
+    <string name="setting_account_delete">Delete Account</string>
 
 </resources>

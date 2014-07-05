@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -227,8 +228,19 @@ public class ProfileActivity extends BaseActivity {
         case android.R.id.home:
             finish();
             break;
+        case R.id.item_setting:
+            SettingActivity.start(this);
+            break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (AppUtils.isLoginUser(user)) {
+            getMenuInflater().inflate(R.menu.activity_profile, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
 }

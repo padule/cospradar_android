@@ -17,6 +17,8 @@
     <string name="done">完了</string>
     <string name="confirm">よろしいですか？</string>
     <string name="cancel">キャンセル</string>
+    <string name="menu">メニュー</string>
+    <string name="logout">ログアウト</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>
@@ -74,7 +76,7 @@
     <string name="profile_charactor_edit">コスキャラを編集</string>
     <string name="profile_charactor_delete">コスキャラを削除</string>
     <string name="profile_delete_confirm">削除してよろしいですか？</string>
-    
+
     <!-- CharactorChooser -->
     <string name="charactor_chooser">コスキャラを選択</string>
     <string name="charactor_chooser_not_selected">キャラが選択されていません。</string>
@@ -85,5 +87,17 @@
     <string name="comment_nothing">まだコメントはないみたいです。</string>
     <string name="comment_chats">コメントしたけいじばん</string>
     <string name="comment_close_confirm">コメントが破棄されます。よろしいですか？</string>
+
+    <!-- Setting -->
+    <string name="setting">設定</string>
+    <string name="setting_charactor">コスキャラ</string>
+    <string name="setting_support">サポート</string>
+    <string name="setting_charactor_add">コスキャラを追加</string>
+    <string name="setting_charactor_set">いまのコスキャラをセット</string>
+    <string name="setting_evaluate">評価する</string>
+    <string name="setting_inquery">問い合わせる</string>
+    <string name="setting_terms">利用規約</string>
+    <string name="setting_privacy">プライバシーポリシー</string>
+    <string name="setting_account_delete">アカウントを削除する</string>
 
 </resources>

@@ -3,7 +3,9 @@ package com.padule.cospradar.util;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -14,6 +16,8 @@ import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
 
 public class AppUtils {
+
+    private static final String TAG = AppUtils.class.getName();
 
     public static void setCharactor(Charactor charactor) {
         User user = getUser();
@@ -75,7 +79,7 @@ public class AppUtils {
         }
         return charactor;
     }
-    
+
     public static boolean isCurrentCharactor(Charactor charactor) {
         if (getCharactor() != null 
                 && charactor != null
@@ -150,6 +154,16 @@ public class AppUtils {
     public static boolean isGooglePlayServicesAvailable(Context context) {
         final int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
         return result == ConnectionResult.SUCCESS;
+    }
+
+    public static String getVersionName(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage() + "");
+            return "";
+        }
     }
 
 }
