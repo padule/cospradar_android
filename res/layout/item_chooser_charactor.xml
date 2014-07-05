@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_gray" >
+
+    <RelativeLayout
+        android:id="@+id/container_charactor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.padule.cospradar.ui.ResizableImageView
+            android:id="@+id/img_charactor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:image_ratio="1" />
+
+        <View
+            android:id="@+id/img_charactor_clicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_charactor"
+            android:layout_alignLeft="@id/img_charactor"
+            android:layout_alignRight="@id/img_charactor"
+            android:layout_alignTop="@id/img_charactor"
+            android:background="@drawable/bg_clickable"
+            android:clickable="true" />
+
+        <FrameLayout
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_charactor"
+            android:layout_alignLeft="@id/img_charactor"
+            android:layout_alignRight="@id/img_charactor"
+            android:layout_alignTop="@id/img_charactor" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/img_enabled_check"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_small"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_checked"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bg_black_alfa"
+            android:padding="@dimen/padding_small" >
+
+            <TextView
+                android:id="@+id/txt_charactor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_charactor_name"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:visibility="gone" >
+
+        <com.padule.cospradar.ui.ResizableImageView
+            android:id="@+id/img_create_charactor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_plus"
+            app:image_ratio="1" />
+
+        <View
+            android:id="@+id/img_create_charactor_clicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_create_charactor"
+            android:layout_alignLeft="@id/img_create_charactor"
+            android:layout_alignRight="@id/img_create_charactor"
+            android:layout_alignTop="@id/img_create_charactor"
+            android:background="@drawable/bg_clickable"
+            android:clickable="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

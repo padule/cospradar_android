@@ -14,6 +14,7 @@
     <string name="send">送信</string>
     <string name="back_btn_msg">もう一度バックボタンを押すと終了します</string>
     <string name="close">閉じる</string>
+    <string name="done">完了</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>
@@ -45,7 +46,7 @@
     <string name="search_result_count_zero">近くにレイヤーはいません</string>
     <string name="search_dialog_count">%1$d 人のレイヤーがいます</string>
 
-    <!-- CharactorSetting -->
+    <!-- CharactorCreate -->
     <string name="charactor_setting">コスキャラ設定</string>
     <string name="charactor_name">キャラクター名（必須）</string>
     <string name="charactor_title">作品名（必須）</string>
@@ -64,6 +65,9 @@
     <string name="profile">プロフィール</string>
     <string name="profile_add">コスキャラを設定</string>
     <string name="profile_chat">けいじばん</string>
+    
+    <!-- CharactorChooser -->
+    <string name="charactor_chooser">コスキャラを選択</string>
 
     <!-- Comment -->
     <string name="comment_hint">コメントを書く</string>

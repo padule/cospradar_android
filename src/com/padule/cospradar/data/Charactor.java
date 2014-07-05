@@ -5,12 +5,10 @@ import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 import com.padule.cospradar.base.Data;
 import com.padule.cospradar.util.ImageUtils;
-import com.padule.cospradar.util.TimeUtils;
 
 public class Charactor extends Data {
 
     private static final long serialVersionUID = 1L;
-    private static final int LIMIT_DAY = 1;
 
     @SerializedName("id") int id;
     @SerializedName("user_id") int userId;
@@ -18,6 +16,7 @@ public class Charactor extends Data {
     @SerializedName("title") String title;
     @SerializedName("image") String image;
     @SerializedName("modified") Date updatedAt;
+    @SerializedName("is_enabled") boolean isEnabled;
 
     @SerializedName("user") User user;
     @SerializedName("charactor_location") CharactorLocation charactorLocation;
@@ -41,8 +40,7 @@ public class Charactor extends Data {
     }
 
     public boolean isEnabled() {
-        int diff = TimeUtils.getDiffDays(new Date(), updatedAt);
-        return diff < LIMIT_DAY;
+        return isEnabled;
     }
 
     public int getId() {
@@ -95,11 +93,11 @@ public class Charactor extends Data {
         }
         return user;
     }
-    
+
     public CharactorComment getLatestComment() {
         return latestComment;
     }
-    
+
     public void setLatestComment(CharactorComment comment) {
         latestComment = comment;
     }
