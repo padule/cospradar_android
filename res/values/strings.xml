@@ -116,4 +116,8 @@
     <string name="setting_inquery_menu_bug">Bug report</string>
     <string name="setting_inquery_menu_other">Other</string>
 
+    <!-- Rating -->
+    <string name="rating_title">Please Evaluate %1$s</string>
+    <string name="rating_msg">Thank you for using! Could you evaluate %1$s?</string>
+
 </resources>
