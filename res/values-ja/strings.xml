@@ -114,4 +114,8 @@
     <string name="setting_inquery_menu_bug">バグを報告する</string>
     <string name="setting_inquery_menu_other">その他</string>
 
+    <!-- Rating -->
+    <string name="rating_title">%1$sを評価してください！</string>
+    <string name="rating_msg">いつもご利用ありがとうございます。もしよろしければ%1$sに対する評価をお願いします！</string>
+
 </resources>
