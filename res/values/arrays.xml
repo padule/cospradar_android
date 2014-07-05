@@ -10,5 +10,12 @@
         <item>@string/profile_charactor_delete</item>
         <item>@string/cancel</item>
     </string-array>
+    <string-array name="inquery_menu">
+        <item>@string/setting_inquery_menu_improvement</item>
+        <item>@string/setting_inquery_menu_question</item>
+        <item>@string/setting_inquery_menu_cheer</item>
+        <item>@string/setting_inquery_menu_bug</item>
+        <item>@string/setting_inquery_menu_other</item>
+    </string-array>
 
 </resources>

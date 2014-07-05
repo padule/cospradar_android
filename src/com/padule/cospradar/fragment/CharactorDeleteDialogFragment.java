@@ -34,10 +34,12 @@ public class CharactorDeleteDialogFragment extends BaseConfirmDialogFragment {
         return super.onCreateDialog(savedInstanceState);
     }
 
+    @Override
     protected int getMsgResId() {
         return R.string.profile_delete_confirm;
     }
 
+    @Override
     protected void onConfirm() {
         EventBus.getDefault().post(new CharactorDeleteEvent(charactor));
     }

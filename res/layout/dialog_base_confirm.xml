@@ -52,7 +52,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_cancel"
             android:layout_width="0dip"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -67,7 +67,7 @@
             android:background="@color/bg_gray" />
 
         <TextView
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_ok"
             android:layout_width="0dip"
             android:layout_height="50dp"
             android:layout_weight="1"

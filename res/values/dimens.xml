@@ -28,6 +28,6 @@
 
     <!-- Radius -->
     <dimen name="radius_medium">4dp</dimen>
-    <dimen name="radius_btn">2dp</dimen>
+    <dimen name="radius_btn">4dp</dimen>
 
 </resources>
