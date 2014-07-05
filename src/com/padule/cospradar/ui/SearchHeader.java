@@ -7,9 +7,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -29,6 +29,7 @@ import com.padule.cospradar.event.RadarCharactorDrawedEvent;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.fragment.CharactorsDialogFragment;
 import com.padule.cospradar.util.AnalyticsUtils;
+import com.padule.cospradar.util.TextUtils;
 
 import de.greenrobot.event.EventBus;
 
@@ -41,6 +42,9 @@ public class SearchHeader extends RelativeLayout {
     @InjectView(R.id.btn_reload) ImageButton mBtnReload;
     @InjectView(R.id.edit_search) EditText mEditSearch;
     @InjectView(R.id.text_count_header) TextView mTextCountHeader;
+    @InjectView(R.id.check_realtime) CheckBox mCheckRealtime;
+    @InjectView(R.id.txt_min_distance) TextView mTxtMinDistance;
+    @InjectView(R.id.txt_max_distance) TextView mTxtMaxDistance;
 
     public SearchHeader(Context context) {
         super(context);
@@ -56,7 +60,7 @@ public class SearchHeader extends RelativeLayout {
     void onClickBtnReload() {
         mBtnReload.setEnabled(false);
         String text = mEditSearch.getText().toString();
-        EventBus.getDefault().post(new SearchBtnClickedEvent(text));
+        EventBus.getDefault().post(new SearchBtnClickedEvent(text, mCheckRealtime.isChecked()));
         AnalyticsUtils.sendEvent(AnalyticsUtils.CATEGORY_RADAR, AnalyticsUtils.EVENT_CLICKED_SEARCH_WITH_TEXT, getContext());
         sendAnalyticsEvent(text);
     }
@@ -96,6 +100,11 @@ public class SearchHeader extends RelativeLayout {
                 //
             }
         });
+
+        mTxtMinDistance.setText(TextUtils.getDistanceString(
+                getContext(), RadarView.MIN_RADIUS_KIROMETER * 1000));
+        mTxtMaxDistance.setText(getContext().getResources().getString(
+                R.string.radar_distance, RadarView.MAX_RADIUS_KIROMETER));
     }
 
     public void onEvent(RadarCharactorClickedEvent event) {
