@@ -1,19 +1,11 @@
 package com.padule.cospradar.fragment;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import com.padule.cospradar.R;
-import com.padule.cospradar.activity.CharactorCreateActivity;
+import com.padule.cospradar.activity.CharactorChooserActivity;
 import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.base.BaseConfirmDialogFragment;
 
-public class EditSuggestDialogFragment extends DialogFragment {
+public class EditSuggestDialogFragment extends BaseConfirmDialogFragment {
 
     public static void show(BaseActivity activity) {
         EditSuggestDialogFragment fragment = new EditSuggestDialogFragment();
@@ -22,25 +14,24 @@ public class EditSuggestDialogFragment extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_edit_suggest, null);
-
-        ButterKnife.inject(this, view);
-        builder.setView(view);
-        return builder.create();
+    protected void onConfirm() {
+        CharactorChooserActivity.start(getActivity());
     }
 
-    @OnClick(R.id.btn_ok)
-    void onClickBtnOk() {
-        CharactorCreateActivity.start(getActivity());
-        dismiss();
+    protected int getTitleResId() {
+        return R.string.setting_suggest_title;
     }
 
-    @OnClick(R.id.btn_cancel)
-    void onClickBtnCancel() {
-        dismiss();
+    protected int getMsgResId() {
+        return R.string.setting_suggest_message;
+    }
+
+    protected int getOkBtnTxtResId() {
+        return R.string.setting_suggest_ok;
+    }
+
+    protected int getCancelBtnTxtResId() {
+        return R.string.setting_suggest_cancel;
     }
 
 }

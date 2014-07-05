@@ -47,7 +47,8 @@ public class CharactorChooserActivity extends BaseActivity {
         setContentView(R.layout.activity_charactor_chooser);
     }
 
-    public static void start(Context context, User user) {
+    public static void start(Context context) {
+        User user = AppUtils.getUser();
         if (user!= null) {
             Intent intent = new Intent(context, CharactorChooserActivity.class);
             intent.putExtra(User.class.getName(), user);
