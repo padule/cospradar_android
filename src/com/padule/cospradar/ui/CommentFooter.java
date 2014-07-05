@@ -47,6 +47,10 @@ public class CommentFooter extends LinearLayout implements TextWatcher {
         KeyboardUtils.hide(context, mEditComment);
     }
 
+    public boolean hasCommentInInput() {
+        return !TextUtils.isEmpty(mEditComment);
+    }
+
     @Override
     public void afterTextChanged(Editable s) {
         mBtnComment.setEnabled(!TextUtils.isEmpty(mEditComment));

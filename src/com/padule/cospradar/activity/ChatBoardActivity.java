@@ -29,8 +29,10 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.event.CommentCloseEvent;
 import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.event.SendBtnClickedEvent;
+import com.padule.cospradar.fragment.ChatBoardDismissDialogFragment;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.util.AppUtils;
@@ -67,10 +69,22 @@ public class ChatBoardActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mFooter.hasCommentInInput()) {
+            ChatBoardDismissDialogFragment.show(this);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     public void onEvent(SendBtnClickedEvent event) {
         onClickSendBtn(event.text);
     }
 
+    public void onEvent(CommentCloseEvent event) {
+        finish();
+    }
     private void onClickSendBtn(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
@@ -238,9 +252,17 @@ public class ChatBoardActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            if (mFooter.hasCommentInInput()) {
+                ChatBoardDismissDialogFragment.show(this);
+            } else {
+                finish();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void finishWithValidation() {
+
     }
 
     private void uploadComment(final CharactorComment orgComment) {

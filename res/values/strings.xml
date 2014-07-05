@@ -18,6 +18,8 @@
     <string name="back_btn_msg">After next back key click, app close</string>
     <string name="close">Close</string>
     <string name="done">Done</string>
+    <string name="confirm">Is it OK?</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -76,5 +78,6 @@
     <string name="comment_send_failed">Sorry! sending failed...\nPlease try again.</string>
     <string name="comment_nothing">Comments are nothing.</string>
     <string name="comment_chats">Commented Chats</string>
+    <string name="comment_close_confirm">Discard comment?</string>
 
 </resources>
