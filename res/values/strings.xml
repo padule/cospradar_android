@@ -19,9 +19,13 @@
     <string name="close">Close</string>
     <string name="done">Done</string>
     <string name="confirm">Is it OK?</string>
+    <string name="confirmation">Confirmation</string>
     <string name="cancel">Cancel</string>
     <string name="menu">Menu</string>
     <string name="logout">Logout</string>
+    <string name="logout_done">Logout done.</string>
+    <string name="logout_confirm">Is it OK to logout?</string>
+    <string name="version_prefix">V%1$s</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -101,5 +105,15 @@
     <string name="setting_terms">Terms</string>
     <string name="setting_privacy">Privacy policy</string>
     <string name="setting_account_delete">Delete Account</string>
+    <string name="setting_account_delete_confirm_title">Is it OK to delete Account?</string>
+    <string name="setting_account_delete_confirm">If you delete, your all data is deleted too.</string>
+    <string name="setting_account_delete_ok">Delete account</string>
+    <string name="setting_inquery_subject">Inquery - %1$s</string>
+    <string name="setting_inquery_message">"\nUser ID: %1$d\nApp version: %2$s</string>
+    <string name="setting_inquery_menu_improvement">Improvement</string>
+    <string name="setting_inquery_menu_question">Question</string>
+    <string name="setting_inquery_menu_cheer">Cheers</string>
+    <string name="setting_inquery_menu_bug">Bug report</string>
+    <string name="setting_inquery_menu_other">Other</string>
 
 </resources>

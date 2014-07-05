@@ -48,7 +48,7 @@ public abstract class BaseConfirmDialogFragment extends DialogFragment {
     }
 
     protected int getTitleResId() {
-        return R.string.app_name;
+        return R.string.confirmation;
     }
 
     protected int getMsgResId() {

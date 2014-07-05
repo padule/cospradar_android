@@ -18,18 +18,22 @@ public class EditSuggestDialogFragment extends BaseConfirmDialogFragment {
         CharactorChooserActivity.start(getActivity());
     }
 
+    @Override
     protected int getTitleResId() {
         return R.string.setting_suggest_title;
     }
 
+    @Override
     protected int getMsgResId() {
         return R.string.setting_suggest_message;
     }
 
+    @Override
     protected int getOkBtnTxtResId() {
         return R.string.setting_suggest_ok;
     }
 
+    @Override
     protected int getCancelBtnTxtResId() {
         return R.string.setting_suggest_cancel;
     }

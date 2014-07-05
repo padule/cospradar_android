@@ -15,14 +15,17 @@ public class ChatBoardDismissDialogFragment extends BaseConfirmDialogFragment {
                 ChatBoardDismissDialogFragment.class.getName());
     }
 
+    @Override
     protected int getTitleResId() {
         return R.string.cancel;
     }
 
+    @Override
     protected int getMsgResId() {
         return R.string.comment_close_confirm;
     }
 
+    @Override
     protected void onConfirm() {
         EventBus.getDefault().post(new CommentCloseEvent());
     }

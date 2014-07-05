@@ -16,9 +16,13 @@
     <string name="close">閉じる</string>
     <string name="done">完了</string>
     <string name="confirm">よろしいですか？</string>
+    <string name="confirmation">確認</string>
     <string name="cancel">キャンセル</string>
     <string name="menu">メニュー</string>
     <string name="logout">ログアウト</string>
+    <string name="logout_done">ログアウトしました。</string>
+    <string name="logout_confirm">ログアウトしますか？</string>
+    <string name="version_prefix">V%1$s</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>
@@ -92,12 +96,22 @@
     <string name="setting">設定</string>
     <string name="setting_charactor">コスキャラ</string>
     <string name="setting_support">サポート</string>
-    <string name="setting_charactor_add">コスキャラを追加</string>
-    <string name="setting_charactor_set">いまのコスキャラをセット</string>
+    <string name="setting_charactor_add">コスキャラを追加する</string>
+    <string name="setting_charactor_set">いまのコスキャラをセットする</string>
     <string name="setting_evaluate">評価する</string>
     <string name="setting_inquery">問い合わせる</string>
     <string name="setting_terms">利用規約</string>
     <string name="setting_privacy">プライバシーポリシー</string>
     <string name="setting_account_delete">アカウントを削除する</string>
+    <string name="setting_account_delete_confirm_title">アカウントを削除しますか？</string>
+    <string name="setting_account_delete_confirm">退会するとプロフィールとコスキャラは非表示になります。退会から30日以内であれば、再度ログインすることでアカウントを復活させることができます。30日をすぎると、アカウントはシステム上から完全に削除されます。</string>
+    <string name="setting_account_delete_ok">アカウントを削除</string>
+    <string name="setting_inquery_subject">問い合わせ - %1$s</string>
+    <string name="setting_inquery_message">"\nユーザーID: %1$s\nアプリのバージョン: %2$s</string>
+    <string name="setting_inquery_menu_improvement">要望を伝える</string>
+    <string name="setting_inquery_menu_question">質問する</string>
+    <string name="setting_inquery_menu_cheer">応援する</string>
+    <string name="setting_inquery_menu_bug">バグを報告する</string>
+    <string name="setting_inquery_menu_other">その他</string>
 
 </resources>

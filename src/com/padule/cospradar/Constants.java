@@ -6,6 +6,10 @@ public class Constants {
 
     public static final String APP_URL = "http://cospradar-api.cloudapp.net";
 
+    public static final String TERMS_URL = "http://google.com"; // TODO
+    public static final String PRIVACY_URL = "http://google.com"; // TODO
+    public static final String INQUERY_MAIL = "yahpeycoy0403@gmail.com"; // TODO
+
     public static final String AVIARY_SECRET = "858b4e4f29e15266";
 
     public static final String GOOGLE_API_PROJECT_ID = "56675149463";
