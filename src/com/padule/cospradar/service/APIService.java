@@ -5,12 +5,14 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.http.QueryMap;
 import retrofit.mime.TypedFile;
@@ -33,6 +35,7 @@ public interface ApiService {
     static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
     static final String PATH_CHARACTOR_LOCATIONS = "/charactor_locations";
     static final String PATH_COMMENT_LIST = "/comment_list";
+    static final String PATH_ID = "/{id}";
 
     static final String PARAM_PAGE = "page";
     static final String PARAM_NAME = "name";
@@ -73,6 +76,16 @@ public interface ApiService {
     void postCharactors(@Part(PARAM_NAME) TypedString name, @Part(PARAM_TITLE) TypedString title, 
             @Part(PARAM_USER_ID) TypedString userId, @Part(PARAM_IMAGE) TypedFile image,
             Callback<Charactor> cb);
+
+    @Multipart
+    @POST(PATH_CHARACTORS + PATH_ID + EXT_JSON)
+    void putCharactors(@Path("id") int charactorId, @Part(PARAM_NAME) TypedString name, 
+            @Part(PARAM_TITLE) TypedString title, @Part(PARAM_USER_ID) TypedString userId, 
+            @Part(PARAM_IMAGE) TypedFile image,
+            Callback<Charactor> cb);
+    
+    @DELETE(PATH_CHARACTORS + PATH_ID + EXT_JSON)
+    void deleteCharactors(@Path("id") int charactorId, Callback<Charactor> cb);
 
     @FormUrlEncoded
     @POST(PATH_CHARACTOR_LOCATIONS + EXT_JSON)

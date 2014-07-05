@@ -261,10 +261,6 @@ public class ChatBoardActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void finishWithValidation() {
-
-    }
-
     private void uploadComment(final CharactorComment orgComment) {
         MainApplication.API.postCharactorComments(orgComment, new Callback<CharactorComment>() {
             @Override

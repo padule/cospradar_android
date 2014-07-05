@@ -118,7 +118,7 @@ public class ProfileActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch(which) {
                 case POS_MENU_CHARACTOR_EDIT:
-                    CharactorCreateActivity.start(ProfileActivity.this);
+                    CharactorSettingActivity.start(ProfileActivity.this, null);
                     break;
                 case POS_MENU_CHARACTOR_DELETE:
                     // TODO

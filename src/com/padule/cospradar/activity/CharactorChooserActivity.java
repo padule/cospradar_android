@@ -86,7 +86,8 @@ public class CharactorChooserActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 Log.d(TAG, "pos: " + pos + "");
                 if (pos == 0) {
-                    CharactorCreateActivity.start(CharactorChooserActivity.this);
+                    CharactorSettingActivity.start(CharactorChooserActivity.this,
+                            CharactorChooserActivity.this.adapter.getItem(pos));
                 } else {
                     // TODO implement
                 }

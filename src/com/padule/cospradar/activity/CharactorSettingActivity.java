@@ -32,30 +32,33 @@ import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class CharactorCreateActivity extends BaseActivity {
+public class CharactorSettingActivity extends BaseActivity {
 
-    private static final String TAG = CharactorCreateActivity.class.getName();
+    private static final String TAG = CharactorSettingActivity.class.getName();
+    private enum Mode { CREATE, EDIT };
 
     @InjectView(R.id.img_charactor) ImageView mImgCharactor;
     @InjectView(R.id.edit_name) EditText mEditName;
     @InjectView(R.id.edit_title) EditText mEditTitle;
 
     private Charactor charactor;
+    private Mode mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charactor_setting);
+        initMode();
     }
 
-    public static void start(Context context) {
-        final Intent intent = new Intent(context, CharactorCreateActivity.class);
+    public static void start(Context context, Charactor charactor) {
+        final Intent intent = new Intent(context, CharactorSettingActivity.class);
+        intent.putExtra(Charactor.class.getName(), charactor);
         context.startActivity(intent);
     }
 
     @Override
     protected void initView() {
-        initCharactor();
         initActionBar();
         bindData();
     }
@@ -67,10 +70,12 @@ public class CharactorCreateActivity extends BaseActivity {
         bar.setTitle(getString(R.string.charactor_setting));
     }
 
-    private void initCharactor() {
-        charactor = AppUtils.getCharactor();
+    private void initMode() {
+        charactor = (Charactor)getIntent().getSerializableExtra(Charactor.class.getName());
+        mode = Mode.EDIT;
         if (charactor == null) {
             charactor = new Charactor();
+            mode = Mode.CREATE;
         }
     }
 
@@ -147,7 +152,11 @@ public class CharactorCreateActivity extends BaseActivity {
         case R.id.item_ok:
             if (validate()) {
                 KeyboardUtils.hide(this);
-                saveCharactor();
+                if (mode == Mode.CREATE) {
+                    saveCharactor();
+                } else {
+                    updateCharactor();
+                }
             }
             break;
         case android.R.id.home:
@@ -158,6 +167,38 @@ public class CharactorCreateActivity extends BaseActivity {
             break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateCharactor() {
+        final Dialog dialog = AppUtils.makeLoadingDialog(this);
+        dialog.show();
+
+        TypedFile file = null;
+        if (charactor.getImageUrl() != null) {
+            file = new TypedFile("image/*", new File(charactor.getImage()));
+        }
+
+        MainApplication.API.putCharactors(charactor.getId(), 
+                new TypedString(mEditName.getText().toString()), 
+                new TypedString(mEditTitle.getText().toString()), 
+                new TypedString(AppUtils.getUser().getId() + ""), 
+                file, 
+                new Callback<Charactor>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d(TAG, "update_error: " + e.getMessage());
+                dialog.dismiss();
+                showToast(R.string.charactor_edit_failed);
+            }
+
+            @Override
+            public void success(Charactor charactor, Response response) {
+                dialog.dismiss();
+                CharactorSettingActivity.this.charactor = charactor;
+                showToast(R.string.charactor_edit_succeeded);
+                AppUtils.setCharactor(charactor);
+            }
+        });
     }
 
     private void saveCharactor() {
@@ -184,9 +225,9 @@ public class CharactorCreateActivity extends BaseActivity {
             @Override
             public void success(Charactor charactor, Response response) {
                 dialog.dismiss();
-                CharactorCreateActivity.this.charactor = charactor;
+                CharactorSettingActivity.this.charactor = charactor;
                 AppUtils.setCharactor(charactor);
-                showToast(R.string.charactor_edit_succeeded);
+                showToast(R.string.charactor_create_succeeded);
             }
         });
     }
