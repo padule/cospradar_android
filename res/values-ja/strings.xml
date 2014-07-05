@@ -56,7 +56,9 @@
     <string name="charactor_validate_title">作品名が入力されていません</string>
     <string name="charactor_create_succeeded">コスキャラを登録しました！</string>
     <string name="charactor_edit_succeeded">コスキャラを編集しました！</string>
+    <string name="charactor_delete_succeeded">コスキャラを削除しました!</string>
     <string name="charactor_edit_failed">登録に失敗してしまいました...\nもう一度試してみてもらえますか？</string>
+    <string name="charactor_delete_failed">削除に失敗してしまいました...</string>
 
     <!-- SettingSuggest -->
     <string name="setting_suggest_title">コスキャラの設定が必要です</string>

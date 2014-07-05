@@ -23,6 +23,7 @@ import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.data.CharactorLocation;
 import com.padule.cospradar.data.Device;
+import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
 
 public interface ApiService {
@@ -85,7 +86,7 @@ public interface ApiService {
             Callback<Charactor> cb);
     
     @DELETE(PATH_CHARACTORS + PATH_ID + EXT_JSON)
-    void deleteCharactors(@Path("id") int charactorId, Callback<Charactor> cb);
+    void deleteCharactors(@Path("id") int charactorId, Callback<Result> cb);
 
     @FormUrlEncoded
     @POST(PATH_CHARACTOR_LOCATIONS + EXT_JSON)

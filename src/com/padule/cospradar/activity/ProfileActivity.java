@@ -8,6 +8,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import com.padule.cospradar.adapter.ProfileCharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.ProfileHeader;
@@ -102,14 +104,14 @@ public class ProfileActivity extends BaseActivity {
                             adapter.getItem(pos).getImageUrl());
                     break;
                 case R.id.img_menu:
-                    showMenu();
+                    showMenu(adapter.getItem(pos));
                     break;
                 }
             }
         });
     }
 
-    private void showMenu() {
+    private void showMenu(final Charactor charactor) {
         String[] items = getResources().getStringArray(R.array.profile_charactor_menu);
 
         new AlertDialog.Builder(this)
@@ -118,10 +120,10 @@ public class ProfileActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch(which) {
                 case POS_MENU_CHARACTOR_EDIT:
-                    CharactorSettingActivity.start(ProfileActivity.this, null);
+                    CharactorSettingActivity.start(ProfileActivity.this, charactor);
                     break;
                 case POS_MENU_CHARACTOR_DELETE:
-                    // TODO
+                    deleteCharactor(charactor);
                     break;
                 case POS_MENU_CANCEL:
                     dialog.dismiss();
@@ -131,6 +133,35 @@ public class ProfileActivity extends BaseActivity {
                 }
             }
         }).create().show();
+    }
+
+    private void deleteCharactor(final Charactor charactor) {
+        final Dialog dialog = AppUtils.makeLoadingDialog(this);
+        dialog.show();
+
+        MainApplication.API.deleteCharactors(charactor.getId(), 
+                new Callback<Result>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d(TAG, "delete_error: " + e.getMessage());
+                dialog.dismiss();
+                showToast(R.string.charactor_delete_failed);
+            }
+
+            @Override
+            public void success(Result result, Response response) {
+                dialog.dismiss();
+                showToast(R.string.charactor_delete_succeeded);
+                if (AppUtils.isCurrentCharactor(charactor)) {
+                    AppUtils.setCharactor(null);
+                }
+                ProfileActivity.this.adapter.remove(charactor);
+            }
+        });
+    }
+
+    private void showToast(int resId) {
+        AppUtils.showToast(getString(resId), this);
     }
 
     private void loadData(int page) {

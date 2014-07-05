@@ -58,7 +58,9 @@
     <string name="charactor_validate_title">Not set title</string>
     <string name="charactor_create_succeeded">Charactor saved!</string>
     <string name="charactor_edit_succeeded">Charactor edited!</string>
+    <string name="charactor_delete_succeeded">Charactor deleted!</string>
     <string name="charactor_edit_failed">Sorry! Charactor save failed...\nPlease try again.</string>
+    <string name="charactor_delete_failed">Charactor delete failed!</string>
 
     <!-- EditSuggest -->
     <string name="setting_suggest_title">Required to regist charactor</string>

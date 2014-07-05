@@ -75,6 +75,16 @@ public class AppUtils {
         }
         return charactor;
     }
+    
+    public static boolean isCurrentCharactor(Charactor charactor) {
+        if (getCharactor() != null 
+                && charactor != null
+                && getCharactor().getId() == charactor.getId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static User getUser() {
         return (User)User.deSerializeFromString(PrefUtils.get(User.class.getName(), null));
