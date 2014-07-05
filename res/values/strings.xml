@@ -74,6 +74,7 @@
     <string name="profile_chat">Chat board</string>
     <string name="profile_charactor_edit">Edit charactor</string>
     <string name="profile_charactor_delete">Delete charactor</string>
+    <string name="profile_delete_confirm">Is it OK to delete charactor?</string>
 
     <!-- CharactorChooser -->
     <string name="charactor_chooser">Choose charactor</string>

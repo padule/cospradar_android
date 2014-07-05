@@ -72,6 +72,7 @@
     <string name="profile_chat">けいじばん</string>
     <string name="profile_charactor_edit">コスキャラを編集</string>
     <string name="profile_charactor_delete">コスキャラを削除</string>
+    <string name="profile_delete_confirm">削除してよろしいですか？</string>
     
     <!-- CharactorChooser -->
     <string name="charactor_chooser">コスキャラを選択</string>

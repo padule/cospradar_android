@@ -31,9 +31,13 @@ import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.event.CharactorDeleteEvent;
+import com.padule.cospradar.fragment.CharactorDeleteDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.ProfileHeader;
 import com.padule.cospradar.util.AppUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -53,6 +57,13 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         user = (User)getIntent().getSerializableExtra(User.class.getName());
         setContentView(R.layout.activity_profile);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public static void start(Context context, User user) {
@@ -123,7 +134,7 @@ public class ProfileActivity extends BaseActivity {
                     CharactorSettingActivity.start(ProfileActivity.this, charactor);
                     break;
                 case POS_MENU_CHARACTOR_DELETE:
-                    deleteCharactor(charactor);
+                    CharactorDeleteDialogFragment.show(ProfileActivity.this, charactor);
                     break;
                 case POS_MENU_CANCEL:
                     dialog.dismiss();
@@ -133,6 +144,10 @@ public class ProfileActivity extends BaseActivity {
                 }
             }
         }).create().show();
+    }
+
+    public void onEvent(CharactorDeleteEvent event) {
+        deleteCharactor(event.charactor);
     }
 
     private void deleteCharactor(final Charactor charactor) {

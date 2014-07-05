@@ -48,7 +48,6 @@ public class CharactorSettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charactor_setting);
-        initMode();
     }
 
     public static void start(Context context, Charactor charactor) {
@@ -59,6 +58,7 @@ public class CharactorSettingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        initMode();
         initActionBar();
         bindData();
     }
@@ -160,10 +160,7 @@ public class CharactorSettingActivity extends BaseActivity {
             }
             break;
         case android.R.id.home:
-            if (isEditing()) {
-            } else {
-                finish();
-            }
+            finish();
             break;
         }
         return super.onOptionsItemSelected(item);
