@@ -10,7 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import com.padule.cospradar.R;
-import com.padule.cospradar.activity.CharactorSettingActivity;
+import com.padule.cospradar.activity.CharactorCreateActivity;
 import com.padule.cospradar.base.BaseActivity;
 
 public class EditSuggestDialogFragment extends DialogFragment {
@@ -34,7 +34,7 @@ public class EditSuggestDialogFragment extends DialogFragment {
 
     @OnClick(R.id.btn_ok)
     void onClickBtnOk() {
-        CharactorSettingActivity.start(getActivity());
+        CharactorCreateActivity.start(getActivity());
         dismiss();
     }
 

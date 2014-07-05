@@ -12,7 +12,7 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.R.id;
-import com.padule.cospradar.activity.CharactorSettingActivity;
+import com.padule.cospradar.activity.CharactorChooserActivity;
 import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
@@ -69,7 +69,7 @@ public class ProfileHeader extends RelativeLayout {
 
     @OnClick(R.id.btn_add_charactor)
     void onlickBtnAddCharactor() {
-        CharactorSettingActivity.start(activity);
+        CharactorChooserActivity.start(activity, user);
     }
 
     @OnClick(R.id.btn_my_chat)

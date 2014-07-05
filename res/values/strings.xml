@@ -17,6 +17,7 @@
     <string name="send">Send</string>
     <string name="back_btn_msg">After next back key click, app close</string>
     <string name="close">Close</string>
+    <string name="done">Done</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -48,7 +49,7 @@
     <string name="search_result_count_zero">No cosplayer nearby...</string>
     <string name="search_dialog_count">%1$d cosplayer!</string>
 
-    <!-- CharactorEdit -->
+    <!-- CharactorCreate -->
     <string name="charactor_name">Charactor name</string>
     <string name="charactor_title">Title</string>
     <string name="charactor_validate_name">Not set charactor name</string>
@@ -66,6 +67,9 @@
     <string name="profile">Profile</string>
     <string name="profile_add">Add charactor</string>
     <string name="profile_chat">Chat board</string>
+    
+    <!-- CharactorChooser -->
+    <string name="charactor_chooser">Choose charactor</string>
 
     <!-- Comment -->
     <string name="comment_hint">Write a comment</string>

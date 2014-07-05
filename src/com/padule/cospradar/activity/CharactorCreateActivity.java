@@ -32,9 +32,9 @@ import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class CharactorSettingActivity extends BaseActivity {
+public class CharactorCreateActivity extends BaseActivity {
 
-    private static final String TAG = CharactorSettingActivity.class.getName();
+    private static final String TAG = CharactorCreateActivity.class.getName();
 
     @InjectView(R.id.img_charactor) ImageView mImgCharactor;
     @InjectView(R.id.edit_name) EditText mEditName;
@@ -49,7 +49,7 @@ public class CharactorSettingActivity extends BaseActivity {
     }
 
     public static void start(Context context) {
-        final Intent intent = new Intent(context, CharactorSettingActivity.class);
+        final Intent intent = new Intent(context, CharactorCreateActivity.class);
         context.startActivity(intent);
     }
 
@@ -184,7 +184,7 @@ public class CharactorSettingActivity extends BaseActivity {
             @Override
             public void success(Charactor charactor, Response response) {
                 dialog.dismiss();
-                CharactorSettingActivity.this.charactor = charactor;
+                CharactorCreateActivity.this.charactor = charactor;
                 AppUtils.setCharactor(charactor);
                 showToast(R.string.charactor_edit_succeeded);
             }
