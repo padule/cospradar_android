@@ -55,7 +55,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.padule.cospradar.activity.CharactorCreateActivity"
+            android:name="com.padule.cospradar.activity.CharactorSettingActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name"
             android:launchMode="singleTask"

@@ -12,6 +12,7 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
+        android:id="@+id/txt_confirm_title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/icon_small"
         android:layout_marginBottom="@dimen/margin_small"
@@ -19,7 +20,6 @@
         android:layout_marginTop="@dimen/margin_small"
         android:layout_toRightOf="@id/img_icon"
         android:gravity="center_vertical"
-        android:text="@string/setting_suggest_title"
         android:textSize="@dimen/text_medium"
         android:textStyle="bold" />
 
@@ -31,19 +31,18 @@
         android:background="@color/apptheme_color" />
 
     <TextView
-        android:id="@+id/txt_msg"
+        android:id="@+id/txt_confirm_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/border"
         android:layout_margin="@dimen/margin_large"
-        android:text="@string/setting_suggest_message"
         android:textSize="@dimen/text_medium" />
 
     <View
         android:id="@+id/border_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_small"
-        android:layout_below="@id/txt_msg"
+        android:layout_below="@id/txt_confirm_msg"
         android:background="@color/bg_gray" />
 
     <LinearLayout
@@ -55,12 +54,11 @@
         <TextView
             android:id="@+id/btn_ok"
             android:layout_width="0dip"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:gravity="center_vertical|center"
-            android:text="@string/setting_suggest_ok"
             android:textSize="@dimen/text_medium" />
 
         <View
@@ -71,12 +69,11 @@
         <TextView
             android:id="@+id/btn_cancel"
             android:layout_width="0dip"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:gravity="center_vertical|center"
-            android:text="@string/setting_suggest_cancel"
             android:textSize="@dimen/text_medium" />
     </LinearLayout>
 

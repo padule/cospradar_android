@@ -69,7 +69,7 @@ public class ProfileHeader extends RelativeLayout {
 
     @OnClick(R.id.btn_add_charactor)
     void onlickBtnAddCharactor() {
-        CharactorChooserActivity.start(activity, user);
+        CharactorChooserActivity.start(activity);
     }
 
     @OnClick(R.id.btn_my_chat)

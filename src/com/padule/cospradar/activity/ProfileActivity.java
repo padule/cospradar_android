@@ -7,7 +7,10 @@ import java.util.Map;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -26,14 +29,22 @@ import com.padule.cospradar.adapter.ProfileCharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.event.CharactorDeleteEvent;
+import com.padule.cospradar.fragment.CharactorDeleteDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.ProfileHeader;
 import com.padule.cospradar.util.AppUtils;
 
+import de.greenrobot.event.EventBus;
+
 public class ProfileActivity extends BaseActivity {
 
     private static final String TAG = ProfileActivity.class.getName();
+    private static final int POS_MENU_CHARACTOR_EDIT = 0;
+    private static final int POS_MENU_CHARACTOR_DELETE = 1;
+    private static final int POS_MENU_CANCEL = 2;
 
     @InjectView(R.id.listview_charactors) ListView mListView;
 
@@ -46,6 +57,13 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         user = (User)getIntent().getSerializableExtra(User.class.getName());
         setContentView(R.layout.activity_profile);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public static void start(Context context, User user) {
@@ -97,11 +115,68 @@ public class ProfileActivity extends BaseActivity {
                             adapter.getItem(pos).getImageUrl());
                     break;
                 case R.id.img_menu:
-                    // TODO
+                    showMenu(adapter.getItem(pos));
                     break;
                 }
             }
         });
+    }
+
+    private void showMenu(final Charactor charactor) {
+        String[] items = getResources().getStringArray(R.array.profile_charactor_menu);
+
+        new AlertDialog.Builder(this)
+        .setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch(which) {
+                case POS_MENU_CHARACTOR_EDIT:
+                    CharactorSettingActivity.start(ProfileActivity.this, charactor);
+                    break;
+                case POS_MENU_CHARACTOR_DELETE:
+                    CharactorDeleteDialogFragment.show(ProfileActivity.this, charactor);
+                    break;
+                case POS_MENU_CANCEL:
+                    dialog.dismiss();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }).create().show();
+    }
+
+    public void onEvent(CharactorDeleteEvent event) {
+        deleteCharactor(event.charactor);
+    }
+
+    private void deleteCharactor(final Charactor charactor) {
+        final Dialog dialog = AppUtils.makeLoadingDialog(this);
+        dialog.show();
+
+        MainApplication.API.deleteCharactors(charactor.getId(), 
+                new Callback<Result>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d(TAG, "delete_error: " + e.getMessage());
+                dialog.dismiss();
+                showToast(R.string.charactor_delete_failed);
+            }
+
+            @Override
+            public void success(Result result, Response response) {
+                dialog.dismiss();
+                showToast(R.string.charactor_delete_succeeded);
+                if (AppUtils.isCurrentCharactor(charactor)) {
+                    AppUtils.setCharactor(null);
+                }
+                ProfileActivity.this.adapter.remove(charactor);
+            }
+        });
+    }
+
+    private void showToast(int resId) {
+        AppUtils.showToast(getString(resId), this);
     }
 
     private void loadData(int page) {

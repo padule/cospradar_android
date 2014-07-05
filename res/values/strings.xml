@@ -18,6 +18,8 @@
     <string name="back_btn_msg">After next back key click, app close</string>
     <string name="close">Close</string>
     <string name="done">Done</string>
+    <string name="confirm">Is it OK?</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -54,8 +56,11 @@
     <string name="charactor_title">Title</string>
     <string name="charactor_validate_name">Not set charactor name</string>
     <string name="charactor_validate_title">Not set title</string>
-    <string name="charactor_edit_succeeded">Charactor saved!</string>
+    <string name="charactor_create_succeeded">Charactor saved!</string>
+    <string name="charactor_edit_succeeded">Charactor edited!</string>
+    <string name="charactor_delete_succeeded">Charactor deleted!</string>
     <string name="charactor_edit_failed">Sorry! Charactor save failed...\nPlease try again.</string>
+    <string name="charactor_delete_failed">Charactor delete failed!</string>
 
     <!-- EditSuggest -->
     <string name="setting_suggest_title">Required to regist charactor</string>
@@ -67,7 +72,10 @@
     <string name="profile">Profile</string>
     <string name="profile_add">Add charactor</string>
     <string name="profile_chat">Chat board</string>
-    
+    <string name="profile_charactor_edit">Edit charactor</string>
+    <string name="profile_charactor_delete">Delete charactor</string>
+    <string name="profile_delete_confirm">Is it OK to delete charactor?</string>
+
     <!-- CharactorChooser -->
     <string name="charactor_chooser">Choose charactor</string>
 
@@ -76,5 +84,6 @@
     <string name="comment_send_failed">Sorry! sending failed...\nPlease try again.</string>
     <string name="comment_nothing">Comments are nothing.</string>
     <string name="comment_chats">Commented Chats</string>
+    <string name="comment_close_confirm">Discard comment?</string>
 
 </resources>
