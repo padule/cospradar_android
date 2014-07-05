@@ -89,10 +89,38 @@ public class CharactorChooserActivity extends BaseActivity {
                     CharactorSettingActivity.start(CharactorChooserActivity.this,
                             CharactorChooserActivity.this.adapter.getItem(pos));
                 } else {
-                    // TODO implement
+                    selectCharactor(CharactorChooserActivity.this.adapter.getItem(pos));
                 }
             }
         });
+    }
+
+    private void selectCharactor(Charactor charactor) {
+        final int size = adapter.getCount();
+        for (int i = 1; i < size; i++) {
+            Charactor c = adapter.getItem(i);
+            if (c == null) continue;
+
+            if (c.getId() == charactor.getId()) {
+                adapter.remove(c);
+                c.setIsEnabled(true);
+                adapter.insert(c, i);
+            } else {
+                c.setIsEnabled(false);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private Charactor getSelectedCharactor() {
+        final int size = adapter.getCount();
+        for (int i = 1; i < size; i++) {
+            Charactor c = adapter.getItem(i);
+            if (c != null && c.isEnabled()) {
+                return c;
+            }
+        }
+        return null;
     }
 
     private void loadData(final int page) {
@@ -167,7 +195,11 @@ public class CharactorChooserActivity extends BaseActivity {
     }
 
     private void updateCharactor() {
-        // TODO implement
+        Charactor charactor = getSelectedCharactor();
+        if (charactor == null) {
+            AppUtils.showToast(getString(R.string.charactor_chooser_not_selected), this);
+            return;
+        }
     }
 
 }
