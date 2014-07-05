@@ -69,7 +69,9 @@
     <string name="profile">Profile</string>
     <string name="profile_add">Add charactor</string>
     <string name="profile_chat">Chat board</string>
-    
+    <string name="profile_charactor_edit">Edit charactor</string>
+    <string name="profile_charactor_delete">Delete charactor</string>
+
     <!-- CharactorChooser -->
     <string name="charactor_chooser">Choose charactor</string>
 

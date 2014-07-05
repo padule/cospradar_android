@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string-array name="photo_chooser">
         <item>@string/choose_from_gallery</item>
         <item>@string/choose_from_camera</item>
     </string-array>
-    
+    <string-array name="profile_charactor_menu">
+        <item>@string/profile_charactor_edit</item>
+        <item>@string/profile_charactor_delete</item>
+        <item>@string/cancel</item>
+    </string-array>
+
 </resources>

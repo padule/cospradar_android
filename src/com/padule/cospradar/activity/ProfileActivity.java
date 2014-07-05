@@ -7,7 +7,9 @@ import java.util.Map;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -34,6 +36,9 @@ import com.padule.cospradar.util.AppUtils;
 public class ProfileActivity extends BaseActivity {
 
     private static final String TAG = ProfileActivity.class.getName();
+    private static final int POS_MENU_CHARACTOR_EDIT = 0;
+    private static final int POS_MENU_CHARACTOR_DELETE = 1;
+    private static final int POS_MENU_CANCEL = 2;
 
     @InjectView(R.id.listview_charactors) ListView mListView;
 
@@ -97,11 +102,35 @@ public class ProfileActivity extends BaseActivity {
                             adapter.getItem(pos).getImageUrl());
                     break;
                 case R.id.img_menu:
-                    // TODO
+                    showMenu();
                     break;
                 }
             }
         });
+    }
+
+    private void showMenu() {
+        String[] items = getResources().getStringArray(R.array.profile_charactor_menu);
+
+        new AlertDialog.Builder(this)
+        .setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch(which) {
+                case POS_MENU_CHARACTOR_EDIT:
+                    CharactorCreateActivity.start(ProfileActivity.this);
+                    break;
+                case POS_MENU_CHARACTOR_DELETE:
+                    // TODO
+                    break;
+                case POS_MENU_CANCEL:
+                    dialog.dismiss();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }).create().show();
     }
 
     private void loadData(int page) {
