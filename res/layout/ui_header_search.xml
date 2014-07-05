@@ -7,6 +7,7 @@
         android:id="@+id/radar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
         android:layout_marginTop="@dimen/margin" />
@@ -17,35 +18,74 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/radar_view" />
 
+    <TextView
+        android:id="@+id/txt_min_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekbar_radar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/margin"
+        android:text="100 m"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/txt_max_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekbar_radar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin"
+        android:text="20.0 km"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+
     <LinearLayout
         android:id="@+id/container_search"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/seekbar_radar"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
         android:layout_marginTop="@dimen/margin"
-        android:orientation="horizontal" >
+        android:background="@color/bg_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding" >
 
-        <EditText
-            android:id="@+id/edit_search"
+        <RelativeLayout
             android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="@string/search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:textSize="@dimen/text_medium" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColorHint="@color/text_gray"
+                android:textSize="@dimen/text_medium" />
+
+            <CheckBox
+                android:id="@+id/check_realtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_search"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/search_realtime"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_medium" />
+        </RelativeLayout>
 
         <ImageButton
             android:id="@+id/btn_reload"
             android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin"
             android:layout_weight="0"
             android:background="@drawable/btn_accent_rounded"
-            android:padding="@dimen/padding_large"
+            android:padding="@dimen/padding_xlarge"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_reload" />
     </LinearLayout>
@@ -55,7 +95,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/container_search"
-        android:layout_marginTop="@dimen/margin"
         android:background="@color/bg_gray"
         android:paddingBottom="@dimen/padding_small"
         android:paddingLeft="@dimen/padding"

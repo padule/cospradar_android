@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
         AppUtils.vibrate(100, this);
         clearListView();
         header.startSearching();
-        loadData(0, event.searchText);
+        loadData(0, event.searchText, event.isRealtime);
         KeyboardUtils.hide(this);
     }
 
@@ -95,8 +95,8 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void loadData(final int page, String title) {
-        MainApplication.API.getCharactors(createParams(title), 
+    private void loadData(final int page, String title, boolean isRealtime) {
+        MainApplication.API.getCharactors(createParams(title, isRealtime), 
                 new Callback<List<Charactor>>() {
             @Override
             public void failure(RetrofitError e) {
@@ -110,11 +110,12 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private Map<String, String> createParams(String title) {
+    private Map<String, String> createParams(String title, boolean isRealtime) {
         Map<String, String> params = new HashMap<String, String>();
         if (title != null && !"".equals(title)) {
             params.put(ApiService.PARAM_TITLE, title);
         }
+        params.put(ApiService.PARAM_IS_ENABLED, isRealtime + "");
         params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
         params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
         params.put(ApiService.PARAM_LIMIT, "300");

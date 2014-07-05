@@ -50,6 +50,7 @@
     <string name="search_result_count">%1$d cosplayer discovered!</string>
     <string name="search_result_count_zero">No cosplayer nearby...</string>
     <string name="search_dialog_count">%1$d cosplayer!</string>
+    <string name="search_realtime">Realtime</string>
 
     <!-- CharactorCreate -->
     <string name="charactor_name">Charactor name</string>

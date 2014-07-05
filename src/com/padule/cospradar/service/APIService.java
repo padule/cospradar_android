@@ -50,6 +50,7 @@ public interface ApiService {
     static final String PARAM_USER_ID = "user_id";
     static final String PARAM_LATITUDE = "latitude";
     static final String PARAM_LONGITUDE = "longitude";
+    static final String PARAM_IS_ENABLED = "is_enabled";
     static final String PARAM_PLATFORM = "platform";
     static final String PARAM_TOKEN = "token";
 
