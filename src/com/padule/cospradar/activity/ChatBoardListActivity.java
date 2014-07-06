@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import butterknife.InjectView;
 
+import com.google.android.gms.ads.AdView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.padule.cospradar.MainApplication;
@@ -26,6 +28,7 @@ import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
+import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 
 import de.greenrobot.event.EventBus;
@@ -36,7 +39,9 @@ public class ChatBoardListActivity extends BaseActivity {
     @InjectView(R.id.listview_chat_list) PullToRefreshListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
     @InjectView(R.id.loading) View mLoading;
+    @InjectView(R.id.container_admob) RelativeLayout mContainerAdmob;
 
+    private AdView adView;
     private ChatBoardsAdapter adapter;
 
     @Override
@@ -48,6 +53,7 @@ public class ChatBoardListActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (adView != null) adView.destroy();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
@@ -69,6 +75,24 @@ public class ChatBoardListActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initListView();
+        initAdmob();
+    }
+
+    private void initAdmob() {
+        adView = AdmobUtils.createAdViewInChatBoardListFooter(this);
+        AdmobUtils.loadBanner(adView, mContainerAdmob);
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) adView.resume();
     }
 
     private void initListView() {

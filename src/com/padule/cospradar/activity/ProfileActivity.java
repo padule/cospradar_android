@@ -22,8 +22,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import butterknife.InjectView;
 
+import com.google.android.gms.ads.AdView;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.ProfileCharactorsAdapter;
@@ -36,6 +38,7 @@ import com.padule.cospradar.event.CharactorDeleteEvent;
 import com.padule.cospradar.fragment.CharactorDeleteDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.ProfileHeader;
+import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 
 import de.greenrobot.event.EventBus;
@@ -48,7 +51,9 @@ public class ProfileActivity extends BaseActivity {
     private static final int POS_MENU_CANCEL = 2;
 
     @InjectView(R.id.listview_charactors) ListView mListView;
+    @InjectView(R.id.container_admob) RelativeLayout mContainerAdmob;
 
+    private AdView adView;
     private View mLoading;
     private ProfileCharactorsAdapter adapter;
     private User user;
@@ -63,8 +68,21 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (adView != null) adView.destroy();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) adView.resume();
     }
 
     public static void start(Context context, User user) {
@@ -79,6 +97,12 @@ public class ProfileActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initListView();
+        initAdmob();
+    }
+
+    private void initAdmob() {
+        adView = AdmobUtils.createAdViewInProfileFooter(this);
+        AdmobUtils.loadBanner(adView, mContainerAdmob);
     }
 
     private void initListView() {
