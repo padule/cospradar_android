@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initListView();
+        
+        TutorialActivity.start(this);
     }
 
     public void onEvent(SearchBtnClickedEvent event) {

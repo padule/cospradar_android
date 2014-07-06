@@ -23,6 +23,12 @@
     <string name="logout_done">ログアウトしました。</string>
     <string name="logout_confirm">ログアウトしますか？</string>
     <string name="version_prefix">V%1$s</string>
+    <string name="next">次へ</string>
+    <string name="prev">前へ</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="after">あとで</string>
+    <string name="regist">登録</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>
@@ -117,5 +123,18 @@
     <!-- Rating -->
     <string name="rating_title">%1$sを評価してください！</string>
     <string name="rating_msg">いつもご利用ありがとうございます。もしよろしければ%1$sに対する評価をお願いします！</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_welcome_title">こんにちは、%1$sさん</string>
+    <string name="tutorial_welcome_sub">%1$sへようこそ！簡単に使い方を説明しますね。</string>
+    <string name="tutorial_question_title">最初の質問です。</string>
+    <string name="tutorial_question_sub">%1$sさんはコスプレをしたことがありますか？</string>
+    <string name="tutorial_regist_ready_title">レイヤーさんなんですね！</string>
+    <string name="tutorial_regist_ready_sub">早速、%1$sさんのコスキャラを登録してみましょう！</string>
+    <string name="tutorial_regist_title">最初のコスキャラを登録！</string>
+    <string name="tutorial_after_regist_title">おめでとう！最初のキャラを登録しました！</string>
+    <string name="tutorial_after_regist_sub">キャラはあとで編集できます。</string>
+    <string name="tutorial_finish_title">早速コスレーダーを触ってみましょう！</string>
+    <string name="tutorial_finish_sub">お気に入りの作品のキャラが見つかるといいですね(・∀・)</string>
 
 </resources>

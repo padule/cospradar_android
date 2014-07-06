@@ -26,6 +26,12 @@
     <string name="logout_done">Logout done.</string>
     <string name="logout_confirm">Is it OK to logout?</string>
     <string name="version_prefix">V%1$s</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="after">After</string>
+    <string name="regist">Regist</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -119,5 +125,18 @@
     <!-- Rating -->
     <string name="rating_title">Please Evaluate %1$s</string>
     <string name="rating_msg">Thank you for using! Could you evaluate %1$s?</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_welcome_title">Hello %1$s</string>
+    <string name="tutorial_welcome_sub">Welcome to %1$s! Please show this tutorial.</string>
+    <string name="tutorial_question_title">First question.</string>
+    <string name="tutorial_question_sub">%1$s, Are you Cosplayer?</string>
+    <string name="tutorial_regist_ready_title">Wow! Cosplayer!</string>
+    <string name="tutorial_regist_ready_sub">Great! %1$s, Let\'s regist your cosplay!</string>
+    <string name="tutorial_regist_title">Regist Charactor!</string>
+    <string name="tutorial_after_regist_title">Congratulations! Registed your first charactor!</string>
+    <string name="tutorial_after_regist_sub">You can change charactor data after tutorial.</string>
+    <string name="tutorial_finish_title">Enjoy Cosradar!:)</string>
+    <string name="tutorial_finish_sub">Let\'s search cosplayer!</string>
 
 </resources>

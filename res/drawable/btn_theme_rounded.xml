@@ -3,9 +3,8 @@
 
     <item android:state_pressed="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/bg_white" />
+            <solid android:color="@color/apptheme_color" />
             <corners android:radius="@dimen/radius_btn" />
-            <stroke android:color="@color/bg_gray_dark" android:width="2dp" />
         </shape>
     </item>
     
@@ -13,25 +12,22 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/bg_white" />
+                    <solid android:color="@color/apptheme_color" />
                     <corners android:radius="@dimen/radius_btn" />
-                    <stroke android:color="@color/bg_gray_dark" android:width="2dp" />
                 </shape>
             </item>
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/bg_black_alfa_light" />
                     <corners android:radius="@dimen/radius_btn" />
-                    <stroke android:color="@color/bg_gray_dark" android:width="2dp" />
                 </shape>
             </item>
         </layer-list>
     </item>
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/bg_accent_disabled" />
+            <solid android:color="@color/apptheme_color" />
             <corners android:radius="@dimen/radius_btn" />
-            <stroke android:color="@color/bg_gray_dark" android:width="2dp" />
         </shape>
     </item>
 

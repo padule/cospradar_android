@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cosradar="http://schemas.android.com/apk/res/com.padule.cospradar"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_black_alfa_dark" >
+
+    <com.padule.cospradar.ui.HoldableViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        cosradar:swipe_hold="true" />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="60dp"
+        android:paddingTop="10dp"
+        app:fillColor="@color/apptheme_color"
+        app:pageColor="@color/bg_white"
+        app:radius="6dp"
+        app:strokeColor="@color/bg_gray_dark"
+        app:strokeWidth="@dimen/line_medium" />
+
+</RelativeLayout>

@@ -4,6 +4,7 @@
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin">8dp</dimen>
     <dimen name="margin_large">12dp</dimen>
+    <dimen name="margin_xlarge">16dp</dimen>
 
     <!-- Padding -->
     <dimen name="padding_small">4dp</dimen>
@@ -16,6 +17,7 @@
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_large">20sp</dimen>
+    <dimen name="text_xlarge">24sp</dimen>
 
     <!-- Line -->
     <dimen name="line_small">1sp</dimen>
