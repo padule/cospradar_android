@@ -66,4 +66,54 @@
         <item name="android:lines">1</item>
     </style>
 
+    <style name="TutorialTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_xlarge</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/margin_xlarge</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">3</item>
+    </style>
+    
+    <style name="TutorialSub">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_xlarge</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:layout_marginBottom">@dimen/margin_xlarge</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="Btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Btn.Large">
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="Btn.Large.Theme">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:background">@drawable/btn_theme_rounded</item>
+    </style>
+
+    <style name="Btn.Large.White">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:background">@drawable/btn_white_rounded</item>
+    </style>
+
 </resources>

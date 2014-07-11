@@ -12,9 +12,15 @@ import com.padule.cospradar.util.AppUtils;
 public abstract class BaseFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        final View view = inflater.inflate(getLayoutResId(), container, false);
+        ButterKnife.inject(this, view);
+        initView();
         return view;
     }
+
+    protected abstract int getLayoutResId();
+
+    protected abstract void initView();
 
     @Override
     public void onDestroyView() {
