@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity {
         final Dialog dialog = AppUtils.makeSendingDialog(this);
         dialog.show();
 
-        MainApplication.API.postUsers(screenName, imgUrl, new Callback<User>() {
+        MainApplication.API.postUsersLogin(screenName, imgUrl, new Callback<User>() {
             @Override
             public void failure(RetrofitError e) {
                 Log.e(TAG, "create_error_message: " + e.getMessage());

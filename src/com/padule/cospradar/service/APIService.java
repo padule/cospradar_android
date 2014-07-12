@@ -36,6 +36,7 @@ public interface ApiService {
     static final String PATH_CHARACTOR_COMMENTS = "/charactor_comments";
     static final String PATH_CHARACTOR_LOCATIONS = "/charactor_locations";
     static final String PATH_COMMENT_LIST = "/comment_list";
+    static final String PATH_LOGIN = "/login";
     static final String PATH_ID = "/{id}";
 
     static final String PARAM_PAGE = "page";
@@ -99,8 +100,8 @@ public interface ApiService {
             Callback<CharactorLocation> cb);
 
     @FormUrlEncoded
-    @POST(PATH_USERS + EXT_JSON)
-    void postUsers(@Field(PARAM_NAME) String name, @Field(PARAM_IMAGE) String imgUrl, 
+    @POST(PATH_USERS + PATH_LOGIN + EXT_JSON)
+    void postUsersLogin(@Field(PARAM_NAME) String name, @Field(PARAM_IMAGE) String imgUrl, 
             Callback<User> cb);
 
     @FormUrlEncoded
