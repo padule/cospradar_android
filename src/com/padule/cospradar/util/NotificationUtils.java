@@ -15,7 +15,6 @@ import android.support.v4.app.NotificationCompat.Builder;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.activity.ChatBoardActivity;
@@ -78,7 +77,7 @@ public class NotificationUtils {
     public static void showGooglePlay(Context context) {
         showForWeb(ID_GOOGLE_PLAY, context.getString(R.string.rating_notification, 
                 AppUtils.getUser().getScreenName(), context.getString(R.string.app_name)), 
-                Constants.GOOGLE_PLAY_URL, null, context);
+                AppUtils.getGooglePlayUrl(null, null), null, context);
     }
 
     private static void show(String tag, int priority, String title, String text, 

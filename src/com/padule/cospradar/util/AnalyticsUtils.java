@@ -9,9 +9,16 @@ import com.google.analytics.tracking.android.MapBuilder;
 public class AnalyticsUtils {
 
     public static String CATEGORY_RADAR = "01_Radar";
+    public static String CATEGORY_SETTING = "02_Setting";
 
     public static String EVENT_CLICKED_SEARCH_WITH_TEXT = "ClickedSearchWithText";
     public static String EVENT_CLICKED_SEARCH_WITHOUT_TEXT = "ClickedSearchWithoutText";
+
+    public static String EVENT_SHARED_TWITTER = "SharedTwitter";
+    public static String EVENT_SHARED_LINE = "SharedLine";
+    public static String EVENT_SHARED_WHATSAPP = "SharedWhatsapp";
+    public static String EVENT_SHARED_FACEBOOK = "SharedFacebook";
+    public static String EVENT_SHARED_OTHER = "SharedOther";
 
     public static void activityStart(Activity activity) {
         EasyTracker.getInstance(activity).activityStart(activity);

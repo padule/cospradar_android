@@ -253,5 +253,26 @@ public class AppUtils {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
     }
+    
+    public static String getGooglePlayUrl(String utmSource, String utmContent){
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https");
+        builder.authority("play.google.com");
+        builder.path("/store/apps/details");
+        builder.appendQueryParameter("id", "com.padule.cospradar");
+        
+        if (utmSource != null && utmContent != null) {
+            StringBuffer sb = new StringBuffer();
+            sb.append("utm_source=");
+            sb.append(utmSource);
+            sb.append("&utm_medium=direct");
+            sb.append("&");
+            sb.append("utm_content=");
+            sb.append(utmContent);
+            builder.appendQueryParameter("referrer", sb.toString());
+        }
+        
+        return builder.build().toString();  
+    }
 
 }

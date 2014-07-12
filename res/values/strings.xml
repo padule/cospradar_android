@@ -141,5 +141,14 @@
     <string name="tutorial_after_regist_sub">You can change charactor data after tutorial.</string>
     <string name="tutorial_finish_title">Enjoy Cosradar!:)</string>
     <string name="tutorial_finish_sub">Let\'s search cosplayer!</string>
+    
+    <!-- Share -->
+    <string name="share">Share</string>
+    <string name="share_dialog_sub">Could you invite your friends who like cosplay?</string>
+    <string name="share_title">Cosradar is best app of Cosprayer!</string>
+    <string name="share_msg">You can search cosplayer by cosradar！Enjoy cosplay more!</string>
+    <string name="share_success">Shared!</string>
+    <string name="share_failed">Failed share.</string>
+    <string name="share_app_not_found">App is not found.</string>
 
 </resources>
