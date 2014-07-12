@@ -143,7 +143,7 @@
     <string name="tutorial_finish_sub">Let\'s search cosplayer!</string>
     
     <!-- Share -->
-    <string name="share_dialog_title">Share</string>
+    <string name="share">Share</string>
     <string name="share_dialog_sub">Could you invite your friends who like cosplay?</string>
     <string name="share_title">Cosradar is best app of Cosprayer!</string>
     <string name="share_msg">You can search cosplayer by cosradar！Enjoy cosplay more!</string>

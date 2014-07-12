@@ -142,7 +142,7 @@
     <string name="tutorial_finish_sub">お気に入りの作品のキャラが見つかるといいですね(・∀・)</string>
 
     <!-- Share -->
-    <string name="share_dialog_title">シェア</string>
+    <string name="share">シェア</string>
     <string name="share_dialog_sub">もしよかったら知り合いのコスプレ好きを誘ってみませんか？</string>
     <string name="share_title">コスプレならコスレーダー！</string>
     <string name="share_msg">コスレーダーなら自分の好きな作品のレイヤーさんを探せるよ！コスプレイベントをもっと楽しもう！</string>

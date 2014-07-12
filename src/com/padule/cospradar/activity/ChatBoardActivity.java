@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -34,6 +35,7 @@ import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.event.SendBtnClickedEvent;
 import com.padule.cospradar.fragment.ChatBoardDismissDialogFragment;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
+import com.padule.cospradar.fragment.ShareDialogFragment;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
@@ -269,14 +271,25 @@ public class ChatBoardActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        switch(item.getItemId()) {
+        case android.R.id.home:
             if (mFooter.hasCommentInInput()) {
                 ChatBoardDismissDialogFragment.show(this);
             } else {
                 finish();
             }
+            break;
+        case R.id.item_share:
+            ShareDialogFragment.show(this);
+            break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_chat_board, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void uploadComment(final CharactorComment orgComment) {
