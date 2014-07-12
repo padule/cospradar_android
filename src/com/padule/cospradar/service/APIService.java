@@ -90,6 +90,11 @@ public interface ApiService {
             @Part(PARAM_IMAGE) TypedFile image,
             Callback<Charactor> cb);
 
+    @FormUrlEncoded
+    @POST(PATH_CHARACTORS + PATH_ID + EXT_JSON)
+    void putCharactors(@Path("id") int charactorId, @Field(PARAM_IS_ENABLED) boolean isEnabled,
+            Callback<Charactor> cb);
+
     @DELETE(PATH_CHARACTORS + PATH_ID + EXT_JSON)
     void deleteCharactors(@Path("id") int charactorId, Callback<Result> cb);
 
