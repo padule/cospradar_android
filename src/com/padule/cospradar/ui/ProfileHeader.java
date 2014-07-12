@@ -17,8 +17,11 @@ import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class ProfileHeader extends RelativeLayout {
 
@@ -41,6 +44,12 @@ public class ProfileHeader extends RelativeLayout {
 
         bindData(user);
         initButton(user);
+
+        EventBus.getDefault().register(this);
+    }
+
+    public void onEvent(CurrentCharactorSelectedEvent event) {
+        bindData(AppUtils.getUser());
     }
 
     private void bindData(User user) {

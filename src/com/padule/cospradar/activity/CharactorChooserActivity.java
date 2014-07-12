@@ -7,6 +7,7 @@ import java.util.Map;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,8 +28,11 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.util.AppUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class CharactorChooserActivity extends BaseActivity {
 
@@ -175,9 +179,7 @@ public class CharactorChooserActivity extends BaseActivity {
             finish();
             break;
         case R.id.item_done:
-            if (validate()) {
-                updateCharactor();
-            }
+            updateCharactor();
             break;
         }
         return super.onOptionsItemSelected(item);
@@ -189,17 +191,35 @@ public class CharactorChooserActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private boolean validate() {
-        // TODO implement
-        return false;
-    }
-
     private void updateCharactor() {
         Charactor charactor = getSelectedCharactor();
         if (charactor == null) {
             AppUtils.showToast(getString(R.string.charactor_chooser_not_selected), this);
             return;
         }
+
+        final Dialog dialog = AppUtils.makeLoadingDialog(this);
+        dialog.show();
+
+        MainApplication.API.putCharactors(charactor.getId(), true, 
+                new Callback<Charactor>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d(TAG, "update_error: " + e.getMessage());
+                dialog.dismiss();
+                AppUtils.showToast(R.string.error_raised, CharactorChooserActivity.this);
+            }
+
+            @Override
+            public void success(Charactor charactor, Response response) {
+                dialog.dismiss();
+                AppUtils.showToast(R.string.charactor_chooser_selected, CharactorChooserActivity.this);
+                AppUtils.setCharactor(charactor);
+
+                EventBus.getDefault().post(new CurrentCharactorSelectedEvent(charactor));
+                finish();
+            }
+        });
     }
 
 }

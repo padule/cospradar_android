@@ -120,11 +120,12 @@ public class SettingActivity extends BaseActivity {
 
     public void onEvent(LogoutBtnClickedEvent event) {
         AppUtils.logout(this);
+        finish();
     }
 
     public void onEvent(UserDeleteEvent event) {
-        // TODO implement
         AppUtils.logout(this);
+        finish();
     }
 
     private void openMailChooser(String subject) {

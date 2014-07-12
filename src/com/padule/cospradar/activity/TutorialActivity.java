@@ -95,4 +95,9 @@ public class TutorialActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        //
+    }
+
 }

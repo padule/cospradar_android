@@ -190,12 +190,12 @@ public class AppUtils {
     }
 
     public static void logout(Context context) {
-        AppUtils.setUser(null);
         AppUtils.setCharactor(null);
+        AppUtils.setUser(null);
 
         showToast(context.getString(R.string.logout_done), context);
         final Intent intent = new Intent(context, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
@@ -253,14 +253,14 @@ public class AppUtils {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
     }
-    
+
     public static String getGooglePlayUrl(String utmSource, String utmContent){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https");
         builder.authority("play.google.com");
         builder.path("/store/apps/details");
         builder.appendQueryParameter("id", "com.padule.cospradar");
-        
+
         if (utmSource != null && utmContent != null) {
             StringBuffer sb = new StringBuffer();
             sb.append("utm_source=");
@@ -271,7 +271,7 @@ public class AppUtils {
             sb.append(utmContent);
             builder.appendQueryParameter("referrer", sb.toString());
         }
-        
+
         return builder.build().toString();  
     }
 
