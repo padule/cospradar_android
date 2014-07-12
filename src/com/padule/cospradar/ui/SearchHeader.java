@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -37,12 +38,12 @@ public class SearchHeader extends RelativeLayout {
 
     private static final int MAGNIFICATION = 10;
 
-    @InjectView(R.id.radar_view) RadarView mRadarView;
-    @InjectView(R.id.seekbar_radar) SeekBar mSeekBar;
-    @InjectView(R.id.btn_reload) ImageButton mBtnReload;
-    @InjectView(R.id.edit_search) EditText mEditSearch;
+    @InjectView(R.id.radar_view) public RadarView mRadarView;
+    @InjectView(R.id.seekbar_radar) public SeekBar mSeekBar;
+    @InjectView(R.id.btn_reload) public ImageButton mBtnReload;
+    @InjectView(R.id.edit_search) public EditText mEditSearch;
     @InjectView(R.id.text_count_header) TextView mTextCountHeader;
-    @InjectView(R.id.check_realtime) CheckBox mCheckRealtime;
+    @InjectView(R.id.check_realtime) public CheckBox mCheckRealtime;
     @InjectView(R.id.txt_min_distance) TextView mTxtMinDistance;
     @InjectView(R.id.txt_max_distance) TextView mTxtMaxDistance;
 
@@ -135,6 +136,13 @@ public class SearchHeader extends RelativeLayout {
         if (mBtnReload.isEnabled()) {
             mTextCountHeader.setText(getContext().getString(R.string.search_result_count, event.drawCount));
         }
+    }
+
+    public int[] getRect(View view) {
+        Rect rect = new Rect();
+        view.getGlobalVisibleRect(rect);
+        int[] result = { rect.left, rect.top, rect.right, rect.bottom };
+        return result;
     }
 
 }
