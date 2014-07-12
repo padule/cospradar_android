@@ -13,8 +13,6 @@ import com.padule.cospradar.util.NotificationUtils;
 
 public class TimerService extends Service {
 
-    private static final String TAG = TimerService.class.getName();
-
     private static final int TYPE_DEFAULT = -1;
     public static final int TYPE_GOOGLE_PLAY = 0;
     private static final String EXTRA_TIME = "time";

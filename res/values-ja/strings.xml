@@ -106,6 +106,7 @@
     <string name="setting_charactor_add">コスキャラを追加する</string>
     <string name="setting_charactor_set">いまのコスキャラをセットする</string>
     <string name="setting_evaluate">評価する</string>
+    <string name="setting_share">シェアする</string>
     <string name="setting_inquery">問い合わせる</string>
     <string name="setting_terms">利用規約</string>
     <string name="setting_privacy">プライバシーポリシー</string>
@@ -139,5 +140,13 @@
     <string name="tutorial_after_regist_sub">キャラはあとで編集できます。</string>
     <string name="tutorial_finish_title">早速コスレーダーを触ってみましょう！</string>
     <string name="tutorial_finish_sub">お気に入りの作品のキャラが見つかるといいですね(・∀・)</string>
+
+    <!-- Share -->
+    <string name="share_dialog_title">シェア</string>
+    <string name="share_dialog_sub">もしよかったら知り合いのコスプレ好きを誘ってみませんか？</string>
+    <string name="share_title">コスプレならコスレーダー！</string>
+    <string name="share_msg">コスレーダーなら自分の好きな作品のレイヤーさんを探せるよ！コスプレイベントをもっと楽しもう！</string>
+    <string name="share_success">シェアしました！</string>
+    <string name="share_failed">シェアに失敗しました。</string>
 
 </resources>

@@ -18,6 +18,7 @@ import com.padule.cospradar.event.LogoutBtnClickedEvent;
 import com.padule.cospradar.event.UserDeleteEvent;
 import com.padule.cospradar.fragment.LogoutDialogFragment;
 import com.padule.cospradar.fragment.RatingDialogFragment;
+import com.padule.cospradar.fragment.ShareDialogFragment;
 import com.padule.cospradar.fragment.UserDeleteDialogFragment;
 import com.padule.cospradar.util.AppUtils;
 
@@ -85,6 +86,11 @@ public class SettingActivity extends BaseActivity {
     @OnClick(R.id.txt_item_evaluate)
     void onClickItemEvaluate() {
         RatingDialogFragment.show(this);
+    }
+
+    @OnClick(R.id.txt_item_share)
+    void onClickItemShare() {
+        ShareDialogFragment.show(this);
     }
 
     @OnClick(R.id.txt_item_inquery)

@@ -46,6 +46,13 @@
         <View style="@style/SettingItemDivider" />
 
         <TextView
+            android:id="@+id/txt_item_share"
+            style="@style/SettingItem"
+            android:text="@string/setting_share" />
+
+        <View style="@style/SettingItemDivider" />
+
+        <TextView
             android:id="@+id/txt_item_inquery"
             style="@style/SettingItem"
             android:text="@string/setting_inquery" />
