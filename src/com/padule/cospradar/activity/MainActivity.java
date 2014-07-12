@@ -33,6 +33,7 @@ import com.padule.cospradar.ui.SearchHeader;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.GcmUtils;
 import com.padule.cospradar.util.KeyboardUtils;
+import com.padule.cospradar.util.NotificationUtils;
 
 import de.greenrobot.event.EventBus;
 
@@ -50,8 +51,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         startService(new Intent(this, LocationService.class));
         setContentView(R.layout.activity_main);
+        
+        NotificationUtils.checkIntent(this);
+        
         EventBus.getDefault().register(this);
-
         GcmUtils.register(this);
     }
 

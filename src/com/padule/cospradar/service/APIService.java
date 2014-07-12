@@ -73,6 +73,9 @@ public interface ApiService {
     void getCharactors(@QueryMap Map<String, String> params, 
             Callback<List<Charactor>> cb);
 
+    @GET(PATH_CHARACTORS + PATH_ID + EXT_JSON)
+    void getCharactor(@Path("id") int charactorId, Callback<Charactor> cb);
+
     @Multipart
     @POST(PATH_CHARACTORS + EXT_JSON)
     void postCharactors(@Part(PARAM_NAME) TypedString name, @Part(PARAM_TITLE) TypedString title, 
@@ -85,7 +88,7 @@ public interface ApiService {
             @Part(PARAM_TITLE) TypedString title, @Part(PARAM_USER_ID) TypedString userId, 
             @Part(PARAM_IMAGE) TypedFile image,
             Callback<Charactor> cb);
-    
+
     @DELETE(PATH_CHARACTORS + PATH_ID + EXT_JSON)
     void deleteCharactors(@Path("id") int charactorId, Callback<Result> cb);
 

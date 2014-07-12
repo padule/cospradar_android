@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 
-import com.padule.cospradar.util.AppUtils;
-
 public abstract class BaseFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,10 +24,6 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-    }
-
-    protected void showToast(int resId) {
-        AppUtils.showToast(getString(resId), getActivity());
     }
 
 }

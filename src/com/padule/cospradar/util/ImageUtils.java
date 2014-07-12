@@ -230,7 +230,7 @@ public class ImageUtils {
             bmp = MainApplication.IMAGE_LOADER.loadImageSync(iconUrl, isize);
         }
         if (bmp == null) {
-            bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
+            bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_app);
         }
         return bmp;
     }

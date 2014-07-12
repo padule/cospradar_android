@@ -185,23 +185,19 @@ public class ProfileActivity extends BaseActivity {
             public void failure(RetrofitError e) {
                 Log.d(TAG, "delete_error: " + e.getMessage());
                 dialog.dismiss();
-                showToast(R.string.charactor_delete_failed);
+                AppUtils.showToast(R.string.charactor_delete_failed, ProfileActivity.this);
             }
 
             @Override
             public void success(Result result, Response response) {
                 dialog.dismiss();
-                showToast(R.string.charactor_delete_succeeded);
+                AppUtils.showToast(R.string.charactor_delete_succeeded, ProfileActivity.this);
                 if (AppUtils.isCurrentCharactor(charactor)) {
                     AppUtils.setCharactor(null);
                 }
                 ProfileActivity.this.adapter.remove(charactor);
             }
         });
-    }
-
-    private void showToast(int resId) {
-        AppUtils.showToast(getString(resId), this);
     }
 
     private void loadData(int page) {

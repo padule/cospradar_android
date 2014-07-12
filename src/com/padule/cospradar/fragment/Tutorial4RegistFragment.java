@@ -135,7 +135,7 @@ public class Tutorial4RegistFragment extends BaseTutorialFragment {
             public void failure(RetrofitError e) {
                 Log.d(TAG, "create_error: " + e.getMessage());
                 dialog.dismiss();
-                showToast(R.string.charactor_edit_failed);
+                AppUtils.showToast(R.string.charactor_edit_failed, getActivity());
             }
 
             @Override
@@ -143,7 +143,7 @@ public class Tutorial4RegistFragment extends BaseTutorialFragment {
                 dialog.dismiss();
                 Tutorial4RegistFragment.this.charactor = charactor;
                 AppUtils.setCharactor(charactor);
-                showToast(R.string.charactor_create_succeeded);
+                AppUtils.showToast(R.string.charactor_create_succeeded, getActivity());
                 EventBus.getDefault().post(new TutorialPageMoveEvent(4));
             }
         });

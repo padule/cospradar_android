@@ -32,6 +32,7 @@
     <string name="no">No</string>
     <string name="after">After</string>
     <string name="regist">Regist</string>
+    <string name="error_raised">Error raised.</string>
 
     <!-- Login -->
     <string name="login_twitter">Login with Twitter</string>
@@ -125,6 +126,8 @@
     <!-- Rating -->
     <string name="rating_title">Please Evaluate %1$s</string>
     <string name="rating_msg">Thank you for using! Could you evaluate %1$s?</string>
+    <string name="rating_notification">Hello, %1$s! Could you evaluate %2$s in GooglePlay?</string>
+    <string name="rating_after_msg">Thank you very much!</string>
 
     <!-- Tutorial -->
     <string name="tutorial_welcome_title">Hello %1$s</string>

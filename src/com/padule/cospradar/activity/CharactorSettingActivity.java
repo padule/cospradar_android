@@ -185,14 +185,14 @@ public class CharactorSettingActivity extends BaseActivity {
             public void failure(RetrofitError e) {
                 Log.d(TAG, "update_error: " + e.getMessage());
                 dialog.dismiss();
-                showToast(R.string.charactor_edit_failed);
+                AppUtils.showToast(R.string.charactor_edit_failed, CharactorSettingActivity.this);
             }
 
             @Override
             public void success(Charactor charactor, Response response) {
                 dialog.dismiss();
                 CharactorSettingActivity.this.charactor = charactor;
-                showToast(R.string.charactor_edit_succeeded);
+                AppUtils.showToast(R.string.charactor_edit_succeeded, CharactorSettingActivity.this);
                 AppUtils.setCharactor(charactor);
             }
         });
@@ -216,7 +216,7 @@ public class CharactorSettingActivity extends BaseActivity {
             public void failure(RetrofitError e) {
                 Log.d(TAG, "create_error: " + e.getMessage());
                 dialog.dismiss();
-                showToast(R.string.charactor_edit_failed);
+                AppUtils.showToast(R.string.charactor_edit_failed, CharactorSettingActivity.this);
             }
 
             @Override
@@ -224,28 +224,24 @@ public class CharactorSettingActivity extends BaseActivity {
                 dialog.dismiss();
                 CharactorSettingActivity.this.charactor = charactor;
                 AppUtils.setCharactor(charactor);
-                showToast(R.string.charactor_create_succeeded);
+                AppUtils.showToast(R.string.charactor_create_succeeded, CharactorSettingActivity.this);
             }
         });
-    }
-
-    private void showToast(int resId) {
-        AppUtils.showToast(getString(resId), this);
     }
 
     private boolean validate() {
         if (TextUtils.isEmpty(mEditName)) {
             mEditName.setError(getString(R.string.charactor_validate_name));
-            showToast(R.string.invalidate_input);
+            AppUtils.showToast(R.string.invalidate_input, this);
             return false;
         }
         if (TextUtils.isEmpty(mEditTitle)) {
             mEditTitle.setError(getString(R.string.charactor_validate_title));
-            showToast(R.string.invalidate_input);
+            AppUtils.showToast(R.string.invalidate_input, this);
             return false;
         }
         if (!isEditing()) {
-            showToast(R.string.not_changed_input);
+            AppUtils.showToast(R.string.not_changed_input, this);
             return false;
         }
         return true;

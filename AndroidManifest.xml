@@ -37,6 +37,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="07711d97ba834e6b88711a410b7df758f0873eac" />
 
         <activity
             android:name="com.padule.cospradar.activity.MainActivity"
@@ -124,6 +127,7 @@
         </activity>
 
         <service android:name="com.padule.cospradar.service.LocationService" />
+        <service android:name="com.padule.cospradar.service.TimerService" />
 
         <!-- Admob -->
         <activity

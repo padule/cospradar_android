@@ -15,21 +15,32 @@ import android.support.v4.app.NotificationCompat.Builder;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
+import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.activity.LoginActivity;
 import com.padule.cospradar.activity.MainActivity;
+import com.padule.cospradar.base.BaseActivity;
 
 public class NotificationUtils {
 
     private static final String TAG = NotificationUtils.class.getName();
 
     public static final int DEFAULT_ID = -1;
+
+    private static final int ID_CHATBOARD_COMMENTED = 101;
+    private static final int ID_GOOGLE_PLAY = 901;
+
     public static final int DEFAULT_MODEL_ID = -1;
     public static final int DEFAULT_PRIORITY = Integer.MAX_VALUE;
 
-    public static final String EXTRA_NOTIFICATION_ID = "notification_id";
-    public static final String EXTRA_MODEL_ID = "model_id";
+    private static final String TAG_GCM = "gcm";
+    private static final String TAG_WEB = "web";
+
+    private static final String EXTRA_NOTIFICATION_ID = "notification_id";
+    private static final String EXTRA_MODEL_ID = "model_id";
+    private static final String EXTRA_EXTRA_URL = "extra_url";
 
     public static void show(int id, int modelId, final int priority, final String title, 
             final String text, final String extraUrl, final String iconUrl, 
@@ -39,52 +50,70 @@ public class NotificationUtils {
             return;
         }
 
-        final PendingIntent intent = createIntent(id, modelId, context);
+        final PendingIntent intent = createIntent(id, modelId, extraUrl, context);
 
         new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
-                show(priority, title, text, extraUrl, iconUrl,
+                show(TAG_GCM, priority, title, text, iconUrl,
                         bigPictureUrl, context, intent);
                 return null;
             }
         }.execute();
     }
 
-    private static void show(int priority, String title, String text, 
-            String extraUrl, String iconUrl, String bigPictureUrl, 
-            Context context, PendingIntent intent) {
+    private static void showForWeb(int id, final String text, final String extraUrl, 
+            final String iconUrl, final Context context) {
+        if (text == null) return;
 
+        final PendingIntent intent = createIntent(id, DEFAULT_MODEL_ID, extraUrl, context);
+
+        new AsyncTask<Void, Void, Void>() {
+            protected Void doInBackground(Void... params) {
+                show(TAG_WEB, DEFAULT_PRIORITY, null, text, iconUrl, null, context, intent);
+                return null;
+            }
+        }.execute();
+    }
+
+    public static void showGooglePlay(Context context) {
+        showForWeb(ID_GOOGLE_PLAY, context.getString(R.string.rating_notification, 
+                AppUtils.getUser().getScreenName(), context.getString(R.string.app_name)), 
+                Constants.GOOGLE_PLAY_URL, null, context);
+    }
+
+    private static void show(String tag, int priority, String title, String text, 
+            String iconUrl, String bigPictureUrl, Context context, PendingIntent intent) {
         if (title == null) {
             title = context.getString(R.string.app_name);
         }
 
         try {
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-            .setSmallIcon(R.drawable.ic_launcher) // TODO change notification icon.
+            .setSmallIcon(R.drawable.ic_app) // TODO change notification icon.
             .setWhen(System.currentTimeMillis())
             .setContentTitle(title)
             .setContentText(text)
             .setTicker(text)
             .setPriority(Integer.MAX_VALUE)
             .setContentIntent(intent)
-            .setAutoCancel(true);
+            .setAutoCancel(!TAG_WEB.equals(tag));
 
             Notification notification = buildNotification(builder, context, title, text, iconUrl, bigPictureUrl);
 
-            notify(context, notification, priority);
+            notify(context, notification, priority, tag);
 
         } catch(Exception e) {
             Log.e(TAG, e.toString() + "");
         }
     }
 
-    private static void notify(Context context, Notification notification, int priority) {
+    private static void notify(Context context, Notification notification, int priority, String tag) {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (shouldClear(priority)) {
-            notificationManager.cancel(TAG, DEFAULT_ID);
-            notificationManager.notify(TAG, DEFAULT_ID, notification);
+            notificationManager.cancel(tag, DEFAULT_ID);
+            notificationManager.notify(tag, DEFAULT_ID, notification);
         }
     }
 
@@ -136,11 +165,12 @@ public class NotificationUtils {
         .build();
     }
 
-    private static PendingIntent createIntent(int id, int modelId, Context context) {
+    private static PendingIntent createIntent(int id, int modelId, String extraUrl, Context context) {
         Class<?> clazz = AppUtils.isLoggedIn() ? MainActivity.class : LoginActivity.class;
         Intent intent = new Intent(context, clazz);
         intent.putExtra(EXTRA_NOTIFICATION_ID, id);
         intent.putExtra(EXTRA_MODEL_ID, modelId);
+        intent.putExtra(EXTRA_EXTRA_URL, extraUrl);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         return PendingIntent.getActivity(context, (int) System.currentTimeMillis(), 
@@ -164,6 +194,24 @@ public class NotificationUtils {
         }
 
         return true;
+    }
+
+    public static void checkIntent(BaseActivity activity) {
+        Intent intent = activity.getIntent();
+        if (intent == null) return;
+
+        int notificationId = intent.getIntExtra(EXTRA_NOTIFICATION_ID, DEFAULT_ID);
+
+        switch(notificationId) {
+        case ID_GOOGLE_PLAY:
+            String url = intent.getStringExtra(EXTRA_EXTRA_URL);
+            AppUtils.showWebView(url, activity);
+            break;
+        case ID_CHATBOARD_COMMENTED:
+            int charactorId = intent.getIntExtra(EXTRA_MODEL_ID, DEFAULT_MODEL_ID);
+            ChatBoardActivity.start(activity, charactorId);
+            break;
+        }
     }
 
 }

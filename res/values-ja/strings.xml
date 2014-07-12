@@ -29,6 +29,7 @@
     <string name="no">いいえ</string>
     <string name="after">あとで</string>
     <string name="regist">登録</string>
+    <string name="error_raised">エラーが発生しました。</string>
 
     <!-- Login -->
     <string name="login_twitter">Twitterでログイン</string>
@@ -123,6 +124,8 @@
     <!-- Rating -->
     <string name="rating_title">%1$sを評価してください！</string>
     <string name="rating_msg">いつもご利用ありがとうございます。もしよろしければ%1$sに対する評価をお願いします！</string>
+    <string name="rating_notification">%1$sさんこんにちは！GooglePlayで%2$sを評価してくれませんか？</string>
+    <string name="rating_after_msg">評価いただきありがとうございました！</string>
 
     <!-- Tutorial -->
     <string name="tutorial_welcome_title">こんにちは、%1$sさん</string>

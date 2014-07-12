@@ -9,6 +9,10 @@ import com.padule.cospradar.R;
 
 public class TimeUtils {
 
+    public static int getSecondsFromDays(int days) {
+        return days * 24 * 60 * 60;
+    }
+
     public static int getDiffDays(Date eDate, Date sDate) {
         if (eDate == null || sDate == null) {
             return 0;

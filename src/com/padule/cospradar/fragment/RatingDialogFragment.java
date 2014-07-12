@@ -14,6 +14,9 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.service.TimerService;
+import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.TimeUtils;
 
 public class RatingDialogFragment extends DialogFragment {
 
@@ -58,7 +61,10 @@ public class RatingDialogFragment extends DialogFragment {
 
     private void sendRating() {
         float rating = mRatingBar.getRating();
-        // TODO implement send logic
+        if (rating == mRatingBar.getMax()) {
+            TimerService.start(getActivity(), TimeUtils.getSecondsFromDays(2), TimerService.TYPE_GOOGLE_PLAY);
+        }
+        AppUtils.showToast(R.string.rating_after_msg, getActivity());
         dismiss();
     }
 

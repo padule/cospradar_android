@@ -105,6 +105,24 @@ public class ChatBoardActivity extends BaseActivity {
         }
     }
 
+    public static void start(final BaseActivity activity, final int charactorId) {
+        if (charactorId <= 0) return;
+
+        MainApplication.API.getCharactor(charactorId, new Callback<Charactor>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.e(TAG, "load_error_message: " + e.getMessage());
+                AppUtils.showToast(MainApplication.getContext().getString(R.string.error_raised), 
+                        MainApplication.getContext());
+            }
+
+            @Override
+            public void success(Charactor charactor, Response response) {
+                start(activity, charactor);
+            }
+        });
+    }
+
     @Override
     protected void initView() {
         setCharactor();

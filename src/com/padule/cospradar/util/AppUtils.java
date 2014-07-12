@@ -12,6 +12,7 @@ import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
@@ -135,8 +136,16 @@ public class AppUtils {
         }
     }
 
+    public static void showToast(int stringResId, Context context, int duration) {
+        showToast(context.getResources().getString(stringResId), context, duration);
+    }
+
     public static void showToast(String message, Context context) {
         showToast(message, context, Toast.LENGTH_LONG);
+    }
+
+    public static void showToast(int stringResId, Context context) {
+        showToast(context.getResources().getString(stringResId), context);
     }
 
     private static Dialog makeProgressDialog(String message, Context context) {
@@ -235,6 +244,14 @@ public class AppUtils {
 
         openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
         context.startActivity(openInChooser);
+    }
+
+    public static void showWebView(String url, Context context) {
+        if (TextUtils.isEmpty(url)) return;
+
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
     }
 
 }

@@ -15,10 +15,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import com.crashlytics.android.Crashlytics;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Crashlytics.start(this);
         callbackUrl = getString(R.string.twitter_callback_url);
         twitter = TwitterUtils.getTwitterInstance(this);
 
@@ -81,7 +82,7 @@ public class LoginActivity extends BaseActivity {
 
     private void saveUser(String screenName, String imgUrl) {
         if (screenName == null || imgUrl == null) {
-            showToast(R.string.login_failed);
+            AppUtils.showToast(R.string.login_failed, this);
             toggleLoginBtnStatus(true);
             return;
         }
@@ -94,7 +95,7 @@ public class LoginActivity extends BaseActivity {
             public void failure(RetrofitError e) {
                 Log.e(TAG, "create_error_message: " + e.getMessage());
                 dialog.dismiss();
-                showToast(R.string.login_failed);
+                AppUtils.showToast(R.string.login_failed, LoginActivity.this);
                 toggleLoginBtnStatus(true);
             }
 
@@ -102,7 +103,7 @@ public class LoginActivity extends BaseActivity {
             public void success(User user, Response response) {
                 dialog.dismiss();
                 AppUtils.setUser(user);
-                showToast(R.string.login_succeeded);
+                AppUtils.showToast(R.string.login_succeeded, LoginActivity.this);
                 startMainActivity();
             }
 
@@ -188,15 +189,11 @@ public class LoginActivity extends BaseActivity {
                 if (accessToken != null) {
                     onSuccessOAuth(accessToken);
                 } else {
-                    showToast(R.string.login_failed);
+                    AppUtils.showToast(R.string.login_failed, LoginActivity.this);
                 }
             }
         };
         task.execute(verifier);
-    }
-
-    private void showToast(int resId) {
-        AppUtils.showToast(getString(resId), this, Toast.LENGTH_SHORT);
     }
 
     private void onSuccessOAuth(AccessToken accessToken) {
