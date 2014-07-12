@@ -54,22 +54,22 @@
             android:orientation="horizontal" >
 
             <com.padule.cospradar.ui.ResizableImageView
-                style="@style/ShareIcon"
-                android:src="@drawable/ic_share_facebook" />
-
-            <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_twitter"
                 style="@style/ShareIcon"
                 android:src="@drawable/ic_share_twitter" />
 
             <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_line"
                 style="@style/ShareIcon"
                 android:src="@drawable/ic_share_line" />
 
             <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_whatsapp"
                 style="@style/ShareIcon"
                 android:src="@drawable/ic_share_whatsapp" />
 
             <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_other"
                 style="@style/ShareIcon"
                 android:src="@drawable/ic_share_gray" />
         </LinearLayout>

@@ -148,5 +148,6 @@
     <string name="share_msg">コスレーダーなら自分の好きな作品のレイヤーさんを探せるよ！コスプレイベントをもっと楽しもう！</string>
     <string name="share_success">シェアしました！</string>
     <string name="share_failed">シェアに失敗しました。</string>
+    <string name="share_app_not_found">アプリがインストールされていないようです。</string>
 
 </resources>

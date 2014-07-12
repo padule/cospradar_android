@@ -11,6 +11,7 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.util.ShareUtils;
 
 public class ShareDialogFragment extends DialogFragment {
 
@@ -29,13 +30,27 @@ public class ShareDialogFragment extends DialogFragment {
         ButterKnife.inject(this, view);
         builder.setView(view);
 
-        initView();
-
         return builder.create();
     }
 
-    private void initView() {
-        //
+    @OnClick(R.id.img_twitter)
+    void onClickImgTwitter() {
+        ShareUtils.shareTwitter(getString(R.string.share_msg), getActivity());
+    }
+
+    @OnClick(R.id.img_line)
+    void onClickImgLine() {
+        ShareUtils.shareLine(getString(R.string.share_msg), getActivity());
+    }
+
+    @OnClick(R.id.img_whatsapp)
+    void onClickImgWhatsapp() {
+        ShareUtils.shareWhatsapp(getString(R.string.share_msg), getActivity());
+    }
+
+    @OnClick(R.id.img_other)
+    void onClickImgOther() {
+        ShareUtils.shareOther(getString(R.string.share_msg), getActivity());
     }
 
     @OnClick(R.id.btn_close)
