@@ -109,6 +109,8 @@
     <string name="setting_charactor_add">Add charactor</string>
     <string name="setting_charactor_set">Set current charactor</string>
     <string name="setting_evaluate">Evaluate app</string>
+    <string name="setting_share">Share friends</string>
+    <string name="setting_tutorial">Show tutorial</string>
     <string name="setting_inquery">Inquery</string>
     <string name="setting_terms">Terms</string>
     <string name="setting_privacy">Privacy policy</string>

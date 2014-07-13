@@ -21,6 +21,7 @@ import com.padule.cospradar.fragment.RatingDialogFragment;
 import com.padule.cospradar.fragment.ShareDialogFragment;
 import com.padule.cospradar.fragment.UserDeleteDialogFragment;
 import com.padule.cospradar.util.AppUtils;
+import com.padule.cospradar.util.PrefUtils;
 
 import de.greenrobot.event.EventBus;
 
@@ -91,6 +92,12 @@ public class SettingActivity extends BaseActivity {
     @OnClick(R.id.txt_item_share)
     void onClickItemShare() {
         ShareDialogFragment.show(this);
+    }
+
+    @OnClick(R.id.txt_item_tutorial)
+    void onClickItemTutorial() {
+        PrefUtils.put(PrefUtils.KEY_TUTORIAL_SHOWN, false);
+        MainActivity.start(this);
     }
 
     @OnClick(R.id.txt_item_inquery)

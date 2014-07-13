@@ -8,6 +8,7 @@ import java.util.Map;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -59,6 +60,12 @@ public class MainActivity extends BaseActivity {
         GcmUtils.register(this);
     }
 
+    public static void start(Context context) {
+        final Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void initView() {
         initActionBar();
@@ -67,6 +74,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
+        showTutorial();
+    }
+
+    private void showTutorial() {
         int[] rectBtnSearch = header.getRect(header.mBtnReload);
         int[] rectEditSearch = header.getRect(header.mEditSearch);
         int[] rectCheckRealtime = header.getRect(header.mCheckRealtime);

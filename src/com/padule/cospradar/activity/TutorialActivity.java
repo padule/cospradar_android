@@ -28,6 +28,7 @@ import com.padule.cospradar.event.TutorialCardFinishedEvent;
 import com.padule.cospradar.event.TutorialPageMoveEvent;
 import com.padule.cospradar.ui.HoldableViewPager;
 import com.padule.cospradar.util.ImageUtils;
+import com.padule.cospradar.util.PrefUtils;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import de.greenrobot.event.EventBus;
@@ -65,6 +66,7 @@ public class TutorialActivity extends FragmentActivity {
     }
 
     public void onEvent(TutorialCardFinishedEvent event) {
+        PrefUtils.put(PrefUtils.KEY_TUTORIAL_SHOWN, true);
         showSeeThrough();
     }
 
@@ -97,6 +99,8 @@ public class TutorialActivity extends FragmentActivity {
 
     public static void start(Context context, int[] rectBtnSearch, 
             int[] rectEditSearch, int[] rectCheckRealtime, int[] rectSeekBar) {
+        if (PrefUtils.getBoolean(PrefUtils.KEY_TUTORIAL_SHOWN, false)) return;
+
         Intent intent = new Intent(context, TutorialActivity.class);
         intent.putExtra(EXTRA_RECT_BTN_SEARCH, rectBtnSearch);
         intent.putExtra(EXTRA_RECT_EDIT_SEARCH, rectEditSearch);
@@ -159,9 +163,7 @@ public class TutorialActivity extends FragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (intent == null) {
-            return;
-        }
+        if (intent == null) return;
 
         Uri uri = intent.getData();
 
