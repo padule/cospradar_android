@@ -114,8 +114,12 @@ public class AppUtils {
     }
 
     public static boolean isLoginUser(User user) {
+        return isLoginUser(user.getId());
+    }
+
+    public static boolean isLoginUser(int userId) {
         User loginUser = getUser();
-        if (loginUser != null && loginUser.getId() == user.getId()) {
+        if (loginUser != null && loginUser.getId() == userId) {
             return true;
         } else {
             return false;

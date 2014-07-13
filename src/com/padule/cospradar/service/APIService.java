@@ -108,6 +108,9 @@ public interface ApiService {
     void postUsersLogin(@Field(PARAM_NAME) String name, @Field(PARAM_IMAGE) String imgUrl, 
             Callback<User> cb);
 
+    @GET(PATH_USERS + PATH_ID + EXT_JSON)
+    void getUsers(@Path("id") int userId, Callback<User> cb);
+
     @FormUrlEncoded
     @POST(PATH_DEVICES + EXT_JSON)
     void postDevices(@Field(PARAM_USER_ID) int userId, 

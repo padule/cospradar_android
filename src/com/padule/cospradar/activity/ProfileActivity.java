@@ -93,6 +93,31 @@ public class ProfileActivity extends BaseActivity {
         }
     }
 
+    public static void start(final Context context, int userId) {
+        if (AppUtils.isLoginUser(userId)) {
+            start(context, AppUtils.getUser());
+            return;
+        }
+
+        final Dialog dialog = AppUtils.makeLoadingDialog(context);
+        dialog.show();
+
+        MainApplication.API.getUsers(userId, new Callback<User>() {
+            @Override
+            public void failure(RetrofitError e) {
+                dialog.dismiss();
+                AppUtils.showToast(R.string.error_raised, context);
+                Log.e(TAG, e.getMessage() + "");
+            }
+
+            @Override
+            public void success(User user, Response response) {
+                dialog.dismiss();
+                start(context, user);
+            }
+        });
+    }
+
     @Override
     protected void initView() {
         initActionBar();

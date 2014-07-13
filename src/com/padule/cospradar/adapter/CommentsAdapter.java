@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -16,8 +17,11 @@ import butterknife.InjectView;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.event.CommentCharactorIconClickedEvent;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TimeUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
 
@@ -53,11 +57,12 @@ public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
         }
 
         bindData(comment, holder);
+        initListener(comment, holder);
 
         return view;
     }
 
-    private void bindData(CharactorComment comment, ViewHolder holder) {
+    private void bindData(final CharactorComment comment, ViewHolder holder) {
         if (comment != null) {
             Charactor charactor = comment.getCommentCharactor();
             if (charactor.getImageUrl() != null) {
@@ -73,6 +78,17 @@ public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
         } else {
             holder.mRoot.setVisibility(View.GONE);
         }
+    }
+
+    private void initListener(final CharactorComment comment, ViewHolder holder) {
+        OnClickListener onClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new CommentCharactorIconClickedEvent(comment.getCommentCharactor()));
+            }
+        };
+        holder.mImgCharactorLeft.setOnClickListener(onClickListener);
+        holder.mImgCharactorRight.setOnClickListener(onClickListener);
     }
 
     private void switchCommentColor(Charactor charactor, ViewHolder holder) {

@@ -34,6 +34,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.event.CommentCharactorIconClickedEvent;
 import com.padule.cospradar.event.CommentCharactorSelectedEvent;
 import com.padule.cospradar.event.CommentCloseEvent;
 import com.padule.cospradar.event.CommentSentEvent;
@@ -91,6 +92,10 @@ public class ChatBoardActivity extends BaseActivity {
 
     public void onEvent(SendBtnClickedEvent event) {
         onClickSendBtn(event.text);
+    }
+
+    public void onEvent(CommentCharactorIconClickedEvent event) {
+        ProfileActivity.start(this, event.charactor.getUserId());
     }
 
     public void onEvent(CommentCharactorSelectedEvent event) {
