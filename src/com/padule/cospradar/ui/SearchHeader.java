@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -25,11 +26,13 @@ import com.padule.cospradar.R;
 import com.padule.cospradar.activity.ProfileActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.CharactorLocation;
 import com.padule.cospradar.event.RadarCharactorClickedEvent;
 import com.padule.cospradar.event.RadarCharactorDrawedEvent;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.fragment.CharactorsDialogFragment;
 import com.padule.cospradar.util.AnalyticsUtils;
+import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.TextUtils;
 
 import de.greenrobot.event.EventBus;
@@ -87,11 +90,12 @@ public class SearchHeader extends RelativeLayout {
     }
 
     private void initSeekBar() {
-        mSeekBar.setMax((int)(RadarView.MAX_RADIUS_KIROMETER * MAGNIFICATION - RadarView.MIN_RADIUS_KIROMETER * MAGNIFICATION));
-        mSeekBar.setProgress((int)RadarView.DEFAULT_RADIUS_KIROMETER * MAGNIFICATION);;
+        mSeekBar.setMax((int)(mRadarView.getMaxRadiusKiroMeter() * MAGNIFICATION 
+                - mRadarView.getMinRadiusKiroMeter() * MAGNIFICATION));
+        mSeekBar.setProgress((int)mRadarView.getDefaultRadiusKiroMeter() * MAGNIFICATION);;
         mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progress += RadarView.MIN_RADIUS_KIROMETER * MAGNIFICATION;
+                progress += mRadarView.getMinRadiusKiroMeter() * MAGNIFICATION;
                 mRadarView.updateScale((float)progress/MAGNIFICATION);
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -102,10 +106,10 @@ public class SearchHeader extends RelativeLayout {
             }
         });
 
-        mTxtMinDistance.setText(TextUtils.getDistanceString(
-                getContext(), RadarView.MIN_RADIUS_KIROMETER * 1000));
-        mTxtMaxDistance.setText(getContext().getResources().getString(
-                R.string.radar_distance, RadarView.MAX_RADIUS_KIROMETER));
+        mTxtMinDistance.setText(TextUtils.getDistanceString(getContext(), 
+                mRadarView.getMinRadiusKiroMeter()*1000));
+        mTxtMaxDistance.setText(TextUtils.getDistanceString(getContext(), 
+                mRadarView.getMaxRadiusKiroMeter()*1000));
     }
 
     public void onEvent(RadarCharactorClickedEvent event) {
@@ -127,9 +131,30 @@ public class SearchHeader extends RelativeLayout {
     }
 
     public void refresh(List<Charactor> charactors) {
+        adjustRadius(charactors);
+        initSeekBar();
         setCharactors(charactors);
         mRadarView.stopLoading();
         mBtnReload.setEnabled(true);
+    }
+
+    private void adjustRadius(List<Charactor> charactors) {
+        int checkIdx = RadarView.MIN_CHARACTORS_COUNT - 1;
+        if (charactors.size() < RadarView.MIN_CHARACTORS_COUNT) {
+            checkIdx = charactors.size() - 1;
+        }
+
+        float distance = getDistanceMeter(charactors.get(checkIdx).getLocation());
+        if (distance/1000 > RadarView.MAX_RADIUS_KIROMETER) {
+            mRadarView.setMaxRadiusKiroMeter(distance/1000*2);
+        }
+    }
+
+    private float getDistanceMeter(CharactorLocation location) {
+        float[] results = new float[3];
+        Location.distanceBetween(location.getLatitude(), location.getLongitude(), 
+                AppUtils.getLatitude(), AppUtils.getLongitude(), results);
+        return results[0];
     }
 
     public void onEvent(RadarCharactorDrawedEvent event) {
