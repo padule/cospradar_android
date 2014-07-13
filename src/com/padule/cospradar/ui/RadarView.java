@@ -42,10 +42,9 @@ import de.greenrobot.event.EventBus;
 
 public class RadarView extends View implements OnTouchListener {
 
-    public static final double DEFAULT_RADIUS_KIROMETER = 10.0;
     public static final double MAX_RADIUS_KIROMETER = 20.0;
-    public static final double MIN_RADIUS_KIROMETER = 0.1;
-    private static final float DEFAULT_RADIUS_METER = (float)DEFAULT_RADIUS_KIROMETER * 1000;
+    private static final double MIN_RADIUS_KIROMETER = 0.1;
+    public static final int MIN_CHARACTORS_COUNT = 15;
     private static final int ICON_SIZE = 100;
     private static final int TEXT_SIZE = 40;
     private static final int RADAR_STROKE_WIDTH = 6;
@@ -64,6 +63,8 @@ public class RadarView extends View implements OnTouchListener {
     private float scale = 1.0f;
     private float loadingAngle = DEFAULT_LOADING_ANGLE;
     private boolean isLoading = false;
+    private double maxRadiusKiroMeter = MAX_RADIUS_KIROMETER;
+    private double minRadiusKiroMeter = MIN_RADIUS_KIROMETER;
 
     private LruCache<Integer, Bitmap> bmpCache;
     private ScheduledExecutorService ses;
@@ -75,6 +76,26 @@ public class RadarView extends View implements OnTouchListener {
         initColors(context);
         initBmpCache(context);
         scheduleRefresh();
+    }
+
+    public double getMaxRadiusKiroMeter() {
+        return this.maxRadiusKiroMeter;
+    }
+
+    public double getMinRadiusKiroMeter() {
+        return this.minRadiusKiroMeter;
+    }
+
+    public double getDefaultRadiusKiroMeter() {
+        return getMaxRadiusKiroMeter() / 2;
+    }
+
+    public void setMaxRadiusKiroMeter(double maxRadiusKiroMeter) {
+        this.maxRadiusKiroMeter = maxRadiusKiroMeter;
+    }
+
+    public void setMinRadiusKiroMeter(double minRadiusKiroMeter) {
+        this.minRadiusKiroMeter = minRadiusKiroMeter;
     }
 
     private void initColors(Context context) {
@@ -315,7 +336,7 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     private float getRadiusMeter() {
-        return DEFAULT_RADIUS_METER / scale;
+        return (float)getDefaultRadiusKiroMeter() * 1000 / scale;
     }
 
     @Override
@@ -331,7 +352,7 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     public void updateScale(float kirometer) {
-        scale = (float)DEFAULT_RADIUS_KIROMETER / kirometer;
+        scale = (float)getDefaultRadiusKiroMeter() / kirometer;
         postInvalidate();
     }
 
