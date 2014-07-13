@@ -44,7 +44,7 @@ public class RadarView extends View implements OnTouchListener {
 
     public static final double MAX_RADIUS_KIROMETER = 20.0;
     private static final double MIN_RADIUS_KIROMETER = 0.1;
-    public static final int MIN_CHARACTORS_COUNT = 15;
+    public static final int MIN_CHARACTORS_COUNT = 10;
     private static final int ICON_SIZE = 100;
     private static final int TEXT_SIZE = 40;
     private static final int RADAR_STROKE_WIDTH = 6;
