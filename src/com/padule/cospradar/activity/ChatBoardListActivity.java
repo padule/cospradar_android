@@ -5,6 +5,7 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -27,7 +28,6 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.CommentSentEvent;
-import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 
@@ -62,13 +62,9 @@ public class ChatBoardListActivity extends BaseActivity {
         updateItem(event.charactor);
     }
 
-    public static void start(BaseActivity activity) {
-        if (AppUtils.getCharactor() == null) {
-            EditSuggestDialogFragment.show(activity);
-        } else {
-            final Intent intent = new Intent(activity, ChatBoardListActivity.class);
-            activity.startActivity(intent);
-        }
+    public static void start(Context context) {
+        final Intent intent = new Intent(context, ChatBoardListActivity.class);
+        context.startActivity(intent);
     }
 
     @Override

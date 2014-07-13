@@ -139,6 +139,10 @@ public class SearchHeader extends RelativeLayout {
     }
 
     private void adjustRadius(List<Charactor> charactors) {
+        if (charactors == null || charactors.isEmpty()) {
+            return;
+        }
+
         int checkIdx = RadarView.MIN_CHARACTORS_COUNT - 1;
         if (charactors.size() < RadarView.MIN_CHARACTORS_COUNT) {
             checkIdx = charactors.size() - 1;
