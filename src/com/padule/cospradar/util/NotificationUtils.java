@@ -28,7 +28,8 @@ public class NotificationUtils {
 
     public static final int DEFAULT_ID = -1;
 
-    private static final int ID_CHATBOARD_COMMENTED = 101;
+    private static final int ID_CHATBOARD_MINE_COMMENTED = 101;
+    private static final int ID_CHATBOARD_COMMENTED = 102;
     private static final int ID_GOOGLE_PLAY = 901;
 
     public static final int DEFAULT_MODEL_ID = -1;
@@ -60,18 +61,29 @@ public class NotificationUtils {
         }.execute();
     }
 
-    private static void showForWeb(int id, final String text, final String extraUrl, 
+    private static void showForWeb(final int id, final String text, final String extraUrl, 
             final String iconUrl, final Context context) {
-        if (text == null) return;
+        final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
 
         final PendingIntent intent = createIntent(id, DEFAULT_MODEL_ID, extraUrl, context);
 
         new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
-                show(TAG_WEB, DEFAULT_PRIORITY, null, text, iconUrl, null, context, intent);
+                show(TAG_WEB, DEFAULT_PRIORITY, null, createdText, iconUrl, null, context, intent);
                 return null;
             }
         }.execute();
+    }
+
+    private static String createText(int id, Context context) {
+        switch(id) {
+        case ID_CHATBOARD_MINE_COMMENTED:
+            return context.getString(R.string.gcm_chatboard_mine_commented);
+        case ID_CHATBOARD_COMMENTED:
+            return context.getString(R.string.gcm_chatboard_commented);
+        default:
+            return "";
+        }
     }
 
     public static void showGooglePlay(Context context) {
@@ -187,11 +199,6 @@ public class NotificationUtils {
             return false;
         }
 
-        if (TextUtils.isEmpty(text)) {
-            Log.e(TAG, "text is nothing");
-            return false;
-        }
-
         return true;
     }
 
@@ -206,6 +213,7 @@ public class NotificationUtils {
             String url = intent.getStringExtra(EXTRA_EXTRA_URL);
             AppUtils.showWebView(url, activity);
             break;
+        case ID_CHATBOARD_MINE_COMMENTED:
         case ID_CHATBOARD_COMMENTED:
             int charactorId = intent.getIntExtra(EXTRA_MODEL_ID, DEFAULT_MODEL_ID);
             ChatBoardActivity.start(activity, charactorId);

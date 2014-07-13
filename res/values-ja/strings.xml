@@ -158,4 +158,8 @@
     <string name="share_failed">シェアに失敗しました。</string>
     <string name="share_app_not_found">アプリがインストールされていないようです。</string>
 
+    <!-- Gcm -->
+    <string name="gcm_chatboard_mine_commented">あなたのけいじばんにコメントがつきました！</string>
+    <string name="gcm_chatboard_commented">あなたのコメントしたけいじばんにコメントがつきました！</string>
+
 </resources>
