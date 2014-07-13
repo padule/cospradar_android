@@ -99,6 +99,8 @@
     <string name="comment_nothing">まだコメントはないみたいです。</string>
     <string name="comment_chats">コメントしたけいじばん</string>
     <string name="comment_close_confirm">コメントが破棄されます。よろしいですか？</string>
+    <string name="comment_dialog_title">どのキャラでコメントしますか？</string>
+    <string name="comment_dialog_selected">%1$sとしてコメントします。</string>
 
     <!-- Setting -->
     <string name="setting">設定</string>

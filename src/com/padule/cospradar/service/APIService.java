@@ -66,8 +66,7 @@ public interface ApiService {
             Callback<CharactorComment> cb);
 
     @GET(PATH_CHARACTOR_COMMENTS + PATH_COMMENT_LIST + EXT_JSON)
-    void getCharactorCommentsCommentList(@Query(PARAM_COMMENT_CHARACTOR_ID) int commentCharactorId,
-            @Query(PARAM_PAGE) int page,
+    void getCharactorCommentsCommentList(@Query(PARAM_USER_ID) int userId, @Query(PARAM_PAGE) int page,
             Callback<List<Charactor>> cb);
 
     @GET(PATH_CHARACTORS + EXT_JSON)

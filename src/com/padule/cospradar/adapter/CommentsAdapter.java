@@ -23,14 +23,17 @@ public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
 
     private Context context;
     private Charactor chatBoardCharactor;
+    private List<Charactor> userCharactors;
 
-    public CommentsAdapter(Context context, Charactor charactor) {
-        this(context, new ArrayList<CharactorComment>(), charactor);
+    public CommentsAdapter(Context context, Charactor charactor, List<Charactor> charactors) {
+        this(context, new ArrayList<CharactorComment>(), charactor, charactors);
     }
 
-    public CommentsAdapter(Context context, List<CharactorComment> comments, Charactor charactor) {
+    public CommentsAdapter(Context context, List<CharactorComment> comments, 
+            Charactor charactor, List<Charactor> charactors) {
         super(context, 0, comments);
         this.chatBoardCharactor = charactor;
+        this.userCharactors = charactors;
         this.context = context;
     }
 
@@ -42,11 +45,11 @@ public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
 
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
-            holder = new ViewHolder(view, comment.isCurrentCharactor());
+            holder = new ViewHolder(view, comment.isUserCharactor(userCharactors));
             view.setTag(holder);
         } else {
             holder = (ViewHolder)view.getTag();
-            holder.setIsCurrentCharactor(comment.isCurrentCharactor());
+            holder.setIsCurrentCharactor(comment.isUserCharactor(userCharactors));
         }
 
         bindData(comment, holder);

@@ -1,10 +1,10 @@
 package com.padule.cospradar.data;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.padule.cospradar.base.Data;
-import com.padule.cospradar.util.AppUtils;
 
 public class CharactorComment extends Data {
 
@@ -32,17 +32,13 @@ public class CharactorComment extends Data {
         this.createdAt = new Date();
     }
 
-    public CharactorComment(int charactorId, String text) {
+    public CharactorComment(int charactorId, String text, Charactor commentCharactor) {
         super();
         this.charactorId = charactorId;
         this.text = text;
-        this.commentCharactor = AppUtils.getCharactor();
+        this.commentCharactor = commentCharactor;
         this.commentCharactorId = commentCharactor.id;
         this.createdAt = new Date();
-    }
-
-    public static CharactorComment createTmp(int charactorId, String text) {
-        return new CharactorComment(charactorId, text);
     }
 
     public int getId() {
@@ -73,9 +69,17 @@ public class CharactorComment extends Data {
         return createdAt;
     }
 
-    public boolean isCurrentCharactor() {
-        Charactor charactor = AppUtils.getCharactor();
-        return charactor != null && charactor.getId() == commentCharactorId;
+    public boolean isUserCharactor(List<Charactor> charactors) {
+        if (charactors == null) {
+            return false;
+        }
+
+        for (Charactor charactor : charactors) {
+            if (charactor.getId() == commentCharactorId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

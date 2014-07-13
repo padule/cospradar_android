@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_rounded"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_margin="@dimen/margin_small"
+            android:src="@drawable/ic_app" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/img_icon"
+            android:gravity="center_vertical"
+            android:text="@string/comment_dialog_title"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/border"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_medium"
+            android:layout_below="@id/img_icon"
+            android:background="@color/apptheme_color" />
+
+        <GridView
+            android:id="@+id/grid_charactors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/border"
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/line_medium"
+            android:numColumns="2"
+            android:paddingLeft="@dimen/line_medium"
+            android:paddingRight="@dimen/line_medium"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/line_medium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_weight="0" >
+
+        <View
+            android:id="@+id/border_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_small"
+            android:background="@color/bg_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/border_bottom"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_clickable"
+                android:clickable="true"
+                android:gravity="center_vertical|center"
+                android:text="@string/cancel"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_medium" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray" />
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_clickable"
+                android:clickable="true"
+                android:gravity="center_vertical|center"
+                android:text="@string/ok"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
