@@ -4,31 +4,31 @@ package com.padule.cospradar.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
-import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.data.Charactor;
 
-public class PhotoPreviewActivity extends BaseActivity {
-
-    public static final String EXTRA_PHOTO_URL = "photo_url";
-
-    private String imageUrl;
+public class PhotoPreviewActivity extends FragmentActivity {
 
     @InjectView(R.id.img_preview) ImageView mImgPreview;
     @InjectView(R.id.root_preview) View mRoot;
+    @InjectView(R.id.txt_name) TextView mTxtName;
+    @InjectView(R.id.txt_title) TextView mTxtTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageUrl = getIntent().getStringExtra(EXTRA_PHOTO_URL);
-
-        this.setTheme(R.style.PhotoPreview);
         setContentView(R.layout.activity_photo_preview);
+        ButterKnife.inject(this);
+        initView();
     }
 
     @OnClick(R.id.root_preview)
@@ -36,17 +36,19 @@ public class PhotoPreviewActivity extends BaseActivity {
         finish();
     }
 
-    public static void start(Activity activity, String imageUrl) {
+    public static void start(Activity activity, Charactor charactor) {
         Intent intent = new Intent(activity, PhotoPreviewActivity.class);
-        intent.putExtra(EXTRA_PHOTO_URL, imageUrl);
+        intent.putExtra(Charactor.class.getName(), charactor);
         activity.startActivity(intent);
     }
 
-    @Override
     public void initView() {
-        if (imageUrl == null) {
-            return;
+        Charactor charactor = (Charactor)getIntent()
+                .getSerializableExtra(Charactor.class.getName());
+        if (charactor.getImageUrl() != null) {
+            MainApplication.IMAGE_LOADER.displayImage(charactor.getImageUrl(), mImgPreview);
         }
-        MainApplication.IMAGE_LOADER.displayImage(imageUrl, mImgPreview);
+        mTxtName.setText(charactor.getName());
+        mTxtTitle.setText(charactor.getTitle());
     }
 }

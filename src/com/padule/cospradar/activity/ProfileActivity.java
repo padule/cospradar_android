@@ -136,8 +136,7 @@ public class ProfileActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 switch (view.getId()) {
                 case R.id.img_charactor_clicker:
-                    PhotoPreviewActivity.start(ProfileActivity.this, 
-                            adapter.getItem(pos).getImageUrl());
+                    PhotoPreviewActivity.start(ProfileActivity.this, adapter.getItem(pos));
                     break;
                 case R.id.img_menu:
                     showMenu(adapter.getItem(pos));
