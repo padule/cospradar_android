@@ -65,35 +65,35 @@
     <string name="search_dialog_count">%1$d cosplayer!</string>
     <string name="search_realtime">Realtime</string>
 
-    <!-- CharactorCreate -->
-    <string name="charactor_name">Charactor name</string>
+    <!-- CharacterCreate -->
+    <string name="charactor_name">Character name</string>
     <string name="charactor_title">Title</string>
-    <string name="charactor_validate_name">Not set charactor name</string>
+    <string name="charactor_validate_name">Not set character name</string>
     <string name="charactor_validate_title">Not set title</string>
-    <string name="charactor_create_succeeded">Charactor saved!</string>
-    <string name="charactor_edit_succeeded">Charactor edited!</string>
-    <string name="charactor_delete_succeeded">Charactor deleted!</string>
-    <string name="charactor_edit_failed">Sorry! Charactor save failed...\nPlease try again.</string>
-    <string name="charactor_delete_failed">Charactor delete failed!</string>
+    <string name="charactor_create_succeeded">Character saved!</string>
+    <string name="charactor_edit_succeeded">Character edited!</string>
+    <string name="charactor_delete_succeeded">Character deleted!</string>
+    <string name="charactor_edit_failed">Sorry! Character save failed...\nPlease try again.</string>
+    <string name="charactor_delete_failed">Character delete failed!</string>
 
     <!-- EditSuggest -->
-    <string name="setting_suggest_title">Required to regist charactor</string>
+    <string name="setting_suggest_title">Required to regist character</string>
     <string name="setting_suggest_message">After registration, you can communicate in chat board.</string>
     <string name="setting_suggest_ok">Register now</string>
     <string name="setting_suggest_cancel">After</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>
-    <string name="profile_add">Add charactor</string>
+    <string name="profile_add">Add character</string>
     <string name="profile_chat">Chat board</string>
-    <string name="profile_charactor_edit">Edit charactor</string>
-    <string name="profile_charactor_delete">Delete charactor</string>
-    <string name="profile_delete_confirm">Is it OK to delete charactor?</string>
+    <string name="profile_charactor_edit">Edit character</string>
+    <string name="profile_charactor_delete">Delete character</string>
+    <string name="profile_delete_confirm">Is it OK to delete character?</string>
 
     <!-- CharactorChooser -->
-    <string name="charactor_chooser">Choose charactor</string>
-    <string name="charactor_chooser_not_selected">Charactor is not selected.</string>
-    <string name="charactor_chooser_selected">Charactor is selected.</string>
+    <string name="charactor_chooser">Choose character</string>
+    <string name="charactor_chooser_not_selected">Character is not selected.</string>
+    <string name="charactor_chooser_selected">Character is selected.</string>
 
     <!-- Comment -->
     <string name="comment_hint">Write a comment</string>
@@ -106,10 +106,10 @@
 
     <!-- Setting -->
     <string name="setting">Setting</string>
-    <string name="setting_charactor">Charactor</string>
+    <string name="setting_charactor">Character</string>
     <string name="setting_support">Support</string>
-    <string name="setting_charactor_add">Add charactor</string>
-    <string name="setting_charactor_set">Set current charactor</string>
+    <string name="setting_charactor_add">Add character</string>
+    <string name="setting_charactor_set">Set current character</string>
     <string name="setting_evaluate">Evaluate app</string>
     <string name="setting_share">Share friends</string>
     <string name="setting_tutorial">Show tutorial</string>
@@ -141,9 +141,9 @@
     <string name="tutorial_question_sub">%1$s, Are you Cosplayer?</string>
     <string name="tutorial_regist_ready_title">Wow! Cosplayer!</string>
     <string name="tutorial_regist_ready_sub">Great! %1$s, Let\'s regist your cosplay!</string>
-    <string name="tutorial_regist_title">Regist Charactor!</string>
+    <string name="tutorial_regist_title">Regist Character!</string>
     <string name="tutorial_after_regist_title">Congratulations! Registed your first charactor!</string>
-    <string name="tutorial_after_regist_sub">You can change charactor data after tutorial.</string>
+    <string name="tutorial_after_regist_sub">You can change character data after tutorial.</string>
     <string name="tutorial_finish_title">Enjoy Cosradar!:)</string>
     <string name="tutorial_finish_sub">Let\'s search cosplayer!</string>
     <string name="tutorial_seethrough1">Tap yellow button! Then, searched cosplayer by radar.</string>
@@ -161,7 +161,7 @@
     <string name="share_app_not_found">App is not found.</string>
     
     <!-- Gcm -->
-    <string name="gcm_chatboard_mine_commented">Comments on chatboard of your charactor!</string>
+    <string name="gcm_chatboard_mine_commented">Comments on chatboard of your character!</string>
     <string name="gcm_chatboard_commented">Comments on chatboard you commented!</string>
 
 </resources>
