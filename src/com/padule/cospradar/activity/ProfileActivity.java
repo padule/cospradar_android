@@ -142,6 +142,9 @@ public class ProfileActivity extends BaseActivity {
                 case R.id.img_menu:
                     showMenu(adapter.getItem(pos));
                     break;
+                case R.id.img_chat:
+                    ChatBoardActivity.start(ProfileActivity.this, adapter.getItem(pos));
+                    break;
                 }
             }
         });

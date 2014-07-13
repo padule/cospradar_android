@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_navy"
-    android:padding="@dimen/padding" >
+    android:padding="@dimen/padding_large" >
 
     <ImageView
         android:id="@+id/img_user_cover"
         android:layout_width="@dimen/icon_large"
         android:layout_height="@dimen/icon_large"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/margin"
         android:background="@drawable/bg_white_circle"
         android:clickable="true" />
 
@@ -19,7 +18,6 @@
         android:layout_width="@dimen/icon_large"
         android:layout_height="@dimen/icon_large"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/margin"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
 
@@ -28,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/img_user"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:gravity="center"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_large"
@@ -39,35 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_user_name"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
         android:background="@drawable/btn_white_rounded"
         android:text="@string/profile_add"
-        android:textColor="@color/text_gray"
-        android:textSize="@dimen/text_large"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btn_my_chat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_add_charactor"
-        android:layout_marginBottom="@dimen/margin"
-        android:background="@drawable/btn_white_rounded"
-        android:text="@string/profile_chat"
-        android:textColor="@color/text_gray"
-        android:textSize="@dimen/text_large"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btn_chat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_user_name"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
-        android:background="@drawable/btn_white_rounded"
-        android:text="@string/profile_chat"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_large"
         android:visibility="gone" />

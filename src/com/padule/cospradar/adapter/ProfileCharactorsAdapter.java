@@ -65,6 +65,8 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
         };
         holder.mImgClicker.setOnClickListener(onClickListener);
         holder.mImgMenu.setOnClickListener(onClickListener);
+        holder.mImgChat.setOnClickListener(onClickListener);
+
     }
 
     static class ViewHolder {
@@ -72,6 +74,7 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
         @InjectView(R.id.txt_charactor_name) TextView mTxtCharactorName;
         @InjectView(R.id.txt_title) TextView mTxtTitle;
         @InjectView(R.id.img_menu) ImageView mImgMenu;
+        @InjectView(R.id.img_chat) ImageView mImgChat;
         @InjectView(R.id.loading) View mLoading;
         @InjectView(R.id.img_charactor_clicker) View mImgClicker;
 

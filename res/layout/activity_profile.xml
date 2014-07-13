@@ -7,10 +7,10 @@
 
     <ListView
         android:id="@+id/listview_charactors"
-        style="@style/DefaultListView"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:scrollingCache="false" />
 
     <RelativeLayout
         android:id="@+id/container_admob"
