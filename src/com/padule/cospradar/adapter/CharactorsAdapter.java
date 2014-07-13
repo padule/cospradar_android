@@ -18,7 +18,6 @@ import butterknife.InjectView;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
-import com.padule.cospradar.ui.RadarView;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
