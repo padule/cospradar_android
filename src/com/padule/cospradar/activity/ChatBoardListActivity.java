@@ -186,6 +186,7 @@ public class ChatBoardListActivity extends BaseActivity {
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle(getString(R.string.comment_chats));
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     @Override

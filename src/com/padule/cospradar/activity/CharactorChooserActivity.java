@@ -170,6 +170,7 @@ public class CharactorChooserActivity extends BaseActivity {
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle(getString(R.string.charactor_chooser));
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     @Override

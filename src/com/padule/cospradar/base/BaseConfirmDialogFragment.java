@@ -44,7 +44,7 @@ public abstract class BaseConfirmDialogFragment extends DialogFragment {
     }
 
     protected int getImgIconResId() {
-        return R.drawable.ic_launcher;
+        return R.drawable.ic_app;
     }
 
     protected int getTitleResId() {

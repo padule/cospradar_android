@@ -28,7 +28,7 @@ implements Thread.UncaughtExceptionHandler {
     .setEndpoint(Constants.APP_URL).setConverter(new GsonConverter(GSON)).build();
 
     public static ApiService API = REST_ADAPTER.create(ApiService.class);
-    
+
     private static Context context;
 
     @Override
@@ -37,7 +37,7 @@ implements Thread.UncaughtExceptionHandler {
         context = this;
         super.onCreate();
     }
-    
+
     public static Context getContext() {
         return context;
     }
@@ -70,7 +70,7 @@ implements Thread.UncaughtExceptionHandler {
     }
 
     @Override
-    public void uncaughtException(Thread thread, Throwable ex) {
+    public void uncaughtException(Thread thread, Throwable e) {
         // TODO Error report;
     }
 }

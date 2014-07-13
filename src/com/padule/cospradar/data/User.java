@@ -31,7 +31,7 @@ public class User extends Data {
     public String getName() {
         return name;
     }
-    
+
     public String getScreenName() {
         return AT + name;
     }
@@ -48,12 +48,16 @@ public class User extends Data {
     }
 
     public Charactor getCurrentCharactor() {
-        // TODO implements after adding is_enabled column to charactors.
-        if (charactors != null && !charactors.isEmpty()) {
-            return charactors.get(0);
-        } else {
+        if (charactors == null || charactors.isEmpty()) {
             return null;
         }
+
+        for (Charactor charactor : charactors) {
+            if (charactor.isEnabled) {
+                return charactor;
+            }
+        }
+        return null;
     }
 
     public void addCharactor(Charactor charactor) {

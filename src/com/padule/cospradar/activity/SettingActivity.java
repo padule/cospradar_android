@@ -62,6 +62,7 @@ public class SettingActivity extends BaseActivity {
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setHomeButtonEnabled(true);
         bar.setTitle(getString(R.string.setting));
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     @Override

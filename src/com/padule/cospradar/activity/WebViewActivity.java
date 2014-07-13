@@ -60,6 +60,7 @@ public class WebViewActivity extends BaseActivity {
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle(title);
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     @Override

@@ -68,6 +68,7 @@ public class CharactorSettingActivity extends BaseActivity {
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setHomeButtonEnabled(true);
         bar.setTitle(getString(R.string.charactor_setting));
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     private void initMode() {

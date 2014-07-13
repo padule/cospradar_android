@@ -267,6 +267,7 @@ public class ProfileActivity extends BaseActivity {
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle(getString(R.string.profile));
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     @Override

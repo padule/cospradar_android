@@ -201,6 +201,7 @@ public class MainActivity extends BaseActivity {
         ActionBar bar = getSupportActionBar();
         bar.setDisplayShowTitleEnabled(false);
         bar.setHomeButtonEnabled(true);
+        bar.setIcon(R.drawable.ic_launcher);
     }
 
     private void clearListView() {

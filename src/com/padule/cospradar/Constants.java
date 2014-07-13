@@ -6,9 +6,9 @@ public class Constants {
 
     public static final String APP_URL = "http://api.cospradar.padule.me";
 
-    public static final String TERMS_URL = "http://google.com"; // TODO
-    public static final String PRIVACY_URL = "http://google.com"; // TODO
-    public static final String INQUERY_MAIL = "yahpeycoy0403@gmail.com"; // TODO
+    public static final String TERMS_URL = APP_URL + "/terms.html";
+    public static final String PRIVACY_URL = APP_URL + "/privacy.html";
+    public static final String INQUERY_MAIL = "cosradar@akhbc.com";
 
     public static final String AVIARY_SECRET = "858b4e4f29e15266";
 
