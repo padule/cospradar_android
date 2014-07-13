@@ -39,6 +39,7 @@
     <string name="login_description">Meets cosplayer easier, more fun.</string>
     <string name="login_succeeded">Login succeeded</string>
     <string name="login_failed">Login failed</string>
+    <string name="login_terms_confirmation">By login you are agreeing to &lt;a href=\'#\'>terms and conditions&lt;/a>.</string>
 
     <!-- Time -->
     <string name="time_just_now">Just now</string>

@@ -36,6 +36,7 @@
     <string name="login_description">レイヤーさんをレーダーで探そう</string>
     <string name="login_succeeded">ログインしました</string>
     <string name="login_failed">ログインに失敗しました</string>
+    <string name="login_terms_confirmation">ログインすることで&lt;a href=\'#\'>利用規約&lt;/a>に同意したことになります。</string>
 
     <!-- Time -->
     <string name="time_just_now">たった今</string>

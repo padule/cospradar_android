@@ -12,13 +12,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 import com.crashlytics.android.Crashlytics;
+import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
@@ -29,6 +32,8 @@ import com.padule.cospradar.util.TwitterUtils;
 public class LoginActivity extends BaseActivity {
 
     private static final String TAG = LoginActivity.class.getName();
+
+    @InjectView(R.id.txt_terms) TextView mTxtView;
 
     private String callbackUrl;
     private Twitter twitter;
@@ -114,7 +119,13 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        //
+        final CharSequence text = Html.fromHtml(getString(R.string.login_terms_confirmation));
+        mTxtView.setText(text);
+    }
+
+    @OnClick(R.id.txt_terms)
+    void onClickTxtTerms() {
+        WebViewActivity.start(this, Constants.TERMS_URL, getString(R.string.setting_terms));
     }
 
     @OnClick(R.id.btn_login_twitter)

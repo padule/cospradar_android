@@ -61,12 +61,26 @@
         android:layout_height="1dp"
         android:layout_alignParentBottom="true" />
 
-    <Button
-        android:id="@+id/btn_login_twitter"
+    <TextView
+        android:id="@+id/txt_terms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/dummy"
         android:layout_marginBottom="32dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/login_terms_confirmation"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_small" />
+
+    <Button
+        android:id="@+id/btn_login_twitter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/txt_terms"
+        android:layout_marginBottom="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:background="@drawable/bg_twitter"
