@@ -8,6 +8,7 @@ import java.util.Map;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -27,6 +28,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
+import com.padule.cospradar.event.TutorialBackBtnClickedEvent;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
@@ -51,19 +53,36 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         startService(new Intent(this, LocationService.class));
         setContentView(R.layout.activity_main);
-        
+
         NotificationUtils.checkIntent(this);
-        
+
         EventBus.getDefault().register(this);
         GcmUtils.register(this);
+    }
+
+    public static void start(Context context) {
+        final Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 
     @Override
     protected void initView() {
         initActionBar();
         initListView();
-        
-        TutorialActivity.start(this);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        showTutorial();
+    }
+
+    private void showTutorial() {
+        int[] rectBtnSearch = header.getRect(header.mBtnReload);
+        int[] rectEditSearch = header.getRect(header.mEditSearch);
+        int[] rectCheckRealtime = header.getRect(header.mCheckRealtime);
+        int[] rectSeekBar = header.getRect(header.mSeekBar);
+        TutorialActivity.start(this, rectBtnSearch, rectEditSearch, rectCheckRealtime, rectSeekBar);
     }
 
     public void onEvent(SearchBtnClickedEvent event) {
@@ -72,6 +91,10 @@ public class MainActivity extends BaseActivity {
         header.startSearching();
         loadData(0, event.searchText, event.isRealtime);
         KeyboardUtils.hide(this);
+    }
+
+    public void onEvent(TutorialBackBtnClickedEvent event) {
+        finish();
     }
 
 

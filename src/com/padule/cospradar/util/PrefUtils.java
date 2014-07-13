@@ -12,6 +12,7 @@ public class PrefUtils {
     public static final String KEY_LAT_LON = "lat_lon";
     public static final String KEY_LAST_NOTIFICATION_PRIORITY = "last_notification_priority";
     public static final String KEY_REGISTRATION_ID = "registration_id";
+    public static final String KEY_TUTORIAL_SHOWN = "tutorial_shown";
 
     private static SharedPreferences pref;
 

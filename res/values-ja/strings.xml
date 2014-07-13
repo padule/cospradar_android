@@ -108,6 +108,7 @@
     <string name="setting_charactor_set">いまのコスキャラをセットする</string>
     <string name="setting_evaluate">評価する</string>
     <string name="setting_share">シェアする</string>
+    <string name="setting_tutorial">チュートリアルを見る</string>
     <string name="setting_inquery">問い合わせる</string>
     <string name="setting_terms">利用規約</string>
     <string name="setting_privacy">プライバシーポリシー</string>
@@ -141,6 +142,10 @@
     <string name="tutorial_after_regist_sub">キャラはあとで編集できます。</string>
     <string name="tutorial_finish_title">早速コスレーダーを触ってみましょう！</string>
     <string name="tutorial_finish_sub">お気に入りの作品のキャラが見つかるといいですね(・∀・)</string>
+    <string name="tutorial_seethrough1">黄色いボタンをタップしましょう！レーダーでレイヤーさんを検索します。</string>
+    <string name="tutorial_seethrough2">作品名で絞り込むこともできます。</string>
+    <string name="tutorial_seethrough3">今コスプレしているレイヤーさんを探したい時は、『コスプレなう』にチェックを入れましょう！</string>
+    <string name="tutorial_seethrough4">このバーでレーダーの半径を変更できます。</string>
 
     <!-- Share -->
     <string name="share">シェア</string>

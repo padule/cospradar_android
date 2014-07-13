@@ -53,7 +53,8 @@ public class LoginActivity extends BaseActivity {
 
     private void checkLoginStatus() {
         if (TwitterUtils.hasAccessToken() && AppUtils.isLoggedIn()) {
-            startMainActivity();
+            MainActivity.start(this);
+            finish();
         }
     }
 
@@ -104,7 +105,8 @@ public class LoginActivity extends BaseActivity {
                 dialog.dismiss();
                 AppUtils.setUser(user);
                 AppUtils.showToast(R.string.login_succeeded, LoginActivity.this);
-                startMainActivity();
+                MainActivity.start(LoginActivity.this);
+                finish();
             }
 
         });
@@ -121,7 +123,8 @@ public class LoginActivity extends BaseActivity {
 
         if (TwitterUtils.hasAccessToken()) {
             if (AppUtils.isLoggedIn()) {
-                startMainActivity();
+                MainActivity.start(this);
+                finish();
             } else {
                 saveUser();
             }
@@ -199,17 +202,11 @@ public class LoginActivity extends BaseActivity {
     private void onSuccessOAuth(AccessToken accessToken) {
         TwitterUtils.storeAccessToken(accessToken);
         if (AppUtils.isLoggedIn()) {
-            startMainActivity();
+            MainActivity.start(this);
+            finish();
         } else {
             saveUser();
         }
-    }
-
-    private void startMainActivity() {
-        final Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
     }
 
 }

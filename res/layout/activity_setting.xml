@@ -53,6 +53,13 @@
         <View style="@style/SettingItemDivider" />
 
         <TextView
+            android:id="@+id/txt_item_tutorial"
+            style="@style/SettingItem"
+            android:text="@string/setting_tutorial" />
+
+        <View style="@style/SettingItemDivider" />
+
+        <TextView
             android:id="@+id/txt_item_inquery"
             style="@style/SettingItem"
             android:text="@string/setting_inquery" />

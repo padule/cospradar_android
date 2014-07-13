@@ -4,6 +4,9 @@ import butterknife.OnClick;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseTutorialFragment;
+import com.padule.cospradar.event.TutorialCardFinishedEvent;
+
+import de.greenrobot.event.EventBus;
 
 public class Tutorial6FinishFragment extends BaseTutorialFragment {
 
@@ -11,7 +14,7 @@ public class Tutorial6FinishFragment extends BaseTutorialFragment {
 
     @OnClick(R.id.btn_ok)
     void onClickBtnOk() {
-        getActivity().finish();
+        EventBus.getDefault().post(new TutorialCardFinishedEvent());
     }
 
     @Override
