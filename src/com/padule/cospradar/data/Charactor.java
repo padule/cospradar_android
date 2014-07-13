@@ -2,6 +2,8 @@ package com.padule.cospradar.data;
 
 import java.util.Date;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 import com.padule.cospradar.base.Data;
 import com.padule.cospradar.util.ImageUtils;
@@ -76,7 +78,11 @@ public class Charactor extends Data {
     }
 
     public String getNameAndTitle() {
-        return name + " (" + title + ")";
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(title)) {
+            return "";
+        } else {
+            return name + " (" + title + ")";
+        }
     }
 
     public void setLocation(CharactorLocation charactorLocation) {

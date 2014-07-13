@@ -39,10 +39,9 @@ public class CommentFooter extends LinearLayout implements TextWatcher {
     public void onClickSendComment() {
         SendBtnClickedEvent event = new SendBtnClickedEvent(mEditComment.getText().toString());
         EventBus.getDefault().post(event);
-        clearText();
     }
 
-    private void clearText() {
+    public void clearText() {
         mEditComment.setText("");
         KeyboardUtils.hide(context, mEditComment);
     }

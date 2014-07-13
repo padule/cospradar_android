@@ -146,7 +146,7 @@ public class ChatBoardListActivity extends BaseActivity {
     }
 
     private void loadData(final int page, final boolean shouldClearAll) {
-        MainApplication.API.getCharactorCommentsCommentList(AppUtils.getCharactor().getId(), page, 
+        MainApplication.API.getCharactorCommentsCommentList(AppUtils.getUser().getId(), page, 
                 new Callback<List<Charactor>>() {
             @Override
             public void failure(RetrofitError e) {

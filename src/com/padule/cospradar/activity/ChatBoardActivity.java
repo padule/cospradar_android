@@ -1,11 +1,15 @@
 package com.padule.cospradar.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,12 +34,15 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.event.CommentCharactorSelectedEvent;
 import com.padule.cospradar.event.CommentCloseEvent;
 import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.event.SendBtnClickedEvent;
+import com.padule.cospradar.fragment.CharactorSelectDialogFragment;
 import com.padule.cospradar.fragment.ChatBoardDismissDialogFragment;
 import com.padule.cospradar.fragment.EditSuggestDialogFragment;
 import com.padule.cospradar.fragment.ShareDialogFragment;
+import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
@@ -56,6 +63,8 @@ public class ChatBoardActivity extends BaseActivity {
 
     private CommentsAdapter adapter;
     private Charactor charactor;
+    private Charactor commentCharactor;
+    private List<Charactor> userCharactors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,10 @@ public class ChatBoardActivity extends BaseActivity {
         onClickSendBtn(event.text);
     }
 
+    public void onEvent(CommentCharactorSelectedEvent event) {
+        this.commentCharactor = event.charactor;
+    }
+
     public void onEvent(CommentCloseEvent event) {
         finish();
     }
@@ -91,20 +104,22 @@ public class ChatBoardActivity extends BaseActivity {
         if (TextUtils.isEmpty(text)) {
             return;
         }
-        CharactorComment comment = CharactorComment.createTmp(charactor.getId(), text);
+        if (commentCharactor == null) {
+            loadUserCharactors();
+            return;
+        }
+        CharactorComment comment = new CharactorComment(charactor.getId(), text, commentCharactor);
         adapter.add(comment);
+        adapter.notifyDataSetChanged();
+        mFooter.clearText();
         uploadComment(comment);
     }
 
     public static void start(BaseActivity activity, Charactor charactor) {
-        if (AppUtils.getCharactor() == null) {
-            EditSuggestDialogFragment.show(activity);
-        } else {
-            final Intent intent = new Intent(activity, ChatBoardActivity.class);
-            intent.putExtra(Charactor.class.getName(), charactor);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(intent);
-        }
+        Intent intent = new Intent(activity, ChatBoardActivity.class);
+        intent.putExtra(Charactor.class.getName(), charactor);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
     }
 
     public static void start(final BaseActivity activity, final int charactorId) {
@@ -127,9 +142,9 @@ public class ChatBoardActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        loadUserCharactors();
         setCharactor();
         initActionBar(charactor);
-        initListView();
     }
 
     @OnClick(R.id.root_chat)
@@ -137,8 +152,8 @@ public class ChatBoardActivity extends BaseActivity {
         KeyboardUtils.hide(this);
     }
 
-    private void initListView() {
-        adapter = new CommentsAdapter(this, charactor);
+    private void initListView(List<Charactor> charactors) {
+        adapter = new CommentsAdapter(this, charactor, charactors);
         mListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         mListView.setAdapter(adapter);
         loadData(1);
@@ -313,9 +328,62 @@ public class ChatBoardActivity extends BaseActivity {
             mContainerEmpty.setVisibility(View.GONE);
             adapter.remove(orgComment);
             adapter.add(comment);
+            adapter.notifyDataSetChanged();
             charactor.setLatestComment(comment);
             scrollToBottom();
         }
+    }
+
+    private void loadUserCharactors() {
+        if (AppUtils.getUser() == null) return;
+
+        if (userCharactors != null && !userCharactors.isEmpty()) {
+            checkCommentCharactor(userCharactors);
+            return;
+        }
+
+        final Dialog dialog = AppUtils.makeLoadingDialog(this);
+        dialog.show();
+
+        MainApplication.API.getCharactors(createParams(AppUtils.getUser().getId()), 
+                new Callback<List<Charactor>>() {
+            @Override
+            public void failure(RetrofitError e) {
+                dialog.dismiss();
+                AppUtils.showToast(R.string.error_raised, ChatBoardActivity.this);
+                Log.e(TAG, e.getMessage() + "");
+            }
+
+            @Override
+            public void success(List<Charactor> charactors, Response response) {
+                dialog.dismiss();
+                ChatBoardActivity.this.userCharactors = charactors;
+                checkCommentCharactor(charactors);
+                initListView(charactors);
+            }
+        });
+    }
+
+    private void checkCommentCharactor(List<Charactor> charactors) {
+        if (charactors.isEmpty()) {
+            EditSuggestDialogFragment.show(this);
+        } else if (charactors.size() == 1) {
+            this.commentCharactor = charactors.get(0);
+        } else {
+            CharactorSelectDialogFragment.show(this, new ArrayList<Charactor>(charactors));
+        }
+    }
+
+    private Map<String, String> createParams(int userId) {
+        Map<String, String> params = new HashMap<String, String>();
+        if (userId > 0) {
+            params.put(ApiService.PARAM_USER_ID, userId + "");
+            params.put(ApiService.PARAM_DESC, "is_enabled");
+        }
+        params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
+        params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
+
+        return params;
     }
 
 }

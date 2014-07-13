@@ -101,6 +101,8 @@
     <string name="comment_nothing">Comments are nothing.</string>
     <string name="comment_chats">Commented Chats</string>
     <string name="comment_close_confirm">Discard comment?</string>
+    <string name="comment_dialog_title">Comment as any character?</string>
+    <string name="comment_dialog_selected">You can comment as %1$s.</string>
 
     <!-- Setting -->
     <string name="setting">Setting</string>
