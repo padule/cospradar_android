@@ -1,5 +1,9 @@
 package com.padule.cospradar.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -20,6 +24,7 @@ public class LocationService extends Service {
     private static final String TAG = LocationService.class.getName();
 
     private BaseLocationListener listener;
+    private boolean isUploading = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -58,12 +63,43 @@ public class LocationService extends Service {
         }
     }
 
-    private void uploadLocation(double lat, double lon) {
-        Charactor charactor = AppUtils.getCharactor();
-        if (charactor != null) {
-            // FIXME create charactors API return json is invalid...
-            createLocation(charactor, lat, lon);
+    private void uploadLocation(final double lat, final double lon) {
+        if (!AppUtils.isLoggedIn() || isUploading) {
+            return;
         }
+
+        isUploading = true;
+        MainApplication.API.getCharactors(createParams(AppUtils.getUser().getId()), 
+                new Callback<List<Charactor>>() {
+            @Override
+            public void failure(RetrofitError e) {
+                isUploading = false;
+                Log.e(TAG, e.getMessage() + "");
+            }
+
+            @Override
+            public void success(List<Charactor> charactors, Response response) {
+                isUploading = false;
+                for (Charactor charactor : charactors) {
+                    if (charactor != null) {
+                        // FIXME create charactors API return json is invalid...
+                        createLocation(charactor, lat, lon);
+                    }
+                }
+            }
+        });
+    }
+
+    private Map<String, String> createParams(int userId) {
+        Map<String, String> params = new HashMap<String, String>();
+        if (userId > 0) {
+            params.put(ApiService.PARAM_USER_ID, userId + "");
+            params.put(ApiService.PARAM_DESC, "is_enabled");
+        }
+        params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
+        params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
+
+        return params;
     }
 
     private void createLocation(Charactor charactor, double lat, double lon) {
@@ -77,8 +113,10 @@ public class LocationService extends Service {
             @Override
             public void success(CharactorLocation location, Response response) {
                 Charactor charactor = AppUtils.getCharactor();
-                charactor.setLocation(location);
-                AppUtils.setCharactor(charactor);
+                if (charactor != null) {
+                    charactor.setLocation(location);
+                    AppUtils.setCharactor(charactor);
+                }
             }
         });
     }

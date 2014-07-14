@@ -83,9 +83,12 @@
         <TextView
             android:id="@+id/txt_item_account_delete"
             style="@style/SettingItem"
-            android:text="@string/setting_account_delete" />
+            android:text="@string/setting_account_delete"
+            android:visibility="gone" />
 
-        <View style="@style/SettingItemDivider" />
+        <View
+            style="@style/SettingItemDivider"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/btn_logout"
