@@ -202,7 +202,7 @@ public class CharactorChooserActivity extends BaseActivity {
         final Dialog dialog = AppUtils.makeLoadingDialog(this);
         dialog.show();
 
-        MainApplication.API.putCharactors(charactor.getId(), true, 
+        MainApplication.API.putCharactors(charactor.getId(), 1, 
                 new Callback<Charactor>() {
             @Override
             public void failure(RetrofitError e) {

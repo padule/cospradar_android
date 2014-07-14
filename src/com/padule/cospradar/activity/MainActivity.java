@@ -143,7 +143,9 @@ public class MainActivity extends BaseActivity {
         if (title != null && !"".equals(title)) {
             params.put(ApiService.PARAM_TITLE, title);
         }
-        params.put(ApiService.PARAM_IS_ENABLED, isRealtime + "");
+        if (isRealtime) {
+            params.put(ApiService.PARAM_IS_ENABLED, "1");
+        }
         params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
         params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
         params.put(ApiService.PARAM_LIMIT, "300");

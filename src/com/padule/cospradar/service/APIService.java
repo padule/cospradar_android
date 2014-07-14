@@ -91,7 +91,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST(PATH_CHARACTORS + PATH_ID + EXT_JSON)
-    void putCharactors(@Path("id") int charactorId, @Field(PARAM_IS_ENABLED) boolean isEnabled,
+    void putCharactors(@Path("id") int charactorId, @Field(PARAM_IS_ENABLED) int isEnabled,
             Callback<Charactor> cb);
 
     @DELETE(PATH_CHARACTORS + PATH_ID + EXT_JSON)
