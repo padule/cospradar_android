@@ -64,7 +64,7 @@
     <string name="search_realtime">コスプレなう</string>
 
     <!-- CharactorCreate -->
-    <string name="charactor_setting">コスキャラ設定</string>
+    <string name="charactor_setting">コスキャラ追加</string>
     <string name="charactor_name">キャラクター名（必須）</string>
     <string name="charactor_title">作品名（必須）</string>
     <string name="charactor_validate_name">キャラクター名が入力されていません</string>

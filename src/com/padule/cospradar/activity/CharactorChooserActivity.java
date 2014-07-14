@@ -19,8 +19,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import butterknife.InjectView;
 
+import com.google.android.gms.ads.AdView;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.ChooserCharactorsAdapter;
@@ -28,8 +30,10 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.event.CharactorCreatedEvent;
 import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.service.ApiService;
+import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 
 import de.greenrobot.event.EventBus;
@@ -39,8 +43,10 @@ public class CharactorChooserActivity extends BaseActivity {
     private static final String TAG = CharactorChooserActivity.class.getName();
 
     @InjectView(R.id.grid_charactors) GridView mGridView;
-    @InjectView(R.id.loading)View mLoading; 
+    @InjectView(R.id.loading) View mLoading;
+    @InjectView(R.id.container_admob) RelativeLayout mContainerAdmob;
 
+    private AdView adView;
     private ChooserCharactorsAdapter adapter;
     private User user;
 
@@ -49,6 +55,35 @@ public class CharactorChooserActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         user = (User)getIntent().getSerializableExtra(User.class.getName());
         setContentView(R.layout.activity_charactor_chooser);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (adView != null) adView.destroy();
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if (adapter != null) {
+            adapter = null;
+        }
+    }
+
+    public void onEvent(CharactorCreatedEvent event) {
+        if (adapter != null) {
+            adapter.add(event.charactor);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) adView.resume();
     }
 
     public static void start(Context context) {
@@ -64,6 +99,12 @@ public class CharactorChooserActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initGridView();
+        initAdmob();
+    }
+
+    private void initAdmob() {
+        adView = AdmobUtils.createAdViewInCharactorChooserFooter(this);
+        AdmobUtils.loadBanner(adView, mContainerAdmob);
     }
 
     private void initGridView() {

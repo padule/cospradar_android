@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <GridView
-        android:id="@+id/grid_charactors"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:horizontalSpacing="@dimen/line_medium"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="@dimen/line_medium" />
+        android:layout_weight="1" >
 
-    <FrameLayout
-        android:id="@+id/loading"
+        <GridView
+            android:id="@+id/grid_charactors"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/line_medium"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/line_medium" />
+
+        <FrameLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/grid_charactors" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_admob"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/grid_charactors" >
+        android:layout_height="@dimen/admob_height"
+        android:layout_weight="0"
+        android:background="@color/bg_gray_dark"
+        android:gravity="center" >
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_vertical" />
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-</RelativeLayout>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical" />
+        </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>
