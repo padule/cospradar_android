@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_preview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_black_alfa_dark" >
+
+    <com.padule.cospradar.ui.ResizableImageView
+        android:id="@+id/img_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:auto_scale="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_black_alfa"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_large" >
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_medium" />
+    </LinearLayout>
+
+</RelativeLayout>

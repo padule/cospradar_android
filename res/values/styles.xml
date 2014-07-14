@@ -1,0 +1,121 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="android:Theme.Light" />
+
+    <style name="AppTheme" parent="AppBaseTheme" />
+
+    <style name="NoActionBar" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="DefaultListView" parent="AppTheme">
+        <item name="android:divider">@color/bg_gray</item>
+        <item name="android:dividerHeight">@dimen/line_small</item>
+        <item name="android:scrollingCache">false</item>
+    </style>
+
+    <style name="SettingItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:background">@drawable/bg_white</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="SettingItemDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_medium</item>
+        <item name="android:background">@color/bg_gray</item>
+        <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+    </style>
+
+    <style name="SettingTitleDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_medium</item>
+        <item name="android:background">@color/bg_gray_dark</item>
+        <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+    </style>
+
+    <style name="SettingTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:padding">@dimen/padding</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/margin_large</item>
+        <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="TutorialTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_xlarge</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/margin_xlarge</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="TutorialSub">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_xlarge</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:layout_marginBottom">@dimen/margin_xlarge</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="Btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Btn.Large">
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="Btn.Large.Theme">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:background">@drawable/btn_theme_rounded</item>
+    </style>
+
+    <style name="Btn.Large.White">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:background">@drawable/btn_white_rounded</item>
+    </style>
+
+    <style name="ShareIcon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/icon_large</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginBottom">@dimen/margin_xlarge</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+</resources>

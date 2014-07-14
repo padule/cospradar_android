@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Margin -->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="margin_large">12dp</dimen>
+    <dimen name="margin_xlarge">16dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="padding_large">12dp</dimen>
+    <dimen name="padding_xlarge">16dp</dimen>
+
+    <!-- Text -->
+    <dimen name="text_xsmall">10sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_xlarge">24sp</dimen>
+
+    <!-- Line -->
+    <dimen name="line_small">1sp</dimen>
+    <dimen name="line_medium">2sp</dimen>
+
+    <!-- Image -->
+    <dimen name="icon_small">40dp</dimen>
+    <dimen name="icon_medium">60dp</dimen>
+    <dimen name="icon_large">100dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_medium">4dp</dimen>
+    <dimen name="radius_btn">4dp</dimen>
+
+    <!-- Admob -->
+    <dimen name="admob_height">50dp</dimen>
+
+</resources>

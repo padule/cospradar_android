@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_rounded"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_margin="@dimen/margin_small"
+            android:src="@drawable/ic_app" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@id/img_icon"
+            android:gravity="center_vertical"
+            android:text="@string/share"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/border"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_medium"
+            android:layout_below="@id/img_icon"
+            android:background="@color/apptheme_color" />
+
+        <TextView
+            android:id="@+id/txt_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_small"
+            android:layout_below="@id/border"
+            android:layout_margin="@dimen/margin"
+            android:gravity="center_vertical"
+            android:text="@string/share_dialog_sub"
+            android:textSize="@dimen/text_medium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_sub"
+            android:orientation="horizontal" >
+
+            <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_twitter"
+                style="@style/ShareIcon"
+                android:src="@drawable/ic_share_twitter" />
+
+            <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_line"
+                style="@style/ShareIcon"
+                android:src="@drawable/ic_share_line" />
+
+            <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_whatsapp"
+                style="@style/ShareIcon"
+                android:src="@drawable/ic_share_whatsapp" />
+
+            <com.padule.cospradar.ui.ResizableImageView
+                android:id="@+id/img_other"
+                style="@style/ShareIcon"
+                android:src="@drawable/ic_share_gray" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_weight="0" >
+
+        <View
+            android:id="@+id/border_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_small"
+            android:background="@color/bg_gray" />
+
+        <TextView
+            android:id="@+id/btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/border_bottom"
+            android:layout_weight="0"
+            android:background="@drawable/bg_clickable"
+            android:clickable="true"
+            android:gravity="center_vertical|center"
+            android:text="@string/close"
+            android:textSize="@dimen/text_medium" />
+    </RelativeLayout>
+
+</LinearLayout>

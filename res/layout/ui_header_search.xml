@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.padule.cospradar.ui.RadarView
+        android:id="@+id/radar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginTop="@dimen/margin" />
+
+    <SeekBar
+        android:id="@+id/seekbar_radar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radar_view" />
+
+    <TextView
+        android:id="@+id/txt_min_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekbar_radar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/margin"
+        android:text="100 m"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/txt_max_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekbar_radar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin"
+        android:text="20.0 km"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+
+    <LinearLayout
+        android:id="@+id/container_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekbar_radar"
+        android:layout_marginTop="@dimen/margin"
+        android:background="@color/bg_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding" >
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColorHint="@color/text_gray"
+                android:textSize="@dimen/text_medium" />
+
+            <CheckBox
+                android:id="@+id/check_realtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_search"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/search_realtime"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_medium" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/btn_reload"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_weight="0"
+            android:background="@drawable/btn_accent_rounded"
+            android:padding="@dimen/padding_xlarge"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_reload" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_count_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_search"
+        android:background="@color/bg_gray"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:paddingTop="@dimen/padding_small"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/txt_tutorial_after_regist_title"
+        style="@style/TutorialTitle"
+        android:text="@string/tutorial_after_regist_title" />
+
+    <TextView
+        android:id="@+id/txt_tutorial_after_regist_sub"
+        style="@style/TutorialSub"
+        android:layout_below="@id/txt_tutorial_after_regist_title"
+        android:text="@string/tutorial_after_regist_sub" />
+
+    <TextView
+        android:id="@+id/btn_next"
+        style="@style/Btn.Large.Theme"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:text="@string/next" />
+
+</RelativeLayout>
