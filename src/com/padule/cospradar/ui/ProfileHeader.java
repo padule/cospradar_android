@@ -72,4 +72,9 @@ public class ProfileHeader extends RelativeLayout {
         CharactorChooserActivity.start(activity);
     }
 
+    @OnClick(R.id.img_user_cover)
+    void onClickImgUserCover() {
+        CharactorChooserActivity.start(activity);
+    }
+
 }

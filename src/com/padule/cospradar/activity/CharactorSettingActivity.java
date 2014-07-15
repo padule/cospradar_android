@@ -27,10 +27,13 @@ import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.event.CharactorCreatedEvent;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.TextUtils;
+
+import de.greenrobot.event.EventBus;
 
 public class CharactorSettingActivity extends BaseActivity {
 
@@ -226,6 +229,7 @@ public class CharactorSettingActivity extends BaseActivity {
                 CharactorSettingActivity.this.charactor = charactor;
                 AppUtils.setCharactor(charactor);
                 AppUtils.showToast(R.string.charactor_create_succeeded, CharactorSettingActivity.this);
+                EventBus.getDefault().post(new CharactorCreatedEvent(charactor));
             }
         });
     }

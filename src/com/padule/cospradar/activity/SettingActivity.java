@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import com.google.android.gms.ads.AdView;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
@@ -20,6 +22,7 @@ import com.padule.cospradar.fragment.LogoutDialogFragment;
 import com.padule.cospradar.fragment.RatingDialogFragment;
 import com.padule.cospradar.fragment.ShareDialogFragment;
 import com.padule.cospradar.fragment.UserDeleteDialogFragment;
+import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.PrefUtils;
 
@@ -28,6 +31,9 @@ import de.greenrobot.event.EventBus;
 public class SettingActivity extends BaseActivity {
 
     @InjectView(R.id.txt_version) TextView mTxtVersion;
+    @InjectView(R.id.container_admob) RelativeLayout mContainerAdmob;
+
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +44,26 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (adView != null) adView.destroy();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) adView.resume();
+    }
+
+    private void initAdmob() {
+        adView = AdmobUtils.createAdViewInSettingFooter(this);
+        AdmobUtils.loadBanner(adView, mContainerAdmob);
     }
 
     public static void start(Context context) {
@@ -51,6 +75,7 @@ public class SettingActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initVersion();
+        initAdmob();
     }
 
     private void initVersion() {
