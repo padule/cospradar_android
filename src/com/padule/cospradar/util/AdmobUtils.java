@@ -11,6 +11,8 @@ public class AdmobUtils {
 
     private static final String UNIT_ID_CHAT_BOARD_LIST_FOOTER = "ca-app-pub-8640637673501328/6877757491";
     private static final String UNIT_ID_PROFILE_FOOTER = "ca-app-pub-8640637673501328/8354490692";
+    private static final String UNIT_ID_CHARACTOR_CHOOSER_FOOTER = "ca-app-pub-8640637673501328/4991908290";
+    private static final String UNIT_ID_SETTING_FOOTER = "ca-app-pub-8640637673501328/5652886297";
 
     public static void loadBanner(AdView adView, RelativeLayout view) {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -37,6 +39,14 @@ public class AdmobUtils {
 
     public static AdView createAdViewInProfileFooter(Context context) {
         return createAdView(UNIT_ID_PROFILE_FOOTER, context);
+    }
+
+    public static AdView createAdViewInCharactorChooserFooter(Context context) {
+        return createAdView(UNIT_ID_CHARACTOR_CHOOSER_FOOTER, context);
+    }
+
+    public static AdView createAdViewInSettingFooter(Context context) {
+        return createAdView(UNIT_ID_SETTING_FOOTER, context);
     }
 
 }
