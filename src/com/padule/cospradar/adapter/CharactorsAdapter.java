@@ -89,6 +89,12 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
 
             if (location != null) {
                 Log.d(TAG, "latitude: " + location.getLatitude() + ", longitude: " + location.getLongitude());
+                
+                // TODO fix server API
+                if (location.getLatitude() == 0f && location.getLatitude() == 0f) {
+                    return;
+                }
+                
                 float[] results = new float[3];
                 Location.distanceBetween(location.getLatitude(), location.getLongitude(), 
                         AppUtils.getLatitude(), AppUtils.getLongitude(), results);
