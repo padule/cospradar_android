@@ -58,7 +58,7 @@
     <string name="radar_distance">%1$s km</string>
     <string name="radar_distance_meter">%1$s m</string>
     <string name="searching">検索中...</string>
-    <string name="search_result_count">%1$d 人のレイヤーを発見！</string>
+    <string name="search_result_count">%1$d 人のレイヤーを発見！(・∀・)</string>
     <string name="search_result_count_zero">近くにレイヤーはいません</string>
     <string name="search_dialog_count">%1$d 人のレイヤーがいます</string>
     <string name="search_realtime">コスプレなう</string>
@@ -80,6 +80,9 @@
     <string name="setting_suggest_message">今のコスキャラを設定すると、けいじばんでやり取りできるようになります。</string>
     <string name="setting_suggest_ok">登録する</string>
     <string name="setting_suggest_cancel">あとで</string>
+    <string name="charactor_set_suggest_title">もしかして</string>
+    <string name="charactor_set_suggest_msg">あなたも今コスプレ中ですか？\nもしそうなら、コスプレ中のキャラとしてセットしてみましょう！(・∀・)</string>
+    <string name="charactor_set_suggest_check">今日はもう表示しない</string>
 
     <!-- Profile -->
     <string name="profile">プロフィール</string>
@@ -88,6 +91,11 @@
     <string name="profile_charactor_edit">コスキャラを編集</string>
     <string name="profile_charactor_delete">コスキャラを削除</string>
     <string name="profile_delete_confirm">削除してよろしいですか？</string>
+    <string name="profile_charactor_enabled">コスプレ中</string>
+    <string name="profile_charactor_disable_confirm_msg">現在のコスキャラをリセットしますか？</string>
+    <string name="profile_charactor_enable_confirm_msg">今%1$sのコスプレをしていますか？(・∀・)</string>
+    <string name="profile_no_charactor">あなたのコスキャラは登録されていません。最初のコスキャラを登録してみませんか？</string>
+    <string name="profile_charactor_regist">登録する</string>
 
     <!-- CharactorChooser -->
     <string name="charactor_chooser">コスキャラを選択</string>

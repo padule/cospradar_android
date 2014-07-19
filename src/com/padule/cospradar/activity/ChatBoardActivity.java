@@ -11,8 +11,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -25,8 +23,6 @@ import butterknife.OnClick;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.CommentsAdapter;
@@ -55,7 +51,6 @@ import de.greenrobot.event.EventBus;
 public class ChatBoardActivity extends BaseActivity {
 
     private static final String TAG = ChatBoardActivity.class.getName();
-    private static final int ICON_SIZE = 100;
 
     @InjectView(R.id.listview_chat) PullToRefreshListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
@@ -259,34 +254,7 @@ public class ChatBoardActivity extends BaseActivity {
         bar.setHomeButtonEnabled(true);
         bar.setTitle(charactor.getNameAndTitle());
 
-        setActionBarIcon(bar, charactor);
-    }
-
-    private void setActionBarIcon(final ActionBar bar, Charactor charactor) {
-        MainApplication.IMAGE_LOADER.loadImage(charactor.getImageUrl(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap bmp) {
-                Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, ICON_SIZE, ICON_SIZE, false);
-                bar.setIcon(new BitmapDrawable(getResources(), scaledBmp));
-            }
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                setEmptyIcon();
-            }
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason reason) {
-                setEmptyIcon();
-            }
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                setEmptyIcon();
-            }
-
-            private void setEmptyIcon() {
-                bar.setIcon(new BitmapDrawable(getResources(), 
-                        ImageUtils.createEmptyIconBmp(ChatBoardActivity.this, ICON_SIZE)));
-            }
-        });
+        ImageUtils.setActionBarIcon(this, bar, charactor.getImageUrl());
     }
 
     @Override
