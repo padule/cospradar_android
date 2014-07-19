@@ -80,6 +80,9 @@
     <string name="setting_suggest_message">今のコスキャラを設定すると、けいじばんでやり取りできるようになります。</string>
     <string name="setting_suggest_ok">登録する</string>
     <string name="setting_suggest_cancel">あとで</string>
+    <string name="charactor_set_suggest_title">もしかして</string>
+    <string name="charactor_set_suggest_msg">あなたも今コスプレ中ですか？\nもしそうなら、コスプレ中のキャラとしてセットしてみましょう！(・∀・)</string>
+    <string name="charactor_set_suggest_check">今日はもう表示しない</string>
 
     <!-- Profile -->
     <string name="profile">プロフィール</string>

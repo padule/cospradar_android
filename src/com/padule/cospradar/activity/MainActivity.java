@@ -31,6 +31,7 @@ import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.event.TutorialBackBtnClickedEvent;
+import com.padule.cospradar.fragment.CharactorSetSuggestDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
@@ -133,7 +134,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void loadData(final int page, String title, boolean isRealtime) {
+    private void loadData(final int page, String title, final boolean isRealtime) {
         MainApplication.API.getCharactors(createParams(title, isRealtime), 
                 new Callback<List<Charactor>>() {
             @Override
@@ -144,6 +145,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void success(List<Charactor> charactors, Response response) {
                 renderView(charactors);
+
+                if (isRealtime) {
+                    CharactorSetSuggestDialogFragment.show(MainActivity.this);
+                }
             }
         });
     }

@@ -1,7 +1,10 @@
 package com.padule.cospradar.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -277,6 +280,26 @@ public class AppUtils {
         }
 
         return builder.build().toString();  
+    }
+
+    public static boolean shouldSuggestCharactorSetting() {
+        Date prevDate = PrefUtils.getDate(PrefUtils.KEY_SUGGEST_CHARACTOR_SETTTING_TIME);
+
+        if (prevDate != null) {
+            DateTime date = new DateTime(prevDate);
+            DateTime now = new DateTime();
+
+            Log.d(TAG, "today: " + now + ", date: " + date);
+
+            if (now.isAfter(date.plusDays(1))) {
+                PrefUtils.remove(PrefUtils.KEY_SUGGEST_CHARACTOR_SETTTING_TIME);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
 
 }
