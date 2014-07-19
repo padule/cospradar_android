@@ -153,23 +153,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/container_admob"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/admob_height"
-        android:layout_weight="0"
-        android:background="@color/bg_gray_dark"
-        android:gravity="center" >
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical" />
-        </FrameLayout>
-    </RelativeLayout>
+    <include layout="@layout/partial_admob" />
 
 </LinearLayout>
