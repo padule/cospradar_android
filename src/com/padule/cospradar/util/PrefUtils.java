@@ -1,5 +1,7 @@
 package com.padule.cospradar.util;
 
+import java.util.Date;
+
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -13,6 +15,7 @@ public class PrefUtils {
     public static final String KEY_LAST_NOTIFICATION_PRIORITY = "last_notification_priority";
     public static final String KEY_REGISTRATION_ID = "registration_id";
     public static final String KEY_TUTORIAL_SHOWN = "tutorial_shown";
+    public static final String KEY_SUGGEST_CHARACTOR_SETTTING_TIME = "suggest_charactor_setting_time";
 
     private static SharedPreferences pref;
 
@@ -49,8 +52,29 @@ public class PrefUtils {
         edit.commit();
     }
 
+    public static void put(String name, Date value) {
+        SharedPreferences.Editor edit = getPref().edit();
+        edit.putLong(name, value.getTime());
+        edit.commit();
+    }
+
+    public static void remove(String name) {
+        SharedPreferences.Editor edit = getPref().edit();
+        edit.remove(name);
+        edit.commit();
+    }
+
     public static boolean contains(String name) {
         return getPref().contains(name);
+    }
+
+    public static Date getDate(String name) {
+        long time = getPref().getLong(name, 0L);
+        if (time > 0) {
+            return new Date(time);
+        } else {
+            return null;
+        }
     }
 
     public static boolean getBoolean(String name, boolean defaultValue) {

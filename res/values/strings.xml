@@ -82,6 +82,9 @@
     <string name="setting_suggest_message">After registration, you can communicate in chat board.</string>
     <string name="setting_suggest_ok">Register now</string>
     <string name="setting_suggest_cancel">After</string>
+    <string name="charactor_set_suggest_title">Do you cosplay now?</string>
+    <string name="charactor_set_suggest_msg">Do you cosplay now? If so, set current cosplay charactor!:)</string>
+    <string name="charactor_set_suggest_check">Never display today.</string>
 
     <!-- Profile -->
     <string name="profile">Profile</string>
