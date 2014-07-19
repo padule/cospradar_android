@@ -61,6 +61,7 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
         @InjectView(R.id.txt_title) TextView mTxtTitle;
         @InjectView(R.id.txt_distance) TextView mTxtDistance;
         @InjectView(R.id.txt_user_name) TextView mTxtUserName;
+        @InjectView(R.id.txt_charactor_enabled) TextView mTxtCharactorEnabled;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -71,6 +72,9 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
                 ImageUtils.displayRoundedImage(charactor.getImageUrl(), mImgIcon);
                 mTxtName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());
+
+                int visibility = charactor.isEnabled() ? View.VISIBLE : View.GONE;
+                mTxtCharactorEnabled.setVisibility(visibility);
 
                 bindUserName(charactor);
                 bindDistance(charactor, context);
@@ -89,12 +93,12 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
 
             if (location != null) {
                 Log.d(TAG, "latitude: " + location.getLatitude() + ", longitude: " + location.getLongitude());
-                
+
                 // TODO fix server API
                 if (location.getLatitude() == 0f && location.getLatitude() == 0f) {
                     return;
                 }
-                
+
                 float[] results = new float[3];
                 Location.distanceBetween(location.getLatitude(), location.getLongitude(), 
                         AppUtils.getLatitude(), AppUtils.getLongitude(), results);

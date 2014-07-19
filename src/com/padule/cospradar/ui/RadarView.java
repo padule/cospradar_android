@@ -91,7 +91,11 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     public void setMaxRadiusKiroMeter(double maxRadiusKiroMeter) {
-        this.maxRadiusKiroMeter = maxRadiusKiroMeter;
+        if ((double)maxRadiusKiroMeter >= MAX_RADIUS_KIROMETER) {
+            this.maxRadiusKiroMeter = Math.ceil(maxRadiusKiroMeter/10) * 10;
+        } else {
+            this.maxRadiusKiroMeter = maxRadiusKiroMeter;
+        }
     }
 
     public void setMinRadiusKiroMeter(double minRadiusKiroMeter) {
