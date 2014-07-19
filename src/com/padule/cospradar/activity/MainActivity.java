@@ -243,6 +243,7 @@ public class MainActivity extends BaseActivity {
             isPressedBackBtn = true;
             showInterstitial();
         }
+        super.onBackPressed(); // TODO should remove?
     }
 
 }
