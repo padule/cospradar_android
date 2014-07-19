@@ -75,6 +75,10 @@ public class TutorialActivity extends FragmentActivity {
         anim.setAnimationListener(new AnimationListener() {
             public void onAnimationEnd(Animation animation) {
                 mContainerCard.setVisibility(View.GONE);
+                mContainerCard.setEnabled(false);
+                mIndicator.setEnabled(false);
+                mIndicator.setOnTouchListener(null);
+                mIndicator.setVisibility(View.GONE);
             }
             @Override
             public void onAnimationRepeat(Animation animation) {
