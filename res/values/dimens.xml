@@ -31,6 +31,7 @@
     <!-- Radius -->
     <dimen name="radius_medium">4dp</dimen>
     <dimen name="radius_btn">4dp</dimen>
+    <dimen name="radius_label">16dp</dimen>
 
     <!-- Admob -->
     <dimen name="admob_height">50dp</dimen>

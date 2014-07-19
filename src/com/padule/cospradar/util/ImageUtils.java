@@ -15,17 +15,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.aviary.android.feather.FeatherActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -34,6 +39,8 @@ import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 
 public class ImageUtils {
+
+    private static final int ACTION_BAR_ICON_SIZE = 100;
 
     private static final int POS_CHOOSER_GALLERY = 0;
     private static final int POS_CHOOSER_CAMERA = 1;
@@ -233,6 +240,34 @@ public class ImageUtils {
             bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_app);
         }
         return bmp;
+    }
+
+    public static void setActionBarIcon(final Context context, final ActionBar bar, String url) {
+        MainApplication.IMAGE_LOADER.loadImage(url, new ImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap bmp) {
+                Bitmap scaledBmp = Bitmap.createScaledBitmap(
+                        bmp, ACTION_BAR_ICON_SIZE, ACTION_BAR_ICON_SIZE, false);
+                bar.setIcon(new BitmapDrawable(context.getResources(), scaledBmp));
+            }
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                setEmptyIcon();
+            }
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason reason) {
+                setEmptyIcon();
+            }
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                setEmptyIcon();
+            }
+
+            private void setEmptyIcon() {
+                bar.setIcon(new BitmapDrawable(context.getResources(), 
+                        ImageUtils.createEmptyIconBmp(context, ACTION_BAR_ICON_SIZE)));
+            }
+        });
     }
 
 }

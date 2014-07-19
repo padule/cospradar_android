@@ -59,6 +59,10 @@ public class CharactorSettingActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    public static void start(Context context) {
+        start(context, null);
+    }
+
     @Override
     protected void initView() {
         initMode();

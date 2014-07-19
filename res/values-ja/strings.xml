@@ -88,6 +88,11 @@
     <string name="profile_charactor_edit">コスキャラを編集</string>
     <string name="profile_charactor_delete">コスキャラを削除</string>
     <string name="profile_delete_confirm">削除してよろしいですか？</string>
+    <string name="profile_charactor_enabled">コスプレ中</string>
+    <string name="profile_charactor_disable_confirm_msg">現在のコスキャラをリセットしますか？</string>
+    <string name="profile_charactor_enable_confirm_msg">今%1$sのコスプレをしていますか？(・∀・)</string>
+    <string name="profile_no_charactor">あなたのコスキャラは登録されていません。最初のコスキャラを登録してみませんか？</string>
+    <string name="profile_charactor_regist">登録する</string>
 
     <!-- CharactorChooser -->
     <string name="charactor_chooser">コスキャラを選択</string>

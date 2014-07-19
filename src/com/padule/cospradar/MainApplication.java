@@ -49,7 +49,7 @@ implements Thread.UncaughtExceptionHandler {
         .resetViewBeforeLoading(true)
         .cacheOnDisc(true)
         .cacheInMemory(true)
-        .bitmapConfig(Bitmap.Config.RGB_565)
+        .bitmapConfig(Bitmap.Config.ARGB_8888)
         .imageScaleType(ImageScaleType.EXACTLY)
         .build();
 
@@ -57,7 +57,7 @@ implements Thread.UncaughtExceptionHandler {
                 getApplicationContext()).threadPoolSize(5)
                 .threadPriority(Thread.NORM_PRIORITY - 3)
                 .denyCacheImageMultipleSizesInMemory()
-                .discCacheExtraOptions(480, 800, CompressFormat.JPEG, 80, null)
+                .discCacheExtraOptions(480, 800, CompressFormat.PNG, 100, null)
                 .memoryCache(new LruMemoryCache(8 * 1024 * 1024))
                 .memoryCacheSize(16 * 1024 * 1024)
                 .discCacheSize(50 * 1024 * 1024)

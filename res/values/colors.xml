@@ -2,7 +2,8 @@
 <resources>
 
     <!-- Background -->
-    <color name="bg_white">#FEFEFE</color>
+    <color name="bg_white">#fefefe</color>
+    <color name="bg_white_alfa">#64fefefe</color>
     <color name="bg_black_alfa_light">#1a000000</color>
     <color name="bg_black_alfa">#66000000</color>
     <color name="bg_black_alfa_dark">#b3000000</color>

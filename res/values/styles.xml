@@ -118,4 +118,19 @@
         <item name="android:scaleType">fitCenter</item>
     </style>
 
+    <style name="ClickableText">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:padding">@dimen/padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/bg_clickable</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ClickableText.Large">
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
 </resources>
