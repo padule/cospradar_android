@@ -24,20 +24,21 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import com.google.android.gms.ads.AdView;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.ProfileCharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
-import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
 import com.padule.cospradar.event.CharactorDeleteEvent;
+import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.fragment.CharactorDeleteDialogFragment;
+import com.padule.cospradar.fragment.CharactorEnableConfirmDialogFragment;
 import com.padule.cospradar.service.ApiService;
-import com.padule.cospradar.ui.ProfileHeader;
 import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 
@@ -52,6 +53,7 @@ public class ProfileActivity extends BaseActivity {
 
     @InjectView(R.id.listview_charactors) ListView mListView;
     @InjectView(R.id.container_admob) RelativeLayout mContainerAdmob;
+    @InjectView(R.id.container_empty) View mContainerEmpty;
 
     private AdView adView;
     private View mLoading;
@@ -133,11 +135,10 @@ public class ProfileActivity extends BaseActivity {
     private void initListView() {
         initLoading();
         adapter = new ProfileCharactorsAdapter(this);
-        mListView.addHeaderView(new ProfileHeader(this, user));
         mListView.addHeaderView(mLoading);
         mListView.setAdapter(adapter);
         initListViewListener();
-        loadData(1);
+        loadData(0);
     }
 
     private void initLoading() {
@@ -150,12 +151,13 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void initListViewListener() {
-        mListView.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                loadData(page);
-            }
-        });
+        // TODO fix server count.
+        // mListView.setOnScrollListener(new EndlessScrollListener() {
+        //     @Override
+        //     public void onLoadMore(int page, int totalItemsCount) {
+        //         loadData(page);
+        //     }
+        // });
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
@@ -168,6 +170,11 @@ public class ProfileActivity extends BaseActivity {
                     break;
                 case R.id.img_chat:
                     ChatBoardActivity.start(ProfileActivity.this, adapter.getItem(pos));
+                    break;
+                case R.id.txt_charactor_enabled_clicker:
+                    if (AppUtils.isLoginUser(user)) {
+                        CharactorEnableConfirmDialogFragment.show(ProfileActivity.this, adapter.getItem(pos));
+                    }
                     break;
                 }
             }
@@ -200,6 +207,10 @@ public class ProfileActivity extends BaseActivity {
 
     public void onEvent(CharactorDeleteEvent event) {
         deleteCharactor(event.charactor);
+    }
+
+    public void onEvent(CurrentCharactorSelectedEvent event) {
+        updateCharactor(event.charactor);
     }
 
     private void deleteCharactor(final Charactor charactor) {
@@ -247,11 +258,12 @@ public class ProfileActivity extends BaseActivity {
         Map<String, String> params = new HashMap<String, String>();
         if (userId > 0) {
             params.put(ApiService.PARAM_USER_ID, userId + "");
-            params.put(ApiService.PARAM_DESC, "is_enabled");
+            params.put(ApiService.PARAM_DESC, ApiService.PARAM_IS_ENABLED);
         }
         params.put(ApiService.PARAM_PAGE, page + "");
         params.put(ApiService.PARAM_LATITUDE, AppUtils.getLatitude() + "");
         params.put(ApiService.PARAM_LONGITUDE, AppUtils.getLongitude() + "");
+        params.put(ApiService.PARAM_LIMIT, "300"); // FIXME 
 
         return params;
     }
@@ -259,6 +271,11 @@ public class ProfileActivity extends BaseActivity {
     private void renderView(List<Charactor> charactors) {
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
+            mListView.setVisibility(View.VISIBLE);
+            mContainerEmpty.setVisibility(View.GONE);
+        } else {
+            mListView.setVisibility(View.GONE);
+            mContainerEmpty.setVisibility(View.VISIBLE);
         }
     }
 
@@ -268,6 +285,7 @@ public class ProfileActivity extends BaseActivity {
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle(getString(R.string.profile));
         bar.setIcon(R.drawable.ic_launcher);
+        bar.setTitle(user.getScreenName());
     }
 
     @Override
@@ -279,6 +297,9 @@ public class ProfileActivity extends BaseActivity {
         case R.id.item_setting:
             SettingActivity.start(this);
             break;
+        case R.id.item_add:
+            CharactorSettingActivity.start(this);
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -289,6 +310,53 @@ public class ProfileActivity extends BaseActivity {
             getMenuInflater().inflate(R.menu.activity_profile, menu);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void updateCharactor(Charactor charactor) {
+        if (charactor == null) return;
+
+        final Dialog dialog = AppUtils.makeLoadingDialog(this);
+        dialog.show();
+
+        int updateIsEnabled = charactor.isEnabled() ? 0 : 1;
+        MainApplication.API.putCharactors(charactor.getId(), updateIsEnabled, 
+                new Callback<Charactor>() {
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d(TAG, "update_error: " + e.getMessage());
+                dialog.dismiss();
+                AppUtils.showToast(R.string.error_raised, ProfileActivity.this);
+            }
+
+            @Override
+            public void success(Charactor charactor, Response response) {
+                dialog.dismiss();
+                if (charactor.isEnabled()) {
+                    AppUtils.setCharactor(charactor);
+                }
+                updateView(charactor);
+            }
+        });
+    }
+
+    private void updateView(Charactor currentCharactor) {
+        final int size = adapter.getCount();
+        for (int i = 0; i < size; i++) {
+            Charactor c = adapter.getItem(i);
+            if (c == null) return;
+
+            if (c.getId() == currentCharactor.getId()) {
+                c.setIsEnabled(currentCharactor.isEnabled());
+            } else {
+                c.setIsEnabled(false);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.txt_charactor_add)
+    void onClickTxtCharactorAdd() {
+        CharactorSettingActivity.start(this);
     }
 
 }

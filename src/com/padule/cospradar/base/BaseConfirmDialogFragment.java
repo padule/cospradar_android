@@ -38,7 +38,7 @@ public abstract class BaseConfirmDialogFragment extends DialogFragment {
     private void bindData() {
         mImgIcon.setImageResource(getImgIconResId());
         mTxtConfirmTitle.setText(getString(getTitleResId()));
-        mTxtConfirmMsg.setText(getString(getMsgResId()));
+        mTxtConfirmMsg.setText(getMsg());
         mBtnOk.setText(getString(getOkBtnTxtResId()));
         mBtnCancel.setText(getString(getCancelBtnTxtResId()));
     }
@@ -53,6 +53,10 @@ public abstract class BaseConfirmDialogFragment extends DialogFragment {
 
     protected int getMsgResId() {
         return R.string.confirm;
+    }
+    
+    protected String getMsg() {
+        return getString(getMsgResId());
     }
 
     protected int getOkBtnTxtResId() {

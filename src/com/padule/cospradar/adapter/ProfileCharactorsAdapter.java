@@ -66,7 +66,7 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
         holder.mImgClicker.setOnClickListener(onClickListener);
         holder.mImgMenu.setOnClickListener(onClickListener);
         holder.mImgChat.setOnClickListener(onClickListener);
-
+        holder.mTxtCharactorEnabledClicker.setOnClickListener(onClickListener);
     }
 
     static class ViewHolder {
@@ -77,6 +77,8 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
         @InjectView(R.id.img_chat) ImageView mImgChat;
         @InjectView(R.id.loading) View mLoading;
         @InjectView(R.id.img_charactor_clicker) View mImgClicker;
+        @InjectView(R.id.txt_charactor_enabled) TextView mTxtCharactorEnabled;
+        @InjectView(R.id.txt_charactor_enabled_clicker) View mTxtCharactorEnabledClicker;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -89,11 +91,17 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
                 MainApplication.IMAGE_LOADER.displayImage(charactor.getImageUrl(), mImgCharactor, imageLoaderListener);
                 mTxtCharactorName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());
+                mTxtCharactorEnabled.setEnabled(charactor.isEnabled());
 
                 if (AppUtils.isLoginUser(charactor.getUser())) {
                     mImgMenu.setVisibility(View.VISIBLE);
                 } else {
                     mImgMenu.setVisibility(View.GONE);
+                    if (!charactor.isEnabled()) {
+                        mTxtCharactorEnabled.setVisibility(View.GONE);
+                    } else {
+                        mTxtCharactorEnabled.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }

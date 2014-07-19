@@ -3,6 +3,11 @@
     xmlns:padule.cospradar="http://schemas.android.com/apk/res-auto" >
 
     <item
+        android:id="@+id/item_add"
+        android:icon="@drawable/ic_plus_white"
+        android:title="@string/charactor_setting"
+        padule.cospradar:showAsAction="always"/>
+    <item
         android:id="@+id/item_setting"
         android:icon="@drawable/ic_setting"
         android:title="@string/setting"

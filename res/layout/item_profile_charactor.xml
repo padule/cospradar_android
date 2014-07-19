@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_charactor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_white" >
+    android:padding="@dimen/padding" >
 
     <com.padule.cospradar.ui.ResizableImageView
         android:id="@+id/img_charactor"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        app:image_ratio="1.3" />
+        app:image_ratio="1" />
 
     <View
         android:id="@+id/img_charactor_clicker"
@@ -39,11 +40,33 @@
             android:layout_gravity="center|center_vertical" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/txt_charactor_enabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:background="@drawable/label_theme"
+        android:clickable="true"
+        android:padding="@dimen/padding"
+        android:text="@string/profile_charactor_enabled"
+        android:textColor="@color/text_white" />
+
+    <View
+        android:id="@+id/txt_charactor_enabled_clicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/txt_charactor_enabled"
+        android:layout_alignLeft="@id/txt_charactor_enabled"
+        android:layout_alignRight="@id/txt_charactor_enabled"
+        android:layout_alignTop="@id/txt_charactor_enabled"
+        android:clickable="true" />
+
     <LinearLayout
         android:id="@+id/container_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_charactor"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_black_alfa"
         android:orientation="horizontal" >
 
         <RelativeLayout
@@ -58,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
+                android:textColor="@color/text_white"
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold" />
 
@@ -69,19 +93,19 @@
                 android:layout_marginTop="@dimen/margin"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textColor="@color/text_gray"
+                android:textColor="@color/text_white"
                 android:textSize="@dimen/text_medium" />
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/img_chat"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:padding="@dimen/padding"
-            android:src="@drawable/ic_comment" />
+            android:src="@drawable/ic_comment_white" />
 
         <ImageView
             android:id="@+id/img_menu"
@@ -91,13 +115,7 @@
             android:background="@drawable/bg_clickable"
             android:clickable="true"
             android:padding="@dimen/padding"
-            android:src="@drawable/ic_menu" />
+            android:src="@drawable/ic_menu_white" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/container_description"
-        android:background="@color/bg_gray" />
 
 </RelativeLayout>
