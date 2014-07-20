@@ -1,4 +1,4 @@
-package com.padule.cospradar.fragment;
+package com.padule.cospradar.dialog;
 
 import com.padule.cospradar.R;
 import com.padule.cospradar.base.BaseActivity;
