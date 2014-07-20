@@ -318,7 +318,7 @@ public class ProfileActivity extends BaseActivity {
         final Dialog dialog = AppUtils.makeLoadingDialog(this);
         dialog.show();
 
-        int updateIsEnabled = charactor.isEnabled() ? 0 : 1;
+        int updateIsEnabled = charactor.isEnabled() ? 1 : 0;
         MainApplication.API.putCharactors(charactor.getId(), updateIsEnabled, 
                 new Callback<Charactor>() {
             @Override
@@ -331,9 +331,8 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void success(Charactor charactor, Response response) {
                 dialog.dismiss();
-                if (charactor.isEnabled()) {
-                    AppUtils.setCharactor(charactor);
-                }
+                Charactor c = charactor.isEnabled() ? charactor : null;
+                AppUtils.setCharactor(c);
                 updateView(charactor);
             }
         });

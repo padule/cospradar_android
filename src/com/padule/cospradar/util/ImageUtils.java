@@ -24,6 +24,7 @@ import android.provider.MediaStore.MediaColumns;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -33,6 +34,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.padule.cospradar.Constants;
 import com.padule.cospradar.MainApplication;
@@ -266,6 +268,17 @@ public class ImageUtils {
             private void setEmptyIcon() {
                 bar.setIcon(new BitmapDrawable(context.getResources(), 
                         ImageUtils.createEmptyIconBmp(context, ACTION_BAR_ICON_SIZE)));
+            }
+        });
+    }
+
+    public static void setOptionItemIcon(final Context context, final MenuItem item, String url) {
+        MainApplication.IMAGE_LOADER.loadImage(url, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap bmp) {
+                Bitmap scaledBmp = Bitmap.createScaledBitmap(
+                        bmp, ACTION_BAR_ICON_SIZE, ACTION_BAR_ICON_SIZE, false);
+                item.setIcon(new BitmapDrawable(context.getResources(), scaledBmp));
             }
         });
     }

@@ -1,8 +1,6 @@
 package com.padule.cospradar.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -45,7 +43,6 @@ public class UnreadGcmCounts extends Data {
             Integer count = counts.get(key) != null ? counts.get(key) : 1;
             counts.put(key, count);
             PrefUtils.put(PREF_KEY_UNREAD_GCM_COUNTS, serializeToString());
-
             EventBus.getDefault().post(new UnreadChatBoardCountChangedEvent());
         }
     }
@@ -70,12 +67,13 @@ public class UnreadGcmCounts extends Data {
         }
     }
 
-    public List<Integer> getChatBoardList() {
-        List<Integer> result = new ArrayList<Integer>();
+    public Map<Integer, Integer> getChatBoardMap() {
+        Map<Integer, Integer> result = new HashMap<Integer, Integer>();
         for (Entry<String, Integer> e : counts.entrySet()) {
             int notificationId = getNotificationIdFromKey(e.getKey());
             if (NotificationUtils.relateOnChatBoard(notificationId)) {
-                result.add(getModelIdFromKey(e.getKey()));
+                int modelId = getModelIdFromKey(e.getKey());
+                result.put(modelId, modelId);
             }
         }
 
@@ -93,6 +91,7 @@ public class UnreadGcmCounts extends Data {
         String key = generateKey(notificationId, modelId);
         counts.remove(key);
         PrefUtils.put(PREF_KEY_UNREAD_GCM_COUNTS, serializeToString());
+        EventBus.getDefault().post(new UnreadChatBoardCountChangedEvent());
     }
 
 }

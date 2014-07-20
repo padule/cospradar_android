@@ -43,6 +43,7 @@ public class CharactorEnableConfirmDialogFragment extends BaseConfirmDialogFragm
 
     @Override
     protected void onConfirm() {
+        charactor.setIsEnabled(!charactor.isEnabled());
         EventBus.getDefault().post(new CurrentCharactorSelectedEvent(charactor));
     }
 

@@ -29,6 +29,8 @@ import com.padule.cospradar.adapter.CharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.UnreadGcmCounts;
+import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.event.TutorialBackBtnClickedEvent;
 import com.padule.cospradar.event.UnreadChatBoardCountChangedEvent;
@@ -39,6 +41,7 @@ import com.padule.cospradar.ui.SearchHeader;
 import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.GcmUtils;
+import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.KeyboardUtils;
 import com.padule.cospradar.util.NotificationUtils;
 
@@ -114,6 +117,10 @@ public class MainActivity extends BaseActivity {
         changeChatListOptionIcon();
     }
 
+    public void onEvent(CurrentCharactorSelectedEvent event) {
+        changeProfileOptionIcon(event.charactor);
+    }
+
     private void initListView() {
         adapter = new CharactorsAdapter(this);
         header = new SearchHeader(this);
@@ -151,7 +158,7 @@ public class MainActivity extends BaseActivity {
             public void success(List<Charactor> charactors, Response response) {
                 renderView(charactors);
 
-                if (isRealtime) {
+                if (isRealtime && AppUtils.getCharactor() == null) {
                     CharactorSetSuggestDialogFragment.show(MainActivity.this);
                 }
             }
@@ -190,8 +197,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_main, menu);
+        this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -256,13 +263,25 @@ public class MainActivity extends BaseActivity {
     public boolean onPrepareOptionsMenu (Menu menu) {
         super.onPrepareOptionsMenu(menu);
         changeChatListOptionIcon();
+        changeProfileOptionIcon(AppUtils.getCharactor());
         return true;
     }
 
     private void changeChatListOptionIcon() {
+        Log.d(TAG, "changeChatListOptionIcon menu: " + menu);
+        Log.d(TAG, "unread count: " + UnreadGcmCounts.getInstance().getChatBoardMap().size());
         if (menu != null) {
             MenuItem itemChatList = (MenuItem)menu.findItem(R.id.item_chat_list);
             itemChatList.setIcon(NotificationUtils.getChatBoardIconResId());
+        }
+    }
+
+    private void changeProfileOptionIcon(Charactor charactor) {
+        MenuItem item = (MenuItem)menu.findItem(R.id.item_profile);
+        if (menu != null && charactor != null && charactor.isEnabled()) {
+            ImageUtils.setOptionItemIcon(this, item, charactor.getImageUrl());
+        } else {
+            item.setIcon(R.drawable.ic_profile);
         }
     }
 

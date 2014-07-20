@@ -244,7 +244,7 @@ public class NotificationUtils {
     }
 
     public static int getChatBoardIconResId() {
-        int unreadCounts = UnreadGcmCounts.getInstance().getChatBoardList().size();
+        int unreadCounts = UnreadGcmCounts.getInstance().getChatBoardMap().size();
         switch (unreadCounts) {
         case 0:
             return R.drawable.ic_comments_0;
