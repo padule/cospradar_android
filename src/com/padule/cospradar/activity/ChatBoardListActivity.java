@@ -1,6 +1,8 @@
 package com.padule.cospradar.activity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -27,6 +29,7 @@ import com.padule.cospradar.adapter.ChatBoardsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.UnreadGcmCounts;
 import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
@@ -36,6 +39,8 @@ import de.greenrobot.event.EventBus;
 public class ChatBoardListActivity extends BaseActivity {
 
     private static final String TAG = ChatBoardListActivity.class.getName();
+    private static final int PER = 10;
+
     @InjectView(R.id.listview_chat_list) PullToRefreshListView mListView;
     @InjectView(R.id.container_empty) View mContainerEmpty;
     @InjectView(R.id.loading) View mLoading;
@@ -153,8 +158,24 @@ public class ChatBoardListActivity extends BaseActivity {
             @Override
             public void success(List<Charactor> charactors, Response response) {
                 renderView(charactors, page, shouldClearAll);
+                checkUnreadCounts(charactors);
             }
         });
+    }
+
+    private void checkUnreadCounts(List<Charactor> charactors) {
+        if (charactors.size() >= PER) return;
+
+        Map<Integer, Integer> map = UnreadGcmCounts.getInstance().getChatBoardMap();
+        if (map.isEmpty()) return;
+
+        List<Integer> charactorIds = new ArrayList<Integer>();
+        int count = adapter.getCount();
+        for (int i = 0; i < count; i++) {
+            charactorIds.add(adapter.getItem(i).getId());
+        }
+
+        UnreadGcmCounts.getInstance().clearInvalidChatBoard(charactorIds);
     }
 
     private void renderView(List<Charactor> charactors, int page, boolean shouldClearAll) {

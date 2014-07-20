@@ -1,6 +1,7 @@
 package com.padule.cospradar.data;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -84,6 +85,18 @@ public class UnreadGcmCounts extends Data {
         int[] idRelateOnChatBoard = NotificationUtils.getIdRelateOnChatBoard();
         for (int notificationId : idRelateOnChatBoard) {
             clear(notificationId, modelId);
+        }
+    }
+
+    public void clearInvalidChatBoard(List<Integer> validCharactorIds) {
+        Map<Integer, Integer> map = getChatBoardMap();
+
+        for (int charactorId : validCharactorIds) {
+            map.remove(charactorId);
+        }
+
+        for (Entry<Integer, Integer> e : map.entrySet()) {
+            clearFromChatBoard(e.getKey());
         }
     }
 

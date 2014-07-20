@@ -4,7 +4,7 @@
     android:id="@+id/root_preview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_black_alfa_dark" >
+    android:background="@color/bg_black" >
 
     <com.padule.cospradar.ui.ResizableImageView
         android:id="@+id/img_preview"

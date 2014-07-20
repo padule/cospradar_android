@@ -34,6 +34,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.event.CharactorCreatedEvent;
 import com.padule.cospradar.event.CharactorDeleteEvent;
 import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.fragment.CharactorDeleteDialogFragment;
@@ -211,6 +212,11 @@ public class ProfileActivity extends BaseActivity {
 
     public void onEvent(CurrentCharactorSelectedEvent event) {
         updateCharactor(event.charactor);
+    }
+
+    public void onEvent(CharactorCreatedEvent event) {
+        adapter.add(event.charactor);
+        adapter.notify();
     }
 
     private void deleteCharactor(final Charactor charactor) {
