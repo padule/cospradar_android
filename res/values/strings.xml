@@ -88,16 +88,16 @@
 
     <!-- Profile -->
     <string name="profile">Profile</string>
-    <string name="profile_add">Add character</string>
-    <string name="profile_chat">Chat board</string>
     <string name="profile_charactor_edit">Edit character</string>
     <string name="profile_charactor_delete">Delete character</string>
     <string name="profile_delete_confirm">Is it OK to delete character?</string>
     <string name="profile_charactor_enabled">Current</string>
+    <string name="profile_charactor_enabled_question">Current?</string>
     <string name="profile_charactor_disable_confirm_msg">Is it OK to reset current cosplay charactor?</string>
     <string name="profile_charactor_enable_confirm_msg">Is %1$s current cosplay charactor?</string>
     <string name="profile_no_charactor">Your cosplay charactor is not registered. Would you register your first cosplay charactor?</string>
     <string name="profile_charactor_regist">Regist</string>
+    <string name="profile_title">%1$s (%2$s)</string>
 
     <!-- CharactorChooser -->
     <string name="charactor_chooser">Choose character</string>
