@@ -31,6 +31,7 @@ import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.event.TutorialBackBtnClickedEvent;
+import com.padule.cospradar.event.UnreadChatBoardCountChangedEvent;
 import com.padule.cospradar.fragment.CharactorSetSuggestDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.service.LocationService;
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity {
     private SearchHeader header;
     private InterstitialAd interstitial;
     private boolean isPressedBackBtn;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,9 @@ public class MainActivity extends BaseActivity {
         finish();
     }
 
+    public void onEvent(UnreadChatBoardCountChangedEvent event) {
+        changeChatListOptionIcon();
+    }
 
     private void initListView() {
         adapter = new CharactorsAdapter(this);
@@ -185,6 +190,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -244,6 +250,20 @@ public class MainActivity extends BaseActivity {
             showInterstitial();
         }
         super.onBackPressed(); // TODO should remove?
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        changeChatListOptionIcon();
+        return true;
+    }
+
+    private void changeChatListOptionIcon() {
+        if (menu != null) {
+            MenuItem itemChatList = (MenuItem)menu.findItem(R.id.item_chat_list);
+            itemChatList.setIcon(NotificationUtils.getChatBoardIconResId());
+        }
     }
 
 }

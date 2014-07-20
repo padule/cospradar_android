@@ -30,6 +30,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.data.UnreadGcmCounts;
 import com.padule.cospradar.event.CommentCharactorIconClickedEvent;
 import com.padule.cospradar.event.CommentCharactorSelectedEvent;
 import com.padule.cospradar.event.CommentCloseEvent;
@@ -67,7 +68,15 @@ public class ChatBoardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         KeyboardUtils.initHidden(this);
         setContentView(R.layout.activity_chat_board);
+
+        clearUnreadGcmCount();
         EventBus.getDefault().register(this);
+    }
+
+    private void clearUnreadGcmCount() {
+        if (charactor != null) {
+            UnreadGcmCounts.getInstance().clearFromChatBoard(charactor.getId());
+        }
     }
 
     @Override
