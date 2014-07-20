@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/item_chat_list"
-        android:icon="@drawable/ic_chat_list"
+        android:icon="@drawable/ic_comments_0"
         android:title="@string/comment_chats"
         padule.cospradar:showAsAction="always"/>
     <item
