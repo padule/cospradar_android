@@ -21,6 +21,7 @@ import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.activity.LoginActivity;
 import com.padule.cospradar.activity.MainActivity;
 import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.data.UnreadGcmCounts;
 
 public class NotificationUtils {
 
@@ -49,6 +50,8 @@ public class NotificationUtils {
         if (!validate(id, modelId, text)) {
             return;
         }
+
+        UnreadGcmCounts.getInstance().putCount(id, modelId, 0); // TODO pass valid user id from server.
 
         final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
         final PendingIntent intent = createIntent(id, modelId, extraUrl, context);
@@ -217,6 +220,52 @@ public class NotificationUtils {
             int charactorId = intent.getIntExtra(EXTRA_MODEL_ID, DEFAULT_MODEL_ID);
             ChatBoardActivity.start(activity, charactorId);
             break;
+        }
+    }
+
+    public static boolean relateOnChatBoard(int notificationId) {
+        int[] idRelateOnChatBoard = getIdRelateOnChatBoard();
+        for (int id : idRelateOnChatBoard) {
+            if (id == notificationId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static int[] getIdRelateOnChatBoard() {
+        int[] result = { ID_CHATBOARD_COMMENTED, ID_CHATBOARD_MINE_COMMENTED };
+        return result;
+    }
+
+    public static boolean relateOnGcm(int notificationId) {
+        return relateOnChatBoard(notificationId);
+    }
+
+    public static int getChatBoardIconResId() {
+        int unreadCounts = UnreadGcmCounts.getInstance().getChatBoardList().size();
+        switch (unreadCounts) {
+        case 0:
+            return R.drawable.ic_comments_0;
+        case 1:
+            return R.drawable.ic_comments_1;
+        case 2:
+            return R.drawable.ic_comments_2;
+        case 3:
+            return R.drawable.ic_comments_3;
+        case 4:
+            return R.drawable.ic_comments_4;
+        case 5:
+            return R.drawable.ic_comments_5;
+        case 6:
+            return R.drawable.ic_comments_6;
+        case 7:
+            return R.drawable.ic_comments_7;
+        case 8:
+            return R.drawable.ic_comments_8;
+        default:
+            return R.drawable.ic_comments_9;
         }
     }
 
