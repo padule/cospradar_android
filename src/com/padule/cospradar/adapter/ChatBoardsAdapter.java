@@ -57,6 +57,7 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
         @InjectView(R.id.txt_user_name) TextView mTxtUserName;
         @InjectView(R.id.txt_latest_comment_time) TextView mTxtLatestCommentTime;
         @InjectView(R.id.txt_latest_comment) TextView mTxtLatestComment;
+        @InjectView(R.id.txt_charactor_enabled) TextView mTxtCharactorEnabled;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -69,7 +70,13 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
                 mTxtTitle.setText(charactor.getTitle());
                 bindUserName(charactor);
                 bindLatestComment(charactor, context);
+                bindCharactorEnabled(charactor);
             }
+        }
+
+        void bindCharactorEnabled(Charactor charactor) {
+            int visibility = charactor.isEnabled() ? View.VISIBLE : View.INVISIBLE;
+            mTxtCharactorEnabled.setVisibility(visibility);
         }
 
         void bindUserName(Charactor charactor) {
