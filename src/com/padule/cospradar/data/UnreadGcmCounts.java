@@ -43,6 +43,7 @@ public class UnreadGcmCounts extends Data {
             Integer count = counts.get(key) != null ? counts.get(key) : 1;
             counts.put(key, count);
             PrefUtils.put(PREF_KEY_UNREAD_GCM_COUNTS, serializeToString());
+            EventBus.getDefault().post(new UnreadChatBoardCountChangedEvent());
         }
     }
 
@@ -90,6 +91,7 @@ public class UnreadGcmCounts extends Data {
         String key = generateKey(notificationId, modelId);
         counts.remove(key);
         PrefUtils.put(PREF_KEY_UNREAD_GCM_COUNTS, serializeToString());
+        EventBus.getDefault().post(new UnreadChatBoardCountChangedEvent());
     }
 
 }
