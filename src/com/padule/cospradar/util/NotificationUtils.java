@@ -50,11 +50,12 @@ public class NotificationUtils {
             return;
         }
 
+        final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
         final PendingIntent intent = createIntent(id, modelId, extraUrl, context);
 
         new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
-                show(TAG_GCM, priority, title, text, iconUrl,
+                show(TAG_GCM, priority, title, createdText, iconUrl,
                         bigPictureUrl, context, intent);
                 return null;
             }
@@ -63,13 +64,11 @@ public class NotificationUtils {
 
     private static void showForWeb(final int id, final String text, final String extraUrl, 
             final String iconUrl, final Context context) {
-        final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
-
         final PendingIntent intent = createIntent(id, DEFAULT_MODEL_ID, extraUrl, context);
 
         new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
-                show(TAG_WEB, DEFAULT_PRIORITY, null, createdText, iconUrl, null, context, intent);
+                show(TAG_WEB, DEFAULT_PRIORITY, null, text, iconUrl, null, context, intent);
                 return null;
             }
         }.execute();
@@ -94,7 +93,7 @@ public class NotificationUtils {
 
     private static void show(String tag, int priority, String title, String text, 
             String iconUrl, String bigPictureUrl, Context context, PendingIntent intent) {
-        if (title == null) {
+        if (TextUtils.isEmpty(title)) {
             title = context.getString(R.string.app_name);
         }
 
