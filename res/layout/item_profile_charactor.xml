@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:background="@color/bg_white"
         android:scaleType="centerCrop"
         app:image_ratio="1" />
 
