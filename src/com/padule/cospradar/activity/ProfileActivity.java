@@ -217,6 +217,7 @@ public class ProfileActivity extends BaseActivity {
     public void onEvent(CharactorCreatedEvent event) {
         adapter.add(event.charactor);
         adapter.notify();
+        updateActionBarTitle();
     }
 
     private void deleteCharactor(final Charactor charactor) {
@@ -240,6 +241,7 @@ public class ProfileActivity extends BaseActivity {
                     AppUtils.setCharactor(null);
                 }
                 ProfileActivity.this.adapter.remove(charactor);
+                updateActionBarTitle();
             }
         });
     }
@@ -277,6 +279,7 @@ public class ProfileActivity extends BaseActivity {
     private void renderView(List<Charactor> charactors) {
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
+            updateActionBarTitle();
             mListView.setVisibility(View.VISIBLE);
             mContainerEmpty.setVisibility(View.GONE);
         } else {
@@ -289,9 +292,17 @@ public class ProfileActivity extends BaseActivity {
         ActionBar bar = getSupportActionBar();
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle(getString(R.string.profile));
         bar.setIcon(R.drawable.ic_launcher);
         bar.setTitle(user.getScreenName());
+    }
+
+    private void updateActionBarTitle() {
+        ActionBar bar = getSupportActionBar();
+
+        if (!adapter.isEmpty()) {
+            bar.setTitle(getString(R.string.profile_title, 
+                    user.getScreenName(), adapter.getCount() + ""));
+        }
     }
 
     @Override
