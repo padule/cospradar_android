@@ -120,6 +120,7 @@ public class ChatBoardListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 pos -= mListView.getRefreshableView().getHeaderViewsCount();
                 ChatBoardActivity.start(ChatBoardListActivity.this, adapter.getItem(pos));
+                view.setBackgroundResource(R.drawable.bg_white);
             }
         });
     }

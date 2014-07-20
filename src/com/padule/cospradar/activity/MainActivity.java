@@ -29,6 +29,7 @@ import com.padule.cospradar.adapter.CharactorsAdapter;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.EndlessScrollListener;
 import com.padule.cospradar.data.Charactor;
+import com.padule.cospradar.data.UnreadGcmCounts;
 import com.padule.cospradar.event.SearchBtnClickedEvent;
 import com.padule.cospradar.event.TutorialBackBtnClickedEvent;
 import com.padule.cospradar.event.UnreadChatBoardCountChangedEvent;
@@ -260,6 +261,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void changeChatListOptionIcon() {
+        Log.d(TAG, "changeChatListOptionIcon menu: " + menu);
+        Log.d(TAG, "unread count: " + UnreadGcmCounts.getInstance().getChatBoardMap().size());
         if (menu != null) {
             MenuItem itemChatList = (MenuItem)menu.findItem(R.id.item_chat_list);
             itemChatList.setIcon(NotificationUtils.getChatBoardIconResId());

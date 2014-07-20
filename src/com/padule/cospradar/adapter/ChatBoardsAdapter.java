@@ -2,6 +2,7 @@ package com.padule.cospradar.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import butterknife.InjectView;
 import com.padule.cospradar.R;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.data.UnreadGcmCounts;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TimeUtils;
 
@@ -28,7 +30,7 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
     }
 
     public ChatBoardsAdapter(Context context, List<Charactor> charactors) {
-        super(context, R.layout.item_charactor, charactors);
+        super(context, R.layout.item_comment_charactor, charactors);
         this.context = context;
     }
 
@@ -51,6 +53,7 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
     }
 
     static class ViewHolder {
+        @InjectView(R.id.root) View mRoot;
         @InjectView(R.id.img_icon) ImageView mImgIcon;
         @InjectView(R.id.txt_name) TextView mTxtName;
         @InjectView(R.id.txt_title) TextView mTxtTitle;
@@ -71,7 +74,15 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
                 bindUserName(charactor);
                 bindLatestComment(charactor, context);
                 bindCharactorEnabled(charactor);
+                bindUnreadBackground(charactor);
             }
+        }
+
+        void bindUnreadBackground(Charactor charactor) {
+            Map<Integer, Integer> unreads = UnreadGcmCounts.getInstance().getChatBoardMap();
+            int resId = unreads.containsKey(charactor.getId()) 
+                    ? R.drawable.bg_accent_alfa : R.drawable.bg_white;
+            mRoot.setBackgroundResource(resId);
         }
 
         void bindCharactorEnabled(Charactor charactor) {

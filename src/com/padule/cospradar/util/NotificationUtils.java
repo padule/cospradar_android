@@ -22,6 +22,9 @@ import com.padule.cospradar.activity.LoginActivity;
 import com.padule.cospradar.activity.MainActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.UnreadGcmCounts;
+import com.padule.cospradar.event.UnreadChatBoardCountChangedEvent;
+
+import de.greenrobot.event.EventBus;
 
 public class NotificationUtils {
 
@@ -52,6 +55,7 @@ public class NotificationUtils {
         }
 
         UnreadGcmCounts.getInstance().putCount(id, modelId, 0); // TODO pass valid user id from server.
+        EventBus.getDefault().post(new UnreadChatBoardCountChangedEvent());
 
         final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
         final PendingIntent intent = createIntent(id, modelId, extraUrl, context);
@@ -244,7 +248,7 @@ public class NotificationUtils {
     }
 
     public static int getChatBoardIconResId() {
-        int unreadCounts = UnreadGcmCounts.getInstance().getChatBoardList().size();
+        int unreadCounts = UnreadGcmCounts.getInstance().getChatBoardMap().size();
         switch (unreadCounts) {
         case 0:
             return R.drawable.ic_comments_0;
