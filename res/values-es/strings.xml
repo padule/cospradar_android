@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Auth -->
+    <string name="google_play_service_unavailable">La aplicación no puede utilizarse porque no es compatible con los servicios de Google Play.</string>
+
+    <!-- Common -->
+    <string name="app_name">Cosradar</string>
+    <string name="ok">OK</string>
+    <string name="sending">Enviando...</string>
+    <string name="loading">Cargando...</string>
+    <string name="invalidate_input">Hay un error en los datos introducidos.</string>
+    <string name="not_changed_input">No se ha introducido ningún cambio.</string>
+    <string name="send">Enviar.</string>
+    <string name="back_btn_msg">Pulsa una vez más el botón Atrás para terminar.</string>
+    <string name="close">Cerrar</string>
+    <string name="done">Terminar</string>
+    <string name="confirm">¿Estás de acuerdo?</string>
+    <string name="confirmation">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="menu">Menú</string>
+    <string name="logout">Desconectar la sesión</string>
+    <string name="logout_done">Se ha desconectado la sesión con éxito.</string>
+    <string name="logout_confirm">¿Estás seguro de querer desconectar la sesión?</string>
+    <string name="version_prefix">V%1$s</string>
+    <string name="next">Siguiente</string>
+    <string name="prev">Anterior</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="after">Dejar para luego</string>
+    <string name="regist">Registrarse</string>
+    <string name="error_raised">Ha ocurrido un error.</string>
+
+    <!-- Login -->
+    <string name="login_twitter">Conectar con Twitter</string>
+    <string name="login_description">Buscar cosplayers con el radar.</string>
+    <string name="login_succeeded">Sesión conectada con éxito.</string>
+    <string name="login_failed">Se ha producido un error al conectar la sesión.</string>
+    <string name="login_terms_confirmation">Al conectar, aceptas los &lt;a href=\'#\'>términos de uso&lt;/a>.</string>
+
+    <!-- Time -->
+    <string name="time_just_now">Justo ahora</string>
+    <string name="time_1second_ago">Hace un segundo</string>
+    <string name="time_seconds_ago">Hace %1$d segundos</string>
+    <string name="time_1minute_ago">Hace un minuto</string>
+    <string name="time_minutes_ago">Hace %1$d minutos</string>
+    <string name="time_1hour_ago">Hace una hora</string>
+    <string name="time_hours_ago">Hace %1$d horas</string>
+
+    <!-- Photo -->
+    <string name="choose_from_gallery">Elegir de la galería</string>
+    <string name="choose_from_camera">Sacar con la cámara</string>
+
+    <!-- Search -->
+    <string name="search_list_nothing">Lo sentimos. No hay ningún cosplayer cercano.</string>
+    <string name="search_hint">Buscar por título</string>
+    <string name="search_start">Comenzar</string>
+    <string name="radar_distance">%1$s km</string>
+    <string name="radar_distance_meter">%1$s m</string>
+    <string name="searching">Buscando...</string>
+
+    <plurals name="search_result_count">
+        <item quantity="one">¡Se ha encontrado un único cosplayer! \o/</item>
+        <item quantity="other">¡Se han encontrado %1$d cosplayers! \o/</item>
+    </plurals>
+
+    <string name="search_result_count_zero">No hay ningún cosplayer cercano.</string>
+
+    <plurals name="search_dialog_count">
+        <item quantity="one">Hay un cosplayer.</item>
+        <item quantity="other">Hay %1$d cosplayers.</item>
+    </plurals>
+
+    <string name="search_realtime">Cosplays en vivo</string>
+
+    <!-- CharacterCreate -->
+    <string name="charactor_setting">Añadir un nuevo personaje</string>
+    <string name="charactor_name">Nombre del personaje (campo obligatorio)</string>
+    <string name="charactor_title">Nombre de la obra (campo obligatorio)</string>
+    <string name="charactor_validate_name">Se te ha olvidado escribir el nombre del personaje.</string>
+    <string name="charactor_validate_title">Se te ha olvidado escribir el nombre de la obra.</string>
+    <string name="charactor_create_succeeded">¡Has registrado con éxito al personaje!</string>
+    <string name="charactor_edit_succeeded">¡Has editado los datos del personaje con éxito!</string>
+    <string name="charactor_delete_succeeded">¡Has eliminado el personaje con éxito!</string>
+    <string name="charactor_edit_failed">Se ha producido un error al registrar los datos...\nInténtalo de nuevo, por favor.</string>
+    <string name="charactor_delete_failed">Se ha producido un error al eliminar al personaje...</string>
+
+    <!-- EditSuggest -->
+    <string name="setting_suggest_title">Necesitas registrar al menos un personaje para poder comentar.</string>
+    <string name="setting_suggest_message">Si registras a un personaje ahora, podrás usar dejar comentarios en los tablones de mensajes.</string>
+    <string name="setting_suggest_ok">Registrar</string>
+    <string name="setting_suggest_cancel">Dejar para luego</string>
+    <string name="charactor_set_suggest_title">Quizás...</string>
+    <string name="charactor_set_suggest_msg">¿Estás haciendo cosplay ahora mismo tú también?\n¡En ese caso, registra el personaje del que vas! ^^</string>
+    <string name="charactor_set_suggest_check">No volver a mostrar este mensaje durante el día de hoy.</string>
+
+    <!-- Profile -->
+    <string name="profile">Perfil</string>
+    <string name="profile_add">Añadir un nuevo personaje.</string>
+    <string name="profile_chat">Tablón de mensajes</string>
+    <string name="profile_charactor_edit">Editar los datos del personaje.</string>
+    <string name="profile_charactor_delete">Eliminar el personaje.</string>
+    <string name="profile_delete_confirm">¿Estás seguro de que querer eliminarlo?</string>
+    <string name="profile_charactor_enabled">Llevo este cosplay ahora mismo</string>
+    <string name="profile_charactor_enabled_question">¿Estás llevo cosplay ahora mismo?</string>
+    <string name="profile_charactor_disable_confirm_msg">¿Te has quitado ya este cosplay?</string>
+    <string name="profile_charactor_enable_confirm_msg">¿Estás haciendo cosplay de %1$s ahora mismo? ^^</string>
+    <string name="profile_no_charactor">No has registrado aún ningún personaje. ¿Quieres registrarlo ahora?</string>
+    <string name="profile_charactor_regist">Registrar</string>
+    <string name="profile_title">%1$s (%2$s)</string>
+
+    <!-- CharactorChooser -->
+    <string name="charactor_chooser">Elegir un personaje</string>
+    <string name="charactor_chooser_not_selected">No se ha elegido ningún personaje.</string>
+    <string name="charactor_chooser_selected">Se ha elegido un personaje.</string>
+    <string name="charactor_reset_suggestion">Han pasado %1$d horas desde que indicaste que estás haciendo cosplay de este personaje. ¿Quieres marcarlo como que ya te lo has quitado? :_D</string>
+
+    <!-- Comment -->
+    <string name="comment_hint">Escribir un comentario</string>
+    <string name="comment_send_failed">Se ha producido un error al escribir el comentario...\nPor favor, inténtalo de nuevo.</string>
+    <string name="comment_nothing">Todavía no hay ningún comentario.</string>
+    <string name="comment_chats">Comentarios en el tablón de mensajes</string>
+    <string name="comment_close_confirm">Se descartará el comentario. ¿Estás seguro?</string>
+    <string name="comment_dialog_title">¿Como qué personaje quieres dejar el comentario?</string>
+    <string name="comment_dialog_selected">Has comentado como %1$s.</string>
+
+    <!-- Setting -->
+    <string name="setting">Configuración</string>
+    <string name="setting_charactor">Personajes</string>
+    <string name="setting_support">Ayuda</string>
+    <string name="setting_charactor_add">Añadir un nuevo personaje</string>
+    <string name="setting_charactor_set">Seleccionar el cosplay que llevo ahora mismo</string>
+    <string name="setting_evaluate">Valorar la aplicación</string>
+    <string name="setting_share">Compartir</string>
+    <string name="setting_tutorial">Ver el tutorial</string>
+    <string name="setting_inquery">Contacto</string>
+    <string name="setting_terms">Términos de uso</string>
+    <string name="setting_privacy">Política de privacidad</string>
+    <string name="setting_account_delete">Eliminar mi cuenta</string>
+    <string name="setting_account_delete_confirm_title">¿Estás seguro de querer eliminar tu cuenta de usuario?</string>
+    <string name="setting_account_delete_confirm">Si lo haces, tanto tus personajes como tus cosplays dejarán de aparecer en la aplicación. Si vuelves a conectarte en menos de 30 días desde que borraste la cuenta, podrás reactivarla con todos sus datos guardados pero, pasados 30 días, se borrará por completo del sistema.</string>
+    <string name="setting_account_delete_ok">Eliminar la cuenta</string>
+    <string name="setting_inquery_subject">Contacto - %1$s</string>
+    <string name="setting_inquery_message">"\nID de usuario: %1$s\nVersión de la aplicación: %2$s</string>
+    <string name="setting_inquery_menu_improvement">Enviar una sugerencia</string>
+    <string name="setting_inquery_menu_question">Enviar una consulta</string>
+    <string name="setting_inquery_menu_cheer">Enviar un mensaje de apoyo</string>
+    <string name="setting_inquery_menu_bug">Informar de un error</string>
+    <string name="setting_inquery_menu_other">Otros</string>
+
+    <!-- Rating -->
+    <string name="rating_title">¡Gracias por valorar %1$s!</string>
+    <string name="rating_msg">Muchas gracias por usar %1$s. ¡Agradeceríamos enormemente que valores nuestra aplicación!</string>
+    <string name="rating_notification">¡Hola, %1$s! ¿Podrías valorar %2$s en Google Play?</string>
+    <string name="rating_after_msg">¡Muchas gracias por valorar la aplicación!</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_welcome_title">Hola, %1$s</string>
+    <string name="tutorial_welcome_sub">¡Bienvenido, %1$s! Aprende fácilmente cómo usar la aplicación.</string>
+    <string name="tutorial_question_title">Empezamos por una pregunta sencilla.</string>
+    <string name="tutorial_question_sub">%1$s, ¿has hecho cosplay alguna vez?</string>
+    <string name="tutorial_regist_ready_title">¡Así que eres cosplayer!</string>
+    <string name="tutorial_regist_ready_sub">¡Empecemos entonces por registrar un personaje del que has hecho cosplay, %1$s!</string>
+    <string name="tutorial_regist_title">¡Has registrado tu primer cosplay!</string>
+    <string name="tutorial_after_regist_title">¡Felicidades! ¡Has registrado tu primer personaje!</string>
+    <string name="tutorial_after_regist_sub">Más tarde podrás editar los datos del personaje.</string>
+    <string name="tutorial_finish_title">¡Empecemos por pulsar el radar de cosplayers!</string>
+    <string name="tutorial_finish_sub">Estaría bien encontrar personajes de tus obras favoritas, ¿a que sí? ^^</string>
+    <string name="tutorial_seethrough1">¡Pulsa el botón amarillo! Así podrás buscar a otros cosplayers.</string>
+    <string name="tutorial_seethrough2">También puedes filtrar la búsqueda según el nombre de la obra.</string>
+    <string name="tutorial_seethrough3">Si pulsas la casilla \'¡Cosplays en vivo!\', encontrarás a las personas que están haciendo cosplay ahora mismo.</string>
+    <string name="tutorial_seethrough4">Moviendo esta barra, podrás cambiar el radio de búsqueda del radar.</string>
+
+    <!-- Share -->
+    <string name="share">Compartir</string>
+    <string name="share_dialog_sub">¿Te gustaría invitar a amigos a los que también les guste el cosplay?</string>
+    <string name="share_title">¡Si te gusta el cosplay, usa Cosradar!</string>
+    <string name="share_msg">¡Con Cosradar, podrás encontrar a los cosplayers que van de tus obras favoritas! ¡Ahora los eventos serán mucho más divertidos!</string>
+    <string name="share_success">¡Compartido con éxito!</string>
+    <string name="share_failed">Error al compartir</string>
+    <string name="share_app_not_found">La aplicación no está instalada.</string>
+
+    <!-- Gcm -->
+    <string name="gcm_chatboard_mine_commented">¡Han dejado un nuevo comentario en tu tablón de mensajes!</string>
+    <string name="gcm_chatboard_commented">¡Han dejado un nuevo comentario en un tablón de mensajes en el que escribiste!</string>
+
+</resources>

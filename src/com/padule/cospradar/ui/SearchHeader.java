@@ -125,7 +125,8 @@ public class SearchHeader extends RelativeLayout {
         if (charactors.isEmpty()) {
             mTextCountHeader.setText(getContext().getString(R.string.search_result_count_zero));
         } else {
-            mTextCountHeader.setText(getContext().getString(R.string.search_result_count, charactors.size()));
+            mTextCountHeader.setText(getContext().getResources().getQuantityString(
+                    R.plurals.search_result_count, charactors.size(), charactors.size()));
         }
         mRadarView.setCharactors(charactors);
     }
@@ -163,7 +164,8 @@ public class SearchHeader extends RelativeLayout {
 
     public void onEvent(RadarCharactorDrawedEvent event) {
         if (mBtnReload.isEnabled()) {
-            mTextCountHeader.setText(getContext().getString(R.string.search_result_count, event.drawCount));
+            mTextCountHeader.setText(getContext().getResources().getQuantityString(
+                    R.plurals.search_result_count, event.drawCount, event.drawCount));
         }
     }
 
