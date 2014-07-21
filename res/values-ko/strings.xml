@@ -58,9 +58,17 @@
     <string name="radar_distance">%1$s km</string>
     <string name="radar_distance_meter">%1$s m</string>
     <string name="searching">검색 중...</string>
-    <string name="search_result_count">%1$d 명 레이어를 발견!^ㅁ^</string>
+
+    <plurals name="search_result_count">
+        <item quantity="other">%1$d 명 레이어를 발견!^ㅁ^</item>
+    </plurals>
+
     <string name="search_result_count_zero">가까운 레이어는 없습니다ㅠㅅㅠ</string>
-    <string name="search_dialog_count">%1$d 명 레이어가 있습니다</string>
+
+    <plurals name="search_dialog_count">
+        <item quantity="other">%1$d 명 레이어가 있습니다</item>
+    </plurals>
+
     <string name="search_realtime">코스프레 중</string>
 
     <!-- CharactorCreate -->

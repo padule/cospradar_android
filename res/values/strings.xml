@@ -63,14 +63,14 @@
     <string name="searching">Searching...</string>
 
     <plurals name="search_result_count">
-        <item quantity="one">%1$d cosplayer was found! ^o^</item>
+        <item quantity="one">A cosplayer was found! ^o^</item>
         <item quantity="other">%1$d cosplayers were found! ^o^</item>
     </plurals>
 
     <string name="search_result_count_zero">There are no cosplayers nearby.</string>
 
     <plurals name="search_dialog_count">
-        <item quantity="one">There\'s %1$d cosplayer.</item>
+        <item quantity="one">There\'s a cosplayer.</item>
         <item quantity="other">There are %1$d cosplayers.</item>
     </plurals>
 
