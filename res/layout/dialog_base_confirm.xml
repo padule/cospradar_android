@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/img_icon"
-        android:layout_width="@dimen/icon_small"
-        android:layout_height="@dimen/icon_small"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_width="@dimen/icon_xsmall"
+        android:layout_height="@dimen/icon_xsmall"
+        android:layout_margin="@dimen/margin"
         android:src="@drawable/ic_app" />
 
     <TextView

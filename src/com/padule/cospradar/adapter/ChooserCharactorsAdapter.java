@@ -106,19 +106,11 @@ public class ChooserCharactorsAdapter extends ArrayAdapter<Charactor> {
             }
             @Override
             public void onLoadingCancelled(String imageUri, View view) {
-                setEmptyImage();
                 mLoading.setVisibility(View.GONE);
             }
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason reason) {
-                setEmptyImage();
                 mLoading.setVisibility(View.GONE);
-            }
-
-            private void setEmptyImage() {
-                // TODO
-                // mImgCharactor.setScaleType(ScaleType.CENTER);
-                mImgCharactor.setBackgroundResource(R.color.bg_gray);
             }
         };
 

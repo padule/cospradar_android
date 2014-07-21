@@ -91,7 +91,11 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
                 MainApplication.IMAGE_LOADER.displayImage(charactor.getImageUrl(), mImgCharactor, imageLoaderListener);
                 mTxtCharactorName.setText(charactor.getName());
                 mTxtTitle.setText(charactor.getTitle());
+
                 mTxtCharactorEnabled.setEnabled(charactor.isEnabled());
+                int resId = charactor.isEnabled() ? R.string.profile_charactor_enabled 
+                        : R.string.profile_charactor_enabled_question;
+                mTxtCharactorEnabled.setText(context.getString(resId));
 
                 if (AppUtils.isLoginUser(charactor.getUser())) {
                     mImgMenu.setVisibility(View.VISIBLE);
@@ -117,19 +121,11 @@ public class ProfileCharactorsAdapter extends ArrayAdapter<Charactor> {
             }
             @Override
             public void onLoadingCancelled(String imageUri, View view) {
-                setEmptyImage();
                 mLoading.setVisibility(View.GONE);
             }
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason reason) {
-                setEmptyImage();
                 mLoading.setVisibility(View.GONE);
-            }
-
-            private void setEmptyImage() {
-                // TODO
-                // mImgCharactor.setScaleType(ScaleType.CENTER);
-                mImgCharactor.setBackgroundResource(R.color.bg_gray);
             }
         };
 

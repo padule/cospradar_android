@@ -30,15 +30,16 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.ReverseScrollListener;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
+import com.padule.cospradar.data.UnreadGcmCounts;
+import com.padule.cospradar.dialog.CharactorSelectDialogFragment;
+import com.padule.cospradar.dialog.ChatBoardDismissDialogFragment;
+import com.padule.cospradar.dialog.EditSuggestDialogFragment;
+import com.padule.cospradar.dialog.ShareDialogFragment;
 import com.padule.cospradar.event.CommentCharactorIconClickedEvent;
 import com.padule.cospradar.event.CommentCharactorSelectedEvent;
 import com.padule.cospradar.event.CommentCloseEvent;
 import com.padule.cospradar.event.CommentSentEvent;
 import com.padule.cospradar.event.SendBtnClickedEvent;
-import com.padule.cospradar.fragment.CharactorSelectDialogFragment;
-import com.padule.cospradar.fragment.ChatBoardDismissDialogFragment;
-import com.padule.cospradar.fragment.EditSuggestDialogFragment;
-import com.padule.cospradar.fragment.ShareDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.ui.CommentFooter;
 import com.padule.cospradar.util.AppUtils;
@@ -67,7 +68,15 @@ public class ChatBoardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         KeyboardUtils.initHidden(this);
         setContentView(R.layout.activity_chat_board);
+
+        clearUnreadGcmCount();
         EventBus.getDefault().register(this);
+    }
+
+    private void clearUnreadGcmCount() {
+        if (charactor != null) {
+            UnreadGcmCounts.getInstance().clearFromChatBoard(charactor.getId());
+        }
     }
 
     @Override

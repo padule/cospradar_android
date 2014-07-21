@@ -163,6 +163,8 @@ public class TutorialActivity extends FragmentActivity {
         adapter = new TutorialPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mIndicator.setViewPager(mViewPager);
+        mIndicator.setOnTouchListener(null);
+        mIndicator.setEnabled(false);
     }
 
     @Override

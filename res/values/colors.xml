@@ -4,6 +4,7 @@
     <!-- Background -->
     <color name="bg_white">#fefefe</color>
     <color name="bg_white_alfa">#64fefefe</color>
+    <color name="bg_black">#333333</color>
     <color name="bg_black_alfa_light">#1a000000</color>
     <color name="bg_black_alfa">#66000000</color>
     <color name="bg_black_alfa_dark">#b3000000</color>
@@ -11,6 +12,7 @@
     <color name="bg_gray_dark">#bdc3c7</color>
     <color name="bg_twitter">#55acee</color>
     <color name="bg_accent">#f1c40f</color>
+    <color name="bg_accent_alfa_light">#32f1c40f</color>
     <color name="bg_accent_disabled">#80f1c40f</color>
     <color name="bg_navy">#34495e</color>
     <color name="bg_red">#e74c3c</color>

@@ -4,13 +4,14 @@
     android:id="@+id/container_charactor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding" >
+    android:padding="@dimen/padding_large" >
 
     <com.padule.cospradar.ui.ResizableImageView
         android:id="@+id/img_charactor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:background="@color/bg_white"
         android:scaleType="centerCrop"
         app:image_ratio="1" />
 
@@ -66,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/bg_black_alfa"
+        android:background="@color/bg_black_alfa_dark"
         android:orientation="horizontal" >
 
         <RelativeLayout

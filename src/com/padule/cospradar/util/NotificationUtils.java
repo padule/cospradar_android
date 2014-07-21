@@ -21,6 +21,7 @@ import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.activity.LoginActivity;
 import com.padule.cospradar.activity.MainActivity;
 import com.padule.cospradar.base.BaseActivity;
+import com.padule.cospradar.data.UnreadGcmCounts;
 
 public class NotificationUtils {
 
@@ -50,11 +51,14 @@ public class NotificationUtils {
             return;
         }
 
+        UnreadGcmCounts.getInstance().putCount(id, modelId, 0); // TODO pass valid user id from server.
+
+        final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
         final PendingIntent intent = createIntent(id, modelId, extraUrl, context);
 
         new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
-                show(TAG_GCM, priority, title, text, iconUrl,
+                show(TAG_GCM, priority, title, createdText, iconUrl,
                         bigPictureUrl, context, intent);
                 return null;
             }
@@ -63,13 +67,11 @@ public class NotificationUtils {
 
     private static void showForWeb(final int id, final String text, final String extraUrl, 
             final String iconUrl, final Context context) {
-        final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
-
         final PendingIntent intent = createIntent(id, DEFAULT_MODEL_ID, extraUrl, context);
 
         new AsyncTask<Void, Void, Void>() {
             protected Void doInBackground(Void... params) {
-                show(TAG_WEB, DEFAULT_PRIORITY, null, createdText, iconUrl, null, context, intent);
+                show(TAG_WEB, DEFAULT_PRIORITY, null, text, iconUrl, null, context, intent);
                 return null;
             }
         }.execute();
@@ -94,7 +96,7 @@ public class NotificationUtils {
 
     private static void show(String tag, int priority, String title, String text, 
             String iconUrl, String bigPictureUrl, Context context, PendingIntent intent) {
-        if (title == null) {
+        if (TextUtils.isEmpty(title)) {
             title = context.getString(R.string.app_name);
         }
 
@@ -218,6 +220,52 @@ public class NotificationUtils {
             int charactorId = intent.getIntExtra(EXTRA_MODEL_ID, DEFAULT_MODEL_ID);
             ChatBoardActivity.start(activity, charactorId);
             break;
+        }
+    }
+
+    public static boolean relateOnChatBoard(int notificationId) {
+        int[] idRelateOnChatBoard = getIdRelateOnChatBoard();
+        for (int id : idRelateOnChatBoard) {
+            if (id == notificationId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static int[] getIdRelateOnChatBoard() {
+        int[] result = { ID_CHATBOARD_COMMENTED, ID_CHATBOARD_MINE_COMMENTED };
+        return result;
+    }
+
+    public static boolean relateOnGcm(int notificationId) {
+        return relateOnChatBoard(notificationId);
+    }
+
+    public static int getChatBoardIconResId() {
+        int unreadCounts = UnreadGcmCounts.getInstance().getChatBoardMap().size();
+        switch (unreadCounts) {
+        case 0:
+            return R.drawable.ic_comments_0;
+        case 1:
+            return R.drawable.ic_comments_1;
+        case 2:
+            return R.drawable.ic_comments_2;
+        case 3:
+            return R.drawable.ic_comments_3;
+        case 4:
+            return R.drawable.ic_comments_4;
+        case 5:
+            return R.drawable.ic_comments_5;
+        case 6:
+            return R.drawable.ic_comments_6;
+        case 7:
+            return R.drawable.ic_comments_7;
+        case 8:
+            return R.drawable.ic_comments_8;
+        default:
+            return R.drawable.ic_comments_9;
         }
     }
 

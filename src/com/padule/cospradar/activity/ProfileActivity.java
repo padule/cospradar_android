@@ -34,10 +34,11 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.Result;
 import com.padule.cospradar.data.User;
+import com.padule.cospradar.dialog.CharactorDeleteDialogFragment;
+import com.padule.cospradar.dialog.CharactorEnableConfirmDialogFragment;
+import com.padule.cospradar.event.CharactorCreatedEvent;
 import com.padule.cospradar.event.CharactorDeleteEvent;
 import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
-import com.padule.cospradar.fragment.CharactorDeleteDialogFragment;
-import com.padule.cospradar.fragment.CharactorEnableConfirmDialogFragment;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
@@ -213,6 +214,12 @@ public class ProfileActivity extends BaseActivity {
         updateCharactor(event.charactor);
     }
 
+    public void onEvent(CharactorCreatedEvent event) {
+        adapter.add(event.charactor);
+        adapter.notify();
+        updateActionBarTitle();
+    }
+
     private void deleteCharactor(final Charactor charactor) {
         final Dialog dialog = AppUtils.makeLoadingDialog(this);
         dialog.show();
@@ -234,6 +241,7 @@ public class ProfileActivity extends BaseActivity {
                     AppUtils.setCharactor(null);
                 }
                 ProfileActivity.this.adapter.remove(charactor);
+                updateActionBarTitle();
             }
         });
     }
@@ -271,6 +279,7 @@ public class ProfileActivity extends BaseActivity {
     private void renderView(List<Charactor> charactors) {
         if (charactors != null && !charactors.isEmpty() && adapter != null) {
             adapter.addAll(charactors);
+            updateActionBarTitle();
             mListView.setVisibility(View.VISIBLE);
             mContainerEmpty.setVisibility(View.GONE);
         } else {
@@ -283,9 +292,17 @@ public class ProfileActivity extends BaseActivity {
         ActionBar bar = getSupportActionBar();
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle(getString(R.string.profile));
         bar.setIcon(R.drawable.ic_launcher);
         bar.setTitle(user.getScreenName());
+    }
+
+    private void updateActionBarTitle() {
+        ActionBar bar = getSupportActionBar();
+
+        if (!adapter.isEmpty()) {
+            bar.setTitle(getString(R.string.profile_title, 
+                    user.getScreenName(), adapter.getCount() + ""));
+        }
     }
 
     @Override
@@ -318,7 +335,7 @@ public class ProfileActivity extends BaseActivity {
         final Dialog dialog = AppUtils.makeLoadingDialog(this);
         dialog.show();
 
-        int updateIsEnabled = charactor.isEnabled() ? 0 : 1;
+        int updateIsEnabled = charactor.isEnabled() ? 1 : 0;
         MainApplication.API.putCharactors(charactor.getId(), updateIsEnabled, 
                 new Callback<Charactor>() {
             @Override
@@ -331,9 +348,8 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void success(Charactor charactor, Response response) {
                 dialog.dismiss();
-                if (charactor.isEnabled()) {
-                    AppUtils.setCharactor(charactor);
-                }
+                Charactor c = charactor.isEnabled() ? charactor : null;
+                AppUtils.setCharactor(c);
                 updateView(charactor);
             }
         });
