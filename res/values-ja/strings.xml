@@ -35,7 +35,7 @@
     <string name="login_twitter">Twitterでログイン</string>
     <string name="login_description">レイヤーさんをレーダーで探そう</string>
     <string name="login_succeeded">ログインしました。</string>
-    <string name="login_failed">ログインに失敗しました</string>
+    <string name="login_failed">ログインに失敗しました。</string>
     <string name="login_terms_confirmation">ログインすることで&lt;a href=\'#\'>利用規約&lt;/a>に同意したことになります。</string>
 
     <!-- Time -->
@@ -77,7 +77,7 @@
 
     <!-- SettingSuggest -->
     <string name="setting_suggest_title">コスキャラの登録が必要です</string>
-    <string name="setting_suggest_message">今のコスキャラを設定すると、けいじばんでやり取りできるようになります。</string>
+    <string name="setting_suggest_message">コスキャラを登録すると、けいじばんでコメントできるようになります。</string>
     <string name="setting_suggest_ok">登録する</string>
     <string name="setting_suggest_cancel">あとで</string>
     <string name="charactor_set_suggest_title">もしかして...</string>
@@ -117,7 +117,7 @@
     <string name="setting_charactor">コスキャラ</string>
     <string name="setting_support">サポート</string>
     <string name="setting_charactor_add">コスキャラを追加する</string>
-    <string name="setting_charactor_set">いまのコスキャラをセットする</string>
+    <string name="setting_charactor_set">今コスプレ中のコスキャラをセットする</string>
     <string name="setting_evaluate">評価する</string>
     <string name="setting_share">シェアする</string>
     <string name="setting_tutorial">チュートリアルを見る</string>
