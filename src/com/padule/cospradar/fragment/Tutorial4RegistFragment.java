@@ -80,7 +80,7 @@ public class Tutorial4RegistFragment extends BaseTutorialFragment {
         if (url != null) {
             ImageUtils.displayRoundedImage(url, mImgCharactor);
         } else {
-            mImgCharactor.setImageResource(R.drawable.ic_no_user_rounded);
+            mImgCharactor.setImageResource(R.drawable.ic_user_add_rounded);
         }
     }
 

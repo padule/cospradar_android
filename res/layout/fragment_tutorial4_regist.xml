@@ -33,7 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_no_user_rounded" />
+                android:src="@drawable/ic_user_add_rounded" />
 
             <EditText
                 android:id="@+id/edit_name"
