@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.padule.cospradar"
-    android:versionCode="5"
+    android:versionCode="6"
     android:versionName="1.0.3" >
 
     <uses-sdk
@@ -127,7 +127,8 @@
         </activity>
 
         <service android:name="com.padule.cospradar.service.LocationService" />
-        <service android:name="com.padule.cospradar.service.TimerService" />
+        <service android:name="com.padule.cospradar.service.GooglePlayEvaluationTimerService" />
+        <service android:name="com.padule.cospradar.service.CharactorResetSuggestionTimerService" />
 
         <!-- Admob -->
         <activity

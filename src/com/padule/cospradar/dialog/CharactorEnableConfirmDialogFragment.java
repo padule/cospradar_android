@@ -7,6 +7,7 @@ import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.base.BaseConfirmDialogFragment;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
+import com.padule.cospradar.service.CharactorResetSuggestionTimerService;
 import com.padule.cospradar.util.AppUtils;
 
 import de.greenrobot.event.EventBus;
@@ -45,6 +46,8 @@ public class CharactorEnableConfirmDialogFragment extends BaseConfirmDialogFragm
     protected void onConfirm() {
         charactor.setIsEnabled(!charactor.isEnabled());
         EventBus.getDefault().post(new CurrentCharactorSelectedEvent(charactor));
+
+        CharactorResetSuggestionTimerService.startOrStop(getActivity(), charactor.isEnabled());
     }
 
     @Override

@@ -13,6 +13,10 @@ public class TimeUtils {
         return days * 24 * 60 * 60;
     }
 
+    public static int getSecondsFromHours(int hours) {
+        return hours * 60 * 60;
+    }
+
     public static int getDiffDays(Date eDate, Date sDate) {
         if (eDate == null || sDate == null) {
             return 0;
