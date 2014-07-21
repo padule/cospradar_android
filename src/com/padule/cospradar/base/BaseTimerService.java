@@ -1,37 +1,23 @@
-package com.padule.cospradar.service;
+package com.padule.cospradar.base;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.padule.cospradar.util.NotificationUtils;
+public abstract class BaseTimerService extends Service {
 
-public class TimerService extends Service {
-
-    private static final int TYPE_DEFAULT = -1;
-    public static final int TYPE_GOOGLE_PLAY = 0;
-    private static final String EXTRA_TIME = "time";
-    private static final String EXTRA_TYPE = "type";
+    protected static final String EXTRA_TIME = "time";
 
     private Timer timer = null;
     Handler handler = new Handler();
 
-    public static void start(Context context, int seconds, int type) {
-        Intent intent = new Intent(context, TimerService.class);
-        intent.putExtra(EXTRA_TIME, seconds * 1000);
-        intent.putExtra(EXTRA_TYPE, type);
-        context.startService(intent);
-    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         int time = intent.getIntExtra(EXTRA_TIME, 0);
-        final int type = intent.getIntExtra(EXTRA_TYPE, TYPE_DEFAULT);
         if (time <= 0) return 0;
 
         timer = new Timer(true);
@@ -40,7 +26,7 @@ public class TimerService extends Service {
             public void run() {
                 handler.post( new Runnable() {
                     public void run() {
-                        startEvent(type);
+                        startEvent();
                     }
                 });
             }
@@ -49,13 +35,7 @@ public class TimerService extends Service {
         return START_STICKY;
     }
 
-    private void startEvent(int type) {
-        switch(type) {
-        case TYPE_GOOGLE_PLAY:
-            NotificationUtils.showGooglePlay(this);
-            stopSelf();
-        }
-    }
+    protected abstract void startEvent();
 
     @Override
     public void onDestroy() {

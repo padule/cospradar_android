@@ -127,7 +127,8 @@
         </activity>
 
         <service android:name="com.padule.cospradar.service.LocationService" />
-        <service android:name="com.padule.cospradar.service.TimerService" />
+        <service android:name="com.padule.cospradar.service.GooglePlayEvaluationTimerService" />
+        <service android:name="com.padule.cospradar.service.CharactorResetSuggestionTimerService" />
 
         <!-- Admob -->
         <activity

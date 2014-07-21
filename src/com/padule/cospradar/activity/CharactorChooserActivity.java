@@ -33,6 +33,7 @@ import com.padule.cospradar.data.User;
 import com.padule.cospradar.event.CharactorCreatedEvent;
 import com.padule.cospradar.event.CurrentCharactorSelectedEvent;
 import com.padule.cospradar.service.ApiService;
+import com.padule.cospradar.service.CharactorResetSuggestionTimerService;
 import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 
@@ -259,6 +260,10 @@ public class CharactorChooserActivity extends BaseActivity {
                 AppUtils.setCharactor(charactor);
 
                 EventBus.getDefault().post(new CurrentCharactorSelectedEvent(charactor));
+
+                CharactorResetSuggestionTimerService.startOrStop(
+                        CharactorChooserActivity.this, charactor.isEnabled());
+
                 finish();
             }
         });

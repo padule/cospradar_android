@@ -20,6 +20,7 @@ import com.padule.cospradar.R;
 import com.padule.cospradar.activity.ChatBoardActivity;
 import com.padule.cospradar.activity.LoginActivity;
 import com.padule.cospradar.activity.MainActivity;
+import com.padule.cospradar.activity.ProfileActivity;
 import com.padule.cospradar.base.BaseActivity;
 import com.padule.cospradar.data.UnreadGcmCounts;
 
@@ -31,6 +32,7 @@ public class NotificationUtils {
 
     private static final int ID_CHATBOARD_MINE_COMMENTED = 101;
     private static final int ID_CHATBOARD_COMMENTED = 102;
+    private static final int ID_CHARACTOR_RESET_SUGGESTION = 801;
     private static final int ID_GOOGLE_PLAY = 901;
 
     public static final int DEFAULT_MODEL_ID = -1;
@@ -38,12 +40,13 @@ public class NotificationUtils {
 
     private static final String TAG_GCM = "gcm";
     private static final String TAG_WEB = "web";
+    private static final String TAG_OTHER = "other";
 
     private static final String EXTRA_NOTIFICATION_ID = "notification_id";
     private static final String EXTRA_MODEL_ID = "model_id";
     private static final String EXTRA_EXTRA_URL = "extra_url";
 
-    public static void show(int id, int modelId, final int priority, final String title, 
+    public static void showForGcm(int id, int modelId, final int priority, final String title, 
             final String text, final String extraUrl, final String iconUrl, 
             final String bigPictureUrl, final Context context) {
 
@@ -94,6 +97,27 @@ public class NotificationUtils {
                 AppUtils.getGooglePlayUrl(null, null), null, context);
     }
 
+    public static void showCharactorResetSuggestion(Context context, int hours) {
+        showForOther(ID_CHARACTOR_RESET_SUGGESTION, AppUtils.getUser().getId(), null, 
+                context.getString(R.string.charactor_reset_suggestion, hours), context);
+    }
+
+    public static void showForOther(int id, int modelId, final String title, 
+            final String text, final Context context) {
+        if (!AppUtils.isLoggedIn()) return;
+
+        final String createdText = TextUtils.isEmpty(text) ? createText(id, context) : text;
+        final PendingIntent intent = createIntent(id, modelId, null, context);
+
+        new AsyncTask<Void, Void, Void>() {
+            protected Void doInBackground(Void... params) {
+                show(TAG_OTHER, DEFAULT_PRIORITY, title, createdText, null,
+                        null, context, intent);
+                return null;
+            }
+        }.execute();
+    }
+
     private static void show(String tag, int priority, String title, String text, 
             String iconUrl, String bigPictureUrl, Context context, PendingIntent intent) {
         if (TextUtils.isEmpty(title)) {
@@ -109,7 +133,7 @@ public class NotificationUtils {
             .setTicker(text)
             .setPriority(Integer.MAX_VALUE)
             .setContentIntent(intent)
-            .setAutoCancel(!TAG_WEB.equals(tag));
+            .setAutoCancel(true);
 
             Notification notification = buildNotification(builder, context, title, text, iconUrl, bigPictureUrl);
 
@@ -214,6 +238,10 @@ public class NotificationUtils {
         case ID_GOOGLE_PLAY:
             String url = intent.getStringExtra(EXTRA_EXTRA_URL);
             AppUtils.showWebView(url, activity);
+            break;
+        case ID_CHARACTOR_RESET_SUGGESTION:
+            int userId = intent.getIntExtra(EXTRA_MODEL_ID, DEFAULT_MODEL_ID);
+            ProfileActivity.start(activity, userId);
             break;
         case ID_CHATBOARD_MINE_COMMENTED:
         case ID_CHATBOARD_COMMENTED:
