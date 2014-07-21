@@ -52,7 +52,7 @@ public class GcmService extends IntentService {
         String iconUrl = getString(bundle, PARAM_ICON_URL);
         String bigPictureUrl = getString(bundle, PARAM_BIG_PICTURE_URL);
 
-        NotificationUtils.show(id, modelId, priority, title, text, extraUrl, iconUrl, bigPictureUrl, this);
+        NotificationUtils.showForGcm(id, modelId, priority, title, text, extraUrl, iconUrl, bigPictureUrl, this);
     }
 
     private static String getString(Bundle bundle, String key) {

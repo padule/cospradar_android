@@ -103,6 +103,7 @@
     <string name="charactor_chooser">Choose character</string>
     <string name="charactor_chooser_not_selected">Character is not selected.</string>
     <string name="charactor_chooser_selected">Character is selected.</string>
+    <string name="charactor_reset_suggestion">It spends %1$d hours since you set current charactor. Do you reset it?:)</string>
 
     <!-- Comment -->
     <string name="comment_hint">Write a comment</string>

@@ -101,6 +101,7 @@
     <string name="charactor_chooser">コスキャラを選択</string>
     <string name="charactor_chooser_not_selected">コスキャラが選択されていません(´・ω・｀)</string>
     <string name="charactor_chooser_selected">コスキャラを選択しました(・∀・)</string>
+    <string name="charactor_reset_suggestion">コスプレ中のキャラを設定してから%1$d時間経ちました。解除しますか？(・ω・)</string>
 
     <!-- Comment -->
     <string name="comment_hint">コメントを書く</string>
