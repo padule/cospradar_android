@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Auth -->
+    <string name="google_play_service_unavailable">Google Play Service에 대응하고 있지 않기 때문에 사용할 수 없습니다.</string>
+
+    <!-- Common -->
+    <string name="app_name">Cosradar</string>
+    <string name="ok">OK</string>
+    <string name="sending">보내는 중...</string>
+    <string name="loading">로드 중...</string>
+    <string name="invalidate_input">입력에 오류가 있습니다 ㅠㅅㅠ</string>
+    <string name="not_changed_input">변경이 없습니다 ㅠㅅㅠ</string>
+    <string name="send">전송</string>
+    <string name="back_btn_msg">다시 뒤로 버튼을 누르면 종료합니다.</string>
+    <string name="close">닫기</string>
+    <string name="done">완료</string>
+    <string name="confirm">할까요?</string>
+    <string name="confirmation">확인</string>
+    <string name="cancel">취소</string>
+    <string name="menu">메뉴</string>
+    <string name="logout">로그 아웃</string>
+    <string name="logout_done">로그 아웃했습니다.</string>
+    <string name="logout_confirm">로그 아웃 하시겠습니까?ㅎㅅㅎ;</string>
+    <string name="version_prefix">V%1$s</string>
+    <string name="next">다음</string>
+    <string name="prev">이전</string>
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
+    <string name="after">나중에</string>
+    <string name="regist">등록</string>
+    <string name="error_raised">오류가 발생하였습니다 ㅎㅅㅎ;</string>
+
+    <!-- Login -->
+    <string name="login_twitter">Twitter 로그인</string>
+    <string name="login_description">코스프레 님을 레이더로 찾자</string>
+    <string name="login_succeeded">로그인했습니다.</string>
+    <string name="login_failed">로그인에 실패하였습니다.</string>
+    <string name="login_terms_confirmation">로그인하여&lt;a href=\'#\'> 이용 약관&lt;/a>에 동의하는 것으로 간주됩니다.</string>
+
+    <!-- Time -->
+    <string name="time_just_now">방금</string>
+    <string name="time_1second_ago">1 초 전</string>
+    <string name="time_seconds_ago">%1$d 초 전</string>
+    <string name="time_1minute_ago">1 분 전</string>
+    <string name="time_minutes_ago">%1$d 분 전</string>
+    <string name="time_1hour_ago">1 시간 전</string>
+    <string name="time_hours_ago">%1$d 시간 전</string>
+
+    <!-- Photo -->
+    <string name="choose_from_gallery">갤러리에서 선택</string>
+    <string name="choose_from_camera">카메라로 촬영</string>
+
+    <!-- Search -->
+    <string name="search_list_nothing">죄송합니다. 가까운 층씨은 없습니다ㅠㅅㅠ</string>
+    <string name="search_hint">작품 명으로 검색</string>
+    <string name="search_start">시작</string>
+    <string name="radar_distance">%1$s km</string>
+    <string name="radar_distance_meter">%1$s m</string>
+    <string name="searching">검색 중...</string>
+    <string name="search_result_count">%1$d 명 레이어를 발견!^ㅁ^</string>
+    <string name="search_result_count_zero">가까운 레이어는 없습니다ㅠㅅㅠ</string>
+    <string name="search_dialog_count">%1$d 명 레이어가 있습니다</string>
+    <string name="search_realtime">코스프레 중</string>
+
+    <!-- CharactorCreate -->
+    <string name="charactor_setting">코스프레 캐릭터 등록</string>
+    <string name="charactor_name">캐릭터 이름 (필수)</string>
+    <string name="charactor_title">작품 명 (필수)</string>
+    <string name="charactor_validate_name">캐릭터 이름이 입력되지 않습니다.</string>
+    <string name="charactor_validate_title">작품 이름이 입력되지 않습니다.</string>
+    <string name="charactor_create_succeeded">코스프레 캐릭터를 등록했습니다!^ㅁ^</string>
+    <string name="charactor_edit_succeeded">코스프레 캐릭터를 편집했습니다!^ㅁ^</string>
+    <string name="charactor_delete_succeeded">코스프레 캐릭터를 삭제했습니다!^ㅁ^</string>
+    <string name="charactor_edit_failed">등록에 실패했습니다...\n다시 시도 할 수 있을까요?ㅠㅅㅠ</string>
+    <string name="charactor_delete_failed">삭제하는 데 실패했습니다...ㅠㅅㅠ</string>
+
+    <!-- SettingSuggest -->
+    <string name="setting_suggest_title">코스프레 캐릭터의 등록이 필요합니다</string>
+    <string name="setting_suggest_message">코스프레 캐릭터를 등록하면 게시판 댓글 수 있습니다.</string>
+    <string name="setting_suggest_ok">등록</string>
+    <string name="setting_suggest_cancel">나중에</string>
+    <string name="charactor_set_suggest_title">혹시...</string>
+    <string name="charactor_set_suggest_msg">당신도 지금 코스프레 중입니까?\n그렇다면, 코스프레의 캐릭터로 설정하자!^ㅁ^</string>
+    <string name="charactor_set_suggest_check">오늘은 더 이상 나타나지 않는</string>
+
+    <!-- Profile -->
+    <string name="profile">프로필</string>
+    <string name="profile_charactor_edit">코스프레 캐릭터를 편집</string>
+    <string name="profile_charactor_delete">코스프레 캐릭터를 삭제</string>
+    <string name="profile_delete_confirm">삭제할까요?</string>
+    <string name="profile_charactor_enabled">코스프레 중</string>
+    <string name="profile_charactor_enabled_question">코스프레 중?</string>
+    <string name="profile_charactor_disable_confirm_msg">코스프레 중 상태를 해제 하시겠습니까?</string>
+    <string name="profile_charactor_enable_confirm_msg">지금 %1$s의 코스프레를하고 있습니까?^ㅁ^</string>
+    <string name="profile_no_charactor">코스프레 캐릭터가 등록되어 있지 않습니다. 첫 번째 코스프레 캐릭터를 등록 해 보지 않겠습니까?^ㅁ^</string>
+    <string name="profile_charactor_regist">등록</string>
+    <string name="profile_title">%1$s (%2$s)</string>
+
+    <!-- CharactorChooser -->
+    <string name="charactor_chooser">코스프레 캐릭터를 선택</string>
+    <string name="charactor_chooser_not_selected">코스프레 캐릭터가 선택되지 않습니다ㅠㅅㅠ</string>
+    <string name="charactor_chooser_selected">코스캬라을 선택하였습니다^ㅁ^</string>
+    <string name="charactor_reset_suggestion">코스프레의 캐릭터를 설정 한 후 %1$d 시간 지났습니다. 해제 하시겠습니까?</string>
+
+    <!-- Comment -->
+    <string name="comment_hint">댓글 쓰기</string>
+    <string name="comment_send_failed">전송에 실패 해 버렸습니다...\n다시 시도 할 수 있을까요?ㅎㅅㅎ;</string>
+    <string name="comment_nothing">아직 코멘트가없는 것 같습니다.\n먼저 댓글을 보지 않겠습니까?^ㅁ^</string>
+    <string name="comment_chats">댓글 게시판</string>
+    <string name="comment_close_confirm">코멘트가 삭제됩니다. 할까요?</string>
+    <string name="comment_dialog_title">어느 캐릭터에 댓글 있습니까?</string>
+    <string name="comment_dialog_selected">%1$s 로 코멘트합니다.</string>
+
+    <!-- Setting -->
+    <string name="setting">설정</string>
+    <string name="setting_charactor">코스프레 캐릭터</string>
+    <string name="setting_support">지원</string>
+    <string name="setting_charactor_add">코스프레 캐릭터 추가</string>
+    <string name="setting_charactor_set">지금의 코스프레의 캐릭터를 설정하는</string>
+    <string name="setting_evaluate">평가하기</string>
+    <string name="setting_share">공유하기</string>
+    <string name="setting_tutorial">자습서보기</string>
+    <string name="setting_inquery">문의</string>
+    <string name="setting_terms">이용 약관</string>
+    <string name="setting_privacy">개인 정보 보호 정책</string>
+    <string name="setting_account_delete">계정 삭제</string>
+    <string name="setting_account_delete_confirm_title">계정을 삭제 하시겠습니까?ㅎㅅㅎ;</string>
+    <string name="setting_account_delete_confirm">탈퇴하면 프로필과 코스프레 캐릭터는 숨겨지고 있습니다. 탈퇴 한 지 30 일 이내에 다시 로그인하여 계정을 부활시킬 수 있습니다. 30 일이 지나면 계정은 시스템에서 완전히 제거됩니다.</string>
+    <string name="setting_account_delete_ok">계정을 삭제</string>
+    <string name="setting_inquery_subject">문의 - %1$s</string>
+    <string name="setting_inquery_message">"\n사용자 ID: %1$s\n안드로이드 버전: %2$s</string>
+    <string name="setting_inquery_menu_improvement">요청을 전달</string>
+    <string name="setting_inquery_menu_question">질문하기</string>
+    <string name="setting_inquery_menu_cheer">응원하기</string>
+    <string name="setting_inquery_menu_bug">버그 신고하기</string>
+    <string name="setting_inquery_menu_other">기타</string>
+
+    <!-- Rating -->
+    <string name="rating_title">%1$s을 평가 해주세요!</string>
+    <string name="rating_msg">항상 이용해 주셔서 감사합니다^ㅁ^ 만약 괜찮 으시면 %1$s에 대한 평가를 부탁드립니다!</string>
+    <string name="rating_notification">%1$s 님 안녕하세요!^ㅁ^ GooglePlay에서 %2$s을 평가 해 주시겠습니까?</string>
+    <string name="rating_after_msg">평가 주셔서 감사합니다!^ㅁ^</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_welcome_title">안녕하세요, %1$s 님</string>
+    <string name="tutorial_welcome_sub">%1$s에 오신 것을 환영합니다! 쉽게 사용법을 설명 하지요.</string>
+    <string name="tutorial_question_title">첫 번째 질문입니다.</string>
+    <string name="tutorial_question_sub">%1$s 님은 코스프레를 한 적이 있습니까?</string>
+    <string name="tutorial_regist_ready_title">코스프레 이군요!</string>
+    <string name="tutorial_regist_ready_sub">조속히 %1$s 님의 코스캬라를 등록하자!^ㅁ^</string>
+    <string name="tutorial_regist_title">첫번째 코스캬라 등록!</string>
+    <string name="tutorial_after_regist_title">축하합니다! 첫번째 코스캬라을 등록했습니다!</string>
+    <string name="tutorial_after_regist_sub">캐릭터는 나중에 편집 할 수 있습니다^ㅁ^</string>
+    <string name="tutorial_finish_title">조속히 코스 레이더를 만져 보자!</string>
+    <string name="tutorial_finish_sub">마음에 드는 작품의 캐릭터가 있으면 좋겠네요^ㅁ^</string>
+    <string name="tutorial_seethrough1">노란색 버튼을 누릅니다합시다! 레이더 코스프레를 찾을 수 있습니다.</string>
+    <string name="tutorial_seethrough2">좋아하는 작품 명을 필터링 할 수 있습니다.</string>
+    <string name="tutorial_seethrough3">지금 코스프레의 코스프레 이어 님을 찾고 싶을 때는 "제복 플레이"에 체크하세요!</string>
+    <string name="tutorial_seethrough4">이 바에서 레이더의 반경을 변경할 수 있습니다.</string>
+
+    <!-- Share -->
+    <string name="share">공유</string>
+    <string name="share_dialog_sub">만약 괜찮다면 아는 코스프레 좋아하는 사람을 초대하고 보지 않겠습니까?^ㅁ^</string>
+    <string name="share_title">코스프레라면 Cosradar!</string>
+    <string name="share_msg">코스 레이더이라면 자신이 좋아하는 작품의 코스프레 이어 님을 찾을 수 있어요! 코스프레 이벤트를 더 즐기자!</string>
+    <string name="share_success">공유하였습니다! 감사합니다!^ㅁ^</string>
+    <string name="share_failed">공유에 실패했습니다 ...\n다시 시도 주실 수 있겠습니까?ㅎㅅㅎ;</string>
+    <string name="share_app_not_found">앱이 설치되어 있지 않은 것 같습니다ㅠㅅㅠ</string>
+
+    <!-- Gcm -->
+    <string name="gcm_chatboard_mine_commented">당신의 게시판에 댓글이 붙었습니다!^ㅁ^</string>
+    <string name="gcm_chatboard_commented">당신의 댓글을 게시판에 댓글이 붙었습니다!^ㅁ^</string>
+
+</resources>
