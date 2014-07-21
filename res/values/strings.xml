@@ -67,6 +67,7 @@
     <string name="search_realtime">Realtime</string>
 
     <!-- CharacterCreate -->
+    <string name="charactor_setting">Regist Charactor</string>
     <string name="charactor_name">Character name</string>
     <string name="charactor_title">Title</string>
     <string name="charactor_validate_name">Not set character name</string>
