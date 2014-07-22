@@ -55,7 +55,7 @@ public class CharactorsDialogFragment extends DialogFragment {
 
     private void initView() {
         List<Charactor> charactors = getCharactorsFromArgs();
-        mTxtTitle.setText(getString(R.plurals.search_dialog_count, charactors.size()));
+        mTxtTitle.setText(getResources().getQuantityString(R.plurals.search_dialog_count, charactors.size(), charactors.size()));
         initListView(charactors);
     }
 
