@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Auth -->
+    <string name="google_play_service_unavailable">没有谷歌服务，无法使用</string>
+
+    <!-- Common -->
+    <string name="app_name">Cos雷达</string>
+    <string name="ok">OK</string>
+    <string name="sending">送信中...</string>
+    <string name="loading">载入中...</string>
+    <string name="invalidate_input">输入有误</string>
+    <string name="not_changed_input">无法变更</string>
+    <string name="send">送信</string>
+    <string name="back_btn_msg">再次按下返回按钮将退出程序</string>
+    <string name="close">关闭</string>
+    <string name="done">完成</string>
+    <string name="confirm">这样可以吗？</string>
+    <string name="confirmation">确认</string>
+    <string name="cancel">取消</string>
+    <string name="menu">菜单</string>
+    <string name="logout">退出</string>
+    <string name="logout_done">退出。</string>
+    <string name="logout_confirm">你确定要退出吗？</string>
+    <string name="version_prefix">V%1$s</string>
+    <string name="next">下一页</string>
+    <string name="prev">前一页</string>
+    <string name="yes">好的</string>
+    <string name="no">不了</string>
+    <string name="after">稍后再说</string>
+    <string name="regist">登录</string>
+    <string name="error_raised">程序发生错误。</string>
+
+    <!-- Login -->
+    <string name="login_twitter">使用Twitter登录</string>
+    <string name="login_description">使用雷达来找Cosplay</string>
+    <string name="login_succeeded">已登录</string>
+    <string name="login_failed">登录失败</string>
+    <string name="login_terms_confirmation">登录表示&lt;a href=\'#\'>对于利用条约&lt;/a>表示同意。</string>
+
+    <!-- Time -->
+    <string name="time_just_now">刚才</string>
+    <string name="time_1second_ago">1秒前</string>
+    <string name="time_seconds_ago">%1$d秒前</string>
+    <string name="time_1minute_ago">1分钟前</string>
+    <string name="time_minutes_ago">%1$d分钟前</string>
+    <string name="time_1hour_ago">1小时前</string>
+    <string name="time_hours_ago">%1$d小时前</string>
+
+    <!-- Photo -->
+    <string name="choose_from_gallery">从记录中选择</string>
+    <string name="choose_from_camera">使用相机拍摄</string>
+
+    <!-- Search -->
+    <string name="search_list_nothing">残念。附近没有玩Cosplay的人。</string>
+    <string name="search_hint">从作品名搜寻</string>
+    <string name="search_start">开始</string>
+    <string name="radar_distance">%1$s km</string>
+    <string name="radar_distance_meter">%1$s m</string>
+    <string name="searching">搜索中...</string>
+
+    <plurals name="search_result_count">
+        <item quantity="other">%1$d 人的Cosplay找到啦！(・∀・)</item>
+    </plurals>
+
+    <string name="search_result_count_zero">附近没有玩Cosplay的人</string>
+
+    <plurals name="search_dialog_count">
+        <item quantity="other">%1$d 人的Cosplay有</item>
+    </plurals>
+
+    <string name="search_realtime">Cosplay中</string>
+
+    <!-- CharactorCreate -->
+    <string name="charactor_setting">添加Cosplay的角色</string>
+    <string name="charactor_name">角色名（必须）</string>
+    <string name="charactor_title">作品名（必须）</string>
+    <string name="charactor_validate_name">角色名未输入</string>
+    <string name="charactor_validate_title">作品名未输入</string>
+    <string name="charactor_create_succeeded">Cosplay的角色已登录！</string>
+    <string name="charactor_edit_succeeded">Cosplay的角色编辑完成！</string>
+    <string name="charactor_delete_succeeded">Cosplay的角色已删除!</string>
+    <string name="charactor_edit_failed">登录失败了喵...\n让我们再试一次吧？</string>
+    <string name="charactor_delete_failed">删除败了喵...</string>
+
+    <!-- SettingSuggest -->
+    <string name="setting_suggest_title">需要设定Cosplay的角色</string>
+    <string name="setting_suggest_message">Cosplay的角色设定完成后、可以在公告栏进行交流。</string>
+    <string name="setting_suggest_ok">登录</string>
+    <string name="setting_suggest_cancel">稍后再说</string>
+    <string name="charactor_set_suggest_title">难道说</string>
+    <string name="charactor_set_suggest_msg">你现在正在Cosplay吗？\\n如果是这样的话、选择你正在Cos的角色吧！(・∀・)</string>
+    <string name="charactor_set_suggest_check">今天不再提示</string>
+
+    <!-- Profile -->
+    <string name="profile">个人主页</string>
+    <string name="profile_charactor_edit">编辑Cosplay的角色</string>
+    <string name="profile_charactor_delete">删除Cosplay的角色</string>
+    <string name="profile_delete_confirm">真的真的要删除吗？</string>
+    <string name="profile_charactor_enabled">Cosplay中</string>
+    <string name="profile_charactor_enabled_question">Cosplay中？</string>
+    <string name="profile_charactor_disable_confirm_msg">选择现在的角色为当前的Cosplay角色吗？</string>
+    <string name="profile_charactor_enable_confirm_msg">现在有在玩%1$s的Cosplay？(・∀・)</string>
+    <string name="profile_no_charactor">你的Cosplay的角色没有被登录。成为Cosplay这个角色的的第一人吗？</string>
+    <string name="profile_charactor_regist">登录</string>
+    <string name="profile_title">%1$s (%2$s)</string>
+
+    <!-- CharactorChooser -->
+    <string name="charactor_chooser">选择Cosplay的角色</string>
+    <string name="charactor_chooser_not_selected">Cosplay的角色未选择。</string>
+    <string name="charactor_chooser_selected">Cosplay的角色已选择。</string>
+    <string name="charactor_reset_suggestion">Cosplay的角色设定%1$d时间后。要撤销吗？(・ω・)</string>
+
+    <!-- Comment -->
+    <string name="comment_hint">写评论喵</string>
+    <string name="comment_send_failed">发送失败了喵...\n让我们再试一次吧？</string>
+    <string name="comment_nothing">还没有写评论哟。</string>
+    <string name="comment_chats">公告栏的评论已写完</string>
+    <string name="comment_close_confirm">放弃这个的评论。真的真的可以吗？</string>
+    <string name="comment_dialog_title">用哪个角色来评论呀？</string>
+    <string name="comment_dialog_selected">%1$s留下了评论。</string>
+
+    <!-- Setting -->
+    <string name="setting">设定</string>
+    <string name="setting_charactor">Cosplay的角色</string>
+    <string name="setting_support">赞助</string>
+    <string name="setting_charactor_add">添加Cosplay的角色</string>
+    <string name="setting_charactor_set">选择现在的角色为当前的Cosplay角色</string>
+    <string name="setting_evaluate">评论</string>
+    <string name="setting_share">分享</string>
+    <string name="setting_tutorial">使用说明</string>
+    <string name="setting_inquery">客服咨询</string>
+    <string name="setting_terms">利用条约</string>
+    <string name="setting_privacy">隐私政策</string>
+    <string name="setting_account_delete">删除账号</string>
+    <string name="setting_account_delete_confirm_title">真的要删除账号吗？</string>
+    <string name="setting_account_delete_confirm">删除账号后个人资料和Cosplay的角色将会成非显示。删除账号后30天内，再次登录的话账号将会恢复，但是超过30天后，账号将会被完全删除。</string>
+    <string name="setting_account_delete_ok">删除账号</string>
+    <string name="setting_inquery_subject">客服咨询 - %1$s</string>
+    <string name="setting_inquery_message">"\n用户ID: %1$s\n应用版本: %2$s</string>
+    <string name="setting_inquery_menu_improvement">您的要求</string>
+    <string name="setting_inquery_menu_question">您的疑问</string>
+    <string name="setting_inquery_menu_cheer">支持我们</string>
+    <string name="setting_inquery_menu_bug">程序错误报告</string>
+    <string name="setting_inquery_menu_other">其他</string>
+
+    <!-- Rating -->
+    <string name="rating_title">%1$sを求你评论一下吧！</string>
+    <string name="rating_msg">感谢您一直以来的使用。如果可以的话%1$s求你给个好评吧！</string>
+    <string name="rating_notification">%1$s你好！在GooglePlay%2$s给个好评好吗？</string>
+    <string name="rating_after_msg">受到评价啦！太谢谢啦！</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_welcome_title">你好、%1$s</string>
+    <string name="tutorial_welcome_sub">%1$s欢迎你！让我们来简单的了解一下使用方法吧。</string>
+    <string name="tutorial_question_title">最初的提问。</string>
+    <string name="tutorial_question_sub">%1$s有玩过Cosplay吗？</string>
+    <string name="tutorial_regist_ready_title">Cosplay玩家耶！</string>
+    <string name="tutorial_regist_ready_sub">来来、%1$sCosplay的角色登录看看吧！</string>
+    <string name="tutorial_regist_title">登录最初的Cosplay！</string>
+    <string name="tutorial_after_regist_title">恭喜你！最初的Cosplay登录成功！</string>
+    <string name="tutorial_after_regist_sub">角色稍后可以进行编辑。</string>
+    <string name="tutorial_finish_title">再让我们去使用最初的Cos雷达看看吧！</string>
+    <string name="tutorial_finish_sub">希望能找到你中意的(・∀・)</string>
+    <string name="tutorial_seethrough1">点击黄色按钮！雷达就去搜寻Cosplay的玩家。</string>
+    <string name="tutorial_seethrough2">可以指定作品名。</string>
+    <string name="tutorial_seethrough3">要寻找正在进行Cosplay的玩家的时候、在搜索中输入『Cosplay中』吧！</string>
+    <string name="tutorial_seethrough4">可以改变雷达的搜索范围哟。</string>
+
+    <!-- Share -->
+    <string name="share">分享</string>
+    <string name="share_dialog_sub">如果可以的话，邀请你认识Cosplay玩家一起来好吗？</string>
+    <string name="share_title">Cosplay首选Cos雷达！</string>
+    <string name="share_msg">使用Cos雷达来搜索你中意的作品的Cosplay玩家吧！让我们一起来享受Cosplay活动吧！</string>
+    <string name="share_success">已分享！</string>
+    <string name="share_failed">分享失败。</string>
+    <string name="share_app_not_found">应用还没有安装。</string>
+
+    <!-- Gcm -->
+    <string name="gcm_chatboard_mine_commented">你的公告栏有新的评论！</string>
+    <string name="gcm_chatboard_commented">你评论过的公告栏有新的评论！</string>
+
+</resources>
