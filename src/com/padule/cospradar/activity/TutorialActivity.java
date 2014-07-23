@@ -143,7 +143,7 @@ public class TutorialActivity extends FragmentActivity {
     private void showTutorial(String extraName, String text, String btnText) {
         int[] rect = getIntent().getIntArrayExtra(extraName);
 
-        mFrame.setBackground(getResources().getDrawable(R.drawable.bg_tutorial_frame));
+        mFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_tutorial_frame));
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 rect[2]-rect[0], rect[3]-rect[1]+60);
         params.setMargins(rect[0], rect[1]-104, 0, 0);
