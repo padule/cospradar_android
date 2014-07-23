@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,11 +19,10 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
+import com.padule.cospradar.base.BaseArrayAdapter;
 import com.padule.cospradar.data.Charactor;
 
-public class ChooserCharactorsAdapter extends ArrayAdapter<Charactor> {
-
-    private Context context;
+public class ChooserCharactorsAdapter extends BaseArrayAdapter<Charactor> {
 
     public ChooserCharactorsAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
@@ -32,7 +30,6 @@ public class ChooserCharactorsAdapter extends ArrayAdapter<Charactor> {
 
     public ChooserCharactorsAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_chooser_charactor, charactors);
-        this.context = context;
     }
 
     @Override
