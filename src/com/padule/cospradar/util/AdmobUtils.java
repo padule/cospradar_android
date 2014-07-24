@@ -6,7 +6,6 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 
 public class AdmobUtils {
 
@@ -14,7 +13,6 @@ public class AdmobUtils {
     private static final String UNIT_ID_PROFILE_FOOTER = "ca-app-pub-8640637673501328/8354490692";
     private static final String UNIT_ID_CHARACTOR_CHOOSER_FOOTER = "ca-app-pub-8640637673501328/4991908290";
     private static final String UNIT_ID_SETTING_FOOTER = "ca-app-pub-8640637673501328/5652886297";
-    private static final String UNIT_ID_APP_CLOSE_INTERSTITIAL = "ca-app-pub-8640637673501328/4194342698";
 
     public static void loadBanner(AdView adView, RelativeLayout view) {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -49,16 +47,6 @@ public class AdmobUtils {
 
     public static AdView createAdViewInSettingFooter(Context context) {
         return createAdView(UNIT_ID_SETTING_FOOTER, context);
-    }
-
-    public static InterstitialAd createInterstitialAdAtAppClose(Context context) {
-        final InterstitialAd interstitial = new InterstitialAd(context);
-        interstitial.setAdUnitId(UNIT_ID_APP_CLOSE_INTERSTITIAL);
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        interstitial.loadAd(adRequest);
-
-        return interstitial;
     }
 
 }
