@@ -1,9 +1,12 @@
 package com.padule.cospradar.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
@@ -143,7 +146,7 @@ public class TutorialActivity extends FragmentActivity {
     private void showTutorial(String extraName, String text, String btnText) {
         int[] rect = getIntent().getIntArrayExtra(extraName);
 
-        mFrame.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_tutorial_frame));
+        setBackground(mFrame, R.drawable.bg_tutorial_frame);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 rect[2]-rect[0], rect[3]-rect[1]+60);
         params.setMargins(rect[0], rect[1]-104, 0, 0);
@@ -157,6 +160,18 @@ public class TutorialActivity extends FragmentActivity {
         mTxtDescription.setText(text);
         mBtnDone.setText(btnText);
         idxSeeThroughTutorial++;
+    }
+
+    @SuppressLint("NewApi")
+    @SuppressWarnings("deprecation")
+    private void setBackground(View view, int drawableResId) {
+        Drawable drawable = getResources().getDrawable(drawableResId);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            mFrame.setBackgroundDrawable(drawable);
+        } else {
+            mFrame.setBackground(drawable);
+        }
+
     }
 
     private void initPager() {
