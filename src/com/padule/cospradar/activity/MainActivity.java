@@ -19,10 +19,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import butterknife.InjectView;
 
-import com.google.android.gms.ads.InterstitialAd;
 import com.padule.cospradar.MainApplication;
 import com.padule.cospradar.R;
 import com.padule.cospradar.adapter.CharactorsAdapter;
@@ -38,7 +36,6 @@ import com.padule.cospradar.event.UnreadChatBoardCountChangedEvent;
 import com.padule.cospradar.service.ApiService;
 import com.padule.cospradar.service.LocationService;
 import com.padule.cospradar.ui.SearchHeader;
-import com.padule.cospradar.util.AdmobUtils;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.GcmUtils;
 import com.padule.cospradar.util.ImageUtils;
@@ -55,8 +52,6 @@ public class MainActivity extends BaseActivity {
 
     private CharactorsAdapter adapter;
     private SearchHeader header;
-    private InterstitialAd interstitial;
-    private boolean isPressedBackBtn;
     private Menu menu;
 
     @Override
@@ -81,11 +76,6 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         initActionBar();
         initListView();
-        initInterstitialAd();
-    }
-
-    private void initInterstitialAd() {
-        interstitial = AdmobUtils.createInterstitialAdAtAppClose(this);
     }
 
     @Override
@@ -238,25 +228,6 @@ public class MainActivity extends BaseActivity {
         if (adapter != null) {
             adapter.clear();
         }
-    }
-
-    private void showInterstitial() {
-        if (interstitial.isLoaded()) {
-            interstitial.show();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isPressedBackBtn) {
-            isPressedBackBtn = false;
-            super.onBackPressed();
-        } else {
-            AppUtils.showToast(R.string.back_btn_msg, this, Toast.LENGTH_SHORT);
-            isPressedBackBtn = true;
-            showInterstitial();
-        }
-        super.onBackPressed(); // TODO should remove?
     }
 
     @Override
