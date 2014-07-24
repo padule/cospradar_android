@@ -8,22 +8,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import com.padule.cospradar.R;
+import com.padule.cospradar.base.BaseArrayAdapter;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.data.UnreadGcmCounts;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TimeUtils;
 
-public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
-
-    private Context context;
+public class ChatBoardsAdapter extends BaseArrayAdapter<Charactor> {
 
     public ChatBoardsAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
@@ -31,7 +29,6 @@ public class ChatBoardsAdapter extends ArrayAdapter<Charactor> {
 
     public ChatBoardsAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_comment_charactor, charactors);
-        this.context = context;
     }
 
     @Override

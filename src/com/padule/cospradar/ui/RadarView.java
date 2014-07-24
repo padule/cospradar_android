@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.location.Location;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.util.LruCache;
 import android.util.AttributeSet;
@@ -137,10 +139,19 @@ public class RadarView extends View implements OnTouchListener {
         bmpCache = new LruCache<Integer, Bitmap>(cacheSize) {
             @Override
             protected int sizeOf(Integer key, Bitmap bmp) {
-                return bmp.getByteCount();
+                return getByteCount(bmp);
             }
         };
         emptyBmp = ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), ICON_SIZE);
+    }
+
+    @SuppressLint("NewApi")
+    private int getByteCount(Bitmap bmp) {
+        if (Build.VERSION.SDK_INT >= 12) {
+            return bmp.getByteCount();
+        }else{
+            return (bmp.getRowBytes() * bmp.getHeight());
+        }
     }
 
     @Override

@@ -9,24 +9,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import com.padule.cospradar.R;
+import com.padule.cospradar.base.BaseArrayAdapter;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorLocation;
 import com.padule.cospradar.util.AppUtils;
 import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.TextUtils;
 
-public class CharactorsAdapter extends ArrayAdapter<Charactor> {
+public class CharactorsAdapter extends BaseArrayAdapter<Charactor> {
 
     private static final String TAG = CharactorsAdapter.class.getName();
-
-    private Context context;
 
     public CharactorsAdapter(Context context) {
         this(context, new ArrayList<Charactor>());
@@ -34,7 +32,6 @@ public class CharactorsAdapter extends ArrayAdapter<Charactor> {
 
     public CharactorsAdapter(Context context, List<Charactor> charactors) {
         super(context, R.layout.item_charactor, charactors);
-        this.context = context;
     }
 
     @Override

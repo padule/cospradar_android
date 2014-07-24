@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import com.padule.cospradar.R;
+import com.padule.cospradar.base.BaseArrayAdapter;
 import com.padule.cospradar.data.Charactor;
 import com.padule.cospradar.data.CharactorComment;
 import com.padule.cospradar.event.CommentCharactorIconClickedEvent;
@@ -23,9 +23,8 @@ import com.padule.cospradar.util.TimeUtils;
 
 import de.greenrobot.event.EventBus;
 
-public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
+public class CommentsAdapter extends BaseArrayAdapter<CharactorComment> {
 
-    private Context context;
     private Charactor chatBoardCharactor;
     private List<Charactor> userCharactors;
 
@@ -38,7 +37,6 @@ public class CommentsAdapter extends ArrayAdapter<CharactorComment> {
         super(context, 0, comments);
         this.chatBoardCharactor = charactor;
         this.userCharactors = charactors;
-        this.context = context;
     }
 
     @Override
