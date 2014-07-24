@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.aviary.android.feather.FeatherActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
@@ -59,10 +58,6 @@ public class ImageUtils {
     private static final String PREFIX_GALLERY_PKG_BEFORE = "com.android.gallery3d";
     private static final String PREFIX_GALLERY_PKG_AFTER = "com.google.android.gallery3d";
     private static final String PREFIX_FILE_PATH = "file://";
-
-    private static final String[] AVIARY_TOOLS_LIST = {
-        "EFFECTS", "CROP", "BRIGHTNESS", "CONTRAST", "DRAWING", "TEXT", "RED_EYE", "WHITEN"
-    };
 
     public static String convertToValidUrl(String url) {
         if (url == null) {
@@ -211,15 +206,6 @@ public class ImageUtils {
             ex.printStackTrace();
             return null;
         }
-    }
-
-    public static Intent createAviaryIntent(Context context, Uri uri) {
-        Intent intent = new Intent(context, FeatherActivity.class);
-        intent.setData(uri);
-        intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET,
-                Constants.AVIARY_SECRET);
-        intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_TOOLS_LIST, AVIARY_TOOLS_LIST);
-        return intent;
     }
 
     public static Bitmap createEmptyIconBmp(Context context, int iconSize) {

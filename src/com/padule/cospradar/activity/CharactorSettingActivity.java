@@ -122,19 +122,7 @@ public class CharactorSettingActivity extends BaseActivity {
 
         switch (requestCode) {
         case Constants.REQ_ACTIVITY_CAMERA:
-            if (resultCode == Activity.RESULT_OK) {
-                Intent i = ImageUtils.createAviaryIntent(this, uri);
-                startActivityForResult(i, Constants.REQ_ACTIVITY_AVIARY_CAMERA);
-            }
-            break;
         case Constants.REQ_ACTIVITY_GALLERY:
-            if (resultCode == Activity.RESULT_OK) {
-                Intent i = ImageUtils.createAviaryIntent(this, uri);
-                startActivityForResult(i, Constants.REQ_ACTIVITY_AVIARY_GALLERY);
-            }
-            break;
-        case Constants.REQ_ACTIVITY_AVIARY_CAMERA:
-        case Constants.REQ_ACTIVITY_AVIARY_GALLERY:
             if (resultCode == Activity.RESULT_OK) {
                 setCharactorImage(uri);
             }

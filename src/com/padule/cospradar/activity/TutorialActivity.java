@@ -30,7 +30,6 @@ import com.padule.cospradar.event.TutorialBackBtnClickedEvent;
 import com.padule.cospradar.event.TutorialCardFinishedEvent;
 import com.padule.cospradar.event.TutorialPageMoveEvent;
 import com.padule.cospradar.ui.HoldableViewPager;
-import com.padule.cospradar.util.ImageUtils;
 import com.padule.cospradar.util.PrefUtils;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -190,19 +189,7 @@ public class TutorialActivity extends FragmentActivity {
 
         switch (requestCode) {
         case Constants.REQ_ACTIVITY_CAMERA:
-            if (resultCode == Activity.RESULT_OK) {
-                Intent i = ImageUtils.createAviaryIntent(this, uri);
-                startActivityForResult(i, Constants.REQ_ACTIVITY_AVIARY_CAMERA);
-            }
-            break;
         case Constants.REQ_ACTIVITY_GALLERY:
-            if (resultCode == Activity.RESULT_OK) {
-                Intent i = ImageUtils.createAviaryIntent(this, uri);
-                startActivityForResult(i, Constants.REQ_ACTIVITY_AVIARY_GALLERY);
-            }
-            break;
-        case Constants.REQ_ACTIVITY_AVIARY_CAMERA:
-        case Constants.REQ_ACTIVITY_AVIARY_GALLERY:
             if (resultCode == Activity.RESULT_OK) {
                 EventBus.getDefault().post(new PhotoChosenEvent(uri));
             }
