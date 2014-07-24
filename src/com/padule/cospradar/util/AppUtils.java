@@ -18,6 +18,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -300,6 +301,11 @@ public class AppUtils {
         } else {
             return true;
         }
+    }
+
+    public static float adjustDp(Context context, float value) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
+                context.getResources().getDisplayMetrics());
     }
 
 }

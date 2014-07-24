@@ -47,9 +47,9 @@ public class RadarView extends View implements OnTouchListener {
     public static final double MAX_RADIUS_KIROMETER = 20.0;
     private static final double MIN_RADIUS_KIROMETER = 0.1;
     public static final int MIN_CHARACTORS_COUNT = 10;
-    private static final int ICON_SIZE = 100;
-    private static final int TEXT_SIZE = 40;
-    private static final int RADAR_STROKE_WIDTH = 6;
+    private static final int ICON_SIZE = 36;
+    private static final int TEXT_SIZE = 12;
+    private static final int RADAR_STROKE_WIDTH = 2;
     private static final double DEG2RAD = Math.PI/180;
     private static final int REFRESH_DELAY_MILLS = 3 * 1000;
     private static final float DEFAULT_LOADING_ANGLE = 240;
@@ -142,7 +142,8 @@ public class RadarView extends View implements OnTouchListener {
                 return getByteCount(bmp);
             }
         };
-        emptyBmp = ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), ICON_SIZE);
+        emptyBmp = ImageUtils.createEmptyIconBmp(RadarView.this.getContext(), 
+                (int)AppUtils.adjustDp(getContext(), ICON_SIZE));
     }
 
     @SuppressLint("NewApi")
@@ -205,11 +206,13 @@ public class RadarView extends View implements OnTouchListener {
     }
 
     private void drawText(final Canvas canvas) {
+        int textSize = (int)AppUtils.adjustDp(getContext(), TEXT_SIZE);
+
         Paint paint = new Paint( Paint.ANTI_ALIAS_FLAG);
-        paint.setTextSize(TEXT_SIZE);
+        paint.setTextSize(textSize);
         paint.setColor(getResources().getColor(R.color.text_white));
         canvas.drawText(TextUtils.getDistanceString(getContext(), getRadiusMeter()), 
-                width/2-TEXT_SIZE-TEXT_SIZE/2, width - TEXT_SIZE, paint);
+                width/2-textSize-textSize/2, width - textSize, paint);
     }
 
     private void drawBackground(final Canvas canvas) {
@@ -256,7 +259,7 @@ public class RadarView extends View implements OnTouchListener {
             Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
             p.setColor(strokeColor);
             p.setStyle(Paint.Style.STROKE);
-            p.setStrokeWidth(RADAR_STROKE_WIDTH);
+            p.setStrokeWidth(AppUtils.adjustDp(getContext(), RADAR_STROKE_WIDTH));
             int r = radius/strokeCount * i;
             canvas.drawCircle(radius, radius, r, p);
         }
@@ -274,22 +277,23 @@ public class RadarView extends View implements OnTouchListener {
         }
 
         Bitmap bmp = bmpCache.get(Integer.valueOf(charactor.getId()));
+        int iconSize = (int)AppUtils.adjustDp(getContext(), ICON_SIZE);
         if (bmp != null) {
             float[] positions = convertLocationToPosition(
                     location.getLatitude(), location.getLongitude());
-            float x_limit = positions[0] > 0 ? positions[0] + ICON_SIZE/2 : positions[0] - ICON_SIZE/2;
-            float y_limit = positions[1] > 0 ? positions[1] + ICON_SIZE/2 : positions[1] - ICON_SIZE/2;
+            float x_limit = positions[0] > 0 ? positions[0] + iconSize/2 : positions[0] - iconSize/2;
+            float y_limit = positions[1] > 0 ? positions[1] + iconSize/2 : positions[1] - iconSize/2;
 
-            if (x_limit*x_limit + y_limit*y_limit < (radius+ICON_SIZE/2)*(radius+ICON_SIZE/2)) {
-                int x = (int)(radius+positions[0]-ICON_SIZE/2);
-                int y = (int)(radius+positions[1]-ICON_SIZE/2);
-                RectF rect = new RectF(x, y, x+ICON_SIZE, y+ICON_SIZE);
+            if (x_limit*x_limit + y_limit*y_limit < (radius+iconSize/2)*(radius+iconSize/2)) {
+                int x = (int)(radius+positions[0]-iconSize/2);
+                int y = (int)(radius+positions[1]-iconSize/2);
+                RectF rect = new RectF(x, y, x+iconSize, y+iconSize);
                 canvas.drawBitmap(bmp, null, rect, paint);
                 return true;
             }
         } else {
             bmpCache.put(Integer.valueOf(charactor.getId()), emptyBmp);
-            ImageSize targetSize = new ImageSize(ICON_SIZE, ICON_SIZE);
+            ImageSize targetSize = new ImageSize(iconSize, iconSize);
             MainApplication.IMAGE_LOADER.loadImage(charactor.getImageUrl(), targetSize, 
                     new ImageLoadingListener() {
                 @Override
@@ -394,9 +398,10 @@ public class RadarView extends View implements OnTouchListener {
                         int radius = width/2;
                         CharactorLocation location = charactor.getLocation();
                         float[] positions = convertLocationToPosition(location.getLatitude(), location.getLongitude());
+                        int iconSize = (int)AppUtils.adjustDp(getContext(), ICON_SIZE);
 
-                        if (isTouched(radius+positions[0]-ICON_SIZE/2, radius+positions[1]-ICON_SIZE/2, 
-                                radius+positions[0]+ICON_SIZE/2, radius+positions[1]+ICON_SIZE/2, e)) {
+                        if (isTouched(radius+positions[0]-iconSize/2, radius+positions[1]-iconSize/2, 
+                                radius+positions[0]+iconSize/2, radius+positions[1]+iconSize/2, e)) {
                             results.add(charactor);
                         }
                     }
