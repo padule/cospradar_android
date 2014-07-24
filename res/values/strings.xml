@@ -101,8 +101,8 @@
     <string name="profile">Profile</string>
     <string name="profile_add">Add new cosplay character.</string>
     <string name="profile_chat">Chatboard</string>
-    <string name="profile_charactor_edit">Edit cosplay character.</string>
-    <string name="profile_charactor_delete">Delete cosplay character.</string>
+    <string name="profile_charactor_edit">Edit cosplay character</string>
+    <string name="profile_charactor_delete">Delete cosplay character</string>
     <string name="profile_delete_confirm">Are you sure you want to delete this character?</string>
     <string name="profile_charactor_enabled">I\'m cosplaying now</string>
     <string name="profile_charactor_enabled_question">Are you cosplaying now?</string>
@@ -159,7 +159,7 @@
 
     <!-- Tutorial -->
     <string name="tutorial_welcome_title">Hello, %1$s</string>
-    <string name="tutorial_welcome_sub">Welcome %1$s! We\'ll guide you on how to use this application easily.</string>
+    <string name="tutorial_welcome_sub">Welcome to %1$s! We\'ll guide you on how to use this application easily.</string>
     <string name="tutorial_question_title">Let\'s start with an easy question.</string>
     <string name="tutorial_question_sub">Have you ever cosplayed, %1$s?</string>
     <string name="tutorial_regist_ready_title">So you\'re already a cosplayer!</string>
