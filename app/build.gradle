@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.1.0'
+    defaultConfig {
+        applicationId 'com.padule.cospradar'
+        minSdkVersion 11
+        targetSdkVersion 19
+        versionCode 1
+        versionName '1.0'
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':libraries:pulltorefresh')
+    compile files('libs/libGoogleAnalyticsServices.jar')
+    compile files('libs/twitter4j-core-4.0.1.jar')
+    compile files('libs/crashlytics.jar')
+    compile 'com.viewpagerindicator:library:2.4.1@aar'
+    compile 'com.jakewharton:butterknife:4.0.1'
+    compile 'net.danlew:android.joda:2.3'
+    compile 'de.greenrobot:eventbus:2.2.1'
+    compile 'com.squareup.retrofit:retrofit:1.6.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.google.android.gms:play-services:4.2.42'
+    compile 'com.android.support:appcompat-v7:19.+'
+}

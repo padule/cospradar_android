@@ -23,3 +23,13 @@ local.properties
 proguard/
 
 .apt_generated/
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Android Studio files
+*/build/
+gradle.properties
